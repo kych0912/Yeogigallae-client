@@ -48,6 +48,7 @@ const Label = styled.div`
     line-height:1.6rem;
     color:#FFFFFF;
     width:100%;
+    line-height:0.875rem;
 `
 
 const Content = styled.div`
@@ -57,6 +58,7 @@ const Content = styled.div`
     color:#FFFFFF;
     margin-top:0.5rem;
     width:100%;
+    line-height:1.178rem;
 `
 
 const Divider = styled.div`

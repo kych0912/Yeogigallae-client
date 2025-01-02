@@ -24,6 +24,7 @@ const ItemWrapper = styled.section`
     align-items:center;
     box-sizing: border-box;
     width:100%;
+    gap:0.5rem;
 `;
 
 const Image = styled.div`
@@ -56,7 +57,6 @@ const Content = styled.div`
     font-size:1rem;
     line-height:1.6rem;
     color:#FFFFFF;
-    margin-top:0.5rem;
     width:100%;
     line-height:1.178rem;
 `

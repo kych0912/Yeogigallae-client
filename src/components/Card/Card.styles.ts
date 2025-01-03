@@ -63,8 +63,8 @@ const Content = styled.div`
 
 const Divider = styled.div`
     width: 100%;
-    height: 1px;
-    background-color: #eee;
+    height: 0.5px;
+    background-color: rgba(255, 255, 255, 0.4);
 `;
 
 export {

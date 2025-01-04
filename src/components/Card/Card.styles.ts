@@ -12,9 +12,8 @@ const CardWrapper = styled.div`
     display:flex;
     flex-direction:column;
     gap:1.125rem;
-    margin:0.875rem; 
+    padding:0.875rem; 
     align-items:center;
-
 `;
 
 const ItemWrapper = styled.section`

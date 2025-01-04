@@ -5,7 +5,7 @@ import { sampleData } from "./test";
 import { Container } from "./Style";
 import { useSearchParams } from "react-router-dom";
 import DetailPage from "./DetailPage";
-import OverviewPage from "./OverviewPage";
+import OverviewPage from "./OverViewPage";
 
 export default function Page(){
   const [searchParams] = useSearchParams();

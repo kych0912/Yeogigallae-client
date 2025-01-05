@@ -12,7 +12,7 @@ const Header = styled.header`
 const HeaderWrapper = styled.div`
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    padding: 0.75rem 20px 1rem;
+    padding: 0.75rem 1.25rem 0 1.25rem;
 `;
 
 const Section = styled.div`

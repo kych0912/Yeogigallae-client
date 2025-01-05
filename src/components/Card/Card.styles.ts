@@ -12,9 +12,8 @@ const CardWrapper = styled.div`
     display:flex;
     flex-direction:column;
     gap:1.125rem;
-    margin:0.875rem; 
+    padding:0.875rem; 
     align-items:center;
-
 `;
 
 const ItemWrapper = styled.section`
@@ -63,8 +62,8 @@ const Content = styled.div`
 
 const Divider = styled.div`
     width: 100%;
-    height: 1px;
-    background-color: #eee;
+    height: 0.5px;
+    background-color: rgba(255, 255, 255, 0.4);
 `;
 
 export {

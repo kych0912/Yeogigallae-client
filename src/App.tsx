@@ -3,7 +3,6 @@ import { GlobalStyle } from "./GlobalStyle";
 import { ThemeProvider } from "styled-components";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { theme } from "./styles/theme";
-// 페이지
 import MainPage from "./pages/Main/MainPage/MainPage";
 import LoginPage from "./pages/Login/LoginPage/LoginPage";
 import BudgetPage from "./pages/Budget/BudgetPage/BudgetPage";
@@ -24,53 +23,62 @@ import VoteAgreePage from "./pages/Vote/VoteAgreePage/VoteAgreePage";
 import VoteCompletePage from "./pages/Vote/VoteCompletePage/VoteCompletePage";
 import VoteDatePage from "./pages/Vote/VoteDatePage/VoteDatePage";
 import VoteMainPage from "./pages/Vote/VoteMainPage/VoteMainPage";
+import './App.css'
+import Course from './pages/course'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const queryClient = new QueryClient();
 
 const App: React.FC = () => {
   return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyle />
-      <Router>
-        <Routes>
-          {/* Main */}
-          <Route path="/" element={<MainPage />} />
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <Router>
+          <Routes>
+            {/* Main */}
+            <Route path="/" element={<MainPage />} />
 
-          {/* Login */}
-          <Route path="/login" element={<LoginPage />} />
+            {/* Login */}
+            <Route path="/login" element={<LoginPage />} />
 
-          {/* Budget */}
-          <Route path="/budget" element={<BudgetPage />} />
+            {/* Budget */}
+            <Route path="/budget" element={<BudgetPage />} />
 
-          {/* Information */}
-          <Route path="/information/course-share" element={<CourseSharePage />} />
-          <Route path="/information/share-chat" element={<ShareChatPage />} />
-          <Route path="/information/share-map" element={<ShareMapPage />} />
-          <Route path="/information/share" element={<SharePage />} />
-          <Route path="/information/share-write" element={<ShareWritePage />} />
+            {/* Information */}
+            <Route path="/information/course-share" element={<CourseSharePage />} />
+            <Route path="/information/share-chat" element={<ShareChatPage />} />
+            <Route path="/information/share-map" element={<ShareMapPage />} />
+            <Route path="/information/share" element={<SharePage />} />
+            <Route path="/information/share-write" element={<ShareWritePage />} />
 
-          {/* MyPage */}
-          <Route path="/mypage/friend" element={<MyFriendPage />} />
-          <Route path="/mypage/profile" element={<MyProfilePage />} />
-          <Route path="/mypage/room" element={<RoomPage />} />
+            {/* MyPage */}
+            <Route path="/mypage/friend" element={<MyFriendPage />} />
+            <Route path="/mypage/profile" element={<MyProfilePage />} />
+            <Route path="/mypage/room" element={<RoomPage />} />
 
-          {/* Notice */}
-          <Route path="/notice" element={<NoticePage />} />
+            {/* Notice */}
+            <Route path="/notice" element={<NoticePage />} />
 
-          {/* Scheduling */}
-          <Route path="/scheduling/budget-select" element={<BudgetSelectPage />} />
-          <Route path="/scheduling/date-select" element={<DateSelectPage />} />
-          <Route path="/scheduling/schedule" element={<SchedulePage />} />
+            {/* Scheduling */}
+            <Route path="/scheduling/budget-select" element={<BudgetSelectPage />} />
+            <Route path="/scheduling/date-select" element={<DateSelectPage />} />
+            <Route path="/scheduling/schedule" element={<SchedulePage />} />
 
-          {/* Splash */}
-          <Route path="/splash" element={<SplashPage />} />
+            {/* Splash */}
+            <Route path="/splash" element={<SplashPage />} />
 
-          {/* Vote */}
-          <Route path="/vote/agree" element={<VoteAgreePage />} />
-          <Route path="/vote/complete" element={<VoteCompletePage />} />
-          <Route path="/vote/date" element={<VoteDatePage />} />
-          <Route path="/vote" element={<VoteMainPage />} />
-        </Routes>
-      </Router>
-    </ThemeProvider>
+            {/* Vote */}
+            <Route path="/vote/agree" element={<VoteAgreePage />} />
+            <Route path="/vote/complete" element={<VoteCompletePage />} />
+            <Route path="/vote/date" element={<VoteDatePage />} />
+            <Route path="/vote" element={<VoteMainPage />} />
+            
+            <Route path="/course" element={<Course/>}/>
+          </Routes>
+        </Router>
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 };
 

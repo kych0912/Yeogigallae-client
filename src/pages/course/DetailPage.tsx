@@ -30,7 +30,7 @@ export default function DetailPage({
     <>
       <ButtonWrapper>
         {
-          allCoursesQueries.map((query,index)=>(
+          allCoursesQueries.map((_,index)=>(
             <Button 
               onClick={()=>handleSlideChange(index)} 
               style={{width:'100px',padding:'0.875rem 0',color:"white"}} 

@@ -2,7 +2,6 @@ import { useGetAllCourses } from "../../react-query/queries/queries";
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import { sampleData } from "./test";
-import { Container } from "./Style";
 import { useSearchParams } from "react-router-dom";
 import DetailPage from "./DetailPage";
 import OverviewPage from "./OverViewPage";
@@ -32,10 +31,10 @@ export default function Page(){
   }
 
   return (
-    <Container>
+    <>
       <OverviewPage   
         dayOnCourseQueries={allCoursesQueries[0].data}
       />
-    </Container>
+    </>
   );
 }

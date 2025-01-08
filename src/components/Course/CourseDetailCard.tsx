@@ -1,9 +1,9 @@
-import Card from "../../../components/Card";
+import Card from "../Card";
 import CourseTitle from './CourseTitle';
-import Map from "../../../components/Map";
+import Map from "../Map";
 import CoursePlaces from './CoursePlaces';
-import { Route } from "../../../apis/map/types";
-import { StyledCard } from "../Style";
+import { Route } from "../../apis/map/types";
+import { StyledCard } from "../../pages/course/Style";
 
 export default function CourseDetailCard({ dailyRoutes }:{
     dailyRoutes: Route | null | undefined,

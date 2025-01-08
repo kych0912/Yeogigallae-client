@@ -4,11 +4,11 @@ import {
     PlaceNameWrapper, 
     PlaceDistanceWrapper, 
     PlaceLine 
-} from "../Style";
-import { Section } from "../../../apis/map/types";
+} from "../../pages/course/Style";
+import { Section } from "../../apis/map/types";
 
-import Marker from "../../../assets/icons/marker.svg?react"
-import { RouteDetail } from "../../../apis/map/types";
+import Marker from "../../assets/icons/marker.svg?react"
+import { RouteDetail } from "../../apis/map/types";
 
 export default function CoursePlaces({ 
     places, 

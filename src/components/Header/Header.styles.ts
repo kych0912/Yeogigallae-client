@@ -5,8 +5,9 @@ const Header = styled.header`
     top: 0;
     left: 0;
     width: 100%;
-    background-color: transparent;
+    background-color: ${({theme})=>theme.colors.background};
     z-index: 100;
+
 `;
 
 const HeaderWrapper = styled.div`

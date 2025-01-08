@@ -6,7 +6,7 @@ import { ButtonWrapper, DetailCardWrapper, StyledSwiper } from "./Style";
 import { Button } from "../../components/Button";
 import { useState } from "react";
 import { Swiper as SwiperType } from "swiper/types";
-import CourseDetailCard from "./_components/CourseDetailCard";
+import CourseDetailCard from "../../components/Course/CourseDetailCard";
 import { Route } from "../../apis/map/types";
 import { UseQueryResult } from "@tanstack/react-query";
 

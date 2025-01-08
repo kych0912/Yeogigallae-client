@@ -1,4 +1,4 @@
-import CourseOverviewCard from "./_components/CourseOverviewCard";
+import CourseOverviewCard from "../../components/Course/CourseOverviewCard";
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import { Container } from "./Style";

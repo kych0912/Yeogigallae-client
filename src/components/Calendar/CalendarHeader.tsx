@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import * as S from "./CalendarHeader.styles";
 import FlexibleSelect from "../FlexibleSelect/FlexibleSelect";
 import CalendarDays from "./CalendarDays";
-import { LeftArrow, RightArrow } from "../../assets/icons/Icons";
 
 interface CalendarHeaderProps {
   currentYear: number;
@@ -72,12 +71,12 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
       {activeTab !== "flexible" && (
         <S.MonthHeader>
           {currentMonth !== 0 && (
-            <S.NavButton onClick={handlePrevMonth}>{<LeftArrow />}</S.NavButton>
+            <S.NavButton onClick={handlePrevMonth}>{'<'}</S.NavButton>
           )}
           <S.CurrentMonth onClick={openYearMonthPicker}>
             {`${currentYear}년 ${currentMonth + 1}월`}
           </S.CurrentMonth>
-          <S.NavButton onClick={handleNextMonth}>{<RightArrow />}</S.NavButton>
+          <S.NavButton onClick={handleNextMonth}>{">"}</S.NavButton>
         </S.MonthHeader>
       )}
 

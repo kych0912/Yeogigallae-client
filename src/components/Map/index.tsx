@@ -73,7 +73,12 @@ const Map = ({
       //마커 숫자로 표시
       const customOverlay = new kakao.maps.CustomOverlay({
         position: markerPosition,
-        content: `<div style="padding:5px; background:#fff; border-radius:50%;">${index+1}</div>`,
+        content: `
+        <div style="padding:5px; 
+          background:${theme.colors.primary};
+          color:white; border-radius:50%;">
+          ${index+1}
+        </div>`,
         map: map
       });
       

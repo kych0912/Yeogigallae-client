@@ -40,6 +40,10 @@ export const ButtonWrapper = styled.div`
   gap:0.5rem;
   width:100%;
   padding:1rem 0;
+  background-color:${({theme})=>theme.colors.background};
+  position:sticky;
+  top:60px;
+  z-index:100;
 `
 
 export const PlaceWrapper = styled.div`

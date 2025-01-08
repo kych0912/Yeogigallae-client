@@ -1,5 +1,4 @@
 import React from "react";
-import { GlobalStyle } from "./GlobalStyle";
 import { ThemeProvider } from "styled-components";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { theme } from "./styles/theme";
@@ -23,8 +22,10 @@ import VoteAgreePage from "./pages/Vote/VoteAgreePage/VoteAgreePage";
 import VoteCompletePage from "./pages/Vote/VoteCompletePage/VoteCompletePage";
 import VoteDatePage from "./pages/Vote/VoteDatePage/VoteDatePage";
 import VoteMainPage from "./pages/Vote/VoteMainPage/VoteMainPage";
-import './App.css'
+import CreateCoursePage from "./pages/Functional/CreateCoursePage/CreateCoursePage";
+import CreateVotePage from "./pages/Functional/CreateVotePage/CreateVotePage";
 import Course from './pages/course'
+import './App.css'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const queryClient = new QueryClient();
@@ -33,7 +34,6 @@ const App: React.FC = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
-        <GlobalStyle />
         <Router>
           <Routes>
             {/* Main */}
@@ -73,6 +73,10 @@ const App: React.FC = () => {
             <Route path="/vote/complete" element={<VoteCompletePage />} />
             <Route path="/vote/date" element={<VoteDatePage />} />
             <Route path="/vote" element={<VoteMainPage />} />
+
+            {/* Functional */}
+            <Route path="/functional" element={<CreateCoursePage/>}/>
+            <Route path="/functional/vote" element={<CreateVotePage/>}/>
             
             <Route path="/course" element={<Course/>}/>
           </Routes>

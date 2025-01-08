@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { SlArrowLeftCircle, SlArrowRightCircle } from "react-icons/sl";
 
 export const Header = styled.div`
   display: flex;
@@ -88,23 +87,5 @@ export const CurrentMonth = styled.div`
 
   &:hover {
     text-decoration: underline;
-  }
-`;
-
-export const LeftArrowIcon = styled(SlArrowLeftCircle)`
-  background-color: #616161;
-  transition: color 0.3s ease;  
-  
-  &:hover {
-    color: #4f46e5;
-  }
-`;
-
-export const RightArrowIcon = styled(SlArrowRightCircle)`
-  color: #616161; 
-  transition: color 0.3s ease;
-  
-  &:hover {
-    color: #4f46e5;
   }
 `;

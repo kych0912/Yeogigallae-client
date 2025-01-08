@@ -1,33 +1,39 @@
-import React, { useEffect, useRef, useState } from 'react';
+/// <reference types="kakao.maps.d.ts" />
+
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { theme } from '../../styles/theme';
 import { RouteDetail } from '../../apis/map/types';
 
+declare global {
+  interface Window {
+    kakao: typeof kakao;
+  }
+}
 
 const Map = ({
   width = '100%',
   height = '400px',
   dailyRoutes,
   level = 3
-}:{
+}: {
   width: string;
   height: string;
   dailyRoutes: RouteDetail;
   level: number;
 }) => {
   const mapRef = useRef<HTMLDivElement>(null);
-  const [map, setMap] = useState(null);
-  const polylineRef = useRef([]);
-  const markerRef = useRef([]);
+  const [map, setMap] = useState<kakao.maps.Map | null>(null);
+  const polylineRef = useRef<kakao.maps.Polyline[]>([]);
+  const markerRef = useRef<kakao.maps.CustomOverlay[]>([]);
   const { kakao } = window;
-
 
   // 맵 인스턴스 생성
   useEffect(() => {
     if (!mapRef.current) return;
     
     const { origin } = dailyRoutes.summary;
-    const options = {
+    const options: kakao.maps.MapOptions = {
       center: new kakao.maps.LatLng(origin.y, origin.x),
       level,
     };
@@ -45,18 +51,20 @@ const Map = ({
   }, [map, dailyRoutes]);
 
   const clearMapObjects = () => {
-    polylineRef.current.forEach(polyline => {
+    polylineRef.current.forEach((polyline) => {
       polyline.setMap(null);
     });
     polylineRef.current = [];
 
-    markerRef.current.forEach(marker => {
+    markerRef.current.forEach((marker) => {
       marker.setMap(null);
     });
     markerRef.current = [];
   };
 
-  const drawRoute = (routeData) => {
+  const drawRoute = (routeData: RouteDetail) => {
+    if(!map) return;
+
     const bounds = new kakao.maps.LatLngBounds();
     
     // 출발지, 경유지, 도착지 마커 표시
@@ -88,7 +96,9 @@ const Map = ({
 
     // 경로 라인 그리기
     routeData.sections.forEach((section) => {
-      const linePath = [];
+      const linePath: kakao.maps.LatLng[] = [];
+      if(!section.roads) return;
+
       section.roads.forEach(road => {
         road.vertexes.forEach((vertex, index) => {
           if (index % 2 === 0) {
@@ -116,7 +126,6 @@ const Map = ({
 
     map.setBounds(bounds);
   };
-
 
   return (
     <MapContainer 

@@ -100,7 +100,7 @@ const Map = ({
       if(!section.roads) return;
 
       section.roads.forEach(road => {
-        road.vertexes.forEach((vertex, index) => {
+        road.vertexes.forEach((_, index) => {
           if (index % 2 === 0) {
             const point = new kakao.maps.LatLng(
               road.vertexes[index + 1], 

@@ -3,9 +3,29 @@
   max-width: 425px;
   margin: 0 auto;
 }
+@font-face {
+  font-family: 'PaperLodgy-Regular';
+  src: url('../src/assets/Fonts/Paperlogy_Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'PaperLodgy-Bold';
+  src: url('../src/assets/Fonts/Paperlogy_Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Paper Lodgy-Medium';
+  src: url('../src/assets/Fonts/Paperlogy_Medium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Paper Lodgy-SemiBold';
+  src: url('../src/assets/Fonts/Paperlogy_SemiBold.ttf') format('truetype');
+}
 
 body {
   background-color: #000000;
+  font-family: 'PaperLodgy-Regular','Paper Lodgy-SemiBold','Paper Lodgy-Medium','PaperLodgy-Bold',sans-serif;
 }
 
 html,

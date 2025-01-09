@@ -3,7 +3,7 @@ import CourseTitle from './CourseTitle';
 import Map from "../Map";
 import CoursePlaces from './CoursePlaces';
 import { Route } from "../../apis/map/types";
-import { StyledCard } from "../../pages/course/Style";
+import { StyledCard } from "./Course.style";
 
 export default function CourseDetailCard({ dailyRoutes }:{
     dailyRoutes: Route | null | undefined,

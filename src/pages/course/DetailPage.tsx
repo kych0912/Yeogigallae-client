@@ -1,14 +1,9 @@
-import { EffectCoverflow } from "swiper/modules";
-import { SwiperSlide } from "swiper/react";
-import 'swiper/css';
-import 'swiper/css/effect-coverflow';
-import { ButtonWrapper, DetailCardWrapper, StyledSwiper } from "./Style";
-import { Button } from "../../components/Button";
 import { useState } from "react";
 import { Swiper as SwiperType } from "swiper/types";
-import CourseDetailCard from "../../components/Course/CourseDetailCard";
 import { Route } from "../../apis/map/types";
 import { UseQueryResult } from "@tanstack/react-query";
+import CourseDayButton from "../../components/Course/CourseDayButton";
+import CourseDetailCarousel from "../../components/Course/CourseDetailCarousel";
 
 export default function DetailPage({
   allCoursesQueries
@@ -28,54 +23,17 @@ export default function DetailPage({
 
     return (
     <>
-      <ButtonWrapper>
-        {
-          allCoursesQueries.map((_,index)=>(
-            <Button 
-              onClick={()=>handleSlideChange(index)} 
-              style={{width:'100px',padding:'0.875rem 0',color:"white"}} 
-              color={activeIndex === index ? "primary" : "secondary"} 
-              size="small"
-            >
-              {`${index+1}일차`}
-            </Button>
-          ))
-        }
-      </ButtonWrapper>
+      <CourseDayButton 
+        allCoursesQueries={allCoursesQueries}
+        handleSlideChange={handleSlideChange}
+        activeIndex={activeIndex}
+      />
 
-      <StyledSwiper 
-        effect={'coverflow'}
-        grabCursor={true}
-        centeredSlides={true}
-        spaceBetween={-65}
-        slidesPerView={'auto'}
-        coverflowEffect={{
-          rotate: 0,
-          stretch: 0,
-          depth: 50,
-          modifier: 2,
-          slideShadows: false,
-        }}
-        modules={[EffectCoverflow]}
-        onSwiper={(swiper) => setSwiperInstance(swiper)}
-        onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
-      >
-
-          {
-          allCoursesQueries.map((query,index)=>(
-            <SwiperSlide style={{alignItems:'start',padding:'0'}} key={index}>
-              <DetailCardWrapper>
-                {query.data && (
-                  <CourseDetailCard
-                    dailyRoutes={query.data}
-                  />
-                )}
-              </DetailCardWrapper>
-            </SwiperSlide>
-          ))
-        }
-
-      </StyledSwiper>
+      <CourseDetailCarousel 
+        allCoursesQueries={allCoursesQueries}
+        setSwiperInstance={setSwiperInstance}
+        setActiveIndex={setActiveIndex}
+      />
     </>
     )
 }

@@ -55,6 +55,7 @@ export const BaseButton = styled.button<ButtonProps>`
     ${({ variant = 'contained' }) => buttonVariants[variant]}
     outline: none;
     white-space: nowrap;
+    font-family:${({theme}) => theme.fontFamily.medium}; 
 `;
 
 

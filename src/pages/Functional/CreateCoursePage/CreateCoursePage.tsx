@@ -1,20 +1,19 @@
 import React from "react";
-import * as S from "./Styles"; 
+import * as S from "./Styles";
+import HomeIcon from "../../../assets/icons/Home.svg";
+import BackIcon from "../../../assets/icons/Back.svg";
 import Header from "../../../components/Header/index";
-import HomeIcon from "../../../assets/icons/Home.svg?react";
-import BackIcon from "../../../assets/icons/Back.svg?react";
 import { IconButton } from "../../../components/Button";
 
 const CreateCoursePage: React.FC = () => {
   return (
     <S.Container>
-      <S.HeaderContainer>
-        <Header 
+      <Header 
           leftContent={<IconButton><BackIcon /></IconButton>}
           centerContent={<S.Typography>{"생성하기"}</S.Typography>}
           rightContent={<IconButton><HomeIcon /></IconButton>}
-        />
-      </S.HeaderContainer>
+      />
+
       <S.Content>
         <S.ImagePlaceholder>
           원하는 이미지를 첨부하세요.
@@ -23,8 +22,22 @@ const CreateCoursePage: React.FC = () => {
         <S.MessageInput placeholder="친구에게 전달할 메시지를 작성하세요." />
 
         <S.OptionSection>
+          <S.Label>투표 유지 시간</S.Label>
+          <S.ButtonGroup>
+            <S.OptionButton>1시간</S.OptionButton>
+            <S.OptionButton>2시간</S.OptionButton>
+            <S.OptionButton>종료 후</S.OptionButton>
+          </S.ButtonGroup>
+        </S.OptionSection>
+
+        <S.OptionSection>
           <S.Label>장소</S.Label>
           <S.TextInput placeholder="장소를 입력하세요." />
+        </S.OptionSection>
+
+        <S.OptionSection>
+          <S.Label>가격</S.Label>
+          <S.TextInput placeholder="예) 1박 / 20만원" />
         </S.OptionSection>
 
         <S.OptionSection>
@@ -43,7 +56,7 @@ const CreateCoursePage: React.FC = () => {
           ))}
         </S.ColorSelector>
 
-        <S.SubmitButton>코스 공유하기</S.SubmitButton>
+        <S.SubmitButton>투표 공유하기</S.SubmitButton>
       </S.Content>
     </S.Container>
   );

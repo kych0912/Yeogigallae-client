@@ -1,3 +1,4 @@
+// CreateCoursePage/Styles
 import styled from "styled-components";
 
 export const Typography = styled.div`
@@ -10,7 +11,7 @@ export const Typography = styled.div`
 export const HeaderContainer = styled.div`
   position: fixed;
   top: 0;
-  left:0;
+  left: 0;
   width: 100%;
 `;
 
@@ -26,7 +27,6 @@ export const Container = styled.div`
 
 // 콘텐츠 영역
 export const Content = styled.div`
-  margin-top: 50px;
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -68,6 +68,27 @@ export const Label = styled.label`
   margin-bottom: 5px;
 `;
 
+export const ButtonGroup = styled.div`
+  display: flex;
+  gap: 10px;
+`;
+
+export const OptionButton = styled.button`
+  flex: 1;
+  background: #444;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 14px;
+  cursor: pointer;
+
+  &:hover {
+    background: #555;
+  }
+`;
+
+// 입력 필드
 export const TextInput = styled.input`
   background: #333;
   color: #fff;

@@ -22,3 +22,10 @@ export const Img = styled.img`
     height: 13.75rem;
     margin: 6.25rem auto 0 auto;
 `;
+
+export const Text = styled.p`
+    font-size: 1rem;
+    color: #6e6e6e;
+    font-family: "PaperLodgy-Regular", sans-serif;
+    margin-top: 1.25rem;
+`;

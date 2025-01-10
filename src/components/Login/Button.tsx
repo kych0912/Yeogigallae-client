@@ -1,4 +1,3 @@
-// 이거 삭제할 파일 헷갈리지 말기기
 import React from "react";
 import * as S from "./Styles";
 import Kakao from "../../assets/icons/kakaoLogo.svg";
@@ -11,12 +10,14 @@ const Button: React.FC = () => {
     const handleKakaoLogin = () => {
         window.location.href = kakaoURL;
     };
+
     return (
         <S.Container>
             <S.Button onClick={handleKakaoLogin}>
                 <S.Logo src={Kakao} alt="Kakao Logo" />
                 카카오로 시작하기
             </S.Button>
+            <S.Text onClick={handleKakaoLogin}>기존 회원 로그인하기</S.Text>
         </S.Container>
     );
 };

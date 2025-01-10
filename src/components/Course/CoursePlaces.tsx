@@ -1,10 +1,4 @@
-import { 
-    MarkerWrapper, 
-    PlaceWrapper, 
-    PlaceNameWrapper, 
-    PlaceDistanceWrapper, 
-    PlaceLine 
-} from "../../pages/course/Style";
+import * as S from "./Course.style";
 import { Section } from "../../apis/map/types";
 
 import Marker from "../../assets/icons/marker.svg?react"
@@ -29,7 +23,7 @@ export default function CoursePlaces({
         : allPlaces;
     
     return (
-        <PlaceWrapper>
+        <S.PlaceWrapper>
             {displayPlaces.map((place, index) => (
                 <PlaceItem 
                     key={index}
@@ -38,7 +32,7 @@ export default function CoursePlaces({
                     sectionInfo={index < sections.length ? sections[index] : null}
                 />
             ))}
-        </PlaceWrapper>
+        </S.PlaceWrapper>
     );
 }
 
@@ -58,20 +52,20 @@ function PlaceItem({ place, isLast, sectionInfo }: PlaceItemProps) {
 
     return (
         <>
-            <PlaceNameWrapper>
-                <MarkerWrapper>
+            <S.PlaceNameWrapper>
+                <S.MarkerWrapper>
                     <Marker/>
-                </MarkerWrapper>
+                </S.MarkerWrapper>
                 {place.name}
-            </PlaceNameWrapper>
+            </S.PlaceNameWrapper>
 
             {!isLast && sectionInfo && (
-                <PlaceDistanceWrapper>
-                    <PlaceLine line={lineDistance}/>
+                <S.PlaceDistanceWrapper>
+                    <S.PlaceLine line={lineDistance}/>
                     {convertDistance(sectionInfo.distance)}km
                     {" "}
                     {`${Math.round(sectionInfo.duration / 60)}분`}
-                </PlaceDistanceWrapper>
+                </S.PlaceDistanceWrapper>
             )}
         </>
     );

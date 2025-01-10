@@ -3,10 +3,10 @@ import styled from "styled-components";
 // 날짜 섹션
 export const DatePickerWrapper = styled.div`
   margin-bottom: 20px;
+  margin-start: 20px;
 
   & > label {
     display: block;
-    margin-bottom: 8px;
     color: #ffffff;
     font-weight: 500;
     padding: 0 5px;
@@ -36,20 +36,41 @@ export const Label = styled.label`
   padding: 0; 
 `;
 
-export const TextInput = styled.input`
-  width: 100%;
-  padding: 10px;
+export const MinMaxWrapper = styled.div`
   display: flex;
+  padding: 4px;
+`;
+
+export const MinText = styled.p`
+  display: flex;
+  margin-top: 5px;
+  font-size: 16px;
+  color: #777;
+`;
+
+export const DateInputWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px; 
+  padding: 4px;
+`;
+
+export const LabelSmall = styled.label`
+  font-size: 14px;
+  color: #777;
+`;
+
+export const TextInput = styled.input`
+  padding: 0;
+  display: flex;
+  background-color: transparent;
   justify-content: center;
   align-items: center;
   font-size: 16px;
   color: #333;
-  border: 1px solid #ccc;
   border-radius: 8px;
   outline: none;
+  border: none;
   box-sizing: border-box;
-  margin: 0;
-  &:focus {
-    border-color: #6200ee;
-  }
+  margin-left: 0;
 `;

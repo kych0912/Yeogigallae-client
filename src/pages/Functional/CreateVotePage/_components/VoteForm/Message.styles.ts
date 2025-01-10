@@ -9,7 +9,7 @@ export const MessageInput = styled.textarea`
   background-color: transparent;
   color: #ffffff;
   font-weight: 600;
-  font-size: 24px;
+  font-size: 23px;
   margin-bottom: 20px;
   resize: none;
   text-align: center;

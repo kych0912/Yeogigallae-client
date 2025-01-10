@@ -14,11 +14,40 @@ export const HeaderContainer = styled.div`
   width: 100%;
 `;
 
-// 기본 컨테이너
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
   background-color: ${({ theme }) => theme.secondary};
   color: #fff;
-  height: 100vh;
+  margin:1rem 1.25rem;
+`;
+
+export const Content = styled.div`
+  width: 100%;
+  padding: 16px;
+  background-color: ;
+  color: white;
+  flex: 1;
+`;
+
+export const SubmitButton = styled.button`
+  margin: 1rem 1.25rem;
+  height: 58px;
+  border: none;
+  border-radius: 16px;
+  margin-top: 16px;
+  background-color: #6200ee;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #7c33ee;
+  }
+
+  &:focus {
+    outline: none;
+  }
 `;

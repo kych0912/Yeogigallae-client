@@ -2,24 +2,50 @@ import React from "react";
 import ImagePlaceholder from "./ImagePlaceholder";
 import MessageInput from "./MessageInput";
 import OptionSection from "./OptionSection";
-import ColorSelector from "./ColorSelector";
 import { Separator } from "./Separator.styles";
 import * as S from "./VoteForm.styles";
 import DatePicker from "./DatePicker";
 
-const VoteForm: React.FC = () => {
+interface VoteFormProps {
+  state: { place: string; price: string; date: string };
+  onStateChange: (updatedState: any) => void;
+}
+
+const VoteForm: React.FC<VoteFormProps> = ({ state, onStateChange }) => {
+  const { place, price, date } = state;
+
   return (
     <S.Content>
       <ImagePlaceholder />
       <MessageInput />
       <Separator />
-      <OptionSection label="장소" placeholder="장소를 입력하세요." />
+      {/* 장소 */}
+      <OptionSection
+        label="장소"
+        placeholder="장소를 입력하세요."
+        value={place}
+        onChange={(e) =>
+          onStateChange({ ...state, place: e.target.value })
+        }
+      />
       <Separator />
-      <OptionSection label="가격" placeholder="1박/20만원" />
+      {/* 가격 */}
+      <OptionSection
+        label="가격"
+        placeholder="1박/20만원"
+        value={price}
+        onChange={(e) =>
+          onStateChange({ ...state, price: e.target.value })
+        }
+      />
       <Separator />
-      <DatePicker />
-      <ColorSelector />
-      <S.SubmitButton>투표 공유하기</S.SubmitButton>
+      {/* 날짜 */}
+      <DatePicker
+        value={date}
+        onChange={(newDate) =>
+          onStateChange({ ...state, date: newDate })
+        }
+      />
     </S.Content>
   );
 };

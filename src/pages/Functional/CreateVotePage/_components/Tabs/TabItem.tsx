@@ -9,7 +9,7 @@ interface TabItemProps {
 
 const TabItem: React.FC<TabItemProps> = ({ title, isActive, onClick }) => {
   return (
-    <S.TabItem isActive={isActive} onClick={onClick}>
+    <S.TabItem $active={isActive} onClick={onClick}>
       {title}
     </S.TabItem>
   );

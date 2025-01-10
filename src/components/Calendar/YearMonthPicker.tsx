@@ -1,58 +1,70 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import * as S from "./YearMonthPicker.styles";
 
 interface YearMonthPickerProps {
   currentYear: number;
-  currentMonth: number;
-  onSelect: (year: number, month: number) => void;
-  closePicker: () => void;
+  onSelectYear: (year: number) => void;
 }
 
-const YearMonthPicker: React.FC<YearMonthPickerProps> = ({
-  currentYear,
-  currentMonth,
-  onSelect,
-  closePicker,
-}) => {
-  const pickerRef = useRef<HTMLDivElement>(null);
+const YearMonthPicker: React.FC<YearMonthPickerProps> = ({ currentYear, onSelectYear }) => {
+  const [years] = useState<number[]>(() => {
+    const initialYears = [];
+    for (let i = -5; i <= 5; i++) {
+      initialYears.push(currentYear + i);
+    }
+    return initialYears;
+  });
+  const [selectedYear, setSelectedYear] = useState(currentYear);
+  const yearDialRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (pickerRef.current && !pickerRef.current.contains(event.target as Node)) {
-        closePicker();
+    const handleScrollStop = () => {
+      if (!yearDialRef.current) return;
+
+      const { scrollLeft, clientWidth } = yearDialRef.current;
+      const centerPosition = scrollLeft + clientWidth / 2;
+      const closestIndex = Math.round(centerPosition / 70);
+      const newSelectedYear = years[closestIndex];
+
+      if (newSelectedYear !== selectedYear) {
+        setSelectedYear(newSelectedYear);
+        onSelectYear(newSelectedYear);
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+    const container = yearDialRef.current;
+    let scrollTimeout: ReturnType<typeof setTimeout>;
+
+    const handleScroll = () => {
+      if (scrollTimeout) clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(handleScrollStop, 300); // 스크롤 멈춤 감지
     };
-  }, [closePicker]);
+
+    container?.addEventListener("scroll", handleScroll);
+
+    return () => {
+      container?.removeEventListener("scroll", handleScroll);
+      if (scrollTimeout) clearTimeout(scrollTimeout);
+    };
+  }, [years, selectedYear, onSelectYear]);
 
   return (
-    <S.YearMonthPickerWrapper ref={pickerRef}>
-      <S.YearMonthSelect>
-        {[...Array(5)].map((_, yearOffset) => (
-          <div key={yearOffset}>
-            <S.Year>{currentYear + yearOffset}년</S.Year>
-            <S.MonthRow>
-              {[...Array(12)].map((_, monthIndex) => (
-                <S.MonthButton
-                  key={monthIndex}
-                  isCurrent={currentYear + yearOffset === currentYear && monthIndex === currentMonth}
-                  onClick={() => {
-                    onSelect(currentYear + yearOffset, monthIndex);
-                    closePicker();
-                  }}
-                >
-                  {monthIndex + 1}월
-                </S.MonthButton>
-              ))}
-            </S.MonthRow>
-          </div>
+    <S.Wrapper>
+      <S.YearDial ref={yearDialRef}>
+        {years.map((year, index) => (
+          <S.YearItem
+            key={index}
+            isSelected={year === selectedYear}
+            onClick={() => {
+              setSelectedYear(year);
+              onSelectYear(year);
+            }}
+          >
+            {year}
+          </S.YearItem>
         ))}
-      </S.YearMonthSelect>
-    </S.YearMonthPickerWrapper>
+      </S.YearDial>
+    </S.Wrapper>
   );
 };
 

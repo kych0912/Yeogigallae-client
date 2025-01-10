@@ -27,7 +27,7 @@ const CreateVotePage: React.FC = () => {
 
   // 현재 활성화된 버튼
   const [activeButton, setActiveButton] = useState<string>("BUTTON1");
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab] = useState(0);
 
   // 활성화된 버튼의 상태 변경
   const handleStateChange = (updatedState: ButtonState) => {
@@ -68,7 +68,7 @@ const CreateVotePage: React.FC = () => {
         />
       </S.HeaderContainer>
 
-      <Tabs onTabChange={(index) => setActiveTab(index)} />
+      <Tabs />
 
       {activeTab === 0 && (
         <VoteForm

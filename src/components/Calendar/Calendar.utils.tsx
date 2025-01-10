@@ -16,7 +16,7 @@ export const getDaysInMonth = (year: number, month: number) => {
       month: prevMonth,
       isToday: false,
       isCurrentMonth: false,
-      isPreviousMonth: true, // 이전 달임을 표시
+      isPreviousMonth: true,
       isNextMonth: false,
     });
   }

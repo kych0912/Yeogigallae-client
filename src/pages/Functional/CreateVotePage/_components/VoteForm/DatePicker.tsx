@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import * as S from "./DatePicker.styles";
 import CalendarIcon from "../../../../../assets/icons/Calender.svg?react"; 
 
@@ -8,6 +9,12 @@ interface DatePickerProps {
 }
 
 const DatePicker: React.FC<DatePickerProps> = ({ value, onChange }) => {
+  const navigate = useNavigate(); // React Router의 네비게이션 훅
+
+  const handleIconClick = () => {
+    navigate("/functonal/calendar"); // "/create-calendar"로 이동
+  };
+
   return (
     <S.DatePickerWrapper>
       <S.Label>기간</S.Label>
@@ -18,10 +25,12 @@ const DatePicker: React.FC<DatePickerProps> = ({ value, onChange }) => {
         <S.LabelSmall>날짜</S.LabelSmall>
         <S.TextInput
           placeholder="2024.00.00 ~ 2024.00.00"
-          value={value} // 현재 날짜 값을 표시
-          onChange={(e) => onChange(e.target.value)} // 입력값 변경 시 부모에 전달
+          value={value}
+          onChange={(e) => onChange(e.target.value)} 
         />
-        <CalendarIcon />
+        <S.IconWrapper onClick={handleIconClick}> 
+          <CalendarIcon />
+        </S.IconWrapper>
       </S.DateInputWrapper>
     </S.DatePickerWrapper>
   );

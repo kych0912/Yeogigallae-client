@@ -5,14 +5,14 @@ interface ButtonContainerProps {
   activeButton: string;
   setActiveButton: (id: string) => void;
   handleCreateButton: () => void;
-  buttonData: { id: string; label: string }[]; // 버튼 데이터를 상태로 전달받음
+  buttonData: { id: string; label: string }[]; 
 }
 
 const ButtonContainer: React.FC<ButtonContainerProps> = ({
   activeButton,
   setActiveButton,
   handleCreateButton,
-  buttonData, // 상태로 관리되는 버튼 데이터
+  buttonData, 
 }) => {
   return (
     <S.ButtonContainer>

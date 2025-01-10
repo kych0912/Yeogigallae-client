@@ -7,16 +7,14 @@ export const Footer = styled.div`
 `;
 
 export const CompleteButton = styled.button`
-  width: 362px;
-  height: 54px;
-  padding: 0.75rem 1.5rem;
+  width: 100%;
+  height: 44px;
   background-color: #4f46e5;
   color: #fff;
   border: none;
   border-radius: 16px;
-  font-size: 1rem;
+  font-size: 20px;
   cursor: pointer;
-  font-weight: bold;
 
   &:hover {
     background-color: #3730a3;

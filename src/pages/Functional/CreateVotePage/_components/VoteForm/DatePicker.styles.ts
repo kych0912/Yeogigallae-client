@@ -74,3 +74,13 @@ export const TextInput = styled.input`
   box-sizing: border-box;
   margin-left: 0;
 `;
+
+export const IconWrapper = styled.div`
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    opacity: 0.8; 
+  }
+`;

@@ -17,7 +17,6 @@ export const HeaderContainer = styled.div`
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: ${({ theme }) => theme.secondary};
   color: #fff;
   margin:1rem 1.25rem;
 `;

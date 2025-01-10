@@ -22,52 +22,49 @@ const CalendarDays: React.FC<CalendarDaysProps> = ({
   const daysInMonth = getDaysInMonth(year, month);
   const weekDays = getWeekDays();
 
-  const isInRange = (date: Date) => {
+  const checkIfInRange = (date: Date) => {
     if (!startDate || !endDate) return false;
     return date >= startDate && date <= endDate;
   };
 
-  const isStart = (date: Date) => {
-    return startDate?.getTime() === date.getTime();
-  };
+  const checkIfStartDate = (date: Date) => startDate?.getTime() === date.getTime();
 
-  const isEnd = (date: Date) => {
-    return endDate?.getTime() === date.getTime();
+  const checkIfEndDate = (date: Date) => endDate?.getTime() === date.getTime();
+
+  const handleDayClick = (day: typeof daysInMonth[number]) => {
+    const targetDate = new Date(day.year, day.month, day.date);
+
+    // 월 또는 연도가 변경되면 현재 날짜를 업데이트
+    if (day.month !== month || day.year !== year) {
+      setCurrentDate(new Date(day.year, day.month, 1));
+    }
+
+    onDayClick(targetDate);
   };
 
   return (
     <S.CalendarContainer>
+      {/* 요일 헤더 */}
       <S.WeekDays>
-        {weekDays.map((day) => (
-          <S.WeekDay key={day}>{day}</S.WeekDay>
+        {weekDays.map((day, index) => (
+          <S.WeekDay key={`weekday-${index}`}>{day}</S.WeekDay>
         ))}
       </S.WeekDays>
 
+      <S.Spacer/>
+      
+      {/* 날짜 */}
       <S.Days>
         {daysInMonth.map((day, index) => (
           <S.Day
-            key={index}
-            isToday={day.isToday}
-            isCurrentMonth={day.isCurrentMonth}
-            isInRange={isInRange(new Date(day.year, day.month, day.date))}
-            isSelected={
-              startDate?.getTime() === new Date(day.year, day.month, day.date).getTime() ||
-              endDate?.getTime() === new Date(day.year, day.month, day.date).getTime()
-            }
-            isStart={isStart(new Date(day.year, day.month, day.date))}
-            isEnd={isEnd(new Date(day.year, day.month, day.date))}
-            onClick={() => {
-              const targetMonth = day.month;
-              const targetYear = day.year;
-          
-              // 슬라이드 처리
-              if (targetMonth !== month || targetYear !== year) {
-                setCurrentDate(new Date(targetYear, targetMonth, 1)); // 현재 달 업데이트
-              }
-          
-              // 날짜 선택 처리
-              onDayClick(new Date(targetYear, targetMonth, day.date));
-            }}
+            key={`day-${day.year}-${day.month}-${day.date}-${index}`}
+            $isToday={day.isToday} // styled-components 전용
+            $isCurrentMonth={day.isCurrentMonth} // styled-components 전용
+            $isInRange={checkIfInRange(new Date(day.year, day.month, day.date))} // styled-components 전용
+            $isSelected={checkIfStartDate(new Date(day.year, day.month, day.date)) || checkIfEndDate(new Date(day.year, day.month, day.date))} // styled-components 전용
+            $isStart={checkIfStartDate(new Date(day.year, day.month, day.date))} // styled-components 전용
+            $isEnd={checkIfEndDate(new Date(day.year, day.month, day.date))} // styled-components 전용
+            onClick={() => handleDayClick(day)}
           >
             {day.date}
           </S.Day>

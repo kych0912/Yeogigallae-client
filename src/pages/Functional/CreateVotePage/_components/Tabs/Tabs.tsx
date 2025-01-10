@@ -1,13 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import TabItem from "./TabItem";
 import * as S from "./Styles";
 
-const Tabs: React.FC<{ onTabChange: (index: number) => void }> = ({ onTabChange }) => {
-  const [activeTab, setActiveTab] = useState(0);
+const Tabs: React.FC = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const activeTab = location.pathname === "/functional/vote" ? 0 : 1;
 
   const handleTabClick = (index: number) => {
-    setActiveTab(index);
-    onTabChange(index);
+    if (index === 0) {
+      navigate("/functional/vote");
+    } else if (index === 1) {
+      navigate("/functional/course");
+    }
   };
 
   return (

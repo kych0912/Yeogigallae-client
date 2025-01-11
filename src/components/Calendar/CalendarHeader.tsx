@@ -28,14 +28,6 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
 }) => {
   const [activeTab, setActiveTab] = useState<"date" | "flexible">("date");
 
-  // const handlePrevMonth = () => {
-  //   setCurrentDate(new Date(currentYear, currentMonth - 1, 1));
-  // };
-
-  // const handleNextMonth = () => {
-  //   setCurrentDate(new Date(currentYear, currentMonth + 1, 1));
-  // };
-
   const handleTabChange = (tab: "date" | "flexible") => {
     setActiveTab(tab);
     onModeChange(tab);
@@ -61,8 +53,6 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
         <MonthNavigation
           currentYear={currentYear}
           currentMonth={currentMonth}
-          // onPrevMonth={handlePrevMonth}
-          // onNextMonth={handleNextMonth}
           onOpenPicker={openYearMonthPicker}
         />
       )}

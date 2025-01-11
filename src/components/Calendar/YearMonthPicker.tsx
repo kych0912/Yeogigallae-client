@@ -19,7 +19,7 @@ const YearMonthPicker: React.FC<YearMonthPickerProps> = ({
   closePicker,
 }) => {
   const [years] = useState<number[]>(() =>
-    Array.from({ length: 11 }, (_, i) => currentYear - 5 + i)
+    Array.from({ length: 31 }, (_, i) => currentYear - 5 + i)
   );
   const [selectedYear, setSelectedYear] = useState(currentYear);
   const [selectedMonth, setSelectedMonth] = useState<number | null>(currentMonth); 
@@ -78,7 +78,7 @@ const YearMonthPicker: React.FC<YearMonthPickerProps> = ({
         {years.map((year, index) => (
           <S.YearItem
             key={index}
-            isSelected={year === selectedYear}
+            $selected={year === selectedYear}
             onClick={() => handleYearChange(year)}
           >
             {year}
@@ -91,7 +91,7 @@ const YearMonthPicker: React.FC<YearMonthPickerProps> = ({
         {Array.from({ length: 12 }, (_, i) => i + 1).map((month) => (
           <S.MonthItem
             key={month}
-            isSelected={month === selectedMonth}
+            $selected={month === selectedMonth}
             onClick={() => handleMonthChange(month)}
           >
             {month}월

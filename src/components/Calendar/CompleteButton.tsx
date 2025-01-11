@@ -31,7 +31,7 @@ const CompleteButton: React.FC<CompleteButtonProps> = ({ startDate, endDate, mod
     }
 
     // 완료 조건을 충족한 경우
-    navigate("/"); // 원하는 경로로 이동
+    navigate("/vote/success"); // 원하는 경로로 이동
   };
 
   return (

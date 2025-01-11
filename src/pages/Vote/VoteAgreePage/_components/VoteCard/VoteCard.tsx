@@ -54,7 +54,7 @@ const TravelCard: React.FC = () => {
       </S.InfoContainer>
       <S.TwoSelect>
         <Button size="large" onClick={() => {
-          navigate(`/vote?`);
+          navigate(`/vote/fail`);
           }}
         >
           {"난 못 가.."}

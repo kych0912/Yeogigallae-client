@@ -37,3 +37,27 @@ export const YearItem = styled.div<{ isSelected: boolean }>`
   transition: transform 0.4s ease, font-size 0.4s ease, color 0.4s ease;
   cursor: pointer;
 `;
+
+export const MonthGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 16px;
+  width: 100%;
+`;
+
+export const MonthItem = styled.div<{ isSelected: boolean }>`
+  text-align: center;
+  padding: 8px;
+  font-size: 14px;
+  font-weight: ${({ isSelected }) => (isSelected ? "bold" : "normal")};
+  color: ${({ isSelected }) => (isSelected ? "#fff" : "#6e6e6e")};
+  background-color: ${({ isSelected }) => (isSelected ? "#3b46f1" : "#2e2e2e")};
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${({ isSelected }) =>
+      isSelected ? "#3b46f1" : "#444444"};
+  }
+`;

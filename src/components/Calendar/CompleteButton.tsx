@@ -1,10 +1,11 @@
 import React from "react";
 import * as S from "./CompleteButton.styles";
+import { Button } from "../Button";
 
 const CompleteButton: React.FC = () => {
   return (
     <S.Footer>
-      <S.CompleteButton>완료</S.CompleteButton>
+      <Button size="large">{"완료"}</Button>
     </S.Footer>
   );
 };

@@ -58,14 +58,11 @@ const CreateCoursePage: React.FC = () => {
 
   return (
     <S.Container>
-      <S.HeaderContainer>
-        <Header
-          leftContent={<IconButton><BackIcon /></IconButton>}
-          centerContent={<S.Typography>{"생성하기"}</S.Typography>}
-          rightContent={<IconButton><HomeIcon /></IconButton>}
-        />
-      </S.HeaderContainer>
-
+      <Header
+        leftContent={<IconButton><BackIcon /></IconButton>}
+        centerContent={<S.Typography>{"생성하기"}</S.Typography>}
+        rightContent={<IconButton><HomeIcon /></IconButton>}
+      />
       <Tabs />
 
       {activeTab === 1 && (

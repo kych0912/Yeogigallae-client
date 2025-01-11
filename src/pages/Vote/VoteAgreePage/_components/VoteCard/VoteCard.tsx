@@ -60,7 +60,7 @@ const TravelCard: React.FC = () => {
           {"난 못 가.."}
         </Button>
         <Button size="large" onClick={() => {
-          navigate(`/vote?`);
+          navigate(`/vote/date`);
           }}
         >
           {"좋아!"}

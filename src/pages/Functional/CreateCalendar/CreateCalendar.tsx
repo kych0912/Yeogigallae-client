@@ -9,13 +9,11 @@ import Calendar from "../../../components/Calendar/Calendar";
 const CreateCalendar: React.FC = () => {
   return (
     <S.Container>
-      <S.HeaderContainer>
-        <Header
-          leftContent={<IconButton><BackIcon /></IconButton>}
-          centerContent={<S.Typography>{"기간 정하기"}</S.Typography>}
-          rightContent={<IconButton><HomeIcon /></IconButton>}
-        />
-      </S.HeaderContainer>
+      <Header
+        leftContent={<IconButton><BackIcon /></IconButton>}
+        centerContent={<S.Typography>{"기간 정하기"}</S.Typography>}
+        rightContent={<IconButton><HomeIcon /></IconButton>}
+      />
       <Calendar/>
     </S.Container>
   );

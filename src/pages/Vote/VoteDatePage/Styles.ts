@@ -1,14 +1,22 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: ${({ theme }) => theme.backgroundColor || '#f0f0f0'};
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  margin:1rem 1.25rem;
 `;
 
-export const Title = styled.h1`
-    font-size: 2.5rem;
-    color: ${({ theme }) => theme.textColor || '#333'};
+export const Typography = styled.div`
+  font-size:1rem;
+  color:#ffffff;
+  font-weight:500;
+  line-height:1.178rem;
+  position: relative;
+`
+export const HeaderContainer = styled.div`
+  position: relative;
+  top: 0;
+  left:0;
+  width: 100%;
 `;

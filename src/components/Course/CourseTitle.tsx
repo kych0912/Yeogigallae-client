@@ -1,11 +1,11 @@
-import { TitleWrapper, Caption, Content, StyledDivider } from "../../pages/course/Style";
+import * as S from "./Course.style";
 
 export default function CourseTitle({ caption, content }: { caption: string, content: string }) {
     return (
-        <TitleWrapper>
-            <Caption>{caption}</Caption>
-            <StyledDivider/>
-            <Content>{content}</Content> 
-        </TitleWrapper>
+        <S.TitleWrapper>
+            <S.Caption>{caption}</S.Caption>
+            <S.StyledDivider/>
+            <S.Content>{content}</S.Content> 
+        </S.TitleWrapper>
     );
 }

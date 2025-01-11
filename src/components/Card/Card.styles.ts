@@ -6,6 +6,7 @@ const Card = styled.div`
     background-color:#222222;
     box-shadow: #00000059;
     border-radius:30px;
+    font-family:${({theme}) => theme.fontFamily.regular};
 `
 
 const CardWrapper = styled.div`
@@ -33,8 +34,8 @@ const Image = styled.div`
 `
 
 const Title = styled.div`
-    font-weight:600;
-    font-size:1.5rem;
+    font-family:${({theme}) => theme.fontFamily.bold};
+    font-size:${({theme}) => theme.fontSize.large};
     line-height:2.4rem;
     color:#FFFFFF;
     display:flex;

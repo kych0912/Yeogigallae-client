@@ -5,6 +5,17 @@ export const theme = {
         background: '#0A0A0A',
         disabled: '#434343',
     },
+    fontSize: {
+        small: '0.75rem',
+        medium: '1rem',
+        large: '1.5rem',
+    },
+    fontFamily: {
+        regular:"PaperLodgy-Regular",
+        medium:"Paper Lodgy-Medium",
+        semiBold:"Paper Lodgy-SemiBold",
+        bold:"PaperLodgy-Bold",
+    }
 };
 
 export type Theme = typeof theme;

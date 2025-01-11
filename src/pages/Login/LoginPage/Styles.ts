@@ -11,7 +11,6 @@ export const Container = styled.div`
 
 export const Title = styled.h1`
     font-size: 1.5rem;
-    font-weight: 600;
     color: ${({ theme }) => theme.colors.textColor || '#ffffff'};
     line-height: 1.5;
     font-family: 'PaperLodgy-Bold', sans-serif;

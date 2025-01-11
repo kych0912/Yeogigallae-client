@@ -7,7 +7,7 @@ const Header = styled.header`
     width: 100%;
     background-color: ${({theme})=>theme.colors.background};
     z-index: 100;
-
+    font-family:${({theme}) => theme.fontFamily.medium};
 `;
 
 const HeaderWrapper = styled.div`

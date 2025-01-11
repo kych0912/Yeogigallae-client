@@ -1,7 +1,7 @@
 import React from "react";
 import * as S from "./Styles";
 import Leave from "../../../assets/icons/Leave.svg";
-import Button from "../../../components/Login/Button";
+import Button from "../../../components/Login/KakaoButton";
 
 const LoginPage: React.FC = () => {
     return (

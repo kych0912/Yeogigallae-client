@@ -1,5 +1,6 @@
 // VotePage.tsx
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import * as S from "../VoteAgreePage/Vote.styles";
 import HomeIcon from "../../../assets/icons/Home.svg?react";
 import BackIcon from "../../../assets/icons/Back.svg?react";
@@ -9,10 +10,17 @@ import { tempData } from "../VoteAgreePage/_components/TravelCard/tempData";
 import TravelCard from "../VoteAgreePage/_components/TravelCard/TravelCard"
 
 const VotePage: React.FC = () => {
+    const navigate = useNavigate(); 
     return (
         <S.Container>
             <Header
-                leftContent={<IconButton><BackIcon /></IconButton>}
+                leftContent={
+                    <IconButton onClick={() => {
+                        navigate(`/`);
+                    }}>
+                        <BackIcon />
+                    </IconButton>
+                }
                 centerContent={<S.Typography>{tempData.groupId}</S.Typography>}
                 rightContent={<IconButton><HomeIcon /></IconButton>}
             />

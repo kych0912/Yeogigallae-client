@@ -1,10 +1,16 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Card from "../../../../../components/Card";
 import { Button } from "../../../../../components/Button";
 import { tempData } from "./tempData"; // 임시 데이터
 import * as S from "./Styles";
 
 const TravelCard: React.FC = () => {
+  const navigate = useNavigate(); // useNavigate 훅 호출
+
+  const handleButtonClick = () => {
+    navigate("/vote/agree"); // "/vote/agree"로 페이지 이동
+  };
   return (
     <Card>
       <Card.Image>  
@@ -37,7 +43,7 @@ const TravelCard: React.FC = () => {
         </S.InfoItem>
       </S.InfoContainer>  
       </Card>
-      <Button size="large">{"투표하기"}</Button>
+      <Button size="large" onClick={handleButtonClick}>{"투표하기"}</Button>
     </Card>
   );
 };

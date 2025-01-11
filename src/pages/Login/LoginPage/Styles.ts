@@ -10,10 +10,10 @@ export const Container = styled.div`
 `;
 
 export const Title = styled.h1`
-    font-size: 1.5rem;
+    font-size: ${({ theme }) => theme.fontSize.large};
     color: ${({ theme }) => theme.colors.textColor || "#ffffff"};
     line-height: 1.5;
-    font-family: "PaperLodgy-Bold", sans-serif;
+    font-family: ${({ theme }) => theme.fontFamily.semiBold};
     text-align: center;
 `;
 
@@ -24,8 +24,8 @@ export const Img = styled.img`
 `;
 
 export const Text = styled.p`
-    font-size: 1rem;
+    font-size: ${({ theme }) => theme.fontSize.medium};
     color: #6e6e6e;
-    font-family: "PaperLodgy-Regular", sans-serif;
+    font-family: ${({ theme }) => theme.fontFamily.regular};
     margin-top: 1.25rem;
 `;

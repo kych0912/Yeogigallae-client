@@ -76,7 +76,12 @@ const Calendar: React.FC = () => {
         handleDayClick={handleDateClick}
       />
 
-      <CompleteButton />
+      <CompleteButton
+        startDate={startDate}
+        endDate={endDate}
+        mode={mode}
+      />
+      
     </S.CalendarWrapper>
   );
 };

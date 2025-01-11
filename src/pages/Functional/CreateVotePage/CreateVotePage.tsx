@@ -72,8 +72,8 @@ const CreateVotePage: React.FC = () => {
 
       {activeTab === 0 && (
         <VoteForm
-          state={buttonStates[activeButton]} // 활성화된 버튼의 상태 전달
-          onStateChange={handleStateChange} // 활성화된 버튼의 상태 업데이트
+          state={buttonStates[activeButton]} 
+          onStateChange={handleStateChange} 
         />
       )}
 

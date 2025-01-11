@@ -19,7 +19,7 @@ import DateSelectPage from "./pages/Scheduling/DateSelectPage/DateSelectPage";
 import SchedulePage from "./pages/Scheduling/SchedulePage/SchedulePage";
 import SplashPage from "./pages/Splash/SplashPage/SplashPage";
 import VoteAgreePage from "./pages/Vote/VoteAgreePage/VoteAgreePage";
-import VoteCompletePage from "./pages/Vote/VoteCompletePage/VoteCompletePage";
+import VoteCompletePage from "./pages/Vote/VoteAgreePage/VotePage";
 import VoteDatePage from "./pages/Vote/VoteDatePage/VoteDatePage";
 import VoteMainPage from "./pages/Vote/VoteMainPage/VoteMainPage";
 import CreateCoursePage from "./pages/Functional/CreateCoursePage/CreateCoursePage";
@@ -28,6 +28,7 @@ import CreateCalendar from "./pages/Functional/CreateCalendar/CreateCalendar";
 import Course from './pages/course'
 import './App.css'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import VotePage from "./pages/Vote/VoteAgreePage/VotePage";
 
 const queryClient = new QueryClient();
 
@@ -70,6 +71,7 @@ const App: React.FC = () => {
             <Route path="/splash" element={<SplashPage />} />
 
             {/* Vote */}
+            <Route path="/vote" element={<VotePage />} />
             <Route path="/vote/agree" element={<VoteAgreePage />} />
             <Route path="/vote/complete" element={<VoteCompletePage />} />
             <Route path="/vote/date" element={<VoteDatePage />} />

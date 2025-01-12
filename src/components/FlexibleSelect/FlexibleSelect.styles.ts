@@ -20,19 +20,19 @@ export const SelectPeriodWrapper = styled.div`
 export const SelectPeriodText = styled.span`
   display: block;
   margin-bottom: 15px;
-  margin-left: 7px;
+  margin-left: 5px;
   font-size: 13px;
   color: #fff;
   text-align: left; 
 `;
 
-export const PeriodButton = styled.button<{ isActive: boolean }>`
-  width: 80px;
-  height: 50px;
+export const PeriodButton = styled.button<{ $active: boolean }>`
+  width: 72px;
+  height: 45px;
   border-radius: 16px;
   background-color: #313131; 
-  border: 1px solid ${({ isActive }) => (isActive ? '#3b46f2' : '#CBCFCF')}; 
-  color: ${({ isActive }) => (isActive ? '#3b46f2' : 'white')}; 
+  border: 1px solid ${({ $active }) => ($active ? '#3b46f2' : '#CBCFCF')}; 
+  color: ${({ $active }) => ($active ? '#3b46f2' : 'white')}; 
   margin: 0 7px;
   font-size: 16px;
   cursor: pointer;
@@ -65,7 +65,7 @@ export const SelectMonthWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 0.5rem;
 `;
 
 export const MonthButtonContainer = styled.div`
@@ -91,13 +91,13 @@ export const SelectMonthText = styled.span`
   text-align: left; 
 `;
 
-export const MonthButton = styled.button<{ isActive: boolean }>`
-  width: 80px;
-  height: 100px;
+export const MonthButton = styled.button<{ $active: boolean }>`
+  width: 75px;
+  height: 95px;
   border-radius: 16px;
   background-color: #313131;
-  border: 1px solid ${({ isActive }) => (isActive ? '#3b46f2' : '#CBCFCF')};
-  color: ${({ isActive }) => (isActive ? '#3b46f2' : 'white')};
+  border: 1px solid ${({ $active }) => ($active ? '#3b46f2' : '#CBCFCF')};
+  color: ${({ $active }) => ($active ? '#3b46f2' : 'white')};
   margin: 5px;
   font-size: 16px;
   cursor: pointer;
@@ -113,22 +113,22 @@ export const MonthButton = styled.button<{ isActive: boolean }>`
   }
 `;
 
-export const MonthText = styled.span<{ isActive: boolean }>`
+export const MonthText = styled.span<{ $active: boolean }>`
   font-size: 16px; 
   line-height: 20px; 
   padding: 5px;
   text-align: center; 
   display: flex; 
-  color: ${({ isActive }) => (isActive ? '#3b46f2' : 'white')}; 
+  color: ${({ $active }) => ($active ? '#3b46f2' : 'white')}; 
 `;
 
-export const YearText = styled.span<{ isActive: boolean }>`
+export const YearText = styled.span<{ $active: boolean }>`
   font-size: 12px;
   line-height: 18px;
   padding: 5px;
   text-align: center; 
   display: flex; 
-  color: ${({ isActive }) => (isActive ? '#3b46f2' : '#CBCFCF')}; 
+  color: ${({ $active }) => ($active ? '#3b46f2' : '#CBCFCF')}; 
 `;
 
 

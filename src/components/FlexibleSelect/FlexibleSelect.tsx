@@ -52,19 +52,19 @@ const FlexibleSelect: React.FC<FlexibleSelectProps> = ({
         <S.SelectPeriodText>원하는 기간을 선택하세요.</S.SelectPeriodText>
         <S.PeriodButton
           onClick={() => handlePeriodClick(3)}
-          isActive={activePeriod === 3}
+          $active={activePeriod === 3}
         >
           3박
         </S.PeriodButton>
         <S.PeriodButton
           onClick={() => handlePeriodClick(4)}
-          isActive={activePeriod === 4}
+          $active={activePeriod === 4}
         >
           4박
         </S.PeriodButton>
         <S.PeriodButton
           onClick={() => handlePeriodClick(5)}
-          isActive={activePeriod === 5}
+          $active={activePeriod === 5}
         >
           5박
         </S.PeriodButton>
@@ -82,12 +82,12 @@ const FlexibleSelect: React.FC<FlexibleSelectProps> = ({
               <S.MonthButton
                 key={index}
                 onClick={() => handleMonthClick(month)}
-                isActive={activeMonth?.getTime() === month.getTime()}
+                $active={activeMonth?.getTime() === month.getTime()}
               >
-                <S.MonthText isActive={activeMonth?.getTime() === month.getTime()}>
+                <S.MonthText $active={activeMonth?.getTime() === month.getTime()}>
                   {`${month.getMonth() + 1}월`}
                 </S.MonthText>
-                <S.YearText isActive={activeMonth?.getTime() === month.getTime()}>
+                <S.YearText $active={activeMonth?.getTime() === month.getTime()}>
                   {month.getFullYear()}
                 </S.YearText>
               </S.MonthButton>

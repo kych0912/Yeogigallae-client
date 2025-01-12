@@ -1,58 +1,104 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import * as S from "./YearMonthPicker.styles";
 
 interface YearMonthPickerProps {
   currentYear: number;
-  currentMonth: number;
-  onSelect: (year: number, month: number) => void;
+  currentMonth: number; // 1부터 시작하는 값으로 전달받아야 함
+  onSelectYear: (year: number) => void;
+  onSelectMonth: (month: number) => void;
+  onSelect?: (selectedYear: number, selectedMonth: number) => void;
   closePicker: () => void;
 }
 
 const YearMonthPicker: React.FC<YearMonthPickerProps> = ({
   currentYear,
-  currentMonth,
+  currentMonth, // 1부터 시작
+  onSelectYear,
+  onSelectMonth,
   onSelect,
   closePicker,
 }) => {
-  const pickerRef = useRef<HTMLDivElement>(null);
+  const [years] = useState<number[]>(() =>
+    Array.from({ length: 31 }, (_, i) => currentYear - 5 + i)
+  );
+  const [selectedYear, setSelectedYear] = useState(currentYear);
+  const [selectedMonth, setSelectedMonth] = useState<number | null>(currentMonth); 
+  const yearDialRef = useRef<HTMLDivElement>(null);
 
+  // 연도 변경
+  const handleYearChange = (year: number) => {
+    setSelectedYear(year);
+    setSelectedMonth(null); // 연도 변경 시 월 초기화
+    onSelectYear(year);
+  };
+
+  // 월 변경
+  const handleMonthChange = (month: number) => {
+    setSelectedMonth(month);
+    onSelectMonth(month);
+    if (onSelect) onSelect(selectedYear, month); // 선택된 연도와 월 전달
+    closePicker(); // Picker 닫기
+  };
+
+  // 스크롤 이벤트 처리
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (pickerRef.current && !pickerRef.current.contains(event.target as Node)) {
-        closePicker();
+    const handleScrollStop = () => {
+      if (!yearDialRef.current) return;
+
+      const { scrollLeft, clientWidth } = yearDialRef.current;
+      const centerPosition = scrollLeft + clientWidth / 2;
+      const closestIndex = Math.round(centerPosition / 70);
+      const newSelectedYear = years[closestIndex];
+
+      if (newSelectedYear !== selectedYear) {
+        handleYearChange(newSelectedYear);
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+    const container = yearDialRef.current;
+    let scrollTimeout: ReturnType<typeof setTimeout>;
+
+    const handleScroll = () => {
+      if (scrollTimeout) clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(handleScrollStop, 300);
     };
-  }, [closePicker]);
+
+    container?.addEventListener("scroll", handleScroll);
+
+    return () => {
+      container?.removeEventListener("scroll", handleScroll);
+      if (scrollTimeout) clearTimeout(scrollTimeout);
+    };
+  }, [years, selectedYear]);
 
   return (
-    <S.YearMonthPickerWrapper ref={pickerRef}>
-      <S.YearMonthSelect>
-        {[...Array(5)].map((_, yearOffset) => (
-          <div key={yearOffset}>
-            <S.Year>{currentYear + yearOffset}년</S.Year>
-            <S.MonthRow>
-              {[...Array(12)].map((_, monthIndex) => (
-                <S.MonthButton
-                  key={monthIndex}
-                  isCurrent={currentYear + yearOffset === currentYear && monthIndex === currentMonth}
-                  onClick={() => {
-                    onSelect(currentYear + yearOffset, monthIndex);
-                    closePicker();
-                  }}
-                >
-                  {monthIndex + 1}월
-                </S.MonthButton>
-              ))}
-            </S.MonthRow>
-          </div>
+    <S.Wrapper>
+      {/* 연도 선택 */}
+      <S.YearDial ref={yearDialRef}>
+        {years.map((year, index) => (
+          <S.YearItem
+            key={index}
+            $selected={year === selectedYear}
+            onClick={() => handleYearChange(year)}
+          >
+            {year}
+          </S.YearItem>
         ))}
-      </S.YearMonthSelect>
-    </S.YearMonthPickerWrapper>
+      </S.YearDial>
+
+      {/* 월 선택 */}
+      <S.MonthGrid>
+        {Array.from({ length: 12 }, (_, i) => i + 1).map((month) => (
+          <S.MonthItem
+            key={month}
+            $selected={month === selectedMonth}
+            onClick={() => handleMonthChange(month)}
+          >
+            {month}월
+          </S.MonthItem>
+        ))}
+      </S.MonthGrid>
+    </S.Wrapper>
   );
 };
 

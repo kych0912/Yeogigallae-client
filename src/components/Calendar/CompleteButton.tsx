@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import * as S from "./CompleteButton.styles";
 import { Button } from "../Button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { showToastWithMessage, isCompleteEnabled } from "./utils/Complete.utils";
 
 interface CompleteButtonProps {
@@ -14,6 +14,7 @@ const CompleteButton: React.FC<CompleteButtonProps> = ({ startDate, endDate, mod
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleCompleteClick = () => {
     if (!startDate || !endDate) {
@@ -30,8 +31,12 @@ const CompleteButton: React.FC<CompleteButtonProps> = ({ startDate, endDate, mod
       return;
     }
 
-    // 완료 조건을 충족한 경우
-    navigate("/vote/success"); // 원하는 경로로 이동
+    // 현재 경로를 기준으로 이동 경로 설정
+    if (location.pathname.includes("/functional")) {
+      navigate(`/functional/vote`);
+    } else if (location.pathname.startsWith("/vote")) {
+      navigate(`/vote/success`);
+    }
   };
 
   return (

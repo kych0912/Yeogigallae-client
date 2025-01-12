@@ -56,7 +56,7 @@ const Calendar: React.FC = () => {
     <S.CalendarWrapper>
       {isYearMonthPickerVisible && (
         <YearMonthPicker
-          currentMonth={month + 1} // 0부터 시작하는 month를 +1로 변환
+          currentMonth={month + 1} 
           currentYear={year}
           onSelectYear={(selectedYear) => setCurrentDate(new Date(selectedYear, currentDate.getMonth(), 1))}
           onSelectMonth={(selectedMonth) => setCurrentDate(new Date(currentDate.getFullYear(), selectedMonth - 1, 1))}
@@ -67,7 +67,7 @@ const Calendar: React.FC = () => {
 
       <CalendarHeader
         currentYear={year}
-        currentMonth={month} // 0부터 시작하는 month를 +1로 변환
+        currentMonth={month}
         setCurrentDate={setCurrentDate}
         openYearMonthPicker={() => setYearMonthPickerVisible(true)}
         onModeChange={handleModeChange}

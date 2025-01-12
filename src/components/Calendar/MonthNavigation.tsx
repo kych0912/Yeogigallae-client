@@ -16,13 +16,9 @@ const MonthNavigation: React.FC<MonthNavigationProps> = ({
 }) => {
   return (
     <S.MonthHeader>
-      {/* {currentMonth !== 0 && (
-        // <S.NavButton onClick={onPrevMonth}>{'<'}</S.NavButton>
-      )} */}
       <S.CurrentMonth onClick={onOpenPicker}>
         {`${currentYear}년 ${currentMonth + 1}월`}
       </S.CurrentMonth>
-      {/* <S.NavButton onClick={onNextMonth}>{'>'}</S.NavButton> */}
     </S.MonthHeader>
   );
 };

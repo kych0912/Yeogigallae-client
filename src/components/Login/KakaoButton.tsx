@@ -1,7 +1,6 @@
 import React from "react";
 import * as S from "./Styles";
 import Kakao from "../../assets/icons/kakaoLogo.svg";
-import Button from "../Button/Button";
 
 const KakaoButton: React.FC = () => {
     const K_REST_API_KEY = import.meta.env.VITE_KAKAO_REST_API_KEY;
@@ -14,10 +13,10 @@ const KakaoButton: React.FC = () => {
 
     return (
         <S.Container>
-            <Button onClick={handleKakaoLogin} style={{ width: "24rem", padding: "0.875rem 0", color: "#371d1e" }} color="Kakao" size="large" variant="contained">
+            <S.KakaoButton onClick={handleKakaoLogin}>
                 <S.Logo src={Kakao} alt="Kakao Logo" />
                 카카오로 시작하기
-            </Button>
+            </S.KakaoButton>
             <S.Text onClick={handleKakaoLogin}>기존 회원 로그인하기</S.Text>
         </S.Container>
     );

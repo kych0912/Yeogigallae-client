@@ -1,11 +1,10 @@
-import Card from "../../../components/Card";
-import CourseTitle from './CourseTitle';
-import Map from "../../../components/Map";
-import CoursePlaces from './CoursePlaces';
-import { Route } from "../../../apis/map/types";   
-import { Button } from "../../../components/Button";
-import * as S from "./Course.style";
-import { Container } from "../Style";
+import Card from "../../../../../components/Card"
+import Map from "../../../../../components/Map";
+import { Route } from "../../../../../apis/map/types";   
+import { Button } from "../../../../../components/Button";
+import * as S from "../../../_components/Course.style";
+import CoursePlaces from "../../Detail/_components/CoursePlaces";
+import CourseTitle from "../../../_components/CourseTitle";
 
 export default function CourseOverviewCard({ dailyRoutes,onNext }:{
     dailyRoutes: Route | null | undefined,
@@ -21,7 +20,7 @@ export default function CourseOverviewCard({ dailyRoutes,onNext }:{
     );
     
     return (
-        <Container>
+        <S.Container>
         <S.StyledCard>
             <Card.Image>
                 <Map 
@@ -61,6 +60,6 @@ export default function CourseOverviewCard({ dailyRoutes,onNext }:{
             <br/>
             {"6시간 안에 코스에 대한 의견을 결정해주세요."}
         </S.CompleteMessage>
-        </Container>
+        </S.Container>
     );
 }

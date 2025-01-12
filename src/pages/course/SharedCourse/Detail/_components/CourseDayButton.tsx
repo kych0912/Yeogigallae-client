@@ -1,7 +1,7 @@
 import { UseQueryResult } from "@tanstack/react-query";
-import { ButtonWrapper } from "./Course.style";
-import { Button } from "../../../components/Button";
-import { Route } from "../../../apis/map/types";
+import { ButtonWrapper } from "../../../_components/Course.style";
+import { Button } from "../../../../../components/Button";
+import { Route } from "../../../../../apis/map/types";
 
 interface ICourseDayButtonProps{
     allCoursesQueries:UseQueryResult<Route | null, Error>[],

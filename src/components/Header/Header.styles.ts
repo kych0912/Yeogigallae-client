@@ -5,7 +5,7 @@ const Header = styled.header`
     top: 0;
     left: 0;
     width: 100%;
-    background-color: ${({theme})=>theme.colors.background};
+    background-color:#000000;
     z-index: 100;
     font-family:${({theme}) => theme.fontFamily.medium};
 `;
@@ -13,7 +13,7 @@ const Header = styled.header`
 const HeaderWrapper = styled.div`
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    padding: 0.75rem 1.25rem 0 1.25rem;
+    padding: 0.75rem 1.25rem;
 `;
 
 const Section = styled.div`

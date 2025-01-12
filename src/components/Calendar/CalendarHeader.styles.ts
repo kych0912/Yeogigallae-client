@@ -6,33 +6,10 @@ export const Header = styled.div`
   align-items: center;
   justify-content: center;
   background-color: #434343;
-  padding: 1px 1px;
+  padding: 3px 3px;
   border-radius: 30px;
   width: 236px;   
   height: 48px; 
-`;
-
-export const TabGroup = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const TabButton = styled.button<{ isActive: boolean }>`
-  background-color: ${({ isActive }) => (isActive ? "#4f46e5" : "#616161")};
-  color: #fff;
-  border: none;
-  border-radius: 20px;
-  width: 106px;  
-  height: 36px;  
-  margin: 0 5px; 
-  cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: ${({ isActive }) => (isActive ? "#3b37b1" : "#555")};
-  }
 `;
 
 export const MonthHeader = styled.div`
@@ -42,7 +19,7 @@ export const MonthHeader = styled.div`
   color: #fff;
   font-size: 14px;
   width: 100%;
-  margin-left: 10px;
+  margin: 10px 10px 0 15px;
 
   button {
     background: none;

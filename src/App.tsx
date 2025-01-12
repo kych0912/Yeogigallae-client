@@ -19,12 +19,14 @@ import DateSelectPage from "./pages/Scheduling/DateSelectPage/DateSelectPage";
 import SchedulePage from "./pages/Scheduling/SchedulePage/SchedulePage";
 import SplashPage from "./pages/Splash/SplashPage/SplashPage";
 import VoteAgreePage from "./pages/Vote/VoteAgreePage/VoteAgreePage";
-import VoteCompletePage from "./pages/Vote/VoteCompletePage/VoteCompletePage";
-import VoteDatePage from "./pages/Vote/VoteDatePage/VoteDatePage";
-import VoteMainPage from "./pages/Vote/VoteMainPage/VoteMainPage";
 import CreateCoursePage from "./pages/Functional/CreateCoursePage/CreateCoursePage";
 import CreateVotePage from "./pages/Functional/CreateVotePage/CreateVotePage";
-
+import CreateCalendar from "./pages/Functional/CreateCalendar/CreateCalendar";
+import VotePage from "./pages/Vote/VoteAgreePage/VotePage";
+import VoteDatePage from "./pages/Vote/VoteDatePage/VoteDatePage";
+import VoteSuccessPage from "./pages/Vote/VoteCompletePage/VoteSuccessPage";
+import VoteFailPage from "./pages/Vote/VoteCompletePage/VoteFailPage";
+import Course from './pages/course'
 import './App.css'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import CourseLayout from './components/Layout/CourseLayout';
@@ -71,14 +73,16 @@ const App: React.FC = () => {
             <Route path="/splash" element={<SplashPage />} />
 
             {/* Vote */}
+            <Route path="/vote" element={<VotePage />} />
             <Route path="/vote/agree" element={<VoteAgreePage />} />
-            <Route path="/vote/complete" element={<VoteCompletePage />} />
             <Route path="/vote/date" element={<VoteDatePage />} />
-            <Route path="/vote" element={<VoteMainPage />} />
+            <Route path="/vote/success" element={<VoteSuccessPage />} />
+            <Route path="/vote/fail" element={<VoteFailPage/>} />
 
             {/* Functional */}
-            <Route path="/functional" element={<CreateCoursePage/>}/>
+            <Route path="/functional/course" element={<CreateCoursePage/>}/>
             <Route path="/functional/vote" element={<CreateVotePage/>}/>
+            <Route path="/functonal/calendar" element={<CreateCalendar />} />
             
             <Route element={<CourseLayout />}>
                 <Route path="/course" element={<CoursePage />} />

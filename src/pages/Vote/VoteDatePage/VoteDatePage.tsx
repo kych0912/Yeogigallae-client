@@ -1,13 +1,30 @@
-// 여행 가보자고 - 투표 날짜(날짜 지정, 유연한 선택)
-import React from 'react';
-import * as S from './Styles'; 
+import React from "react";
+import * as S from "./Styles";
+import { useNavigate } from "react-router-dom";
+import HomeIcon from "../../../assets/icons/Home.svg?react";
+import BackIcon from "../../../assets/icons/Back.svg?react";
+import Header from "../../../components/Header/index";
+import { IconButton } from "../../../components/Button";
+import Calendar from "../../../components/Calendar/Calendar";
 
 const VoteDatePage: React.FC = () => {
-    return (
-        <S.Container>
-            <S.Title>Vote Date Page!</S.Title>
-        </S.Container>
-    );
+  const navigate = useNavigate();
+  return (
+    <S.Container>
+      <Header
+        leftContent={
+          <IconButton onClick={() => {
+              navigate(`/vote/agree`);
+          }}>
+              <BackIcon />
+          </IconButton>
+        }
+        centerContent={<S.Typography>{"투표중"}</S.Typography>}
+        rightContent={<IconButton><HomeIcon /></IconButton>}
+      />
+      <Calendar/>
+    </S.Container>
+  );
 };
 
 export default VoteDatePage;

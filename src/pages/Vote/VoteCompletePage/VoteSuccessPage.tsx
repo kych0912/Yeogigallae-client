@@ -5,6 +5,7 @@ import HomeIcon from "../../../assets/icons/Home.svg?react";
 import BackIcon from "../../../assets/icons/Back.svg?react";
 import Header from "../../../components/Header/index";
 import { IconButton } from "../../../components/Button";
+import DetailCard from "../VoteCompletePage/_components/DetailCard/DetailCard";
 import { afterData } from "./_data/afterData"; 
 
 const VoteSuccessPage: React.FC = () => {
@@ -22,6 +23,10 @@ const VoteSuccessPage: React.FC = () => {
         centerContent={<S.Typography>{afterData.groupId} {afterData.groupMembers}</S.Typography>}
         rightContent={<IconButton><HomeIcon /></IconButton>}
       />
+
+      <S.CardWrapper>
+        <DetailCard />
+      </S.CardWrapper>
     </S.Container>
   );
 };

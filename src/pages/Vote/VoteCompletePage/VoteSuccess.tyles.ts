@@ -20,3 +20,7 @@ export const HeaderContainer = styled.div`
   left:0;
   width: 100%;
 `;
+
+export const CardWrapper = styled.div`
+  margin: 1rem 1.25rem;
+`;

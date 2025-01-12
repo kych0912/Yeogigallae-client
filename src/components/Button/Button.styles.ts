@@ -3,8 +3,9 @@ import { ButtonProps } from '../../types/button';
 
 
 const smallButtonStyle = css`
-    padding: 0.75rem 0.875rem;
-    font-size: 1rem;
+    padding: 0.875rem 2rem;
+    font-size: ${({theme}) => theme.fontSize.small};
+    font-family:${({theme}) => theme.fontFamily.medium};
     border-radius: 6.25rem;
     line-height: 1.178rem;
     font-weight: 500;
@@ -12,19 +13,19 @@ const smallButtonStyle = css`
 
 const mediumButtonStyle = css`
     padding: 0.625rem 1.375rem;
-    font-size: 1.25rem;
+    font-size: ${({theme}) => theme.fontSize.medium};
     border-radius: 1rem;
     line-height: 1.473rem;
-    font-weight: 600;
+    font-family:${({theme}) => theme.fontFamily.medium};
 `;
 
 const largeButtonStyle = css`
     width: 100%;
     padding: 1rem 0;
-    font-size: 1.25rem;
+    font-size: ${({theme}) => theme.fontSize.large};
+    font-family:${({theme}) => theme.fontFamily.medium};
     border-radius: 1rem;
     line-height: 1.473rem;
-    font-weight: 500;
 `;
 
 const buttonSizes = {

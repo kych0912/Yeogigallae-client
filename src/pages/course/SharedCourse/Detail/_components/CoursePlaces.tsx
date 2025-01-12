@@ -1,8 +1,8 @@
-import * as S from "./Course.style";
-import { Section } from "../../apis/map/types";
+import * as S from "../../../_components/Course.style";
+import { Section } from "../../../../../apis/map/types";
 
-import Marker from "../../assets/icons/marker.svg?react"
-import { RouteDetail } from "../../apis/map/types";
+import Marker from "../../../../../assets/icons/marker.svg?react"
+import { RouteDetail } from "../../../../../apis/map/types";
 
 export default function CoursePlaces({ 
     places, 

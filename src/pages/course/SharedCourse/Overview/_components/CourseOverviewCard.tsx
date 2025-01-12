@@ -1,16 +1,15 @@
-import Card from "../Card";
-import CourseTitle from './CourseTitle';
-import Map from "../Map";
-import CoursePlaces from './CoursePlaces';
-import { Route } from "../../apis/map/types";
-import { StyledCard } from "./Course.style";
-import { Button } from "../Button";
-import { useNavigate } from "react-router-dom";
+import Card from "../../../../../components/Card"
+import Map from "../../../../../components/Map";
+import { Route } from "../../../../../apis/map/types";   
+import { Button } from "../../../../../components/Button";
+import * as S from "../../../_components/Course.style";
+import CoursePlaces from "../../Detail/_components/CoursePlaces";
+import CourseTitle from "../../../_components/CourseTitle";
 
-export default function CourseCard({ dailyRoutes }:{
+export default function CourseOverviewCard({ dailyRoutes,onNext }:{
     dailyRoutes: Route | null | undefined,
+    onNext:()=>void
 }) {
-    const navigate = useNavigate();
 
     if(!dailyRoutes) return (
         <Card>
@@ -21,7 +20,8 @@ export default function CourseCard({ dailyRoutes }:{
     );
     
     return (
-        <StyledCard>
+        <S.Container>
+        <S.StyledCard>
             <Card.Image>
                 <Map 
                     width="100%" 
@@ -47,14 +47,19 @@ export default function CourseCard({ dailyRoutes }:{
                     style={{marginTop:'1.125rem'}} 
                     size="large" 
                     color="primary"
-                    onClick={() => {
-                        navigate(`/course?courseId=${dailyRoutes.trans_id}`);
-                    }}
+                    onClick={onNext}
                 >
-                    {"코스 자세히 보기"}
+                    {"코스 자세히 보기"}    
                 </Button>
             </Card.Item>
 
-        </StyledCard>
+        </S.StyledCard>
+
+        <S.CompleteMessage>
+            {"AI 코스 생성이 완료되었습니다."}
+            <br/>
+            {"6시간 안에 코스에 대한 의견을 결정해주세요."}
+        </S.CompleteMessage>
+        </S.Container>
     );
 }

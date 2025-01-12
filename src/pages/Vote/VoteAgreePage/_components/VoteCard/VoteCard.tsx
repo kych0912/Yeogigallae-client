@@ -27,7 +27,7 @@ const TravelCard: React.FC = () => {
         <S.InfoItem>
           <S.InfoLabel>장소</S.InfoLabel>
           <S.LocationWrapper>
-            <Card.Item label="장소">
+            <Card.Item className="장소">
               <S.TruncatedText>{voteData.location}</S.TruncatedText>
             </Card.Item>
             <S.IconWrapper onClick={() => handleCopyToClipboard(voteData.location)}>
@@ -41,7 +41,7 @@ const TravelCard: React.FC = () => {
         {/* 금액 */}
         <S.InfoItem>
           <S.InfoLabel>금액</S.InfoLabel>
-          <Card.Item label="금액">{voteData.price}</Card.Item>
+          <Card.Item className="금액">{voteData.price}</Card.Item>
         </S.InfoItem>
 
         <Card.Divider />
@@ -49,7 +49,7 @@ const TravelCard: React.FC = () => {
         {/* 기간 */}
         <S.InfoItem>
           <S.InfoLabel>기간</S.InfoLabel>
-          <Card.Item label="기간">{voteData.duration}</Card.Item>
+          <Card.Item className="기간">{voteData.duration}</Card.Item>
         </S.InfoItem>  
       </S.InfoContainer>
       <S.TwoSelect>

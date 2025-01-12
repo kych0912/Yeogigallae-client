@@ -27,19 +27,19 @@ const TravelCard: React.FC = () => {
         {/* 장소 */}
         <S.InfoItem>
           <S.InfoLabel>장소</S.InfoLabel>
-          <Card.Item label="장소">{tempData.location}</Card.Item>
+          <Card.Item className="장소">{tempData.location}</Card.Item>
         </S.InfoItem>
 
         {/* 금액 */}
         <S.InfoItem>
           <S.InfoLabel>금액</S.InfoLabel>
-          <Card.Item label="금액">{tempData.price}</Card.Item>
+          <Card.Item className="금액">{tempData.price}</Card.Item>
         </S.InfoItem>
 
         {/* 기간 */}
         <S.InfoItem>
           <S.InfoLabel>기간</S.InfoLabel>
-          <Card.Item label="기간">{tempData.duration}</Card.Item>
+          <Card.Item className="기간">{tempData.duration}</Card.Item>
         </S.InfoItem>
       </S.InfoContainer>  
       </Card>

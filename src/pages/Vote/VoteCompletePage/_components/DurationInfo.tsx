@@ -11,7 +11,7 @@ const DurationInfo: React.FC<DurationInfoProps> = ({ duration }) => {
     <S.Wrapper>
       <S.InfoItem>
         <S.InfoLabel>기간</S.InfoLabel>
-        <Card.Item label="기간">{duration}</Card.Item>
+        <Card.Item className="기간">날짜지정 : {duration}</Card.Item>
       </S.InfoItem>
     </S.Wrapper>
   );

@@ -1,21 +1,22 @@
 export const theme = {
     colors: {
-        primary: '#3B46F1',
-        secondary: '#222222',
-        background: '#0A0A0A',
-        disabled: '#434343',
+        primary: "#3B46F1",
+        secondary: "#222222",
+        background: "#0A0A0A",
+        disabled: "#434343",
+        GrayText: "#6E6E6E",
     },
     fontSize: {
-        small: '0.75rem',
-        medium: '1rem',
-        large: '1.5rem',
+        small: "0.75rem",
+        medium: "1rem",
+        large: "1.5rem",
     },
     fontFamily: {
-        regular:"PaperLodgy-Regular",
-        medium:"Paper Lodgy-Medium",
-        semiBold:"Paper Lodgy-SemiBold",
-        bold:"PaperLodgy-Bold",
-    }
+        regular: "PaperLodgy-Regular",
+        medium: "Paper Lodgy-Medium",
+        semiBold: "Paper Lodgy-SemiBold",
+        bold: "PaperLodgy-Bold",
+    },
 };
 
 export type Theme = typeof theme;

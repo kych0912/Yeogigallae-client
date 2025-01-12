@@ -5,15 +5,16 @@ import MainTop from "../../../components/Main/MainTop";
 import MainVotingList from "../../../components/Main/MainVotingList";
 import MainUpcomingList from "../../../components/Main/MainUpcomingList";
 import MainTravelHistory from "../../../components/Main/MainTravelHistory";
+import FloatingButton from "../../../components/Main/FloatingButton/FloatingButton";
 
 const MainPage: React.FC = () => {
     return (
         <S.Container>
-            <S.Title>Main Page!</S.Title>
             <MainTop></MainTop>
             <MainVotingList></MainVotingList>
             <MainUpcomingList></MainUpcomingList>
             <MainTravelHistory></MainTravelHistory>
+            <FloatingButton></FloatingButton>
         </S.Container>
     );
 };

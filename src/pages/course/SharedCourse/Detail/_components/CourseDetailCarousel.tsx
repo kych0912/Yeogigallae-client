@@ -1,9 +1,9 @@
 import { EffectCoverflow } from "swiper/modules";
-import { StyledSwiper } from "./Course.style";
+import { StyledSwiper } from "../../../_components/Course.style";
 import { SwiperSlide } from "swiper/react";
-import { DetailCardWrapper } from "./Course.style";
+import { DetailCardWrapper } from "../../../_components/Course.style";
 import CourseDetailCard from "./CourseDetailCard";
-import { Route } from "../../../apis/map/types";
+import { Route } from "../../../../../apis/map/types";
 import { UseQueryResult } from "@tanstack/react-query";
 import { Swiper } from "swiper";
 

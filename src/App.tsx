@@ -29,6 +29,8 @@ import VoteFailPage from "./pages/Vote/VoteCompletePage/VoteFailPage";
 import Course from './pages/course'
 import './App.css'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import CourseLayout from './components/Layout/CourseLayout';
+import CoursePage from "./pages/course/page";
 
 const queryClient = new QueryClient();
 
@@ -82,7 +84,10 @@ const App: React.FC = () => {
             <Route path="/functional/vote" element={<CreateVotePage/>}/>
             <Route path="/functonal/calendar" element={<CreateCalendar />} />
             
-            <Route path="/course" element={<Course/>}/>
+            <Route element={<CourseLayout />}>
+                <Route path="/course" element={<CoursePage />} />
+            </Route>
+
           </Routes>
         </Router>
       </ThemeProvider>

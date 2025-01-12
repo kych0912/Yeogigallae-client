@@ -2,9 +2,9 @@ import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import { Route } from "../../../apis/map/types";
 import { useFunnel } from "../../../hooks/useFunnel/useFunnel";
-import DetailPage from "../DetailPage";
+import Detail from "./Detail";
 import { UseQueryResult } from "@tanstack/react-query";
-import Detail from "../ShareCourse/Detail";
+import Overview from "./Overview";
 
 
 export default function SharedCoursePage({allCoursesQueries}:
@@ -16,13 +16,13 @@ export default function SharedCoursePage({allCoursesQueries}:
     <>
       <Funnel>
         <Step name="코스개요">
-          <Detail 
+          <Overview 
             dailyRoutes={allCoursesQueries[0].data}
             onNext={()=>setStep("코스목록")}
           />
         </Step>
-        <Step name="코스보기">
-          <DetailPage 
+        <Step name="코스목록">
+          <Detail 
             allCoursesQueries={allCoursesQueries}
           />
         </Step>

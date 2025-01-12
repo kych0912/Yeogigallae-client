@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Swiper as SwiperType } from "swiper/types";
-import { Route } from "../../apis/map/types";
+import { Route } from "../../../../apis/map/types";
 import { UseQueryResult } from "@tanstack/react-query";
-import CourseDayButton from "../../components/Course/CourseDayButton";
-import CourseDetailCarousel from "../../components/Course/CourseDetailCarousel";
+import CourseDayButton from "../Detail/_components/CourseDayButton";
+import CourseDetailCarouse from "../Detail/_components/CourseDetailCarousel";
 
 export default function DetailPage({
   allCoursesQueries
@@ -29,7 +29,7 @@ export default function DetailPage({
         activeIndex={activeIndex}
       />
 
-      <CourseDetailCarousel 
+      <CourseDetailCarouse
         allCoursesQueries={allCoursesQueries}
         setSwiperInstance={setSwiperInstance}
         setActiveIndex={setActiveIndex}

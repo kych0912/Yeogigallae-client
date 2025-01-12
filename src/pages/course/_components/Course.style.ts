@@ -2,8 +2,14 @@ import styled from "styled-components";
 import Card from "../../../components/Card";
 import { Swiper } from "swiper/react";
 
+export const Container = styled.div`
+  margin:0 1.25rem 1rem 1.25rem;
+  min-height: calc(100vh - 92px);
+  position: relative;
+`
+
 export const StyledDivider = styled(Card.Divider)`
-  margin-bottom: 36px;
+
 `;
 
 export const TitleWrapper = styled.div`
@@ -70,9 +76,9 @@ export const ButtonWrapper = styled.div`
   gap:0.5rem;
   width:100%;
   padding:1rem 0;
-  background-color:${({theme})=>theme.colors.background};
+  background-color:#000000;
   position:sticky;
-  top:60px;
+  top:72px;
   z-index:100;
 `
 
@@ -185,3 +191,4 @@ export const CompleteMessage = styled.div`
     line-height:1.125rem;
     margin-top:0.75rem;
 `
+

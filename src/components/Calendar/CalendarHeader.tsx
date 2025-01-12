@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import * as S from "./CalendarHeader.styles";
 import FlexibleSelect from "../FlexibleSelect/FlexibleSelect";
 import CalendarDays from "./CalendarDays";
+import CalendarTabs from "./CalendarTabs";
+import MonthNavigation from "./MonthNavigation";
 
 interface CalendarHeaderProps {
   currentYear: number;
@@ -22,19 +24,11 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
   onModeChange,
   startDate,
   endDate,
-  handleDayClick
+  handleDayClick,
 }) => {
   const [activeTab, setActiveTab] = useState<"date" | "flexible">("date");
 
-  const handlePrevMonth = () => {
-    setCurrentDate(new Date(currentYear, currentMonth - 1, 1));
-  };
-
-  const handleNextMonth = () => {
-    setCurrentDate(new Date(currentYear, currentMonth + 1, 1));
-  };
-
-  const handleTabClick = (tab: "date" | "flexible") => {
+  const handleTabChange = (tab: "date" | "flexible") => {
     setActiveTab(tab);
     onModeChange(tab);
   };
@@ -52,32 +46,15 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
   return (
     <>
       <S.Header>
-        <S.TabGroup>
-          <S.TabButton
-            isActive={activeTab === "date"}
-            onClick={() => handleTabClick("date")}
-          >
-            날짜 지정
-          </S.TabButton>
-          <S.TabButton
-            isActive={activeTab === "flexible"}
-            onClick={() => handleTabClick("flexible")}
-          >
-            유연한 선택
-          </S.TabButton>
-        </S.TabGroup>
+        <CalendarTabs activeTab={activeTab} onTabChange={handleTabChange} />
       </S.Header>
 
       {activeTab !== "flexible" && (
-        <S.MonthHeader>
-          {currentMonth !== 0 && (
-            <S.NavButton onClick={handlePrevMonth}>{'<'}</S.NavButton>
-          )}
-          <S.CurrentMonth onClick={openYearMonthPicker}>
-            {`${currentYear}년 ${currentMonth + 1}월`}
-          </S.CurrentMonth>
-          <S.NavButton onClick={handleNextMonth}>{">"}</S.NavButton>
-        </S.MonthHeader>
+        <MonthNavigation
+          currentYear={currentYear}
+          currentMonth={currentMonth}
+          onOpenPicker={openYearMonthPicker}
+        />
       )}
 
       {activeTab === "flexible" ? (
@@ -85,8 +62,8 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
           startDate={startDate}
           endDate={endDate}
           handleDayClick={handleDayClick}
-          onSelectPeriod={handleSelectPeriod}  // 기간 선택 함수 전달
-          onSelectMonth={handleSelectMonth}    // 달 선택 함수 전달
+          onSelectPeriod={handleSelectPeriod} // 기간 선택 함수 전달
+          onSelectMonth={handleSelectMonth} // 달 선택 함수 전달
         />
       ) : (
         <CalendarDays

@@ -1,3 +1,4 @@
+// 달에서 일수 얻기
 export const getDaysInMonth = (year: number, month: number) => {
   const days = [];
   const today = new Date();
@@ -16,7 +17,7 @@ export const getDaysInMonth = (year: number, month: number) => {
       month: prevMonth,
       isToday: false,
       isCurrentMonth: false,
-      isPreviousMonth: true, // 이전 달임을 표시
+      isPreviousMonth: true,
       isNextMonth: false,
     });
   }
@@ -46,11 +47,12 @@ export const getDaysInMonth = (year: number, month: number) => {
       isToday: false,
       isCurrentMonth: false,
       isPreviousMonth: false,
-      isNextMonth: true, // 다음 달임을 표시
+      isNextMonth: true,
     });
   }
 
   return days;
 };
 
+//맨 위에 요일 표시
 export const getWeekDays = () => ["S", "M", "T", "W", "T", "F", "S"];

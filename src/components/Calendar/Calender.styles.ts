@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
 export const CalendarWrapper = styled.div`
+  margin: 1rem 1.25rem;
   position: relative; 
-  width: 340px;
-  background-color: #2e2e2e;
+  background-color: #222222;
   border-radius: 30px;
-  padding: 1.5rem;
+  padding: 15px;
   display: flex;
   align-items: center;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.5rem;
 `;

@@ -1,7 +1,7 @@
 import Detail from "./Detail";
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
-import { Container } from "../Style";
+import * as S from "../_components/Course.style";
 import { Route } from "../../../apis/map/types";
 import { useFunnel } from "../../../hooks/useFunnel/useFunnel";
 import List from "./List";
@@ -12,7 +12,7 @@ export default function ShareCorsePage({dayOnCourseQueries}:{dayOnCourseQueries:
     const {Funnel,Step,setStep} = useFunnel("여행상세");
     
     return (
-    <Container>
+    <S.Container>
       <Funnel>
         <Step name="여행상세"> 
           <Detail 
@@ -32,9 +32,7 @@ export default function ShareCorsePage({dayOnCourseQueries}:{dayOnCourseQueries:
           <Share />
         </Step>
 
-
-
       </Funnel>
-    </Container>
+    </S.Container>
     )
 }

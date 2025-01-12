@@ -2,12 +2,13 @@ import * as S from "./Card.styles";
 
 export default function CardItem({ 
     children,  
+    className
   }: { 
     children: React.ReactNode;
-    label?: string;
+    className?:string;
   }) {
     return(
-        <S.ItemWrapper>
+        <S.ItemWrapper className={className}>
           {children}
         </S.ItemWrapper>
     )

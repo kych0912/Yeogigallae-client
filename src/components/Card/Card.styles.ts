@@ -20,7 +20,8 @@ const ItemWrapper = styled.section`
     display:flex;
     flex-direction:column;
     padding: 0 0.375rem;
-    align-items:center;
+    justify-content:center;
+    align-items:start;
     box-sizing: border-box;
     width:100%;
     gap:0.5rem;
@@ -43,7 +44,7 @@ const Title = styled.div`
 `
 
 const Label = styled.div`
-    font-weight:500;
+    font-family:${({theme}) => theme.fontFamily.medium};
     font-size:0.75rem;
     line-height:1.6rem;
     color:#FFFFFF;
@@ -52,13 +53,12 @@ const Label = styled.div`
 `
 
 const Content = styled.div`
-    font-weight:500;
+    font-family:${({theme}) => theme.fontFamily.medium};
     font-size:1rem;
-    line-height:1.6rem;
-    color:#FFFFFF;
+    color:#ffffff;
     width:100%;
-    line-height:1.178rem;
 `
+
 
 const Divider = styled.div`
     width: 100%;
@@ -71,8 +71,8 @@ export {
     Image,
     Title,
     Label,
-    Content,
     CardWrapper,
     Divider,
-    ItemWrapper
+    ItemWrapper,
+    Content
 }

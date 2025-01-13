@@ -1,7 +1,7 @@
 import Card from "../../../../../components/Card";
 import { Route } from "../../../../../apis/map/types";
 import * as S from "../../../_components/Course.style";
-import NaverIcon from "../../../../../assets/icons/naver.svg?react";
+import NaverIcon from "../../../../../assets/icons/Naver.svg?react";
 
 export default function ListCard({ dailyRoutes }:{
     dailyRoutes: Route | null | undefined,

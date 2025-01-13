@@ -26,7 +26,6 @@ import VotePage from "./pages/Vote/VoteAgreePage/VotePage";
 import VoteDatePage from "./pages/Vote/VoteDatePage/VoteDatePage";
 import VoteSuccessPage from "./pages/Vote/VoteCompletePage/VoteSuccessPage";
 import VoteFailPage from "./pages/Vote/VoteCompletePage/VoteFailPage";
-import Course from './pages/course'
 import './App.css'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import CourseLayout from './components/Layout/CourseLayout';

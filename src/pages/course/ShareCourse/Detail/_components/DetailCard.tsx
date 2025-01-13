@@ -33,24 +33,14 @@ export default function DetailCard({ dailyRoutes,onNext }:{
 
                 <Card.Divider/>
 
-                <Card.Item>
-                    <S.TitleWrapper>
-                        <S.Caption>{"장소"}</S.Caption>
-
-                        <S.Content>{"전주 한옥마을"}</S.Content>
-                    </S.TitleWrapper>
+                <Card.Item label="장소">
+                    {"전주 한옥마을"}
                 </Card.Item>
 
                 <Card.Divider/>
 
-                <Card.Item>
-                    <S.TitleWrapper>
-                        <S.Caption>{"기간"}</S.Caption>
-
-                        <>
-                            <S.Content>{"1박 2일 / 날짜 미정"}</S.Content>
-                        </>
-                    </S.TitleWrapper>
+                <Card.Item label="기간">
+                    {"1박 2일 / 날짜미정"}
                 </Card.Item>
 
                 <Button 

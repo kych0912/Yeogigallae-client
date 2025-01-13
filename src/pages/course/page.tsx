@@ -1,14 +1,9 @@
 import { useGetAllCourses } from "../../react-query/queries/queries";
-import 'swiper/css';
-import 'swiper/css/effect-coverflow';
 import { sampleData } from "./test";
-import { useParams } from "react-router-dom";
-import DetailPage from "./DetailPage";
-import OverviewPage from "./OverViewPage";
-import ShareCorsePage from "./ShareCorsePage";
+import SharedCoursePage from "./SharedCourse/SharedCoursePage";
+import ShareCorsePage from "./ShareCourse/ShareCorsePage";
 
 export default function Page(){
-  const courseId = useParams().courseId;
 
   // 전체 일정 경로 조회
   const allCoursesQueries = useGetAllCourses(sampleData);
@@ -28,21 +23,10 @@ export default function Page(){
     </>
   )
 
-  // courseId가 있으면 해당 코스의 상세 페이지를, 없으면 전체 개요 페이지를 렌더링
-  if (courseId) {
-    return (
-      <>
-        <DetailPage 
-          allCoursesQueries={allCoursesQueries}
-        />
-      </>
-    );
-  }
-
   return (
     <>
-      <OverviewPage   
-        dayOnCourseQueries={allCoursesQueries[0].data}
+      <SharedCoursePage   
+        allCoursesQueries={allCoursesQueries}
       />
     </>
   );

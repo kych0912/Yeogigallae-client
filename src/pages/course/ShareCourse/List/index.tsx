@@ -13,8 +13,10 @@ interface Place {
 
 export default function List({
     dailyRoutes,
+    onNext,
 }: {
     dailyRoutes: Route | null | undefined,
+    onNext:()=>void
 }){
     const [places, setPlaces] = useState<Place[]>([{
         id: Date.now().toString(),
@@ -43,7 +45,7 @@ export default function List({
             </S.ItemContainer>
 
             <S.BottomButtonWrapper>
-                <Button variant="contained" size="large">
+                <Button variant="contained" size="large" onClick={onNext}>
                     {"장소 공유하기"}
                 </Button>
             </S.BottomButtonWrapper>

@@ -11,17 +11,17 @@ const FloatingMenu: React.FC = () => {
     const closeMenu = () => setIsActive(false);
 
     return (
-        <S.FloatingContainer isActive={isActive}>
-            <S.Overlay isActive={isActive} onClick={closeMenu} />
+        <S.FloatingContainer $isActive={isActive}>
+            <S.Overlay $isActive={isActive} onClick={closeMenu} />
 
-            <S.FloatingButtonStyled isMain isActive={isActive} onClick={toggleMenu}>
+            <S.FloatingButtonStyled $isMain $isActive={isActive} onClick={toggleMenu}>
                 <img src={Floating} alt="Floating Icon" />
             </S.FloatingButtonStyled>
 
-            <S.SubButton isActive={isActive}>
+            <S.SubButton $isActive={isActive}>
                 <img src={MyFloating} alt="My Floating Icon" />
             </S.SubButton>
-            <S.SubButton isActive={isActive}>
+            <S.SubButton $isActive={isActive}>
                 <img src={EditFloating} alt="Edit Floating Icon" />
             </S.SubButton>
         </S.FloatingContainer>

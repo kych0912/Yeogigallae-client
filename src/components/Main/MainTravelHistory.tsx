@@ -1,23 +1,29 @@
-// 홈 화면 : 완료된 여행
-import React from "react";
+import React, { useState } from "react";
 import * as S from "./Main.Styles";
 import MainSection from "./MainSection/MainSection";
-import Button from "../Button/Button";
 
 const MainTravelHistory: React.FC = () => {
+    const [selectedButton, setSelectedButton] = useState<string>("domestic");
+
+    const handleButtonClick = (buttonType: string) => {
+        setSelectedButton(buttonType);
+    };
+
     return (
         <S.HistoryContainer>
-            <MainSection leftContent={"🙏 완료된 여행"} rightContent={0}></MainSection>
+            <MainSection leftContent={"🙏 완료된 여행"} rightContent={0} />
             <S.BtnBar>
-                <Button color="secondary" variant="outline" size="large">
+                <S.selectBtn selected={selectedButton === "domestic"} size="large" onClick={() => handleButtonClick("domestic")}>
                     {"🌍 국내여행"}
-                </Button>
-                <Button color="secondary" variant="outline" size="large">
+                </S.selectBtn>
+                <S.selectBtn selected={selectedButton === "international"} size="large" onClick={() => handleButtonClick("international")}>
                     {"🌍 해외여행"}
-                </Button>
+                </S.selectBtn>
             </S.BtnBar>
             <S.TravelList>
-                <S.TravelListItem>새로운 여행 기록으로 채워보세요!</S.TravelListItem>
+                <S.TravelListItem>
+                    <S.Text>새로운 여행 기록으로 채워보세요!</S.Text>
+                </S.TravelListItem>
             </S.TravelList>
         </S.HistoryContainer>
     );

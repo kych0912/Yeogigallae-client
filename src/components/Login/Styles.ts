@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import BaseButton from "../Button/Button"; // 공통 컴포넌트 Button을 Base로 가져오기
+import BaseButton from "../Button/Button";
 
 export const Container = styled.div`
     display: flex;

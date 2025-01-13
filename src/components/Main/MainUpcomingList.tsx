@@ -8,7 +8,9 @@ const MainUpcomingList: React.FC = () => {
         <S.Container>
             <MainSection leftContent={"🙏 예정된 여행"} rightContent={0}></MainSection>
             <S.TravelList>
-                <S.ListItem>친구들을 추가하여 여행을 계획해보세요!</S.ListItem>
+                <S.ListItem>
+                    <S.Text>친구들을 추가하여 여행을 계획해보세요!</S.Text>
+                </S.ListItem>
             </S.TravelList>
         </S.Container>
     );

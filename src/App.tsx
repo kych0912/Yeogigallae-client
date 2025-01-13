@@ -30,6 +30,7 @@ import CourseLayout from './components/Layout/CourseLayout';
 import CoursePage from "./pages/course/page";
 import ConfirmSuccessPage from "./pages/Vote/ConfirmPage/ConfirmSuccessPage/ConfirmSuccessPage";
 import ConfirmFailPage from "./pages/Vote/ConfirmPage/ConfirmFailPage/ConfirmFailPage";
+import SearchPage from "./pages/Functional/SearchPage/SearchPage";
 import './App.css'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
@@ -86,7 +87,8 @@ const App: React.FC = () => {
             {/* Functional */}
             <Route path="/functional/course" element={<CreateCoursePage/>}/>
             <Route path="/functional/vote" element={<CreateVotePage/>}/>
-            <Route path="/functonal/calendar" element={<CreateCalendar />} />
+            <Route path="/functional/calendar" element={<CreateCalendar />} />
+            <Route path="/functional/search" element={<SearchPage />} />
             
             <Route element={<CourseLayout />}>
                 <Route path="/course" element={<CoursePage />} />

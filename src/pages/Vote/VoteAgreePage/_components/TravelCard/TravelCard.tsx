@@ -40,7 +40,7 @@ const TravelCard: React.FC = () => {
         </S.InfoItem>
       </S.InfoContainer>  
       </Card>
-      <Button size="large" onClick={handleButtonClick}>{"투표하기"}</Button>
+      <Button size="large" onClick={handleButtonClick}>{"투표하러 가기"}</Button>
     </Card>
   );
 };

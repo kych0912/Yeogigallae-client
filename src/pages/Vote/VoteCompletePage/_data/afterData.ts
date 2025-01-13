@@ -7,6 +7,8 @@ export const afterData = {
   title: "애드라//// 이 호텔로 여행 어때??",
   location: "르컬렉티브 강남 예술의전당 루이움 서울특별시 서초구 반포대로 16길 30, 06652",
   price: "1박 / 20만원",
+  total: "600,000",
+  totalDuration: "4박 / 12월 23일 ~ 12월 27일",
   duration: "2024.05.02 ~ 05.12",
   votes: {
     like: 4,

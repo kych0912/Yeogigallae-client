@@ -6,7 +6,7 @@ import { voteData } from "./voteData"; // 임시 데이터
 import LinkIcon from "../../../../../assets/icons/LinkIcon.svg?react";
 import * as S from "./Styles";
 
-const TravelCard: React.FC = () => {
+const VoteCard: React.FC = () => {
   const navigate = useNavigate(); // useNavigate 훅 호출
 
   const handleCopyToClipboard = (text: string) => {
@@ -67,4 +67,4 @@ const TravelCard: React.FC = () => {
   );
 };
 
-export default TravelCard;
+export default VoteCard;

@@ -5,7 +5,7 @@ import HomeIcon from "../../../assets/icons/Home.svg?react";
 import BackIcon from "../../../assets/icons/Back.svg?react";
 import Header from "../../../components/Header/index";
 import { IconButton } from "../../../components/Button";
-import ResultCard from "../VoteCompletePage/_components/DetailCard/ResultCard";
+import ResultCard from "./_components/ResultCard/ResultCard";
 import { afterData } from "./_data/afterData"; 
 
 const VoteSuccessPage: React.FC = () => {

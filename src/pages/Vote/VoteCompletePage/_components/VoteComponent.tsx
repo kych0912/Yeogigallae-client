@@ -8,7 +8,6 @@ const VoteComponent: React.FC = () => {
   const location = useLocation(); 
   const [voteMessage, setVoteMessage] = useState<string>("");
 
-  // 페이지 경로에 따라 상태 초기화
   useEffect(() => {
     if (location.pathname === "/vote/success") {
       setSelected("like");

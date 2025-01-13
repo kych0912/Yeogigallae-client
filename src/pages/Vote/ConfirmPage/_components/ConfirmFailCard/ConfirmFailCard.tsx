@@ -1,15 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Card from "../../../../../components/Card";
-import { Button } from "../../../../../components/Button";
-import { afterData } from "../../_data/afterData"; 
-import LinkIcon from "../../../../../assets/icons/LinkIcon.svg?react";
-import DurationInfo from "../DurationInfo";
 import * as S from "./Styles";
-import VoteComponent from "../VoteComponent";
-import VoteContent from "../VoteContent";
+import Card from "../../../../../components/Card";
+import { afterData } from "../../../VoteCompletePage/_data/afterData";
+import LinkIcon from "../../../../../assets/icons/LinkIcon.svg?react";
+import ConfirmMessage from "./ConfirmMessage";
+import { Button } from "../../../../../components/Button";
 
-const ResultCard: React.FC = () => {
+const ConfirmFailCard: React.FC = () => {
   const navigate = useNavigate();
 
   const handleCopyToClipboard = (text: string) => {
@@ -20,14 +18,17 @@ const ResultCard: React.FC = () => {
 
   return (
     <Card>
-      <VoteContent />
-      <DurationInfo />
-      <VoteComponent />
-
-      <Card.Divider />
+      <ConfirmMessage />
+      <Button size="large" onClick={() => {
+        navigate(`/`);
+        }}
+      >
+        {"확인"}
+      </Button>
 
       <Card.Image>  
-        <S.Image src={afterData.imageSrc} alt="placeholder" />
+        <img src={afterData.imageSrc} alt="placeholder" 
+        style={{width:"100%",height:"100%",borderRadius:"1.5rem",objectFit:"cover"}} />
       </Card.Image>
       
       <S.InfoContainer>
@@ -45,23 +46,21 @@ const ResultCard: React.FC = () => {
 
         <Card.Divider />
 
-        {/* 금액 */}
+        {/* 총액 */}
         <S.InfoItem>
-          <Card.Item label="금액">{afterData.price}</Card.Item>
+          <Card.Item label="총액">{afterData.total}</Card.Item>
         </S.InfoItem>
 
+        <Card.Divider />
+
+        {/* 기간 */}
+        <S.InfoItem>
+          <Card.Item label="기간">{afterData.totalDuration}</Card.Item>
+        </S.InfoItem>  
       </S.InfoContainer>
-      <Button
-        size="large"
-        style={{ backgroundColor: "#434343" }}
-        onClick={() => {
-        navigate(`/vote`);
-        }}
-      >
-        {"투표하러 가기"}
-      </Button>
+
     </Card>
   );
 };
 
-export default ResultCard;
+export default ConfirmFailCard;

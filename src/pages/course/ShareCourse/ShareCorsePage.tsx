@@ -1,6 +1,4 @@
 import Detail from "./Detail";
-import 'swiper/css';
-import 'swiper/css/effect-coverflow';
 import * as S from "../_components/Course.style";
 import { Route } from "../../../apis/map/types";
 import { useFunnel } from "../../../hooks/useFunnel/useFunnel";

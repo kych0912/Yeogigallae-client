@@ -1,6 +1,4 @@
 import { useGetAllCourses } from "../../react-query/queries/queries";
-import 'swiper/css';
-import 'swiper/css/effect-coverflow';
 import { sampleData } from "./test";
 import SharedCoursePage from "./SharedCourse/SharedCoursePage";
 import ShareCorsePage from "./ShareCourse/ShareCorsePage";
@@ -12,7 +10,7 @@ export default function Page(){
 
   const isLoading = allCoursesQueries.some(query => query.isLoading);
   const isError = allCoursesQueries.some(query => query.isError);
-  const isEnd = true;
+  const isEnd = false;
 
   if(isLoading) return <div style={{textAlign:"center",color:"white"}}>Loading...</div>;
   if(isError) return <div style={{textAlign:"center",color:"white"}}>Error...</div>;

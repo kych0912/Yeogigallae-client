@@ -1,5 +1,4 @@
-import 'swiper/css';
-import 'swiper/css/effect-coverflow';
+import 'swiper/swiper-bundle.css';
 import { Route } from "../../../apis/map/types";
 import { useFunnel } from "../../../hooks/useFunnel/useFunnel";
 import Detail from "./Detail";

@@ -16,17 +16,6 @@ export const InfoItem = styled.div`
   color: #fff;
 `;
 
-export const InfoLabel = styled.div`
-  display: flex;
-  color: #fff;
-  font-weight: 500;
-  font-size: 12px;
-  margin-bottom: 3px;
-  padding: 5px;
-  align-items: flex-start; 
-  justify-content: flex-start;
-`;
-
 export const LocationWrapper = styled.div`
   display: flex;
   align-items: center;

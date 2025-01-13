@@ -24,3 +24,9 @@ export const HeaderContainer = styled.div`
 export const CardWrapper = styled.div`
   margin: 1rem 1.25rem;
 `;
+
+export const Content = styled.div`
+  font-size: 14px;
+  color: #6E6E6E;
+  text-align: center;
+`;

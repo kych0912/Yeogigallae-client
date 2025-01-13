@@ -7,8 +7,9 @@ import LinkIcon from "../../../../../assets/icons/LinkIcon.svg?react";
 import DurationInfo from "../DurationInfo";
 import * as S from "./Styles";
 import VoteComponent from "../VoteComponent";
+import VoteContent from "../VoteContent";
 
-const TravelCard: React.FC = () => {
+const ResultCard: React.FC = () => {
   const navigate = useNavigate();
 
   const handleCopyToClipboard = (text: string) => {
@@ -19,7 +20,8 @@ const TravelCard: React.FC = () => {
 
   return (
     <Card>
-      <DurationInfo duration={afterData.duration} />
+      <VoteContent />
+      <DurationInfo />
       <VoteComponent />
 
       <Card.Divider />
@@ -31,9 +33,8 @@ const TravelCard: React.FC = () => {
       <S.InfoContainer>
         {/* 장소 */}
         <S.InfoItem>
-          <S.InfoLabel>장소</S.InfoLabel>
           <S.LocationWrapper>
-            <Card.Item className="장소">
+            <Card.Item label="장소">
               <S.TruncatedText>{afterData.location}</S.TruncatedText>
             </Card.Item>
             <S.IconWrapper onClick={() => handleCopyToClipboard(afterData.location)}>
@@ -46,8 +47,7 @@ const TravelCard: React.FC = () => {
 
         {/* 금액 */}
         <S.InfoItem>
-          <S.InfoLabel>금액</S.InfoLabel>
-          <Card.Item className="금액">{afterData.price}</Card.Item>
+          <Card.Item label="금액">{afterData.price}</Card.Item>
         </S.InfoItem>
 
       </S.InfoContainer>
@@ -64,4 +64,4 @@ const TravelCard: React.FC = () => {
   );
 };
 
-export default TravelCard;
+export default ResultCard;

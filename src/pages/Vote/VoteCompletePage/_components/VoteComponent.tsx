@@ -5,14 +5,17 @@ import { afterData } from "../_data/afterData";
 
 const VoteComponent: React.FC = () => {
   const [selected, setSelected] = useState<"like" | "dislike" | null>(null);
-  const location = useLocation(); // 현재 경로 확인
+  const location = useLocation(); 
+  const [voteMessage, setVoteMessage] = useState<string>("");
 
   // 페이지 경로에 따라 상태 초기화
   useEffect(() => {
     if (location.pathname === "/vote/success") {
       setSelected("like");
+      setVoteMessage(`${afterData.nickName}님의 투표`);
     } else if (location.pathname === "/vote/fail") {
       setSelected("dislike");
+      setVoteMessage(`${afterData.nickName}님의 투표`);
     }
   }, [location.pathname]);
 
@@ -20,10 +23,13 @@ const VoteComponent: React.FC = () => {
     <S.Container>
       {/* 좋아 버튼 */}
       <S.VoteButton
-        $isSelected={selected === "like"} // 고정된 상태로 렌더링
+        $isSelected={selected === "like"}
         $selectedColor="#3b46f1"
       >
-        좋아
+        <S.TextWrapper>
+          <S.Text>좋아</S.Text>
+          {location.pathname === "/vote/success" && <S.VoteMessage>{voteMessage}</S.VoteMessage>}
+        </S.TextWrapper>
         <S.VoteCounter>{afterData.votes.like}표</S.VoteCounter>
       </S.VoteButton>
 
@@ -32,7 +38,10 @@ const VoteComponent: React.FC = () => {
         $isSelected={selected === "dislike"} 
         $selectedColor="#f1443b"
       >
-        <S.Text>나 못가...</S.Text>
+        <S.TextWrapper>
+          <S.Text>나 못가...</S.Text>
+          {location.pathname === "/vote/fail" && <S.VoteMessage>{voteMessage}</S.VoteMessage>}
+        </S.TextWrapper>
         <S.VoteCounter>{afterData.votes.dislike}표</S.VoteCounter>
       </S.VoteButton>
     </S.Container>

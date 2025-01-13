@@ -14,7 +14,7 @@ export const VoteButton = styled.button<{ $isSelected: boolean; $selectedColor: 
   align-items: center;
   width: 100%;
   padding: 12px 20px;
-  border-radius: 12px;
+  border-radius: 16px;
   font-size: 14px;
   font-weight: 300;
   color: #fff;
@@ -42,8 +42,8 @@ export const VoteButton = styled.button<{ $isSelected: boolean; $selectedColor: 
       width: 28%; 
       height: 100%;
       background-color: #434343;
-      border-top-right-radius: 12px;
-      border-bottom-right-radius: 12px;
+      border-top-right-radius: 16px;
+      border-bottom-right-radius: 16px;
       z-index: 1;
     }
   `}
@@ -56,8 +56,21 @@ export const Text = styled.div`
   font-weight: 300;
 `;
 
+export const TextWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 15px; 
+`;
+
 export const VoteCounter = styled.span`
   font-size: 14px;
   font-weight: normal;
   margin-left: 8px;
+`;
+
+export const VoteMessage = styled.div`
+  display: flex;
+  font-size: 14px;
+  font-weight: semi-bold;
+  color: #fff;
 `;

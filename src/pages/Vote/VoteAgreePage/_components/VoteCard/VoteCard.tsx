@@ -60,7 +60,7 @@ const VoteCard: React.FC = () => {
           navigate(`/vote/date`);
           }}
         >
-          {"좋아!"}
+          {"좋아!"} {/*따로 사이즈 조정 필요.*/}
         </Button>
       </S.TwoSelect>
     </Card>

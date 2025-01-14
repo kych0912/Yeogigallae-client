@@ -27,6 +27,7 @@ export const TruncatedText = styled.div`
   white-space: wrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-w
 `;
 
 export const IconWrapper = styled.div`

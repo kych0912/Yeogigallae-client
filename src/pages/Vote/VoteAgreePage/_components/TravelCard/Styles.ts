@@ -1,40 +1,20 @@
 import styled from "styled-components";
+import Card from "../../../../../components/Card";
 
-export const Image = styled.img`
-  width: 100%;
-  height: 100%;
-  border-radius: 1.5rem;
-  object-fit: cover;
+export const Container = styled(Card)`
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
 `;
 
-export const InfoContainer = styled.div`
+export const StyledItem = styled(Card.Item)`
   display: flex;
-  justify-content: space-between;
-  text-align: center;
-  margin: 16px 0;
-  width: 100%;
-`;
-
-export const InfoItem = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 0 5px;
-  color: #fff;
-`;
-
-export const Button = styled.button`
-  width: 100%;
-  padding: 12px;
-  background-color: #3b46f1;
-  color: #fff;
-  border: none;
-  border-radius: 1.5rem;
-  font-size: 16px;
-  cursor: pointer;
-  text-align: center;
-  &:hover {
-    background-color: #2f3ab2;
-  }
+  flex-direction: row; 
+  justify-content: space-between; 
+  align-items: center; 
+  gap: 1px;
+  width: 7.5rem 
+  height: 2.313rem; 
 `;

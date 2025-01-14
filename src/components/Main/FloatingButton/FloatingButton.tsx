@@ -19,10 +19,10 @@ const FloatingMenu: React.FC = () => {
             </S.FloatingButtonStyled>
 
             <S.SubButton $isActive={isActive}>
-                <img src={MyFloating} alt="My Floating Icon" />
+                <img src={EditFloating} alt="Edit Floating Icon" />
             </S.SubButton>
             <S.SubButton $isActive={isActive}>
-                <img src={EditFloating} alt="Edit Floating Icon" />
+                <img src={MyFloating} alt="My Floating Icon" />
             </S.SubButton>
         </S.FloatingContainer>
     );

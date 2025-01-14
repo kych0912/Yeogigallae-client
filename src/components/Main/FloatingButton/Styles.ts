@@ -19,7 +19,7 @@ export const Overlay = styled.div<{ $isActive: boolean }>`
     background: rgba(0, 0, 0, 0.5);
     opacity: ${({ $isActive }) => ($isActive ? 1 : 0)};
     pointer-events: ${({ $isActive }) => ($isActive ? "auto" : "none")};
-    transition: opacity 0.3s;
+    transition: opacity 0.3s ease-in-out;
     z-index: 999;
 `;
 
@@ -28,13 +28,13 @@ export const FloatingButtonStyled = styled.button<{ $isMain?: boolean; $isActive
     height: 4rem;
     border-radius: 50%;
     background-color: ${({ theme }) => theme.colors.primary};
-    color: #fff;
+    color: ${({ theme }) => theme.colors.textOnPrimary || "#fff"};
     border: none;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    transition: transform 0.3s, opacity 0.3s;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
     z-index: 1001;
 
     ${({ $isMain, $isActive }) =>
@@ -49,8 +49,8 @@ export const SubButton = styled(FloatingButtonStyled)<{ $isActive: boolean }>`
     opacity: 0;
     pointer-events: none;
     transform: scale(0);
-    transition: transform 0.3s, opacity 0.3s;
-
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    background-color: white;
     ${({ $isActive }) =>
         $isActive &&
         css`

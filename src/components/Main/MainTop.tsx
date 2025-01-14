@@ -1,6 +1,6 @@
 import React from "react";
 import * as S from "./Main.Styles";
-import MyBtn from "../../assets/icons/MtBtn.svg";
+import MyBtn from "../../assets/icons/MyBtn.svg";
 import Alarm from "../../assets/icons/Alarm.svg";
 
 const MainTop: React.FC = () => {

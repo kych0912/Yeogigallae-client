@@ -69,19 +69,6 @@ export const Caption = styled.div`
   color:#ffffff;
 `
 
-export const ButtonWrapper = styled.div`
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:0.5rem;
-  width:100%;
-  padding:1rem 0;
-  background-color:#000000;
-  position:sticky;
-  top:72px;
-  z-index:100;
-`
-
 export const PlaceWrapper = styled.div`
   display:flex;
   flex-direction:column;

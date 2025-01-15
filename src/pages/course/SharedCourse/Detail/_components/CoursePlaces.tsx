@@ -1,4 +1,4 @@
-import * as S from "../../../_components/Course.style";
+import * as S from "./Style";
 import { Section } from "../../../../../apis/map/types";
 
 import Marker from "../../../../../assets/icons/Marker.svg?react"

@@ -1,16 +1,19 @@
 import styled from "styled-components";
-import Card from "../Card/Card";
-import BaseButton from "../Button/Button"; // 공통 컴포넌트 Button을 Base로 가져오기
+import Card from "./Card/Card";
+import BaseButton from "../Button/Button";
+import IconButton from "../Button/IconButton";
 
 //컨테이너
 
 export const Container = styled.div`
     position: relative;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     height: auto;
     width: 100%;
+    gap: 0.625rem;
+    flex-direction: column;
 `;
 
 export const TopContainer = styled(Container)`
@@ -37,9 +40,10 @@ export const HistoryContainer = styled(Container)`
     flex-direction: column;
     justify-content: center;
     height: auto;
+    gap: 0.875rem;
 `;
 
-//메인 탑탑
+//메인 탑
 export const Title = styled.h1`
     font-size: ${({ theme }) => theme.fontSize.large || "2.5rem"};
     font-family: ${({ theme }) => theme.fontFamily.semiBold};
@@ -47,16 +51,29 @@ export const Title = styled.h1`
     line-height: 1.5;
 `;
 
-export const Icon = styled.img`
+export const CustomIconButton = styled(IconButton)`
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 3rem;
     height: 3rem;
-    margin-right: 1rem;
+    border-radius: 1rem;
+    margin-left: 1rem;
+    background-color: ${({ theme }) => theme.colors.secondary};
+    color: ${({ theme }) => theme.colors.textOnPrimary || "#fff"};
+    border: ${({ theme }) => `1px solid ${theme.colors.GrayText || "#6E6E6E"}`};
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+
+    img {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
 `;
 
 //투표중
 
 export const ListItem = styled(Card)`
-    width: 23.125rem;
     height: 9rem;
     padding: 1rem;
     box-sizing: border-box;
@@ -81,10 +98,9 @@ export const BtnBar = styled.div`
     justify-content: space-between;
     align-items: flex-start;
     width: 100%;
-    padding: 1.25rem 1.25rem 0 1.25rem;
+    padding: 0 1.25rem;
     box-sizing: border-box;
     gap: 0.5rem;
-    margin-top: 2rem;
 `;
 
 export const TravelList = styled.div`
@@ -95,7 +111,6 @@ export const TravelList = styled.div`
     gap: 1rem;
     width: 100%;
     box-sizing: border-box;
-    margin-top: 2rem;
 `;
 
 export const TravelListItem = styled(Card)`
@@ -114,4 +129,7 @@ export const selectBtn = styled(BaseButton)<{ selected: boolean }>`
     color: ${({ theme, selected }) => (selected ? "#fff" : theme.colors.GrayText)};
     background-color: ${({ theme, selected }) => (selected ? theme.colors.GrayText : theme.colors.secondary)};
     font-family: ${({ theme }) => theme.fontFamily.regular};
+    border: none;
+    width: 11.875rem;
+    height: 3.25rem;
 `;

@@ -1,17 +1,16 @@
 import styled from "styled-components";
 
 const Header = styled.header`
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     background-color: ${({ theme }) => theme.colors.background};
-    z-index: 10;
     font-family: ${({ theme }) => theme.fontFamily.regular};
     font-size: ${({ theme }) => theme.fontSize.medium};
+    display: flex;
+    justify-content: space-between;
 `;
 
 const HeaderWrapper = styled.div`
+    width: 100%;
     display: grid;
     grid-template-columns: repeat(2, 1fr); // 두 개의 열로 변경
     padding: 0.75rem 1.25rem 0rem 1.25rem;

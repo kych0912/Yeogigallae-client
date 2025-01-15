@@ -2,8 +2,8 @@ import styled, { css } from "styled-components";
 
 export const FloatingContainer = styled.div<{ $isActive: boolean }>`
     position: fixed;
-    bottom: 2rem;
-    right: 2rem;
+    bottom: 1.875rem;
+    right: 1.875rem;
     display: flex;
     flex-direction: column-reverse;
     align-items: center;

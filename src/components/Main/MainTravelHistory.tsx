@@ -13,7 +13,7 @@ const MainTravelHistory: React.FC = () => {
         <S.HistoryContainer>
             <MainSection leftContent={"🙏 완료된 여행"} rightContent={0} />
             <S.BtnBar>
-                <S.selectBtn selected={selectedButton === "domestic"} size="large" onClick={() => handleButtonClick("domestic")}>
+                <S.selectBtn selected={selectedButton === "domestic"} size="medium" onClick={() => handleButtonClick("domestic")}>
                     {"🌍 국내여행"}
                 </S.selectBtn>
                 <S.selectBtn selected={selectedButton === "international"} size="large" onClick={() => handleButtonClick("international")}>

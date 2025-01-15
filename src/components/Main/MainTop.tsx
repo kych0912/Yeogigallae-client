@@ -10,8 +10,12 @@ const MainTop: React.FC = () => {
                 00님, 오늘은 <br /> 어디 가실래요?
             </S.Title>
             <S.IconContainer>
-                <S.Icon src={Alarm} alt="Alarm Icon"></S.Icon>
-                <S.Icon src={MyBtn} alt="My Button Icon"></S.Icon>
+                <S.CustomIconButton>
+                    <img src={Alarm} alt="Alarm Icon" />
+                </S.CustomIconButton>
+                <S.CustomIconButton>
+                    <img src={MyBtn} alt="MyBtn Icon" />
+                </S.CustomIconButton>
             </S.IconContainer>
         </S.TopContainer>
     );

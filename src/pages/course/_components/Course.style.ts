@@ -64,7 +64,7 @@ export const NaverContent = styled(Content)`
 `
 
 export const Caption = styled.div`
-  font-family:${({theme})=>theme.fontFamily.medium};
+  font-family:${({theme})=>theme.fontFamily.regular};
   font-size:${({theme})=>theme.fontSize.small};
   color:#ffffff;
 `

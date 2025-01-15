@@ -36,7 +36,6 @@ import SearchPage from "./pages/Functional/SearchPage/SearchPage";
 import './App.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-
 const queryClient = new QueryClient();
 
 const App: React.FC = () => {

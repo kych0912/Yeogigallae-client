@@ -9,7 +9,7 @@ import ConfirmFailPage from "./ConfirmPage/ConfirmFailPage/ConfirmFailPage";
 import * as S from "./_components/Vote.styles"
 
 const VotePage: React.FC = () => {
-  const { Funnel, Step, setStep } = useFunnel("투표동의"); // 기본 단계는 'agree'
+  const { Funnel, Step, setStep } = useFunnel("투표동의"); 
 
   return (
     <S.Container>

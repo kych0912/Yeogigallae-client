@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Card from "../../../../../components/Card";
 import { Button } from "../../../../../components/Button";
-import { tempData } from "./tempData"; // 임시 데이터
+import { voteData } from "../VoteCard/voteData";
 import * as S from "./Styles";
 
 const TravelCard: React.FC = () => {
@@ -20,14 +20,14 @@ const TravelCard: React.FC = () => {
             style={{width:"100%",height:"100%",borderRadius:"1.5rem",objectFit:"cover"}} />
           </Card.Image>
 
-          <Card.Title>{tempData.title}</Card.Title>
+          <Card.Title>{voteData.title}</Card.Title>
 
           <Card.Divider />
 
           <S.StyledItem>
-            <Card.Item label="장소">{tempData.location}</Card.Item>
-            <Card.Item label="금액">{tempData.price}</Card.Item>
-            <Card.Item label="기간">{tempData.duration}</Card.Item>
+            <Card.Item label="장소">{voteData.location}</Card.Item>
+            <Card.Item label="금액">{voteData.price}</Card.Item>
+            <Card.Item label="기간">{voteData.duration}</Card.Item>
           </S.StyledItem>
 
           <Button size="large" onClick={handleButtonClick}>{"투표하러 가기"}</Button>

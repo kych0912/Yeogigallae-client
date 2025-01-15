@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as S from "./VoteComponent.styles";
 import { useLocation } from "react-router-dom";
-import { afterData } from "../_data/afterData";
+import { voteData } from "../../VoteAgreePage/_components/VoteCard/voteData";
 
 const VoteComponent: React.FC = () => {
   const [selected, setSelected] = useState<"like" | "dislike" | null>(null);
@@ -11,10 +11,10 @@ const VoteComponent: React.FC = () => {
   useEffect(() => {
     if (location.pathname === "/vote/success") {
       setSelected("like");
-      setVoteMessage(`${afterData.nickName}님의 투표`);
+      setVoteMessage(`${voteData.nickName}님의 투표`);
     } else if (location.pathname === "/vote/fail") {
       setSelected("dislike");
-      setVoteMessage(`${afterData.nickName}님의 투표`);
+      setVoteMessage(`${voteData.nickName}님의 투표`);
     }
   }, [location.pathname]);
 
@@ -29,7 +29,7 @@ const VoteComponent: React.FC = () => {
           <S.Text>좋아</S.Text>
           {location.pathname === "/vote/success" && <S.VoteMessage>{voteMessage}</S.VoteMessage>}
         </S.TextWrapper>
-        <S.VoteCounter>{afterData.votes.like}표</S.VoteCounter>
+        <S.VoteCounter>{voteData.votes.like}표</S.VoteCounter>
       </S.VoteButton>
 
       {/* 나 못가 버튼 */}
@@ -41,7 +41,7 @@ const VoteComponent: React.FC = () => {
           <S.Text>나 못가...</S.Text>
           {location.pathname === "/vote/fail" && <S.VoteMessage>{voteMessage}</S.VoteMessage>}
         </S.TextWrapper>
-        <S.VoteCounter>{afterData.votes.dislike}표</S.VoteCounter>
+        <S.VoteCounter>{voteData.votes.dislike}표</S.VoteCounter>
       </S.VoteButton>
     </S.Container>
   );

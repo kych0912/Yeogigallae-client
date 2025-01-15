@@ -4,7 +4,7 @@ import BackIcon from "../../assets/icons/Back.svg?react";
 import { IconButton } from "../Button";
 import styled from 'styled-components'
 import { Outlet, useNavigate } from 'react-router-dom';
-import { afterData } from "../../pages/Vote/VoteCompletePage/_data/afterData";
+import { voteData } from "../../pages/Vote/VoteAgreePage/_components/VoteCard/voteData";
 
 export default function Layout() {
     const navigate = useNavigate();
@@ -17,7 +17,7 @@ export default function Layout() {
                         <BackIcon/>
                     </IconButton>
                 }
-                centerContent={<Typography>{afterData.groupId}{afterData.groupMembers}</Typography>}
+                centerContent={<Typography>{voteData.groupId}{voteData.groupMembers}</Typography>}
                 rightContent={
                     <IconButton onClick={() => navigate('/')}>
                         <HomeIcon/>

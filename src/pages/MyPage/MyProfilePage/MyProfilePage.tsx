@@ -1,11 +1,12 @@
 // 프로필 화면
 import React from 'react';
-import * as S from './Styles'; 
+import * as S from './_components/Profile.style'; 
+import UserProfile from './_components/UserProfile';
 
 const MyProfilePage: React.FC = () => {
     return (
         <S.Container>
-            <S.Title>My Profile Page!</S.Title>
+            <UserProfile avatar={"https://picsum.photos/200/300"} />
         </S.Container>
     );
 };

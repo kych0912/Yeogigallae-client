@@ -18,14 +18,10 @@ import BudgetSelectPage from "./pages/Scheduling/BudgetSelectPage/BudgetSelectPa
 import DateSelectPage from "./pages/Scheduling/DateSelectPage/DateSelectPage";
 import SchedulePage from "./pages/Scheduling/SchedulePage/SchedulePage";
 import SplashPage from "./pages/Splash/SplashPage/SplashPage";
-import VoteAgreePage from "./pages/Vote/VoteAgreePage/VoteAgreePage";
 import CreateCoursePage from "./pages/Functional/CreateCoursePage/CreateCoursePage";
 import CreateVotePage from "./pages/Functional/CreateVotePage/CreateVotePage";
 import CreateCalendar from "./pages/Functional/CreateCalendar/CreateCalendar";
-import VotePage from "./pages/Vote/VoteAgreePage/VotePage";
-import VoteDatePage from "./pages/Vote/VoteDatePage/VoteDatePage";
-import VoteSuccessPage from "./pages/Vote/VoteCompletePage/VoteSuccessPage";
-import VoteFailPage from "./pages/Vote/VoteCompletePage/VoteFailPage";
+import VotePage from "./pages/Vote/VotePage";
 import CourseLayout from './components/Layout/CourseLayout';
 import VoteLayout from "./components/Layout/VoteLayout";
 import FunctionalLayout from "./components/Layout/FunctionalLayout";
@@ -79,10 +75,6 @@ const App: React.FC = () => {
             {/* Vote */}
             <Route element={<VoteLayout />}>
               <Route path="/vote" element={<VotePage />} />
-              <Route path="/vote/agree" element={<VoteAgreePage />} />
-              <Route path="/vote/date" element={<VoteDatePage />} />
-              <Route path="/vote/success" element={<VoteSuccessPage />} />
-              <Route path="/vote/fail" element={<VoteFailPage/>} />
               <Route path="/vote/success/confirm" element={<ConfirmSuccessPage />} />
               <Route path="/vote/fail/confirm" element={<ConfirmFailPage />} />
             </Route>

@@ -1,6 +1,6 @@
 import React from "react";
 import * as S from "./VoteContent.styles";
-import { voteData } from "../../VoteAgreePage/_components/VoteCard/voteData";
+import { voteData } from "../../voteData";
 
 const VoteContent: React.FC = () => {
   return (

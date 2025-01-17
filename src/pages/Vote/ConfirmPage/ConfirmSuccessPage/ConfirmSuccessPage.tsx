@@ -6,7 +6,7 @@ import BackIcon from "../../../../assets/icons/Back.svg?react";
 import Header from "../../../../components/Header/index";
 import ConfirmSuccessCard from "../_components/ConfirmSuccessCard/ConfirmSuccessCard";
 import { IconButton } from "../../../../components/Button";
-import { afterData } from "../../VoteCompletePage/_data/afterData";
+import { voteData } from "../../voteData";
 import Recommend from "../_components/Recommend/Recommend";
 import SuccessText from "../_components/SuccessText"
 
@@ -22,7 +22,7 @@ const VoteAgreePage: React.FC = () => {
                         <BackIcon />
                     </IconButton>
                 }
-                centerContent={<S.Typography>{afterData.groupId}{afterData.groupMembers}</S.Typography>}
+                centerContent={<S.Typography>{voteData.groupId}{voteData.groupMembers}</S.Typography>}
                 rightContent={<IconButton><HomeIcon /></IconButton>}
             />
             <SuccessText />

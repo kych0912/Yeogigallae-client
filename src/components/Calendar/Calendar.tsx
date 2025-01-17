@@ -4,7 +4,7 @@ import CalendarHeader from "./CalendarHeader";
 import YearMonthPicker from "./YearMonthPicker";
 import CompleteButton from "./CompleteButton";
 
-const Calendar: React.FC = () => {
+const Calendar: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
   const today = new Date();
   console.log(`오늘 날짜: ${today}`); // 디버깅용
   const [currentDate, setCurrentDate] = useState(today);
@@ -80,6 +80,7 @@ const Calendar: React.FC = () => {
         startDate={startDate}
         endDate={endDate}
         mode={mode}
+        onComplete={onComplete}
       />
       
     </S.CalendarWrapper>

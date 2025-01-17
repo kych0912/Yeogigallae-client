@@ -5,11 +5,10 @@ export const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 3px;
 `;
 
 export const Content = styled.div`
-  font-size: small;
-  font-weight: 400;
+  font-size: 0.875rem;
+  font-weight: regular;
   color: #fff;
 `;

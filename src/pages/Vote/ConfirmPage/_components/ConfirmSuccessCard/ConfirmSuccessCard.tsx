@@ -1,7 +1,7 @@
 import React from "react";
 import * as S from "./Styles";
 import Card from "../../../../../components/Card";
-import { afterData } from "../../../VoteCompletePage/_data/afterData";
+import { voteData } from "../../../voteData";
 import LinkIcon from "../../../../../assets/icons/LinkIcon.svg?react";
 
 const ConfirmSuccessCard: React.FC = () => {
@@ -15,7 +15,7 @@ const ConfirmSuccessCard: React.FC = () => {
   return (
     <Card>
       <Card.Image>  
-        <img src={afterData.imageSrc} alt="placeholder" 
+        <img src={voteData.imageSrc} alt="placeholder" 
         style={{width:"100%",height:"100%",borderRadius:"1.5rem",objectFit:"cover"}} />
       </Card.Image>
       
@@ -24,9 +24,9 @@ const ConfirmSuccessCard: React.FC = () => {
         <S.InfoItem>
           <S.LocationWrapper>
             <Card.Item label="장소">
-              <S.TruncatedText>{afterData.location}</S.TruncatedText>
+              <S.TruncatedText>{voteData.location}</S.TruncatedText>
             </Card.Item>
-            <S.IconWrapper onClick={() => handleCopyToClipboard(afterData.location)}>
+            <S.IconWrapper onClick={() => handleCopyToClipboard(voteData.location)}>
               <LinkIcon />
             </S.IconWrapper>
           </S.LocationWrapper>
@@ -36,14 +36,14 @@ const ConfirmSuccessCard: React.FC = () => {
 
         {/* 총액 */}
         <S.InfoItem>
-          <Card.Item label="총액">{afterData.total}</Card.Item>
+          <Card.Item label="총액">{voteData.total}</Card.Item>
         </S.InfoItem>
 
         <Card.Divider />
 
         {/* 기간 */}
         <S.InfoItem>
-          <Card.Item label="기간">{afterData.totalDuration}</Card.Item>
+          <Card.Item label="기간">{voteData.totalDuration}</Card.Item>
         </S.InfoItem>  
       </S.InfoContainer>
     </Card>

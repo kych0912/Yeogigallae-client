@@ -3,6 +3,7 @@ import MessageInput from "./MessageInput";
 import * as S from "../../../_components/Functional.styles";
 import CalendarIcon from "../../../../../assets/icons/Calender.svg?react";
 import Card from "../../../../../components/Card";
+import VoteTimes from "./VoteTimes";
 
 export default function VoteForm({ onCalendar, onSearch, isVote }: { onCalendar: () => void, onSearch: () => void, isVote: boolean; }) {
   return (
@@ -13,8 +14,10 @@ export default function VoteForm({ onCalendar, onSearch, isVote }: { onCalendar:
 
           <S.StyledDivider />
 
+          <Card.Item label="투표 제한 시간">
+            <VoteTimes />
+          </Card.Item>
 
-          
           <S.StyledDivider />
 
           <Card.Item label="장소">
@@ -26,7 +29,10 @@ export default function VoteForm({ onCalendar, onSearch, isVote }: { onCalendar:
           {isVote && (
             <>
               <Card.Item label="가격">
-                <S.ClickableText>예) 1박 / 20만원</S.ClickableText>
+                <S.Input 
+                  type="text" 
+                  placeholder="예) 1박 / 20만원" 
+                />
               </Card.Item>
               <S.StyledDivider />
             </>

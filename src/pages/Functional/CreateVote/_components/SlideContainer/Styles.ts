@@ -19,7 +19,7 @@ export const StyledCard = styled(Card)`
   }
 `;
 
-export const Button = styled.button<{ $active: boolean; $isCreateButton?: boolean }>`
+export const Slide = styled.button<{ $active: boolean; $isCreateButton?: boolean }>`
   width: 2.688rem;
   height: 2.5rem;
   background-color: ${(props) => (props.$isCreateButton ? "transparent" : "#fff")};
@@ -53,7 +53,7 @@ export const Text = styled.span`
   font-weight: bold; 
 `;
 
-export const ButtonWrapper = styled.div<{ $isFirst?: boolean, $isLast?: boolean }>`
+export const SlideContainer = styled.div<{ $isFirst?: boolean, $isLast?: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -63,7 +63,7 @@ export const ButtonWrapper = styled.div<{ $isFirst?: boolean, $isLast?: boolean 
   margin-right: ${({ $isLast }) => ($isLast ? "1.5rem" : "0")};
 `;
 
-export const ButtonLabel = styled.span<{ $active: boolean; $isCreateButton?: boolean }>`
+export const Label = styled.span<{ $active: boolean; $isCreateButton?: boolean }>`
   margin-top: 0.25rem;
   font-size: 0.75rem;
   font-weight: regular;

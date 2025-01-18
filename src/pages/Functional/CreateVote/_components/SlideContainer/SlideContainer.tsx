@@ -8,7 +8,7 @@ interface ButtonContainerProps {
   buttonData: { id: string; label: string }[]; 
 }
 
-const ButtonContainer: React.FC<ButtonContainerProps> = ({
+const SlideContainer: React.FC<ButtonContainerProps> = ({
   activeButton,
   setActiveButton,
   handleCreateButton,
@@ -18,12 +18,12 @@ const ButtonContainer: React.FC<ButtonContainerProps> = ({
     <>
       <S.StyledCard>
         {buttonData.map((button, index) => (
-          <S.ButtonWrapper
+          <S.SlideContainer
             key={button.id}
             $isFirst={index === 0}
             $isLast={index === buttonData.length - 1} 
           >
-            <S.Button
+            <S.Slide
               $active={button.id !== "CREATE" && activeButton === button.id}
               $isCreateButton={button.id === "CREATE"}
               onClick={
@@ -43,18 +43,18 @@ const ButtonContainer: React.FC<ButtonContainerProps> = ({
                   />
                 </svg>
               ) : null}
-            </S.Button>
-            <S.ButtonLabel
+            </S.Slide>
+            <S.Label
               $active={activeButton === button.id}
               $isCreateButton={button.id === "CREATE"}
             >
               {button.label}
-            </S.ButtonLabel>
-          </S.ButtonWrapper>
+            </S.Label>
+          </S.SlideContainer>
         ))}
       </S.StyledCard>
     </>
   );
 };
 
-export default ButtonContainer;
+export default SlideContainer;

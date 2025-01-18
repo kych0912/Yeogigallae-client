@@ -29,6 +29,18 @@ export const ClickableText = styled.span`
   }
 `;
 
+export const Input = styled.input`
+  font-size: 1rem; 
+  background-color: transparent;
+  color: #fff; 
+  border: transparent;
+  outline: none;
+
+  &::placeholder {
+    color: #fff;
+  }
+`;
+
 // 날짜 섹션
 export const DatePickerWrapper = styled.div`
   margin-bottom: 20px;
@@ -80,3 +92,30 @@ export const StyledCardItem = styled(Card.Item)`
   }
 `;
 
+export const ButtonContainer = styled.div`
+  display: flex;
+  gap: 0.5rem; 
+  width: 100%;
+`;
+
+export const TimeButton = styled.button<{ $isActive: boolean }>`
+  background-color: ${({ $isActive }) => ($isActive ? "#3b46f1" : "#434343")};
+  color: #fff;
+  border: none;
+  border-radius: 6.25rem;
+  padding: 0.25rem 1.1rem; 
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background-color: #3b46f1;
+  }
+
+  &:active {
+    outline: none; 
+  }
+`;

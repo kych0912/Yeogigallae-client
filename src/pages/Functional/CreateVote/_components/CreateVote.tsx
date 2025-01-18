@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "../../../../components/Button";
 import Tabs from "./Tabs/Tabs";
 import VoteForm from "./VoteForm/VoteForm";
-import ButtonContainer from "./ButtonContainer/ButtonContainer";
+import SlideContainer from "./SlideContainer/SlideContainer";
 import initialButtonData from "./../_data/buttonData";
 
 export default function CreateVote({
@@ -34,43 +34,33 @@ export default function CreateVote({
     console.log("Default onSearch called");
   };
 
+  // 탭에 따라 렌더링할 콘텐츠를 분리
+  const renderContent = () => (
+    <>
+      <VoteForm
+        onSearch={onSearch || handleDefaultSearch}
+        onCalendar={onCalendar || handleDefaultCalendar}
+        isVote={activeTab === "vote"}
+      />
+      <SlideContainer
+        activeButton={activeButton}
+        setActiveButton={setActiveButton}
+        handleCreateButton={handleCreateButton}
+        buttonData={buttonData}
+      />
+      <Button size="large" style={{ marginTop: "20px" }}>
+        {activeTab === "vote" ? "투표 공유하기" : "코스 공유하기"}
+      </Button>
+    </>
+  );
+
   return (
     <>
+      {/* 탭 전환 */}
       <Tabs activeTab={activeTab} onTabChange={(tab) => setActiveTab(tab)} />
 
-      {activeTab === "vote" && (
-        <>
-          <VoteForm
-            onSearch={onSearch || handleDefaultSearch}
-            onCalendar={onCalendar || handleDefaultCalendar}
-            isVote={true}
-          />
-          <ButtonContainer
-            activeButton={activeButton}
-            setActiveButton={setActiveButton}
-            handleCreateButton={handleCreateButton}
-            buttonData={buttonData}
-          />
-          <Button size="large">{"투표 공유하기"}</Button>
-        </>
-      )}
-
-      {activeTab === "course" && (
-        <>
-          <VoteForm
-            onSearch={onSearch || handleDefaultSearch}
-            onCalendar={onCalendar || handleDefaultCalendar}
-            isVote={false}
-          />
-          <ButtonContainer
-            activeButton={activeButton}
-            setActiveButton={setActiveButton}
-            handleCreateButton={handleCreateButton}
-            buttonData={buttonData}
-          />
-          <Button size="large">{"투표 공유하기"}</Button>
-        </>
-      )}
+      {/* 조건부 렌더링된 콘텐츠 */}
+      {renderContent()}
     </>
   );
 }

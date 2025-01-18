@@ -1,24 +1,27 @@
 import styled from "styled-components";
+import { Card } from "../../../../../components/Card/Card.styles";
 
-export const ButtonContainer = styled.div`
-  margin:1rem 1.25rem;
+export const StyledCard = styled(Card)`
   display: flex;
-  justify-content: start;
-  padding: 20px 24px;
-  border-radius: 16px;
-  background-color: #222;
+  flex-direction: row; 
+  align-items: center; 
+  gap: 1rem;
+  margin: 1rem 0;
+  overflow: hidden;
   overflow-x: auto;
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
   scrollbar-width: none;
+  -ms-overflow-style: none; 
 
   &::-webkit-scrollbar {
-    display: none;
+    display: none; 
   }
 `;
 
 export const Button = styled.button<{ $active: boolean; $isCreateButton?: boolean }>`
-  width: 43px;
-  height: 40px;
-  margin: 0 5px;
+  width: 2.688rem;
+  height: 2.5rem;
   background-color: ${(props) => (props.$isCreateButton ? "transparent" : "#fff")};
   color: color: ${(props) =>
     props.$isCreateButton
@@ -28,11 +31,11 @@ export const Button = styled.button<{ $active: boolean; $isCreateButton?: boolea
       : "#bbb"};
   border: ${(props) =>
     props.$isCreateButton
-      ? "2px solid #3b46f1"
+      ? "0.125rem solid #3b46f1"
       : props.$active
-      ? "2px solid #3b46f1"
-      : "2px solid transparent"};
-  border-radius: 16px;
+      ? "0.125rem solid #3b46f1"
+      : "0.125rem solid transparent"};
+  border-radius: 1rem;
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -42,29 +45,28 @@ export const Button = styled.button<{ $active: boolean; $isCreateButton?: boolea
   &:hover {
     background-color: ${(props) => (props.$isCreateButton ? "transparent" : "#f5f5f5")};
   }
-
-  svg {
-    width: ${(props) => (props.$isCreateButton ? "24px" : "auto")};
-    height: ${(props) => (props.$isCreateButton ? "24px" : "auto")};
-  }
 `;
 
 export const Text = styled.span`
   color: #3b46f1;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: bold; 
 `;
 
-export const ButtonWrapper = styled.div`
+export const ButtonWrapper = styled.div<{ $isFirst?: boolean, $isLast?: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0 8px;
+  margin: 1.25rem 0;
+  flex-shrink: 0;
+  margin-left: ${({ $isFirst }) => ($isFirst ? "1.5rem" : "0")};
+  margin-right: ${({ $isLast }) => ($isLast ? "1.5rem" : "0")};
 `;
 
 export const ButtonLabel = styled.span<{ $active: boolean; $isCreateButton?: boolean }>`
-  margin-top: 4px;
-  font-size: 12px;
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: regular;
   color: ${(props) =>
     props.$isCreateButton
       ? "#3b46f1" 

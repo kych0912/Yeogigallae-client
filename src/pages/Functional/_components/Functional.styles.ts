@@ -16,6 +16,10 @@ export const StyledCard = styled(Card)`
   transition: transform 0.5s;
 `;
 
+export const StyledDivider = styled(Card.Divider)`
+  background-color: rgba(255, 255, 255, 0.08); // #fff 8%
+`;
+
 export const ClickableText = styled.span`
   cursor: pointer;
   text-decoration: none;
@@ -63,5 +67,16 @@ export const IconWrapper = styled.div`
 `;
 
 export const StyledCardItem = styled(Card.Item)`
-  color: #fff !important; 
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start; 
+  justify-content: space-between; 
+  color: #fff;
+  width: 100%;
+  margin-bottom: 0.25rem;
+
+  .icon {
+    cursor: pointer; 
+  }
 `;
+

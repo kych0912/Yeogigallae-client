@@ -1,30 +1,26 @@
 import styled from "styled-components";
+import { Button } from "../../../../../components/Button";
+import { Card } from "../../../../../components/Card/Card.styles";
 
-export const TabsContainer = styled.div`
+export const StyledCard = styled(Card)`
   display: flex;
-  justify-content: center; 
-  gap: 10px; 
-  margin-top: 30px;
-  margin: 1rem 1.25rem;
+  justify-content: space-between; 
+  align-items: center;
+  width: 100%;
+  background-color: transparent;
+  radius: 1rem;
+  margin-bottom: 1rem; 
 `;
 
-export const TabItem = styled.button<{ $active: boolean }>`
-  width: 190px; 
-  height: 50px; 
-  font-size: 16px;
-  font-weight: ${(props) => (props.$active ? "bold" : "normal")};
-  color: ${(props) => (props.$active ? "#ffffff" : "#616161")};
-  background-color: #333333; 
+export const StyledButton = styled(Button)<{ $isActive: boolean }>`
+  flex: 1; 
+  background-color: ${({ $isActive }) => ($isActive ? "#222222" : "#252525")};
+  color: ${({ $isActive }) => ($isActive ? "#fff" : "#616161")};
   border: none;
-  border-radius: 16px; 
-  cursor: pointer;
-  transition: color 0.3s;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  text-align: center;
 
-  &:hover {
-    color: ${(props) => (props.$active ? "#ffffff" : "#888888")}; /* 비활성 상태 호버 */
-  }
-
-  &:focus {
-    outline: none;
+  &:not(:last-child) {
+    margin-right: 0.5rem; 
   }
 `;

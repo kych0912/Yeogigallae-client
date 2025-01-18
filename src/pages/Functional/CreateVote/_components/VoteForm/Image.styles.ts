@@ -3,16 +3,16 @@ import styled from "styled-components";
 // 이미지 플레이스홀더
 export const ImagePlaceholder = styled.div`
   width: 100%;
-  height: 170px;
+  height: 10.625rem;
   background-color: transparent; 
-  border-radius: 20px; 
-  border: 0.5px solid #434343; 
+  border-radius: 1.5rem; 
+  border: 0.5px solid rgba(255, 255, 255, 0.08);
   display: flex;
   justify-content: center;
   align-items: center;
   color: #434343; 
-  margin-bottom: 35px; 
-  font-size: 16px;
+  margin-bottom: 1.375rem; 
+  font-size: 1rem;
 `;
 
 export const Default = styled.div`
@@ -24,11 +24,10 @@ export const Default = styled.div`
 `;
 
 export const Icon = styled.img`
-  margin-bottom: 16px; 
 `;
 
 export const Text = styled.p`
-  font-size: 16px;
+  font-size: 0.875rem;
+  font-weight: regular;
   color: #6e6e6e; 
-  margin: 0;
 `;

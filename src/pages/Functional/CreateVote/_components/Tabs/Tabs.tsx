@@ -1,5 +1,4 @@
 import React from "react";
-import { Button } from "../../../../../components/Button";
 import * as S from "./Styles";
 
 const Tabs: React.FC<{
@@ -12,24 +11,20 @@ const Tabs: React.FC<{
   ];
 
   return (
-    <S.TabsContainer>
-      {tabs.map((tab) => (
-        <Button
-          key={tab.key}
-          size="large"
-          style={{
-            width: "50%",
-            backgroundColor: activeTab === tab.key ? "#222222" : "#252525",
-            color: activeTab === tab.key ? "#fff" : "#616161",
-            border: "none", // 버튼 테두리 제거
-            transition: "background-color 0.3s ease, color 0.3s ease", // 부드러운 전환 효과
-          }}
-          onClick={() => onTabChange(tab.key as "vote" | "course")}
-        >
-          {tab.title}
-        </Button>
-      ))}
-    </S.TabsContainer>
+    <>
+      <S.StyledCard>
+        {tabs.map((tab) => (
+          <S.StyledButton
+            key={tab.key}
+            size="large"
+            $isActive={activeTab === tab.key}
+            onClick={() => onTabChange(tab.key as "vote" | "course")}
+          >
+            {tab.title}
+          </S.StyledButton>
+        ))}
+      </S.StyledCard>
+    </>
   );
 };
 

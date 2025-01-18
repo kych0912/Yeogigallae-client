@@ -3,11 +3,19 @@ import React from "react";
 import * as S from "./Main.Styles";
 import MainSection from "./MainSection/MainSection";
 import Card from "./Card/Card";
+import Upcoming from "../../assets/icons/Upcoming.svg";
 
 const MainUpcomingList: React.FC = () => {
     return (
         <S.Container>
-            <MainSection leftContent={"🙏 예정된 여행"} rightContent={0}></MainSection>
+            <MainSection
+                leftContent={
+                    <>
+                        <img src={Upcoming} alt="Upcoming Icon" /> 예정된 여행
+                    </>
+                }
+                rightContent={0}
+            ></MainSection>
             <S.TravelList>
                 <Card>
                     <S.Text>친구들을 추가하여 여행을 계획해보세요!</S.Text>

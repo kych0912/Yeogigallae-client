@@ -20,6 +20,7 @@ const Section = styled.div`
     display: flex;
     align-items: center;
     color: ${({ theme }) => theme.colors.white || "#ffffff"};
+    gap: 0.625rem;
 
     &:nth-child(1) {
         justify-content: flex-start;

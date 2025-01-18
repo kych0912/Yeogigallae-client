@@ -13,15 +13,13 @@ const ConfirmSuccessCard: React.FC = () => {
   };
 
   return (
-    <Card>
+    <>
       <Card.Image>  
         <img src={voteData.imageSrc} alt="placeholder" 
         style={{width:"100%",height:"100%",borderRadius:"1.5rem",objectFit:"cover"}} />
       </Card.Image>
       
       <S.InfoContainer>
-        {/* 장소 */}
-        <S.InfoItem>
           <S.LocationWrapper>
             <Card.Item label="장소">
               <S.TruncatedText>{voteData.location}</S.TruncatedText>
@@ -30,23 +28,16 @@ const ConfirmSuccessCard: React.FC = () => {
               <LinkIcon />
             </S.IconWrapper>
           </S.LocationWrapper>
-        </S.InfoItem>
 
         <Card.Divider />
 
-        {/* 총액 */}
-        <S.InfoItem>
-          <Card.Item label="총액">{voteData.total}</Card.Item>
-        </S.InfoItem>
+        <Card.Item label="총액">{voteData.total}</Card.Item>
 
         <Card.Divider />
 
-        {/* 기간 */}
-        <S.InfoItem>
-          <Card.Item label="기간">{voteData.totalDuration}</Card.Item>
-        </S.InfoItem>  
+        <Card.Item label="기간">{voteData.totalDuration}</Card.Item> 
       </S.InfoContainer>
-    </Card>
+    </>
   );
 };
 

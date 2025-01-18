@@ -17,6 +17,7 @@ const ConfirmFailCard: React.FC = () => {
   };
 
   return (
+    <>
     <Card>
       <ConfirmMessage />
       <Button size="large" onClick={() => {
@@ -30,36 +31,23 @@ const ConfirmFailCard: React.FC = () => {
         <img src={voteData.imageSrc} alt="placeholder" 
         style={{width:"100%",height:"100%",borderRadius:"1.5rem",objectFit:"cover"}} />
       </Card.Image>
+
+      <S.LocationWrapper>
+        <Card.Item label="장소">
+          <S.TruncatedText>{voteData.location}</S.TruncatedText>
+        </Card.Item>
+        <S.IconWrapper onClick={() => handleCopyToClipboard(voteData.location)}>
+          <LinkIcon />
+        </S.IconWrapper>
+      </S.LocationWrapper>
+
+      <Card.Divider />
+      <Card.Item label="총액">{voteData.total}</Card.Item>
       
-      <S.InfoContainer>
-        {/* 장소 */}
-        <S.InfoItem>
-          <S.LocationWrapper>
-            <Card.Item label="장소">
-              <S.TruncatedText>{voteData.location}</S.TruncatedText>
-            </Card.Item>
-            <S.IconWrapper onClick={() => handleCopyToClipboard(voteData.location)}>
-              <LinkIcon />
-            </S.IconWrapper>
-          </S.LocationWrapper>
-        </S.InfoItem>
-
-        <Card.Divider />
-
-        {/* 총액 */}
-        <S.InfoItem>
-          <Card.Item label="총액">{voteData.total}</Card.Item>
-        </S.InfoItem>
-
-        <Card.Divider />
-
-        {/* 기간 */}
-        <S.InfoItem>
-          <Card.Item label="기간">{voteData.totalDuration}</Card.Item>
-        </S.InfoItem>  
-      </S.InfoContainer>
-
+      <Card.Divider />
+      <Card.Item label="기간">{voteData.totalDuration}</Card.Item>
     </Card>
+    </>
   );
 };
 

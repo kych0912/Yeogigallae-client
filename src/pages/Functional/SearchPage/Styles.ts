@@ -4,7 +4,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0.938rem;
-  gap: 16px;
+  gap: 1rem;
 `;
 
 export const Instructions = styled.div`
@@ -19,4 +19,14 @@ export const Instructions = styled.div`
     font-size: 16px;
     padding: 2px 0;
   }
+`;
+
+export const ResultWrapper = styled.div`
+  display: flex;
+  aligh-items: center;
+  justify-content: center;
+  margin: 1.25rem 0;
+  color: #6e6e6e;
+  font-weight: regular;
+  font-size: 0.875rem;
 `;

@@ -19,15 +19,23 @@ const SearchInput: React.FC<SearchInputProps> = ({
   handleSearch,
   isButtonDisabled,
 }) => {
+  const handleClear = () => {
+    setQuery(""); // 검색어 초기화
+  };
+
   return (
-    <>
+    <S.StyledCard $isError={isError} onClick={() => document.querySelector("input")?.focus()}>
       <S.SearchInput
-        $isError={isError}
         placeholder="도로명 또는 지번을 입력하세요"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         onFocus={() => setIsTouched(true)}
       />
+      {query && (
+        <S.ClearButton onClick={handleClear}>
+          ⨉
+        </S.ClearButton>
+      )}
       <S.SearchButton
         $disabled={isButtonDisabled}
         onClick={handleSearch}
@@ -35,7 +43,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
       >
         <SearchIcon />
       </S.SearchButton>
-    </>
+    </S.StyledCard>
   );
 };
 

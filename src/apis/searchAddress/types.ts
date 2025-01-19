@@ -39,4 +39,19 @@ export interface KakaoPlaceDocument {
   y: string; // 위도
   place_url: string; 
   distance?: string;
+  zone_no?: string;
 }
+
+// 검색 요청 타입 (재활용)
+export type KakaoCoordToAddressParams = Pick<KakaoPlaceSearchParams, 'x' | 'y'>;
+
+// 좌표 변환 응답 타입
+export interface KakaoCoordToAddressResponse {
+  documents: Array<{
+    road_address?: Pick<KakaoPlaceDocument, 'road_address_name'> & {
+      zone_no: string; 
+    };
+    address?: Pick<KakaoPlaceDocument, 'address_name'>;
+  }>;
+}
+

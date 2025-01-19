@@ -1,7 +1,6 @@
 import { UseQueryResult } from "@tanstack/react-query";
-import { ButtonWrapper } from "../../../_components/Course.style";
-import { Button } from "../../../../../components/Button";
 import { Route } from "../../../../../apis/map/types";
+import * as S from "./Style";
 
 interface ICourseDayButtonProps{
     allCoursesQueries:UseQueryResult<Route | null, Error>[],
@@ -15,20 +14,20 @@ export default function CourseDayButton({
     activeIndex}:ICourseDayButtonProps){
 
     return(
-        <ButtonWrapper>
+      <S.ButtonContainer>
+        <S.ButtonWrapper>
         {
-          allCoursesQueries.map((_,index)=>(
-            <Button 
-              onClick={()=>handleSlideChange(index)} 
-              style={{width:'100px',padding:'0.875rem 0',color:"white"}} 
-              color={activeIndex === index ? "primary" : "secondary"} 
-              size="small"
-            >
-              {`${index+1}일차`}
-            </Button>
-          ))
-        }
-      </ButtonWrapper>
-
+            allCoursesQueries.map((_,index)=>(
+              <S.DayButton 
+                onClick={()=>handleSlideChange(index)} 
+                isActive={activeIndex === index}
+                size="small"
+              >
+                {`${index+1}일차`}
+              </S.DayButton>
+            ))
+          }
+        </S.ButtonWrapper>
+      </S.ButtonContainer>
     )
 }

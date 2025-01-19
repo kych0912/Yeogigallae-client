@@ -1,5 +1,6 @@
 import React from "react";
 import * as S from "./SearchInput.styles";
+import SearchIcon from "../../../../assets/icons/SearchIcon.svg?react";
 
 interface SearchInputProps {
   query: string;
@@ -22,13 +23,17 @@ const SearchInput: React.FC<SearchInputProps> = ({
     <>
       <S.SearchInput
         $isError={isError}
-        placeholder="도로명, 지번 주소 또는 장소명 입력"
+        placeholder="도로명 또는 지번을 입력하세요"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         onFocus={() => setIsTouched(true)}
       />
-      <S.SearchButton disabled={isButtonDisabled} onClick={handleSearch}>
-        검색
+      <S.SearchButton
+        $disabled={isButtonDisabled}
+        onClick={handleSearch}
+        disabled={isButtonDisabled}
+      >
+        <SearchIcon />
       </S.SearchButton>
     </>
   );

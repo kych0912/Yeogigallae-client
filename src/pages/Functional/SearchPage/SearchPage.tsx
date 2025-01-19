@@ -3,13 +3,12 @@ import * as S from "./Styles";
 import { searchPlace } from "../../../apis/searchAddress/index";
 import SearchInput from "./_components/SearchInput";
 import ResultList from "./_components/ResultList";
-import MapComponent from "./_components/SearchMap/SearchMap";
 
 const SearchPage: React.FC = () => {
   const [query, setQuery] = useState<string>("");
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
   const [results, setResults] = useState<any[]>([]);
-  const [center, setCenter] = useState<{ x: string; y: string } | null>(null);
+  const [selectedResult, setSelectedResult] = useState<string | null>(null); // 선택된 항목의 ID 저장
   const [isError, setIsError] = useState<boolean>(false);
   const [isTouched, setIsTouched] = useState<boolean>(false);
 
@@ -32,24 +31,17 @@ const SearchPage: React.FC = () => {
       const searchQuery = query.trim();
       const data = await searchPlace({ query: searchQuery });
       setResults(data.documents.slice(0, 10));
-      if (data.documents.length > 0) {
-        setCenter({ x: data.documents[0].x, y: data.documents[0].y });
-      }
     } catch (error) {
       console.error("검색 실패:", error);
     }
   };
 
-  const handleSelectItem = (selected: { x: string; y: string; name: string }) => {
-    setCenter({ x: selected.x, y: selected.y });
-    setQuery(selected.name);
-    setResults([]);
+  const handleSelectItem = (selected: { id: string }) => {
+    setSelectedResult(selected.id); // 선택된 항목의 ID 업데이트
   };
 
   return (
     <S.Container>
-      <S.Header>장소 찾기</S.Header>
-      <S.Spacer />
       <SearchInput
         query={query}
         setQuery={setQuery}
@@ -60,9 +52,9 @@ const SearchPage: React.FC = () => {
       />
       <ResultList
         results={results}
+        selectedResult={selectedResult}
         handleSelectItem={handleSelectItem}
       />
-      {center && <MapComponent center={center} results={results} />}
     </S.Container>
   );
 };

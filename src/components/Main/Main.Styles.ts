@@ -116,6 +116,21 @@ export const ProfileImage = styled.img`
         margin-left: 0;
     }
 `;
+export const ProfileImageOverlay = styled.div`
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    margin-left: -0.5rem;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+
+    &:first-child {
+        margin-left: 0;
+    }
+`;
 
 export const RemainingTime = styled.div`
     font-size: 1.25rem;

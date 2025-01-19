@@ -8,12 +8,12 @@ const UpcomingItem: React.FC = () => {
         <S.RowTravelList>
             <S.UpcomingItem>
                 <S.Image />
-                <S.Box>
+                <S.Box2>
                     <S.TextBox>
                         <Card.Title>여행 제목</Card.Title>
                         <Card.Text>장소</Card.Text>
                     </S.TextBox>
-                </S.Box>
+                </S.Box2>
             </S.UpcomingItem>
         </S.RowTravelList>
     );

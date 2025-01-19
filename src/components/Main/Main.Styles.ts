@@ -234,11 +234,10 @@ export const TravelListItem = styled(Card)`
 export const VotingItem = styled(Card)`
     box-sizing: border-box;
     display: flex;
-    flex-direction: row;
+    flex-direction: column; /* 세로 정렬 */
     justify-content: center;
     align-items: center;
     border-radius: 1rem;
-    flex-shrink: 0;
     gap: 1.375rem;
 `;
 

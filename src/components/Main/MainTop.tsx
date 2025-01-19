@@ -7,7 +7,7 @@ const MainTop: React.FC = () => {
     return (
         <S.TopContainer>
             <S.Title>
-                00님, 오늘은 <br /> 어디 가실래요?
+                정민님, 오늘은 <br /> 어디 가실래요?
             </S.Title>
             <S.IconContainer>
                 <S.CustomIconButton>

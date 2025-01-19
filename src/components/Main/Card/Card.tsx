@@ -1,6 +1,5 @@
 import * as S from "./Card.styles";
 import CardTitle from "./CardTitle";
-import CardItem from "./CardItem";
 import CardText from "./CardText";
 import React from "react";
 
@@ -20,7 +19,6 @@ function CardRoot({ children, gap }: { children: React.ReactNode; gap?: string }
 
 const Card = Object.assign(CardRoot, {
     Title: CardTitle,
-    Item: CardItem,
     Text: CardText,
 });
 

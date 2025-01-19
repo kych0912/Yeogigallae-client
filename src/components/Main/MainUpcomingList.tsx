@@ -4,6 +4,7 @@ import * as S from "./Main.Styles";
 import MainSection from "./MainSection/MainSection";
 import UpcomingItem from "./UpcomingItem";
 import Upcoming from "../../assets/icons/Upcoming.svg";
+import { UPcomingRooms } from "../../pages/Main/MainPage/test";
 
 const MainUpcomingList: React.FC = () => {
     return (
@@ -14,7 +15,7 @@ const MainUpcomingList: React.FC = () => {
                         <img src={Upcoming} alt="Upcoming Icon" /> 예정된 여행
                     </>
                 }
-                rightContent={0}
+                rightContent={UPcomingRooms.length}
             ></MainSection>
 
             {/*카드부분*/}

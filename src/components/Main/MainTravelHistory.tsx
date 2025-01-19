@@ -5,6 +5,7 @@ import International from "../../assets/icons/International.svg";
 import Domestic from "../../assets/icons/Domestic.svg";
 import History from "../../assets/icons/History.png";
 import TravelListItem from "./TravelListItem";
+import { completedRooms } from "../../pages/Main/MainPage/test";
 
 const MainTravelHistory: React.FC = () => {
     const [selectedButton, setSelectedButton] = useState<string>("domestic");
@@ -21,7 +22,7 @@ const MainTravelHistory: React.FC = () => {
                         <img src={History} alt="History Icon" /> 완료된 여행
                     </>
                 }
-                rightContent={0}
+                rightContent={completedRooms.length}
             />
             <S.BtnBar>
                 <S.selectBtn selected={selectedButton === "domestic"} size="medium" onClick={() => handleButtonClick("domestic")}>

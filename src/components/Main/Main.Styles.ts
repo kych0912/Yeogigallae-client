@@ -20,7 +20,7 @@ export const TopContainer = styled(Container)`
     flex-direction: row;
     justify-content: space-between;
     height: 4.75rem;
-    margin: 1.25rem;
+    margin-top: 1.25rem;
     padding: 0 1.25rem;
     box-sizing: border-box;
 `;
@@ -62,7 +62,7 @@ export const CustomIconButton = styled(IconButton)`
     margin-left: 1rem;
     background-color: ${({ theme }) => theme.colors.secondary};
     color: ${({ theme }) => theme.colors.textOnPrimary || "#fff"};
-    border: ${({ theme }) => `1px solid ${theme.colors.GrayText || "#6E6E6E"}`};
+    border: ${({ theme }) => `0.063rem solid ${theme.colors.GrayText || "#6E6E6E"}`};
     cursor: pointer;
     transition: background-color 0.3s ease-in-out;
 
@@ -154,6 +154,19 @@ export const VoteBar = styled.div`
     border-radius: 0.25rem;
     background: ${({ theme }) => theme.colors.primary};
 `;
+//예정된 여행
+export const Image = styled.img`
+    width: 8.125rem;
+    height: 8.125rem;
+    border-radius: 1.25rem;
+`;
+export const Box2 = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+`;
+
 //완료된 여행
 
 export const BtnBar = styled.div`
@@ -195,8 +208,6 @@ export const RowTravelList = styled.div`
 
 //카드들, 각 아이템들들
 export const TravelListItem = styled(Card)`
-    width: 23.125rem;
-    height: 15.625rem;
     padding: 1rem;
     box-sizing: border-box;
     display: flex;
@@ -206,8 +217,6 @@ export const TravelListItem = styled(Card)`
     border-radius: 1rem;
 `;
 export const VotingItem = styled(Card)`
-    height: 9rem; // 높이 설정
-    padding: 1rem;
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
@@ -223,7 +232,7 @@ export const UpcomingItem = styled(Card)`
     padding: 1rem;
     box-sizing: border-box;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     border-radius: 1rem;

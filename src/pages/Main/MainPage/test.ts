@@ -9,7 +9,7 @@ interface VotingRoom {
     votedParticipants: number; // 투표한 인원
 }
 
-interface ScheduledRoom {
+interface UPcomingRoom {
     id: number;
     name: string; // 방 이름
     location: string; // 장소
@@ -59,15 +59,15 @@ export const votingRooms: VotingRoom[] = [
         id: 4,
         name: "노윤서 집들이",
         location: "수리산 옆 세종 6단지",
-        participantProfiles: ["https://www.studiopeople.kr/common/img/default_profile.png", "https://www.studiopeople.kr/common/img/default_profile.png", "https://www.studiopeople.kr/common/img/default_profile.png", "https://www.studiopeople.kr/common/img/default_profile.png", "https://www.studiopeople.kr/common/img/default_profile.png"],
+        participantProfiles: ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlm0lmFj_reIGsO0-tHWLSQu5Qx6tTaDwEEQ&s", "https://pimg.mk.co.kr/news/cms/202303/20/news-p.v1.20230320.bdc5dc412a4347f88e47fb142e6dd6de.jpg", "https://image.fnnews.com/resource/media/image/2023/08/17/202308171732508054_l.jpg", "https://img.allurekorea.com/allure/2020/10/style_5f90f49e42104-916x1200.jpg"],
         remainingTime: "02:15:30",
         voteGauge: 0,
-        votedParticipants: 1,
+        votedParticipants: 2,
     },
     // 추가 항목...
 ];
 
-export const scheduledRooms: ScheduledRoom[] = [
+export const UPcomingRooms: UPcomingRoom[] = [
     {
         id: 1,
         name: "겨울 여행",
@@ -95,6 +95,14 @@ export const completedRooms: CompletedRoom[] = [
     },
     {
         id: 2,
+        name: "유럽 투어",
+        location: "파리",
+        date: "2024-11-20",
+        image: "https://example.com/completed2.jpg",
+        type: "세계여행",
+    },
+    {
+        id: 3,
         name: "유럽 투어",
         location: "파리",
         date: "2024-11-20",

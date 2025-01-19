@@ -1,52 +1,86 @@
+// 인터페이스 정의
 interface VotingRoom {
-    id: number; // 방 ID (고유값)
+    id: number;
     name: string; // 방 이름
     location: string; // 장소
-    participants: string[]; // 참여한 사용자 프로필 (이름 또는 ID)
-    remainingTime: string; // 남은 시간 (타이머 형식: "hh:mm:ss")
-    voteGauge: number; // 투표 정보 게이지 (0~100 사이 값)
+    participantProfiles: string[]; // 참여한 프로필 얼굴 (URL 배열)
+    remainingTime: string; // 남은 시간 (hh:mm:ss 형식)
+    voteGauge: number; // 투표 게이지 (0 ~ 100) (계산용)
+    votedParticipants: number; // 투표한 인원
 }
 
 interface ScheduledRoom {
-    id: number; // 방 ID (고유값)
+    id: number;
     name: string; // 방 이름
     location: string; // 장소
     date: string; // 날짜 (YYYY-MM-DD 형식)
     image: string; // 이미지 URL
 }
 
+interface CompletedRoom {
+    id: number;
+    name: string; // 방 이름
+    location: string; // 장소
+    date: string; // 날짜 (YYYY-MM-DD 형식)
+    image: string; // 이미지 URL
+    type: "세계여행" | "국내여행"; // 여행 종류
+}
+
+// 임시 데이터
 export const votingRooms: VotingRoom[] = [
     {
         id: 1,
-        name: "방 이름 1",
-        location: "장소 1",
-        participants: ["user1", "user2", "user3"],
-        remainingTime: "05:30:00", // 시작 시간 기준 6시간 타이머
-        voteGauge: 75, // 투표 게이지 (예: 75%)
+        name: "봄 소풍 투표",
+        location: "서울숲",
+        participantProfiles: ["https://www.studiopeople.kr/common/img/default_profile.png", "https://www.studiopeople.kr/common/img/default_profile.png", "https://www.studiopeople.kr/common/img/default_profile.png"],
+        remainingTime: "03:45:12",
+        voteGauge: 0, // 계산되기 전 기본값
+        votedParticipants: 2, // 투표한 인원
     },
     {
         id: 2,
-        name: "방 이름 2",
-        location: "장소 2",
-        participants: ["user4", "user5"],
-        remainingTime: "02:15:45",
-        voteGauge: 50,
+        name: "가을 여행 투표",
+        location: "한라산",
+        participantProfiles: ["https://www.studiopeople.kr/common/img/default_profile.png", "https://www.studiopeople.kr/common/img/default_profile.png"],
+        remainingTime: "02:15:30",
+        voteGauge: 0, // 계산되기 전 기본값
+        votedParticipants: 1, // 투표한 인원
     },
+    // 추가 항목...
 ];
 
 export const scheduledRooms: ScheduledRoom[] = [
     {
         id: 1,
-        name: "방 이름 3",
-        location: "장소 3",
-        date: "2025-01-18",
-        image: "https://lh4.googleusercontent.com/proxy/gLjzG8UzNpxYCbSS4WRPRof8y9DJVCPY-sWeYwZKg1eTaWE-py6vP2d26n5wvyDFDOmmbK-sz53rESpVmbdzAJ_zX21FV3KA0_gxjZSM4Q", // 임시 이미지
+        name: "겨울 여행",
+        location: "대관령",
+        date: "2025-01-22",
+        image: "https://example.com/scheduled1.jpg",
     },
     {
         id: 2,
-        name: "방 이름 4",
-        location: "장소 4",
-        date: "2025-01-19",
-        image: "https://lh4.googleusercontent.com/proxy/gLjzG8UzNpxYCbSS4WRPRof8y9DJVCPY-sWeYwZKg1eTaWE-py6vP2d26n5wvyDFDOmmbK-sz53rESpVmbdzAJ_zX21FV3KA0_gxjZSM4Q",
+        name: "해돋이 여행",
+        location: "정동진",
+        date: "2025-02-01",
+        image: "https://example.com/scheduled2.jpg",
+    },
+];
+
+export const completedRooms: CompletedRoom[] = [
+    {
+        id: 1,
+        name: "여름 바다 여행",
+        location: "부산 해운대",
+        date: "2024-12-15",
+        image: "https://example.com/completed1.jpg",
+        type: "국내여행",
+    },
+    {
+        id: 2,
+        name: "유럽 투어",
+        location: "파리",
+        date: "2024-11-20",
+        image: "https://example.com/completed2.jpg",
+        type: "세계여행",
     },
 ];

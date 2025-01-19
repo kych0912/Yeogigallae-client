@@ -4,6 +4,7 @@ import MainSection from "./MainSection/MainSection";
 import International from "../../assets/icons/International.svg";
 import Domestic from "../../assets/icons/Domestic.svg";
 import History from "../../assets/icons/History.png";
+import TravelListItem from "./TravelListItem";
 
 const MainTravelHistory: React.FC = () => {
     const [selectedButton, setSelectedButton] = useState<string>("domestic");
@@ -30,11 +31,8 @@ const MainTravelHistory: React.FC = () => {
                     <img src={International} alt="International" /> 해외여행
                 </S.selectBtn>
             </S.BtnBar>
-            <S.TravelList>
-                <S.TravelListItem>
-                    <S.Text>새로운 여행 기록으로 채워보세요!</S.Text>
-                </S.TravelListItem>
-            </S.TravelList>
+            {/* 완료된 여행 리스트  */}
+            <TravelListItem />
         </S.HistoryContainer>
     );
 };

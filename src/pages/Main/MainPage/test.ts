@@ -30,21 +30,39 @@ interface CompletedRoom {
 export const votingRooms: VotingRoom[] = [
     {
         id: 1,
-        name: "봄 소풍 투표",
+        name: "봄 소풍",
         location: "서울숲",
         participantProfiles: ["https://www.studiopeople.kr/common/img/default_profile.png", "https://www.studiopeople.kr/common/img/default_profile.png", "https://www.studiopeople.kr/common/img/default_profile.png"],
         remainingTime: "03:45:12",
-        voteGauge: 0, // 계산되기 전 기본값
-        votedParticipants: 2, // 투표한 인원
+        voteGauge: 0,
+        votedParticipants: 2,
     },
     {
         id: 2,
-        name: "가을 여행 투표",
+        name: "가을 여행",
         location: "한라산",
         participantProfiles: ["https://www.studiopeople.kr/common/img/default_profile.png", "https://www.studiopeople.kr/common/img/default_profile.png"],
         remainingTime: "02:15:30",
-        voteGauge: 0, // 계산되기 전 기본값
-        votedParticipants: 1, // 투표한 인원
+        voteGauge: 0,
+        votedParticipants: 1,
+    },
+    {
+        id: 3,
+        name: "겨울 졸업 여행",
+        location: "한라산",
+        participantProfiles: ["https://www.studiopeople.kr/common/img/default_profile.png", "https://www.studiopeople.kr/common/img/default_profile.png"],
+        remainingTime: "02:15:30",
+        voteGauge: 0,
+        votedParticipants: 1,
+    },
+    {
+        id: 4,
+        name: "노윤서 집들이",
+        location: "수리산 옆 세종 6단지",
+        participantProfiles: ["https://www.studiopeople.kr/common/img/default_profile.png", "https://www.studiopeople.kr/common/img/default_profile.png", "https://www.studiopeople.kr/common/img/default_profile.png", "https://www.studiopeople.kr/common/img/default_profile.png", "https://www.studiopeople.kr/common/img/default_profile.png"],
+        remainingTime: "02:15:30",
+        voteGauge: 0,
+        votedParticipants: 1,
     },
     // 추가 항목...
 ];

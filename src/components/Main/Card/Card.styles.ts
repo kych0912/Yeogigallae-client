@@ -11,7 +11,7 @@ const Card = styled.div`
 `;
 
 const CardWrapper = styled.div`
-    width: 20.625rem;
+    width: 23.125rem;
     height: auto;
     display: flex;
     gap: 1.125rem;

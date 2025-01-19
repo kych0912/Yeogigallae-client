@@ -101,7 +101,6 @@ export const ParticipantContainer = styled.div`
     display: flex;
     align-items: center;
     position: relative;
-    flex-grow: 1;
 `;
 
 export const ProfileImage = styled.img`

@@ -3,6 +3,7 @@ import * as S from "./Main.Styles";
 import MainSection from "./MainSection/MainSection";
 import Voting from "../../assets/icons/Voting.svg";
 import VotingItem from "./VotingItem";
+import { votingRooms } from "../../pages/Main/MainPage/test";
 
 const MainVotingList: React.FC = () => {
     return (
@@ -13,7 +14,7 @@ const MainVotingList: React.FC = () => {
                         <img src={Voting} alt="Voting Icon" /> 투표중
                     </>
                 }
-                rightContent={0}
+                rightContent={votingRooms.length}
             ></MainSection>
 
             {/*카드부분*/}

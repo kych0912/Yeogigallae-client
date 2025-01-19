@@ -10,19 +10,6 @@ const UpcomingItem: React.FC = () => {
                 <Card.Title>여행 제목</Card.Title>
                 <Card.Text>장소</Card.Text>
             </S.UpcomingItem>
-
-            <S.UpcomingItem>
-                <Card.Title>여행 제목</Card.Title>
-                <Card.Text>장소</Card.Text>
-            </S.UpcomingItem>
-            <S.UpcomingItem>
-                <Card.Title>여행 제목</Card.Title>
-                <Card.Text>장소</Card.Text>
-            </S.UpcomingItem>
-            <S.UpcomingItem>
-                <Card.Title>여행 제목</Card.Title>
-                <Card.Text>장소</Card.Text>
-            </S.UpcomingItem>
         </S.RowTravelList>
     );
 };

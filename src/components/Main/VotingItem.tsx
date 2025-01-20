@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import * as S from "./Main.Styles";
 import * as V from "./VotingItem.Styles";
 import Card from "./Card/Card";
-import { votingRooms } from "../../pages/Main/MainPage/test"; // 임시 데이터 임포트
+import { votingRooms } from "../../pages/Main/MainPage/test";
 
 const VotingItem: React.FC = () => {
-    const [rooms, setRooms] = useState(votingRooms); // 상태 관리
+    const [rooms, setRooms] = useState(votingRooms);
 
     // 남은 시간 계산 함수
     const calculateRemainingTime = (createdAt: string): string => {
@@ -22,8 +22,8 @@ const VotingItem: React.FC = () => {
         return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
     };
 
+    // 시간 업데이트
     useEffect(() => {
-        // 시간 업데이트
         const interval = setInterval(() => {
             setRooms((prevRooms) =>
                 prevRooms.map((room) => ({
@@ -44,8 +44,8 @@ const VotingItem: React.FC = () => {
 
     // 프로필 이미지 렌더링 함수
     const renderParticipantProfiles = (profiles: string[], extraProfiles: string) => {
-        const maxVisible = 5; // 최대 표시 프로필 수
-        const extraCount = profiles.length - maxVisible; // 초과 인원 계산
+        const maxVisible = 5;
+        const extraCount = profiles.length - maxVisible;
 
         return profiles.slice(0, maxVisible).map((profile, index) => {
             // 마지막 이미지에 extraProfiles 표시
@@ -69,14 +69,14 @@ const VotingItem: React.FC = () => {
 
                 return (
                     <V.VotingItem key={room.id}>
-                        <V.Box>
+                        <S.Box>
                             <S.TextBox>
                                 <Card.Title>{room.name}</Card.Title>
                                 <Card.Text>{room.location}</Card.Text>
                             </S.TextBox>
                             <V.RemainingTime>{room.remainingTime}</V.RemainingTime>
-                        </V.Box>
-                        <V.Box>
+                        </S.Box>
+                        <S.Box>
                             {/* 참여자 프로필 이미지 */}
                             <V.ParticipantContainer>
                                 {renderParticipantProfiles(
@@ -91,7 +91,7 @@ const VotingItem: React.FC = () => {
                                     <V.VoteBar style={{ width: `${voteGauge}%` }} />
                                 </V.VoteGauge>
                             </V.VoteBox>
-                        </V.Box>
+                        </S.Box>
                     </V.VotingItem>
                 );
             })}

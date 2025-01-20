@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Card from "./Card/Card";
 import BaseButton from "../Button/Button";
 import IconButton from "../Button/IconButton";
 
@@ -71,7 +70,14 @@ export const CustomIconButton = styled(IconButton)`
         height: 1.5rem;
     }
 `;
-
+export const Box = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+`;
 export const Text = styled.p`
     font-size: ${({ theme }) => theme.fontSize.medium || "1.25rem"};
     font-family: ${({ theme }) => theme.fontFamily.semiBold};
@@ -79,6 +85,11 @@ export const Text = styled.p`
     line-height: 1.5;
 `;
 
+export const Location = styled.p`
+    font-size: 0.75rem;
+    font-family: ${({ theme }) => theme.fontFamily.regular};
+    color: white;
+`;
 export const TextBox = styled.div`
     display: flex;
     flex-direction: column;
@@ -95,13 +106,6 @@ export const Image = styled.img`
     height: 8.125rem;
     border-radius: 1.25rem;
 `;
-export const Box2 = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-`;
-
 //완료된 여행
 
 export const BtnBar = styled.div`
@@ -119,7 +123,6 @@ export const TravelList = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
     width: 100vw;
     box-sizing: border-box;
 `;
@@ -139,27 +142,6 @@ export const RowTravelList = styled.div`
     }
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none;
-`;
-
-//카드들, 각 아이템들들
-export const TravelListItem = styled(Card)`
-    padding: 1rem;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-radius: 1rem;
-`;
-export const UpcomingItem = styled(Card)`
-    height: 9.875rem;
-    padding: 1rem;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    border-radius: 1rem;
 `;
 
 export const selectBtn = styled(BaseButton)<{ selected: boolean }>`

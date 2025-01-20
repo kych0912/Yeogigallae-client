@@ -1,25 +1,19 @@
 import styled from "styled-components";
-import Card from "./Card/Card";
 
 //투표중 정렬을 위한 박스
 
-export const VotingItem = styled(Card)`
+export const VotingItem = styled.div`
     box-sizing: border-box;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 1rem;
-    gap: 1.375rem;
     flex-direction: column;
-`;
-
-export const Box = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-    height: 100%;
-    align-items: center;
+    background-color: #222222;
+    border-radius: 1.25rem;
+    font-family: ${({ theme }) => theme.fontFamily.regular};
+    gap: 1.125rem;
+    padding: 1.5rem 1.25rem;
+    width: 23.125rem; /* 가로 너비 설정 */
+    height: auto;
+    flex-shrink: 0; /* 크기 축소 방지 */
 `;
 
 export const ParticipantContainer = styled.div`
@@ -64,6 +58,7 @@ export const RemainingTime = styled.div`
     text-align: right;
     align-self: flex-start;
 `;
+
 export const VoteBox = styled.div`
     display: flex;
     flex-direction: column;

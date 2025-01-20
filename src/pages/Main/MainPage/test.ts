@@ -75,17 +75,17 @@ export const votingRooms: VotingRoom[] = [
 export const UPcomingRooms: UPcomingRoom[] = [
     {
         id: 1,
-        name: "겨울 여행",
-        location: "대관령",
-        date: "2025-01-22",
-        image: "https://example.com/scheduled1.jpg",
+        name: "윤서 집들이",
+        location: "군포시 산본동 세종6단지",
+        date: "2025-01-29",
+        image: "https://ic.zigbang.com/vp/BigData/667/f559278949cc6d115a7702a7d5f2879f2ab32c8c.jpg?w=500&h=375&q=60&a=1",
     },
     {
         id: 2,
         name: "해돋이 여행",
         location: "정동진",
         date: "2025-02-01",
-        image: "https://example.com/scheduled2.jpg",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuivC51kFVd1AGQKSx5TrdJ759DdUU23h2-g&s",
     },
 ];
 
@@ -95,7 +95,7 @@ export const completedRooms: CompletedRoom[] = [
         name: "여름 바다 여행",
         location: "부산 해운대",
         date: "2024-12-15",
-        image: "https://example.com/completed1.jpg",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuivC51kFVd1AGQKSx5TrdJ759DdUU23h2-g&s",
         type: "국내여행",
     },
     {
@@ -103,15 +103,15 @@ export const completedRooms: CompletedRoom[] = [
         name: "유럽 투어",
         location: "파리",
         date: "2024-11-20",
-        image: "https://example.com/completed2.jpg",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuivC51kFVd1AGQKSx5TrdJ759DdUU23h2-g&s",
         type: "세계여행",
     },
     {
         id: 3,
-        name: "유럽 투어",
-        location: "파리",
+        name: "일본가자",
+        location: "도쿄",
         date: "2024-11-20",
-        image: "https://example.com/completed2.jpg",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuivC51kFVd1AGQKSx5TrdJ759DdUU23h2-g&s",
         type: "세계여행",
     },
 ];

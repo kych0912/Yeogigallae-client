@@ -5,7 +5,6 @@ import { theme } from "./styles/theme";
 import MainPage from "./pages/Main/MainPage/MainPage";
 import LoginPage from "./pages/Login/LoginPage/LoginPage";
 import BudgetPage from "./pages/Budget/BudgetPage/BudgetPage";
-import MyFriendPage from "./pages/MyPage/MyFriendPage/MyFriendPage";
 import MyProfilePage from "./pages/MyPage/MyProfilePage/MyProfilePage";
 import RoomPage from "./pages/MyPage/RoomPage/RoomPage";
 import NoticePage from "./pages/Notice/NoticePage/NoticePage";
@@ -42,7 +41,6 @@ const App: React.FC = () => {
 
             {/* MyPage */}
             <Route element={<ProfileLayout />}>
-              <Route path="/mypage/friend" element={<MyFriendPage />} />
               <Route path="/mypage/profile" element={<MyProfilePage />} />
               <Route path="/mypage/room" element={<RoomPage />} />
             </Route>
@@ -62,7 +60,7 @@ const App: React.FC = () => {
               <Route path="/vote" element={<VotePage />} />
             </Route>
 
-            <Route element={<FunctionalLayout/>}>
+            <Route element={<FunctionalLayout />}>
               <Route path="/functional" element={<FunctionalPage />} />
             </Route>
             

@@ -5,48 +5,72 @@ import CalendarIcon from "../../../../../assets/icons/Calender.svg?react";
 import Card from "../../../../../components/Card";
 import VoteTimes from "./VoteTimes";
 
-export default function VoteForm({ onCalendar, onSearch, isVote }: { onCalendar: () => void, onSearch: () => void, isVote: boolean; }) {
+export default function VoteForm({
+  onCalendar,
+  onSearch,
+  isVote,
+  messageValue,
+  onMessageChange,
+  selectedTime,
+  onTimeChange,
+  selectedLocation,
+}: {
+  onCalendar: () => void;
+  onSearch: () => void;
+  isVote: boolean;
+  messageValue: string;
+  onMessageChange: (value: string) => void;
+  selectedTime: string | null; 
+  onTimeChange: (time: string) => void; 
+  selectedLocation: string | null; 
+}) {
   return (
-    <>
-      <S.StyledCard>
-          <ImagePlaceholder />
-          <MessageInput />
+    <S.StyledCard>
+      <ImagePlaceholder />
+      
+      {/* 메시지 입력 */}
+      <MessageInput value={messageValue} onChange={onMessageChange} />
 
-          <S.StyledDivider />
+      <S.StyledDivider />
 
-          <Card.Item label="투표 제한 시간">
-            <VoteTimes />
+      {/* 투표 제한 시간 */}
+      <Card.Item label="투표 제한 시간">
+        <VoteTimes selectedTime={selectedTime} onTimeChange={onTimeChange} />
+      </Card.Item>
+
+      <S.StyledDivider />
+
+      {/* 장소 */}
+      <Card.Item label="장소">
+        <S.ClickableText onClick={onSearch}>
+          {selectedLocation || "장소를 입력하세요."}
+        </S.ClickableText>
+      </Card.Item>
+
+      <S.StyledDivider />
+
+      {isVote && (
+        <>
+          <Card.Item label="가격">
+            <S.Input
+              type="text"
+              placeholder="예) 1박 / 20만원"
+            />
           </Card.Item>
-
           <S.StyledDivider />
+        </>
+      )}
 
-          <Card.Item label="장소">
-            <S.ClickableText onClick={onSearch}>장소를 입력하세요.</S.ClickableText>
-          </Card.Item>
-
-          <S.StyledDivider />
-
-          {isVote && (
-            <>
-              <Card.Item label="가격">
-                <S.Input 
-                  type="text" 
-                  placeholder="예) 1박 / 20만원" 
-                />
-              </Card.Item>
-              <S.StyledDivider />
-            </>
-          )}
-
-          <Card.Item label="기간">최소 0박 ~ 최대 0박</Card.Item>
-          <S.StyledCardItem>
-            <span className="text">날짜 2024.00.00 ~ 2024.00.00</span>
-            <S.IconWrapper onClick={onCalendar} className="icon">
-              <CalendarIcon />
-            </S.IconWrapper>
-          </S.StyledCardItem>
-
-      </S.StyledCard>
-    </>
+      {/* 기간 */}
+      <Card.Item label="기간">최소 0박 ~ 최대 0박</Card.Item>
+      
+      {/* 날짜 선택 */}
+      <S.StyledCardItem>
+        <span className="text">날짜 2024.00.00 ~ 2024.00.00</span>
+        <S.IconWrapper onClick={onCalendar} className="icon">
+          <CalendarIcon />
+        </S.IconWrapper>
+      </S.StyledCardItem>
+    </S.StyledCard>
   );
 }

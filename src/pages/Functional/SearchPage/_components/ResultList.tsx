@@ -1,12 +1,12 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import * as S from "./ResultList.styles";
 import MapComponent from "./SearchMap/SearchMap";
 import ToggleIcon from "../../../../assets/icons/ToggleIcon.svg?react";
 
 interface ResultListProps {
   results: any[];
-  selectedResult: string | null; 
-  handleSelectItem: (selected: { id: string | null }) => void;
+  selectedResult: string | null;
+  handleSelectItem: (selected: { id: string | null; placeName: string | null }) => void;
 }
 
 const ResultList: React.FC<ResultListProps> = ({
@@ -16,12 +16,14 @@ const ResultList: React.FC<ResultListProps> = ({
 }) => {
   const [rotatedId, setRotatedId] = useState<string | null>(null);
 
-  if (results.length === 0) return null;
+  const toggleSelectItem = (id: string, placeName: string) => {
+    if (selectedResult === id) {
+      handleSelectItem({ id: null, placeName: "장소를 입력하세요" });
+    } else {
+      handleSelectItem({ id, placeName });
+    }
 
-  const toggleSelectItem = (id: string) => {
-    handleSelectItem({ id: selectedResult === id ? null : id });
-
-    setRotatedId(selectedResult === id ? null : id);
+    setRotatedId(id === rotatedId ? null : id);
   };
 
   return (
@@ -32,7 +34,7 @@ const ResultList: React.FC<ResultListProps> = ({
             <S.ResultItem
               $isFirst={index === 0}
               $isLast={index === results.length - 1}
-              onClick={() => toggleSelectItem(result.id)}
+              onClick={() => toggleSelectItem(result.id, result.place_name)}
             >
               <S.ZipCode>{result.zone_no || "우편번호 없음"}</S.ZipCode>
               <S.PlaceName>{result.place_name}</S.PlaceName>
@@ -48,7 +50,6 @@ const ResultList: React.FC<ResultListProps> = ({
                 </S.MapButton>
               </S.InfoContainer>
             </S.ResultItem>
-
             {selectedResult === result.id && (
               <MapComponent
                 center={{ x: result.x, y: result.y }}
@@ -56,7 +57,6 @@ const ResultList: React.FC<ResultListProps> = ({
               />
             )}
           </S.ResultWrapper>
-
           {index < results.length - 1 && <S.Divider />}
         </React.Fragment>
       ))}

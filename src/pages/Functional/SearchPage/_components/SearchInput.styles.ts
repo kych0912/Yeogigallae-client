@@ -1,59 +1,53 @@
 import styled from "styled-components";
-import Card from "../../../../components/Card";
 
-export const StyledCard = styled(Card)<{ $isError: boolean } & React.HTMLAttributes<HTMLDivElement>>`
+export const Container = styled.div<{ $isError: boolean }>`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  background-color: #222; 
+  border: ${({ $isError }) => ($isError ? "1px solid red" : "1px solid #444")}; 
+  border-radius: 6.25rem; 
+  padding: 0.813rem 1.25rem;
   width: 100%;
-  padding: 0.5rem 1rem;
-  background-color: ${({ $isError }) => ($isError ? "#2a2a2a" : "#222222")};
-  border-radius: 30px;
-  border: ${({ $isError }) => ($isError ? "2px solid red" : "2px solid transparent")};
-  transition: background-color 0.3s, border 0.3s;
-  cursor: text;
+  box-sizing: border-box;
+`;
 
-  &:hover {
-    background-color: #333333;
-  }
+export const InputWrapper = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  position: relative;
 `;
 
 export const SearchInput = styled.input`
-  flex: 1;
+  width: 100%;
   border: none;
-  background: none;
-  font-size: 1rem;
-  color: #fff;
   outline: none;
-  padding: 0;
-  margin: 0;
+  background-color: transparent;
+  color: #6E6E6E; 
+  font-size: 1rem;
+  font-wegiht: medium;
 
   &::placeholder {
-    color: #6e6e6e;
+    color: #6E6E6E; 
   }
 `;
 
 export const ClearButton = styled.button`
+  position: absolute;
+  right: 0;
+  background: none;
   border: none;
-  background-color: transparent;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  color: #6e6e6e;
   font-size: 1.5rem;
+  cursor: pointer;
+  color: #6E6E6E; 
 `;
 
-export const SearchButton = styled.button<{ $disabled?: boolean }>`
+export const SearchButton = styled.button<{ $disabled: boolean }>`
+  background-color: transparent;
   border: none;
-  background: none;
+  color: white;
   cursor: ${({ $disabled }) => ($disabled ? "not-allowed" : "pointer")};
   display: flex;
   align-items: center;
-  font-size: 1.5rem;
-  color: 6E6E6E;
-
-  &:disabled {
-    pointer-events: none;
-    opacity: 0.5;
-  }
+  justify-content: center;
 `;

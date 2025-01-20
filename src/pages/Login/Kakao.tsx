@@ -31,8 +31,7 @@ const Kakao = ({ provider }: KakaoProps) => {
                     {
                         withCredentials: true,
                     }
-                );
-*/
+                ); */
                 if (response.data.accessToken) {
                     console.log("저장할 토큰:", response.data.accessToken);
                     setAccessToken(response.data.accessToken, provider);

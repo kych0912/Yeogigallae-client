@@ -1,4 +1,4 @@
-import { ButtonProps } from '../../types/button';
+import { ButtonProps } from './types';
 import { IconButtonByBaseButton } from './Button.styles';
 
 interface IconButtonProps extends ButtonProps {

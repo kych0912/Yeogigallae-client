@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react";
 import * as S from "./Button.styles";
-import { ButtonProps } from "../../types/button";
+import { ButtonProps } from "./types";
 
 /**
  * 버튼 컴포넌트입니다. props로 variant, size, color, html 속성들을 받을 수 있습니다.

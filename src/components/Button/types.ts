@@ -1,4 +1,4 @@
-import { Theme } from "../styles/theme";
+import { Theme } from "../../styles/theme";
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>{
     size?: ButtonSize;

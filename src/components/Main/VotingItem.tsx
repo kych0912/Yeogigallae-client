@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as S from "./Main.Styles";
+import * as V from "./VotingItem.Styles";
 import Card from "./Card/Card";
 import { votingRooms } from "../../pages/Main/MainPage/test"; // 임시 데이터 임포트
 
@@ -50,13 +51,13 @@ const VotingItem: React.FC = () => {
             // 마지막 이미지에 extraProfiles 표시
             if (index === maxVisible - 1 && extraCount > 0) {
                 return (
-                    <S.ProfileImageOverlay key={index}>
-                        <S.ProfileImage src={extraProfiles} alt={`Extra Profiles`} />
-                    </S.ProfileImageOverlay>
+                    <V.ProfileImageOverlay key={index}>
+                        <V.ProfileImage src={extraProfiles} alt={`Extra Profiles`} />
+                    </V.ProfileImageOverlay>
                 );
             }
 
-            return <S.ProfileImage key={index} src={profile} alt={`Participant ${index + 1}`} />;
+            return <V.ProfileImage key={index} src={profile} alt={`Participant ${index + 1}`} />;
         });
     };
 
@@ -67,31 +68,31 @@ const VotingItem: React.FC = () => {
                 const voteGauge = calculateVoteGauge(room.votedParticipants, totalParticipants);
 
                 return (
-                    <S.VotingItem key={room.id}>
-                        <S.Box>
+                    <V.VotingItem key={room.id}>
+                        <V.Box>
                             <S.TextBox>
                                 <Card.Title>{room.name}</Card.Title>
                                 <Card.Text>{room.location}</Card.Text>
                             </S.TextBox>
-                            <S.RemainingTime>{room.remainingTime}</S.RemainingTime>
-                        </S.Box>
-                        <S.Box>
+                            <V.RemainingTime>{room.remainingTime}</V.RemainingTime>
+                        </V.Box>
+                        <V.Box>
                             {/* 참여자 프로필 이미지 */}
-                            <S.ParticipantContainer>
+                            <V.ParticipantContainer>
                                 {renderParticipantProfiles(
                                     room.participantProfiles,
                                     "https://media.istockphoto.com/id/688550958/vector/black-plus-sign-positive-symbol.jpg?s=612x612&w=0&k=20&c=0tymWBTSEqsnYYXWeWmJPxMotTGUwaGMGs6BMJvr7X4=" // 임의로 그냥 + 이미지 가져옴
                                 )}
-                            </S.ParticipantContainer>
+                            </V.ParticipantContainer>
                             {/* 투표율 */}
-                            <S.VoteBox>
-                                <S.VoteText>{room.votedParticipants}명 투표 완료</S.VoteText>
-                                <S.VoteGauge>
-                                    <S.VoteBar style={{ width: `${voteGauge}%` }} />
-                                </S.VoteGauge>
-                            </S.VoteBox>
-                        </S.Box>
-                    </S.VotingItem>
+                            <V.VoteBox>
+                                <V.VoteText>{room.votedParticipants}명 투표 완료</V.VoteText>
+                                <V.VoteGauge>
+                                    <V.VoteBar style={{ width: `${voteGauge}%` }} />
+                                </V.VoteGauge>
+                            </V.VoteBox>
+                        </V.Box>
+                    </V.VotingItem>
                 );
             })}
         </S.RowTravelList>

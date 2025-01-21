@@ -67,6 +67,7 @@ const MapSearch: React.FC<MapProps> = ({ center, results }) => {
         });
 
         // 마우스 이벤트 추가
+        
         window.kakao.maps.event.addListener(marker, "mouseover", () => {
           infowindow.open(map, marker);
         });

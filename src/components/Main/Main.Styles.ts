@@ -45,7 +45,7 @@ export const HistoryContainer = styled(Container)`
 
 //메인 탑
 export const Title = styled.h1`
-    font-size: ${({ theme }) => theme.fontSize.large || "2.5rem"};
+    font-size: 1.5rem;
     font-family: ${({ theme }) => theme.fontFamily.semiBold};
     color: ${({ theme }) => theme.colors.white || "#ffffff"};
     line-height: 1.5;
@@ -125,6 +125,7 @@ export const TravelList = styled.div`
     align-items: center;
     width: 100vw;
     box-sizing: border-box;
+    padding: 0 1.25rem;
 `;
 export const RowTravelList = styled.div`
     display: inline-flex;
@@ -147,8 +148,14 @@ export const RowTravelList = styled.div`
 export const selectBtn = styled(BaseButton)<{ selected: boolean }>`
     color: ${({ theme, selected }) => (selected ? "#fff" : theme.colors.GrayText)};
     background-color: ${({ theme, selected }) => (selected ? theme.colors.GrayText : theme.colors.secondary)};
-    font-family: ${({ theme }) => theme.fontFamily.regular};
+    font-family: ${({ theme, selected }) => (selected ? theme.fontFamily.medium : theme.fontFamily.regular)};
     border: none;
     width: 11.875rem;
     height: 3.25rem;
+    font-size: 1.25rem;
+`;
+
+export const Icon = styled.img`
+    padding: 0 0.625rem 0 0;
+    align-self: center;
 `;

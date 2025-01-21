@@ -1,5 +1,5 @@
 import React from "react";
-import * as S from "./Main.Styles";
+import * as S from "../Main.Styles";
 import * as H from "./TravelListItem.Styles";
 
 interface TravelListItemProps {

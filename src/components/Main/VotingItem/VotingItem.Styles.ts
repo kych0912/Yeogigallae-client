@@ -6,7 +6,7 @@ export const VotingItem = styled.div`
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    background-color: #222222;
+    background-color: ${({ theme }) => theme.colors.secondary || "#222222"};
     border-radius: 1.25rem;
     font-family: ${({ theme }) => theme.fontFamily.regular};
     gap: 1.125rem;
@@ -22,11 +22,18 @@ export const ParticipantContainer = styled.div`
     position: relative;
 `;
 
+export const Title = styled.div`
+    font-size: 1.25rem;
+    font-family: ${({ theme }) => theme.fontFamily.medium};
+    color: white;
+    line-height: 1.4;
+`;
+
 export const ProfileImage = styled.img`
     width: 2rem;
     height: 2rem;
     border-radius: 50%;
-    margin-left: -0.5rem;
+    margin-left: -0.563rem;
     border: none;
     z-index: 1;
     box-shadow: -0.25rem 0.25rem 1rem 0px #000000;
@@ -53,7 +60,7 @@ export const ProfileImageOverlay = styled.div`
 
 export const RemainingTime = styled.div`
     font-size: 1.25rem;
-    font-family: ${({ theme }) => theme.fontFamily.regular};
+    font-family: ${({ theme }) => theme.fontFamily.bold};
     color: ${({ theme }) => theme.colors.primary};
     text-align: right;
     align-self: flex-start;

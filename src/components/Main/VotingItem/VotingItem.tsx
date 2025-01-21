@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import * as S from "./Main.Styles";
+import * as S from "../Main.Styles";
 import * as V from "./VotingItem.Styles";
-import Card from "./Card/Card";
-import { votingRooms } from "../../pages/Main/MainPage/test";
+import { votingRooms } from "../../../pages/Main/MainPage/test"; // 임시 데이터 임포트
 
 const VotingItem: React.FC = () => {
-    const [rooms, setRooms] = useState(votingRooms);
+    const [rooms, setRooms] = useState(votingRooms); // 상태 관리
 
     // 남은 시간 계산 함수
     const calculateRemainingTime = (createdAt: string): string => {
@@ -71,8 +70,8 @@ const VotingItem: React.FC = () => {
                     <V.VotingItem key={room.id}>
                         <S.Box>
                             <S.TextBox>
-                                <Card.Title>{room.name}</Card.Title>
-                                <Card.Text>{room.location}</Card.Text>
+                                <V.Title>{room.name}</V.Title>
+                                <S.Location>{room.location}</S.Location>
                             </S.TextBox>
                             <V.RemainingTime>{room.remainingTime}</V.RemainingTime>
                         </S.Box>

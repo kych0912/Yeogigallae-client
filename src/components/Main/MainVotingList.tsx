@@ -2,7 +2,7 @@ import React from "react";
 import * as S from "./Main.Styles";
 import MainSection from "./MainSection/MainSection";
 import Voting from "../../assets/icons/Voting.svg";
-import VotingItem from "./VotingItem";
+import VotingItem from "./VotingItem/VotingItem";
 import { votingRooms } from "../../pages/Main/MainPage/test";
 
 const MainVotingList: React.FC = () => {

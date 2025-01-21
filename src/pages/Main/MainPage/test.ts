@@ -78,14 +78,14 @@ export const UPcomingRooms: UPcomingRoom[] = [
         name: "윤서 집들이",
         location: "군포시 산본동 세종6단지",
         date: "2025-01-29",
-        image: "https://ic.zigbang.com/vp/BigData/667/f559278949cc6d115a7702a7d5f2879f2ab32c8c.jpg?w=500&h=375&q=60&a=1",
+        image: "https://i.namu.wiki/i/uH7NzgRSXa3ilcIkybwnrfVRdHM3DQC6MnbNoKk1K3Grz-NIKd7KB4UiuTBLXihaxv1iRk8gw6ngUw6ITP6RVQ.webp",
     },
     {
         id: 2,
-        name: "해돋이 여행",
+        name: "일곱글자를해볼게 ",
         location: "정동진",
         date: "2025-02-01",
-        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuivC51kFVd1AGQKSx5TrdJ759DdUU23h2-g&s",
+        image: "https://i.namu.wiki/i/uH7NzgRSXa3ilcIkybwnrfVRdHM3DQC6MnbNoKk1K3Grz-NIKd7KB4UiuTBLXihaxv1iRk8gw6ngUw6ITP6RVQ.webp",
     },
 ];
 
@@ -95,7 +95,7 @@ export const completedRooms: CompletedRoom[] = [
         name: "여름 바다 여행",
         location: "부산 해운대",
         date: "2024-12-15",
-        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuivC51kFVd1AGQKSx5TrdJ759DdUU23h2-g&s",
+        image: "https://i.namu.wiki/i/uH7NzgRSXa3ilcIkybwnrfVRdHM3DQC6MnbNoKk1K3Grz-NIKd7KB4UiuTBLXihaxv1iRk8gw6ngUw6ITP6RVQ.webp",
         type: "국내여행",
     },
     {
@@ -103,15 +103,15 @@ export const completedRooms: CompletedRoom[] = [
         name: "유럽 투어",
         location: "파리",
         date: "2024-11-20",
-        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuivC51kFVd1AGQKSx5TrdJ759DdUU23h2-g&s",
+        image: "https://i.namu.wiki/i/uH7NzgRSXa3ilcIkybwnrfVRdHM3DQC6MnbNoKk1K3Grz-NIKd7KB4UiuTBLXihaxv1iRk8gw6ngUw6ITP6RVQ.webp",
         type: "세계여행",
     },
     {
         id: 3,
-        name: "일본가자",
-        location: "도쿄",
+        name: "봄 소풍을 가고싶지만 현실은 강의실에서 수업듣게 될 희망 여행 ",
+        location: "파리",
         date: "2024-11-20",
-        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuivC51kFVd1AGQKSx5TrdJ759DdUU23h2-g&s",
+        image: "https://i.namu.wiki/i/uH7NzgRSXa3ilcIkybwnrfVRdHM3DQC6MnbNoKk1K3Grz-NIKd7KB4UiuTBLXihaxv1iRk8gw6ngUw6ITP6RVQ.webp",
         type: "세계여행",
     },
 ];

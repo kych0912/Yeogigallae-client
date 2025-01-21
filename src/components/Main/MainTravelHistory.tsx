@@ -4,7 +4,7 @@ import MainSection from "./MainSection/MainSection";
 import International from "../../assets/icons/International.svg";
 import Domestic from "../../assets/icons/Domestic.svg";
 import History from "../../assets/icons/History.png";
-import TravelListItem from "./TravelListItem";
+import TravelListItem from "./TravelListItem/TravelListItem";
 import { completedRooms } from "../../pages/Main/MainPage/test";
 
 const MainTravelHistory: React.FC = () => {
@@ -29,10 +29,10 @@ const MainTravelHistory: React.FC = () => {
             />
             <S.BtnBar>
                 <S.selectBtn selected={selectedButton === "domestic"} size="medium" onClick={() => handleButtonClick("domestic")}>
-                    <img src={Domestic} alt="Domestic" /> 국내여행
+                    <S.Icon src={Domestic} alt="Domestic" /> 국내여행
                 </S.selectBtn>
                 <S.selectBtn selected={selectedButton === "international"} size="large" onClick={() => handleButtonClick("international")}>
-                    <img src={International} alt="International" /> 해외여행
+                    <S.Icon src={International} alt="International" /> 해외여행
                 </S.selectBtn>
             </S.BtnBar>
             {/* 완료된 여행 리스트 */}

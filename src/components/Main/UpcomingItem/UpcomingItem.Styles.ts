@@ -4,7 +4,7 @@ export const TravelList = styled.div`
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
-    background-color: #222222;
+    background-color: ${({ theme }) => theme.colors.secondary || "#222222"};
     border-radius: 1.25rem;
     font-family: ${({ theme }) => theme.fontFamily.regular};
     gap: 1.125rem;
@@ -28,6 +28,7 @@ export const InfoWrapper = styled.div`
     justify-content: space-between;
     flex: 1;
     padding: 0.5rem 0;
+    opacity: 0.8;
 `;
 
 export const Date = styled.div`

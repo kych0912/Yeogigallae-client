@@ -1,8 +1,8 @@
 import React from "react";
-import * as S from "./Main.Styles";
+import * as S from "../Main.Styles";
 import * as U from "./UpcomingItem.Styles";
-import { UPcomingRooms } from "../../pages/Main/MainPage/test";
-import Calender2 from "../../assets/icons/Calender2.svg";
+import { UPcomingRooms } from "../../../pages/Main/MainPage/test";
+import Calender2 from "../../../assets/icons/Calender2.svg";
 
 const UpcomingItem: React.FC = () => {
     return (

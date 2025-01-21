@@ -2,7 +2,7 @@
 import React from "react";
 import * as S from "./Main.Styles";
 import MainSection from "./MainSection/MainSection";
-import UpcomingItem from "./UpcomingItem";
+import UpcomingItem from "./UpcomingItem/UpcomingItem";
 import Upcoming from "../../assets/icons/Upcoming.svg";
 import { UPcomingRooms } from "../../pages/Main/MainPage/test";
 

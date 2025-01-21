@@ -5,6 +5,7 @@ import { Button } from "../../../../../components/Button";
 import * as S from "../../../_components/Course.style";
 import CoursePlaces from "../../Detail/_components/CoursePlaces";
 import CourseTitle from "../../../_components/CourseTitle";
+import CommonContainer from "../../../../../components/Layout/CommonContainer";
 
 export default function CourseOverviewCard({ dailyRoutes,onNext }:{
     dailyRoutes: Route | null | undefined,
@@ -20,7 +21,7 @@ export default function CourseOverviewCard({ dailyRoutes,onNext }:{
     );
     
     return (
-        <S.Container>
+        <CommonContainer>
         <S.StyledCard>
             <Card.Image>
                 <Map 
@@ -60,6 +61,6 @@ export default function CourseOverviewCard({ dailyRoutes,onNext }:{
             <br/>
             {"6시간 안에 코스에 대한 의견을 결정해주세요."}
         </S.CompleteMessage>
-        </S.Container>
+        </CommonContainer>
     );
 }

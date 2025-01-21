@@ -15,14 +15,14 @@ export function Accordion({children}:{children:React.ReactNode}){
     </AccordionContext.Provider>
 }
 
-export function AccordionTitle({children}:{children:React.ReactNode}){
+export function AccordionTitle({children,number}:{children:React.ReactNode,number:number}){
     const {isOpen, setIsOpen} = useAccordionContext();
 
     return (
         <S.Accordion.Title onClick={()=>setIsOpen(!isOpen)}>
             {children}
             <S.Item.ToggleWrapper>
-                {"22"}
+                {number}
                 <S.Item.Toggle isOpen={isOpen}>
                     <DownIcon style={{marginLeft:"0.25rem"}}/>
                 </S.Item.Toggle>

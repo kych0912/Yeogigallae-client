@@ -1,72 +1,53 @@
-// 마이페이지
-import React from 'react';
-import * as S from './_components/Friend.style'; 
 import CommonContainer from '../../../components/Layout/CommonContainer';
 import {
     Accordion,
     AccordionTitle,
     AccordionItemWrapper,
-    AccordionItem
 } from './_components/Accordion';
+import FriendItem from './_components/FriendItem';
 
-const MyFriendPage: React.FC = () => {
-
+export default function MyFriendPage(){
+    // 실제로는 API나 상태관리로 받아올 데이터
+    const mockFriends = [
+        { name: "친구 추가", Avatar: "" },
+        { name: "친구 1", Avatar: "https://picsum.photos/200/300" },
+        { name: "친구 2", Avatar: "https://picsum.photos/200/300" },
+        { name: "친구 3", Avatar: "https://picsum.photos/200/300" },
+    ];
 
     return (
         <CommonContainer>
             <Accordion>
-                <AccordionTitle>
+                <AccordionTitle number={mockFriends.length}>
                     {"여행 크루 만들기"}
                 </AccordionTitle>
                 <AccordionItemWrapper>
-                    <AccordionItem index={0}>
-                        <S.Item.AddCircle>
-                            {"+"}
-                        </S.Item.AddCircle>
-                        {"친구 추가"}
-                    </AccordionItem>
-                    <AccordionItem index={1}>
-                        <S.Accordion.Avatar src="https://picsum.photos/200/300" alt="friend" />
-                            {"친구 목록"}
-                    </AccordionItem>
-                    <AccordionItem index={2}>
-                        <S.Accordion.Avatar src="https://picsum.photos/200/300" alt="friend" />
-                            {"친구 목록"}
-                    </AccordionItem>
-                    <AccordionItem index={3}>
-                        <S.Accordion.Avatar src="https://picsum.photos/200/300" alt="friend" />
-                            {"친구 목록"}
-                    </AccordionItem>
+                    {mockFriends.map((friend, index) => (
+                        <FriendItem 
+                            key={index}
+                            index={index}
+                            name={friend.name}
+                            Avatar={friend.Avatar}
+                        />
+                    ))}
                 </AccordionItemWrapper>
             </Accordion>
 
             <Accordion>
-                <AccordionTitle>
-                    {"여행 크루 만들기"}
+                <AccordionTitle number={mockFriends.length}>
+                    {"여행 친구들"}
                 </AccordionTitle>
                 <AccordionItemWrapper>
-                    <AccordionItem index={0}>
-                        <S.Item.AddCircle>
-                            {"+"}
-                        </S.Item.AddCircle>
-                        {"친구 추가"}
-                    </AccordionItem>
-                    <AccordionItem index={1}>
-                        <S.Accordion.Avatar src="https://picsum.photos/200/300" alt="friend" />
-                            {"친구 목록"}
-                    </AccordionItem>
-                    <AccordionItem index={2}>
-                        <S.Accordion.Avatar src="https://picsum.photos/200/300" alt="friend" />
-                            {"친구 목록"}
-                    </AccordionItem>
-                    <AccordionItem index={3}>
-                        <S.Accordion.Avatar src="https://picsum.photos/200/300" alt="friend" />
-                            {"친구 목록"}
-                    </AccordionItem>
+                    {mockFriends.map((friend, index) => (
+                        <FriendItem 
+                            key={index}
+                            index={index}
+                            name={friend.name}
+                            Avatar={friend.Avatar}
+                        />
+                    ))}
                 </AccordionItemWrapper>
             </Accordion>
         </CommonContainer>
     );
 };
-
-export default MyFriendPage;

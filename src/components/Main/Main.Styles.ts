@@ -93,10 +93,15 @@ export const Text = styled.p`
     line-height: 1.5;
 `;
 
+//글자수 제한한
 export const Location = styled.p`
     font-size: 0.75rem;
     font-family: ${({ theme }) => theme.fontFamily.regular};
     color: white;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 11rem;
 `;
 export const TextBox = styled.div`
     display: flex;

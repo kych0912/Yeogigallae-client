@@ -32,7 +32,7 @@ export const votingRooms: VotingRoom[] = [
     {
         id: 1,
         name: "봄 소풍",
-        location: "서울숲",
+        location: "대한민국 서울 특별시 서울숲의 위치가 어디일까요 모르게따",
         participantProfiles: ["https://www.studiopeople.kr/common/img/default_profile.png", "https://www.studiopeople.kr/common/img/default_profile.png", "https://www.studiopeople.kr/common/img/default_profile.png"],
         remainingTime: "06:00:00", // 초기 값
         voteGauge: 0,
@@ -76,7 +76,7 @@ export const UPcomingRooms: UPcomingRoom[] = [
     {
         id: 1,
         name: "윤서 집들이",
-        location: "군포시 산본동 세종6단지",
+        location: "군포시 산본동 세종6단지ㄴㅁㅇㅁㄴㅇㄴㅁㅇㄴ",
         date: "2025-01-29",
         image: "https://i.namu.wiki/i/uH7NzgRSXa3ilcIkybwnrfVRdHM3DQC6MnbNoKk1K3Grz-NIKd7KB4UiuTBLXihaxv1iRk8gw6ngUw6ITP6RVQ.webp",
     },
@@ -93,7 +93,7 @@ export const completedRooms: CompletedRoom[] = [
     {
         id: 1,
         name: "여름 바다 여행",
-        location: "부산 해운대",
+        location: "대한민국 부산광역시 해운대구 뭐시기 뭐시기",
         date: "2024-12-15",
         image: "https://i.namu.wiki/i/uH7NzgRSXa3ilcIkybwnrfVRdHM3DQC6MnbNoKk1K3Grz-NIKd7KB4UiuTBLXihaxv1iRk8gw6ngUw6ITP6RVQ.webp",
         type: "국내여행",

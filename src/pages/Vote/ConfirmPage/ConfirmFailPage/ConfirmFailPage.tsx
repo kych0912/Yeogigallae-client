@@ -6,9 +6,7 @@ import ConfirmFailCard from "../_components/ConfirmFailCard/ConfirmFailCard";
 const VoteAgreePage: React.FC = () => {
     return (
         <S.Container>
-            <S.VoteCardWrapper>
                 <ConfirmFailCard />
-            </S.VoteCardWrapper>
         </S.Container>
     );
 };

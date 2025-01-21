@@ -34,9 +34,9 @@ const ConfirmFailCard: React.FC = () => {
 
       <S.LocationWrapper>
         <Card.Item label="장소">
-          <S.TruncatedText>{voteData.location}</S.TruncatedText>
+          <S.TruncatedText>{voteData.location.place}<br />{voteData.location.address}</S.TruncatedText>
         </Card.Item>
-        <S.IconWrapper onClick={() => handleCopyToClipboard(voteData.location)}>
+        <S.IconWrapper onClick={() => handleCopyToClipboard(voteData.location.place)}>
           <LinkIcon />
         </S.IconWrapper>
       </S.LocationWrapper>

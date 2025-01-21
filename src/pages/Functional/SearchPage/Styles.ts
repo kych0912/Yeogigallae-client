@@ -5,6 +5,7 @@ export const Container = styled.div`
   flex-direction: column;
   padding: 0.938rem;
   gap: 1rem;
+  font-family: ${({ theme }) => theme.fontFamily.medium};
 `;
 
 export const Instructions = styled.div`
@@ -12,6 +13,7 @@ export const Instructions = styled.div`
   color: #6e6e6e;
   padding: 0 10px;
   margin-bottom: 30px;
+  font-family: ${({ theme }) => theme.fontFamily.medium};
   ul {
     margin: 10px 0 0 16px;
   }
@@ -29,4 +31,5 @@ export const ResultWrapper = styled.div`
   color: #6e6e6e;
   font-weight: regular;
   font-size: 0.875rem;
+  font-family: ${({ theme }) => theme.fontFamily.medium};
 `;

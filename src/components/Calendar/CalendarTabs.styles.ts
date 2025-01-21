@@ -7,7 +7,7 @@ export const TabGroup = styled.div`
 `;
 
 export const TabButton = styled.button<{ $active: boolean }>`
-  background-color: ${({ $active }) => ($active ? "#4f46e5" : "#616161")};
+  background-color: #434343;
   color: #fff;
   border: none;
   border-radius: 20px;
@@ -19,6 +19,6 @@ export const TabButton = styled.button<{ $active: boolean }>`
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: ${({ $active }) => ($active ? "#3b37b1" : "#555")};
+    background-color: ${({ $active }) => ($active ? "#3b46f1" : "#434343")};
   }
 `;

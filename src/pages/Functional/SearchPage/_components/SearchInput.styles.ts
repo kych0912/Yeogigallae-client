@@ -4,11 +4,11 @@ export const Container = styled.div<{ $isError: boolean }>`
   display: flex;
   align-items: center;
   background-color: #222; 
-  border: ${({ $isError }) => ($isError ? "1px solid red" : "1px solid #444")}; 
   border-radius: 6.25rem; 
   padding: 0.813rem 1.25rem;
   width: 100%;
   box-sizing: border-box;
+  font-family: ${({ theme }) => theme.fontFamily.medium};
 `;
 
 export const InputWrapper = styled.div`
@@ -16,6 +16,7 @@ export const InputWrapper = styled.div`
   display: flex;
   align-items: center;
   position: relative;
+  font-family: ${({ theme }) => theme.fontFamily.medium};
 `;
 
 export const SearchInput = styled.input`
@@ -25,7 +26,7 @@ export const SearchInput = styled.input`
   background-color: transparent;
   color: #6E6E6E; 
   font-size: 1rem;
-  font-wegiht: medium;
+  font-family: ${({ theme }) => theme.fontFamily.medium};
 
   &::placeholder {
     color: #6E6E6E; 
@@ -40,6 +41,7 @@ export const ClearButton = styled.button`
   font-size: 1.5rem;
   cursor: pointer;
   color: #6E6E6E; 
+  font-family: ${({ theme }) => theme.fontFamily.medium};
 `;
 
 export const SearchButton = styled.button<{ $disabled: boolean }>`
@@ -50,4 +52,5 @@ export const SearchButton = styled.button<{ $disabled: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: ${({ theme }) => theme.fontFamily.medium};
 `;

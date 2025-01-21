@@ -5,67 +5,93 @@ import SearchInput from "./_components/SearchInput";
 import ResultList from "./_components/ResultList";
 import Pagination from "./_components/Pagination";
 
-const SearchPage: React.FC<{ onPlaceSelect: (placeName: string) => void }> = ({
-  onPlaceSelect,
-}) => {
+interface Place {
+  id: string;
+  place_name: string;
+  zone_no: string | null;
+  road_address_name?: string;
+  address_name?: string;
+  x: number;
+  y: number;
+}
+
+const SearchPage: React.FC = () => {
   const [query, setQuery] = useState<string>(""); // 검색어
+  const [isTouched, setIsTouched] = useState<boolean>(false); // 추가된 상태
+  const [isError, setIsError] = useState<boolean>(false); // 에러 상태
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true); // 버튼 비활성화 여부
-  const [results, setResults] = useState<any[]>([]); // 검색 결과
+  const [results, setResults] = useState<Place[]>([]); // 검색 결과
   const [currentPage, setCurrentPage] = useState<number>(1); // 현재 페이지
   const [selectedResult, setSelectedResult] = useState<string | null>(null); // 선택된 항목
-  const [isError, setIsError] = useState<boolean>(false); // 에러 상태
-  const [isTouched, setIsTouched] = useState<boolean>(false); // 입력 필드가 터치되었는지
+  const [loading, setLoading] = useState<boolean>(false); // 로딩 상태
   const ITEMS_PER_PAGE = 5; // 페이지당 아이템 수
 
   // 입력값 상태 관리
   useEffect(() => {
-    if (isTouched) {
-      const isQueryEmpty = !query.trim();
-      setIsError(isQueryEmpty);
-      setIsButtonDisabled(isQueryEmpty);
+    console.log("isTouched 상태:", isTouched);
+    if (query.trim() !== "") {
+      setIsError(false);
+      setIsButtonDisabled(false);
+    } else {
+      setIsError(true);
+      setIsButtonDisabled(true);
     }
-  }, [query, isTouched]);
+  }, [query]);
 
   // 검색 처리 함수
   const handleSearch = async () => {
     const trimmedQuery = query.trim();
     if (!trimmedQuery) {
+      console.log("검색어를 입력하지 않았습니다.");
       alert("검색어를 입력해주세요.");
       return;
     }
 
+    setLoading(true);
+    setIsError(false);
+
     try {
-      const results: any[] = [];
+      const fetchedResults: Place[] = [];
       let isEnd = false;
       let page = 1;
 
-      while (!isEnd && results.length < 100) {
-        const data = await searchPlaceWithZip({ query: trimmedQuery, page, size: 15 });
+      while (!isEnd && fetchedResults.length < 100) {
+        const data: Place[] = await searchPlaceWithZip({ query: trimmedQuery, page, size: 15 });
+        console.log(`API 호출 결과 (page ${page}):`, data);
+        fetchedResults.push(...data);
 
-        results.push(...data);
         isEnd = data.length < 15;
         page += 1;
       }
 
-      setResults(results.slice(0, 100)); // 최대 100개 결과
-      setCurrentPage(1); // 검색 시 페이지 초기화
+      if (fetchedResults.length === 0) {
+        console.log("검색 결과가 없습니다.");
+      } else {
+        console.log("최종 검색 결과:", fetchedResults);
+      }
+
+      setResults(fetchedResults.slice(0, 50));
+      setCurrentPage(1);
     } catch (error) {
       console.error("검색 실패:", error);
+      setIsError(true);
+    } finally {
+      setLoading(false);
     }
   };
 
   // 항목 선택 처리 함수
   const handleSelectItem = (selected: { id: string | null; placeName: string | null }) => {
-    setSelectedResult(selected.id); // 선택 상태 업데이트
-    if (selected.placeName) {
-      onPlaceSelect(selected.placeName); // 부모로 선택된 데이터 전달
-    } else {
-      onPlaceSelect("장소를 입력하세요"); // 기본값 전달
-    }
+    setSelectedResult(selected.id);
+    console.log("선택된 항목:", selected);
+
+    // 선택된 데이터와 전체 결과를 출력
+    console.log("전체 results 상태:", results);
   };
 
   // 페이지 변경 처리
   const handlePageChange = (page: number) => {
+    console.log("현재 페이지:", page);
     setCurrentPage(page);
   };
 
@@ -74,6 +100,7 @@ const SearchPage: React.FC<{ onPlaceSelect: (placeName: string) => void }> = ({
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE
   );
+  console.log("현재 페이지 결과:", paginatedResults);
 
   return (
     <>
@@ -82,30 +109,36 @@ const SearchPage: React.FC<{ onPlaceSelect: (placeName: string) => void }> = ({
         query={query}
         setQuery={setQuery}
         isError={isError}
-        setIsTouched={setIsTouched}
         handleSearch={handleSearch}
         isButtonDisabled={isButtonDisabled}
+        setIsTouched={setIsTouched} // 필수 속성 전달
       />
 
       {/* 검색 결과 정보 */}
-      <S.ResultWrapper>
-        {results.length > 0 && `주소 검색결과 총 ${results.length}건`}
-      </S.ResultWrapper>
+      {!loading && results.length > 0 && (
+        <S.ResultWrapper>
+          주소 검색결과 총 {results.length}건
+        </S.ResultWrapper>
+      )}
 
       {/* 결과 리스트 */}
-      <ResultList
-        results={paginatedResults} // 현재 페이지 결과 전달
-        selectedResult={selectedResult} // 선택된 결과 전달
-        handleSelectItem={handleSelectItem} // 선택 처리 함수 전달
-      />
+      {!loading && !isError && results.length > 0 ? (
+        <ResultList
+          results={paginatedResults}
+          selectedResult={selectedResult}
+          handleSelectItem={handleSelectItem}
+        />
+      ) : null}
 
       {/* 페이지네이션 */}
-      <Pagination
-        currentPage={currentPage} // 현재 페이지 전달
-        totalItems={results.length} // 총 결과 개수 전달
-        itemsPerPage={ITEMS_PER_PAGE} // 페이지당 항목 수 전달
-        onPageChange={handlePageChange} // 페이지 변경 처리 함수 전달
-      />
+      {!loading && !isError && results.length > ITEMS_PER_PAGE ? (
+        <Pagination
+          currentPage={currentPage}
+          totalItems={results.length}
+          itemsPerPage={ITEMS_PER_PAGE}
+          onPageChange={handlePageChange}
+        />
+      ) : null}
     </>
   );
 };

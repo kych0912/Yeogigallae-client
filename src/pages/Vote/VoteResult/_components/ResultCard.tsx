@@ -6,6 +6,7 @@ import DurationInfo from "./DurationInfo";
 import * as S from "../../_components/Vote.styles";
 import VoteComponent from "./VoteComponent";
 import VoteContent from "./VoteContent";
+import { theme } from "../../../../styles/theme"; 
 
 export default function ResultCard({
   step,
@@ -21,7 +22,7 @@ export default function ResultCard({
   };
 
   return (
-    <S.StyledCard>
+    <S.StyledCard theme={theme}>
         <VoteContent />
         <DurationInfo />
         <VoteComponent step={step}/>
@@ -33,9 +34,9 @@ export default function ResultCard({
         </Card.Image>
 
         <Card.Item label="장소">
-          <S.TruncatedText>{voteData.location}</S.TruncatedText>
+          <S.TruncatedText theme={theme}>{voteData.location.place}<br />{voteData.location.address}</S.TruncatedText>
         </Card.Item>
-        <S.IconWrapper onClick={() => handleCopyToClipboard(voteData.location)}>
+        <S.IconWrapper onClick={() => handleCopyToClipboard(voteData.location.place)}>
           <LinkIcon />
         </S.IconWrapper>
 
@@ -48,6 +49,7 @@ export default function ResultCard({
             backgroundColor: "#434343",
             color: "white",
             marginTop: "0.75rem",
+            fontFamily: theme.fontFamily.regular,
           }}
           onClick={onNext}
         >

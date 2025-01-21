@@ -5,7 +5,7 @@ export const Header = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #434343;
+  background-color: rgba(255, 255, 255, 0.08);
   padding: 3px 3px;
   border-radius: 30px;
   width: 236px;   
@@ -29,7 +29,7 @@ export const MonthHeader = styled.div`
     cursor: pointer;
 
     &:hover {
-      color: #4f46e5;
+      color: #3b46f1;
     }
   }
 
@@ -54,7 +54,7 @@ export const NavButton = styled.button`
   cursor: pointer;
 
   &:hover {
-    color: #4f46e5;
+    color: #3b46f1;
   }
 `;
 

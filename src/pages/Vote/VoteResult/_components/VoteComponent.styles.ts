@@ -6,6 +6,8 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column; 
   gap: 0.563rem;
+
+  font-family: ${({ theme }) => theme.fontFamily.medium};
 `;
 
 export const VoteButton = styled.button<{ $isSelected: boolean; $selectedColor: string }>`
@@ -25,10 +27,12 @@ export const VoteButton = styled.button<{ $isSelected: boolean; $selectedColor: 
   pointer-events: none; 
   border: none;
   overflow: hidden; 
+  font-family: ${({ theme }) => theme.fontFamily.medium};
 
   span {
     position: relative;
     z-index: 2; 
+    font-family: ${({ theme }) => theme.fontFamily.medium};
   }
 
   ${({ $isSelected }) =>
@@ -54,18 +58,24 @@ export const Text = styled.div`
   z-index: 2; 
   font-size: 0.875rem;
   font-weight: 300;
+
+  font-family: ${({ theme }) => theme.fontFamily.medium};
 `;
 
 export const TextWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 0.938rem; 
+
+  font-family: ${({ theme }) => theme.fontFamily.medium};
 `;
 
 export const VoteCounter = styled.span`
   font-size: 0.875rem;
   font-weight: normal;
   margin-left: 0.5rem;
+
+  font-family: ${({ theme }) => theme.fontFamily.medium};
 `;
 
 export const VoteMessage = styled.div`
@@ -73,4 +83,6 @@ export const VoteMessage = styled.div`
   font-size: 1rem;
   font-weight: semi-bold;
   color: #fff;
+
+  font-family: ${({ theme }) => theme.fontFamily.medium};
 `;

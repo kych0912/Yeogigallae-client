@@ -19,4 +19,5 @@ export const text = styled.div`
   font-size: 14px; 
   font-weight: medium; 
   color: #ffffff; 
+  font-family: ${({ theme }) => theme.fontFamily.medium};
 `;

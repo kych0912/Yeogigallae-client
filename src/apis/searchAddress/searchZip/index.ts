@@ -5,26 +5,23 @@ const BASE_COORD_TO_ADDRESS_URL = 'https://dapi.kakao.com/v2/local/geo/coord2add
 const KAKAO_API_KEY = import.meta.env.VITE_KAKAO_REST_API_KEY;
 
 /**
- * 좌표를 사용하여 주소 정보를 가져오는 함수
- * @param params KakaoCoordToAddressParams - 좌표 정보
- * @returns Promise<string | null> - 우편번호 (없을 경우 null 반환)
+ * 좌표로 우편번호를 가져오는 함수
+ * @param document 장소 데이터 객체
+ * @returns Promise<any> - 우편번호가 추가된 장소 데이터
  */
-
-export const searchZip = async (
-  x: string,
-  y: string
-): Promise<string | null> => {
+export const fetchZipForPlace = async (document: any): Promise<any> => {
   try {
     const response = await axios.get<KakaoCoordToAddressResponse>(BASE_COORD_TO_ADDRESS_URL, {
       headers: {
         Authorization: `KakaoAK ${KAKAO_API_KEY}`,
       },
-      params: { x, y },
+      params: { x: document.x, y: document.y },
     });
 
-    return response.data.documents[0]?.road_address?.zone_no || null;
+    const zone_no = response.data.documents[0]?.road_address?.zone_no || null;
+    return { ...document, zone_no };
   } catch (error) {
-    console.error('Error while fetching address by coordinates:', error);
-    return null;
+    console.warn('Failed to fetch zip code for:', document.place_name, error);
+    return { ...document, zone_no: null }; // 우편번호 실패 시 null 반환
   }
 };

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import * as S from "./VoteComponent.styles";
 import { voteData } from "../../voteData";
+import { theme } from "../../../../styles/theme";
 
 export default function VoteComponent({
   step,
@@ -26,7 +27,7 @@ export default function VoteComponent({
   };
 
   return (
-    <S.Container>
+    <S.Container theme={theme}>
       <S.VoteButton
         $isSelected={selected === "like"}
         $selectedColor="#3b46f1"

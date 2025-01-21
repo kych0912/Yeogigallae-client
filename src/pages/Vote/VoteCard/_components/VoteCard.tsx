@@ -32,8 +32,8 @@ export default function VoteCard({
           />
         </Card.Image>
 
-        <Card.Item label="장소">{voteData.location}</Card.Item>
-        <S.IconWrapper onClick={() => handleCopyToClipboard(voteData.location)}>
+        <Card.Item label="장소">{voteData.location.place}<br />{voteData.location.address}</Card.Item>
+        <S.IconWrapper onClick={() => handleCopyToClipboard(voteData.location.place)}>
           <LinkIcon />
         </S.IconWrapper>
 

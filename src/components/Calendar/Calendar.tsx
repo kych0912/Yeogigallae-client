@@ -53,7 +53,7 @@ const Calendar: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
   };
 
   return (
-    <S.CalendarWrapper>
+    <S.StyledCard>
       {isYearMonthPickerVisible && (
         <YearMonthPicker
           currentMonth={month + 1} 
@@ -83,7 +83,7 @@ const Calendar: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
         onComplete={onComplete}
       />
       
-    </S.CalendarWrapper>
+    </S.StyledCard>
   );
 };
 

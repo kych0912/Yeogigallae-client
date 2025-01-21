@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
 export const CalendarContainer = styled.div`
-  margin: 1rem 1.25rem;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 1.542rem;
 `;
 
 export const WeekDays = styled.div`
@@ -13,14 +13,7 @@ export const WeekDays = styled.div`
   text-align: center;
   color: #ccc;
   font-size: 0.875rem;
-`;
-
-export const Spacer = styled.div`
-  display: flex;
-  margin: 0 auto;
-  width: 90%; 
-  height: 0.5px; 
-  background-color: #434343; 
+  font-weight: semibold;
 `;
 
 export const WeekDay = styled.div``;
@@ -49,12 +42,11 @@ export const Day = styled.div<{
     $isSelected ? "#4f46e5" : $isInRange ? "#2c2c5e" : "transparent"};
   color: ${({ $isCurrentMonth }) => ($isCurrentMonth ? "#fff" : "#666")};
   border-radius: ${({ $isStart, $isEnd }) =>
-    $isStart || $isEnd ? "50%" : "30%"};
+    $isStart || $isEnd ? "50%" : "50%"};
   cursor: pointer;
 
   &:hover {
-    background-color: ${({ $isSelected, $isInRange }) =>
-      $isSelected ? "#3c3c9e" : $isInRange ? "#343469" : "#555"};
+    background-color: #3d46f1;
     border-radius: 50%;
   }
 `;

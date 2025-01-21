@@ -33,12 +33,10 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
     onModeChange(tab);
   };
 
-  // 기간 선택 함수
   const handleSelectPeriod = (period: number) => {
     console.log(`선택한 기간: ${period}박`);
   };
 
-  // 달 선택 함수
   const handleSelectMonth = (month: Date) => {
     setCurrentDate(month);
   };
@@ -62,8 +60,8 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
           startDate={startDate}
           endDate={endDate}
           handleDayClick={handleDayClick}
-          onSelectPeriod={handleSelectPeriod} // 기간 선택 함수 전달
-          onSelectMonth={handleSelectMonth} // 달 선택 함수 전달
+          onSelectPeriod={handleSelectPeriod} 
+          onSelectMonth={handleSelectMonth}
         />
       ) : (
         <CalendarDays

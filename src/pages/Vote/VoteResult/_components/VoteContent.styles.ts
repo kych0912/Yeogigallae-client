@@ -5,10 +5,12 @@ export const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: ${({ theme }) => theme.fontFamily.medium};
 `;
 
 export const Content = styled.div`
   font-size: 0.875rem;
   font-weight: regular;
   color: #fff;
+  font-family: ${({ theme }) => theme.fontFamily.regular};
 `;

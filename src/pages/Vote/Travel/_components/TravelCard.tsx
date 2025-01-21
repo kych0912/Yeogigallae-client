@@ -16,7 +16,11 @@ export default function TravelCard({
             style={{width:"100%",height:"100%",borderRadius:"1.5rem",objectFit:"cover"}} />
           </Card.Image>
 
-          <Card.Title>{voteData.title}</Card.Title>
+          <S.StyledCardTitle>
+            {"애드라////"}
+            <br />
+            {"이 호텔로 여행 어때"}
+          </S.StyledCardTitle>
 
           <Card.Divider />
 

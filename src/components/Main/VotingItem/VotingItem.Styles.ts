@@ -11,9 +11,19 @@ export const VotingItem = styled.div`
     font-family: ${({ theme }) => theme.fontFamily.regular};
     gap: 1.125rem;
     padding: 1.5rem 1.25rem;
-    width: 23.125rem; /* 가로 너비 설정 */
+    width: 23.125rem;
     height: auto;
-    flex-shrink: 0; /* 크기 축소 방지 */
+    flex-shrink: 0;
+`;
+
+export const EmptyBox = styled.div`
+    width: 23.125rem;
+    height: 9rem;
+    background-color: ${({ theme }) => theme.colors.secondary || "#222222"};
+    border-radius: 1.25rem;
+    align-items: center;
+    display: flex;
+    justify-content: center;
 `;
 
 export const ParticipantContainer = styled.div`

@@ -13,6 +13,15 @@ export const TravelListItem = styled.div`
     margin-bottom: 0.625rem;
 `;
 
+export const EmptyBox = styled.div`
+    width: 23.125rem;
+    height: 15.625rem;
+    background-color: ${({ theme }) => theme.colors.secondary || "#222222"};
+    border-radius: 1.25rem;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+`;
 export const ImageWrapper = styled.div`
     width: 100%;
     height: 15.625rem;

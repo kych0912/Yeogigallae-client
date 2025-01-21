@@ -5,6 +5,7 @@ import MainSection from "./MainSection/MainSection";
 import UpcomingItem from "./UpcomingItem/UpcomingItem";
 import Upcoming from "../../assets/icons/Upcoming.svg";
 import { UPcomingRooms } from "../../pages/Main/MainPage/test";
+import Empty from "./UpcomingItem/Empty";
 
 const MainUpcomingList: React.FC = () => {
     return (
@@ -19,7 +20,7 @@ const MainUpcomingList: React.FC = () => {
             ></MainSection>
 
             {/*카드부분*/}
-            <UpcomingItem />
+            {UPcomingRooms.length > 0 ? <UpcomingItem /> : <Empty />}
         </S.Container>
     );
 };

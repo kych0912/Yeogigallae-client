@@ -43,6 +43,14 @@ export const HistoryContainer = styled(Container)`
     gap: 0.875rem;
 `;
 
+export const Emptylist = styled(Container)`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+`;
+
 //메인 탑
 export const Title = styled.h1`
     font-size: 1.5rem;

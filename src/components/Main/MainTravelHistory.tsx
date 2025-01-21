@@ -6,6 +6,7 @@ import Domestic from "../../assets/icons/Domestic.svg";
 import History from "../../assets/icons/History.png";
 import TravelListItem from "./TravelListItem/TravelListItem";
 import { completedRooms } from "../../pages/Main/MainPage/test";
+import Empty from "./TravelListItem/Empty";
 
 const MainTravelHistory: React.FC = () => {
     const [selectedButton, setSelectedButton] = useState<string>("domestic");
@@ -36,7 +37,7 @@ const MainTravelHistory: React.FC = () => {
                 </S.selectBtn>
             </S.BtnBar>
             {/* 완료된 여행 리스트 */}
-            <TravelListItem rooms={filteredRooms} />
+            {filteredRooms.length > 0 ? <TravelListItem rooms={filteredRooms} /> : <Empty />}
         </S.HistoryContainer>
     );
 };

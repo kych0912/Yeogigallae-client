@@ -22,6 +22,16 @@ export const ImageWrapper = styled.div`
     height: 8.125rem;
 `;
 
+export const EmptyBox = styled.div`
+    width: 23.125rem;
+    height: 9.875rem;
+    background-color: ${({ theme }) => theme.colors.secondary || "#222222"};
+    border-radius: 1.25rem;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+`;
+
 export const InfoWrapper = styled.div`
     display: flex;
     flex-direction: column;

@@ -4,6 +4,7 @@ import MainSection from "./MainSection/MainSection";
 import Voting from "../../assets/icons/Voting.svg";
 import VotingItem from "./VotingItem/VotingItem";
 import { votingRooms } from "../../pages/Main/MainPage/test";
+import Empty from "./VotingItem/Empty";
 
 const MainVotingList: React.FC = () => {
     return (
@@ -18,7 +19,7 @@ const MainVotingList: React.FC = () => {
             ></MainSection>
 
             {/*카드부분*/}
-            <VotingItem />
+            {votingRooms.length > 0 ? <VotingItem /> : <Empty />}
         </S.Container>
     );
 };

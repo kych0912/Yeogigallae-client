@@ -33,12 +33,15 @@ export default function ResultCard({
           <S.Image src={voteData.imageSrc} alt="placeholder" />
         </Card.Image>
 
-        <Card.Item label="장소">
-          <S.TruncatedText theme={theme}>{voteData.location.place}<br />{voteData.location.address}</S.TruncatedText>
-        </Card.Item>
-        <S.IconWrapper onClick={() => handleCopyToClipboard(voteData.location.place)}>
-          <LinkIcon />
-        </S.IconWrapper>
+        <S.CustomWrapper>
+          <S.CustomCardItem label="장소">
+            <span>{voteData.location.place}</span> <br />
+            <span>{voteData.location.address}</span>
+          </S.CustomCardItem>
+          <S.IconWrapper onClick={() => handleCopyToClipboard(voteData.location.place)}>
+            <LinkIcon />
+          </S.IconWrapper>
+        </S.CustomWrapper>
 
         <Card.Divider />
         <Card.Item label="금액">{voteData.price}</Card.Item>
@@ -49,7 +52,7 @@ export default function ResultCard({
             backgroundColor: "#434343",
             color: "white",
             marginTop: "0.75rem",
-            fontFamily: theme.fontFamily.regular,
+            fontFamily: theme.fontFamily.medium,
           }}
           onClick={onNext}
         >

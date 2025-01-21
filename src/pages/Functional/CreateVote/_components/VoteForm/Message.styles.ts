@@ -12,6 +12,7 @@ export const MessageInput = styled.textarea`
   resize: none;
   text-align: center;
   white-space: pre-line;
+  font-family: ${({ theme }) => theme.fontFamily.bold};
 
   &::placeholder {
     color: #626262;

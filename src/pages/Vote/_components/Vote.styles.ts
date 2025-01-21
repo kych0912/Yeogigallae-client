@@ -12,15 +12,15 @@ export const Content = styled.div`
   font-size: 0.875rem;
   color: #6E6E6E;
   text-align: center;
-  margin: 0.938rem 0;
+  line-height: 1.5;
+  font-size: 1.5rem;
   font-family: ${({ theme }) => theme.fontFamily.medium};
 `;
 
 export const StyledCardTitle = styled(Card.Title)`
   display: block;
-  line-height: 1.5; 
   margin: 0;
-  font-family: ${({ theme }) => theme.fontFamily.medium};
+  font-family: ${({ theme }) => theme.fontFamily.Bold};
 
   br {
     display: block; 
@@ -31,7 +31,6 @@ export const StyledCardTitle = styled(Card.Title)`
   }
 `;
 
-
 export const StyledCard = styled(Card)`
   width: 100%;
   background: white;
@@ -39,8 +38,6 @@ export const StyledCard = styled(Card)`
   overflow: hidden;
   transform-style: preserve-3d;
   transition: transform 0.5s;
-
-  font-family: ${({ theme }) => theme.fontFamily.medium};
 `;
 
 export const StyledItem = styled(Card.Item)`
@@ -54,22 +51,30 @@ export const StyledItem = styled(Card.Item)`
   margin-bottom: 0.5rem;
   gap: 0.063rem;
   font-size: 1rem;
+`;
 
-  font-family: ${({ theme }) => theme.fontFamily.medium};
+export const CustomCardItem = styled(Card.Item)`
+  line-height: 1.5;
+  display: inline-block;
+  text-align: left;
 `;
 
 export const IconWrapper = styled.div`
   cursor: pointer;
   color: #007bff;
-  font-family: ${({ theme }) => theme.fontFamily.medium};
+  display: flex;
+  bottom: 0;
+  justify-content: center;
+  align-items: center;
+  margin-top: auto;
 
   &:hover {
     color: #0056b3;
   }
 
   svg {
-    width: 1rem;
-    height: 1rem;
+    width: 1.5rem;
+    height: 1.5em;
   }
 `;
 
@@ -100,9 +105,10 @@ export const Image = styled.img`
 `;
 
 export const TruncatedText = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
-  font-weight: medium;
+  line-height: 1.5;
   font-size: 1rem;
   color: #fff;
   font-family: ${({ theme }) => theme.fontFamily.medium};
@@ -113,5 +119,14 @@ export const Wrapper = styled.div`
   display: flex;
   justify-content: flex-start; 
   align-items: flex-start; 
-  font-family: ${({ theme }) => theme.fontFamily.medium};
+`;
+
+export const CustomWrapper = styled.div`
+  display: flex;
+  width: 100%;  
+  flex-direction: row; 
+  align-items: center;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  padding: 0; 
 `;

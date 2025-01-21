@@ -25,7 +25,7 @@ export default function CreateVote({
   const [buttons, setButtons] = useState(
     buttonData.map((button) => ({
       ...button,
-      isActive: button.id === "BUTTON1", // 초기 활성화 상태 설정
+      isActive: button.id === "BUTTON1",
     }))
   );
   const [activeButton, setActiveButton] = useState<string>("BUTTON1");
@@ -56,13 +56,11 @@ export default function CreateVote({
       });
   };
 
-  // 새 버튼 추가
   const handleCreateButton = () => {
     const newId = `BUTTON${buttons.length + 1}`;
     const newButton = { id: newId, label: `새 버튼 ${buttons.length + 1}`, isActive: false };
     setButtons((prevButtons) => [...prevButtons, newButton]);
 
-    // 새 버튼 상태 초기화
     setButtonStates((prevStates) => ({
       ...prevStates,
       [newId]: {
@@ -74,12 +72,11 @@ export default function CreateVote({
       },
     }));
 
-    setActiveButton(newId); // 새로 생성된 버튼 활성화
+    setActiveButton(newId);
   };
 
-  // 버튼 클릭 시 활성화 및 상태 업데이트
   const toggleActiveButton = (id: string) => {
-    setActiveButton(id); // 클릭된 버튼을 활성화
+    setActiveButton(id); // 클릭된 버튼 활성화
     setButtons((prevButtons) =>
       prevButtons.map((button) =>
         button.id === id
@@ -101,7 +98,7 @@ export default function CreateVote({
   };
 
   const renderContent = () => {
-    const currentState = buttonStates[activeButton]; // 현재 활성화된 버튼의 상태 가져오기
+    const currentState = buttonStates[activeButton]; 
 
     return (
       <>
@@ -125,7 +122,7 @@ export default function CreateVote({
           onButtonClick={toggleActiveButton}
           activeButton={activeButton}
         />
-        <Button size="large" style={{ marginTop: "20px" }}>
+        <Button size="large" style={{ marginTop: "1.25rem" }}>
           {"투표 공유하기"}
         </Button>
       </>

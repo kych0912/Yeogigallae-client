@@ -10,7 +10,6 @@ export const Wrapper = styled.div`
 
 export const Content = styled.div`
   font-size: 0.875rem;
-  font-weight: regular;
   color: #fff;
   font-family: ${({ theme }) => theme.fontFamily.regular};
 `;

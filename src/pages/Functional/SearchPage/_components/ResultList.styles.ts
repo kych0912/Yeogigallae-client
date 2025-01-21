@@ -44,6 +44,7 @@ export const ResultItem = styled.div<{
 
   margin-top: ${({ $isFirst }) => ($isFirst ? "1.25rem" : "0")}; 
   margin-bottom: ${({ $isLast }) => ($isLast ? "1.25rem" : "0")}; 
+  font-family: ${({ theme }) => theme.fontFamily.regular};
 `;
 
 export const ZipCode = styled.div`

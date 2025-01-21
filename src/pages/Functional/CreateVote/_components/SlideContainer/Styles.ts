@@ -13,6 +13,7 @@ export const StyledCard = styled(Card)`
   transition: transform 0.5s;
   scrollbar-width: none;
   -ms-overflow-style: none; 
+  font-family: ${({theme}) => theme.fontFamily.medium};
 
   &::-webkit-scrollbar {
     display: none; 

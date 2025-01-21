@@ -27,20 +27,17 @@ export default function VoteForm({
   return (
     <S.StyledCard>
       <ImagePlaceholder />
-      
-      {/* 메시지 입력 */}
+
       <MessageInput value={messageValue} onChange={onMessageChange} />
 
       <S.StyledDivider />
 
-      {/* 투표 제한 시간 */}
-      <Card.Item label="투표 제한 시간">
+      <S.CustomCardItem label="투표 제한 시간">
         <VoteTimes selectedTime={selectedTime} onTimeChange={onTimeChange} />
-      </Card.Item>
+      </S.CustomCardItem>
 
       <S.StyledDivider />
 
-      {/* 장소 */}
       <Card.Item label="장소">
         <S.ClickableText onClick={onSearch}>
           {selectedLocation || "장소를 입력하세요."}

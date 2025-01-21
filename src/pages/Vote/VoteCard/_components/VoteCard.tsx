@@ -32,10 +32,15 @@ export default function VoteCard({
           />
         </Card.Image>
 
-        <Card.Item label="장소">{voteData.location.place}<br />{voteData.location.address}</Card.Item>
-        <S.IconWrapper onClick={() => handleCopyToClipboard(voteData.location.place)}>
-          <LinkIcon />
-        </S.IconWrapper>
+        <S.CustomWrapper>
+          <S.CustomCardItem label="장소">
+            <span>{voteData.location.place}</span> <br />
+            <span>{voteData.location.address}</span>
+          </S.CustomCardItem>
+          <S.IconWrapper onClick={() => handleCopyToClipboard(voteData.location.place)}>
+            <LinkIcon />
+          </S.IconWrapper>
+        </S.CustomWrapper>
 
         <Card.Divider />
         <Card.Item label="금액">{voteData.price}</Card.Item>
@@ -47,7 +52,7 @@ export default function VoteCard({
           <Button size="large" onClick={onDisagree}>
             {"난 못 가.."}
           </Button>
-          <Button size="large" onClick={onAgree}>
+          <Button size="large" onClick={onAgree} style={{ backgroundColor: "#3b46fa" }}>
             {"좋아!"}
           </Button>
         </S.TwoSelect>

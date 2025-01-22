@@ -26,10 +26,16 @@ import VotePage from "./pages/Vote/VoteAgreePage/VotePage";
 import VoteDatePage from "./pages/Vote/VoteDatePage/VoteDatePage";
 import VoteSuccessPage from "./pages/Vote/VoteCompletePage/VoteSuccessPage";
 import VoteFailPage from "./pages/Vote/VoteCompletePage/VoteFailPage";
-import "./App.css";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import CourseLayout from "./components/Layout/CourseLayout";
+
+import CourseLayout from './components/Layout/CourseLayout';
+import VoteLayout from "./components/Layout/VoteLayout";
+import FunctionalLayout from "./components/Layout/FunctionalLayout";
 import CoursePage from "./pages/course/page";
+import ConfirmSuccessPage from "./pages/Vote/ConfirmPage/ConfirmSuccessPage/ConfirmSuccessPage";
+import ConfirmFailPage from "./pages/Vote/ConfirmPage/ConfirmFailPage/ConfirmFailPage";
+import SearchPage from "./pages/Functional/SearchPage/SearchPage";
+import './App.css';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Kakao from "./pages/Login/Kakao";
 import ProfileLayout from "./components/Layout/ProfileLayout";
 
@@ -76,17 +82,28 @@ const App: React.FC = () => {
                         {/* Splash */}
                         <Route path="/splash" element={<SplashPage />} />
 
-                        {/* Vote */}
-                        <Route path="/vote" element={<VotePage />} />
-                        <Route path="/vote/agree" element={<VoteAgreePage />} />
-                        <Route path="/vote/date" element={<VoteDatePage />} />
-                        <Route path="/vote/success" element={<VoteSuccessPage />} />
-                        <Route path="/vote/fail" element={<VoteFailPage />} />
+            {/* Vote */}
+            <Route element={<VoteLayout />}>
+              <Route path="/vote" element={<VotePage />} />
+              <Route path="/vote/agree" element={<VoteAgreePage />} />
+              <Route path="/vote/date" element={<VoteDatePage />} />
+              <Route path="/vote/success" element={<VoteSuccessPage />} />
+              <Route path="/vote/fail" element={<VoteFailPage/>} />
+              <Route path="/vote/success/confirm" element={<ConfirmSuccessPage />} />
+              <Route path="/vote/fail/confirm" element={<ConfirmFailPage />} />
+            </Route>
 
-                        {/* Functional */}
-                        <Route path="/functional/course" element={<CreateCoursePage />} />
-                        <Route path="/functional/vote" element={<CreateVotePage />} />
-                        <Route path="/functonal/calendar" element={<CreateCalendar />} />
+            {/* Functional */}
+            <Route element={<FunctionalLayout/>}>
+              <Route path="/functional/course" element={<CreateCoursePage/>}/>
+              <Route path="/functional/vote" element={<CreateVotePage/>}/>
+              <Route path="/functional/calendar" element={<CreateCalendar />} />
+              <Route path="/functional/search" element={<SearchPage />} />
+            </Route>
+            
+            <Route element={<CourseLayout />}>
+                <Route path="/course" element={<CoursePage />} />
+            </Route>
 
                         <Route element={<CourseLayout />}>
                             <Route path="/course" element={<CoursePage />} />

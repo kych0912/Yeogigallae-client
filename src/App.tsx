@@ -37,6 +37,7 @@ import './App.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import ProfileLayout from "./components/Layout/ProfileLayout";
+import NoticeLayout from "./components/Layout/NoticeLayout";
 
 const queryClient = new QueryClient();
 
@@ -70,7 +71,9 @@ const App: React.FC = () => {
             </Route>
 
             {/* Notice */}
-            <Route path="/notice" element={<NoticePage />} />
+            <Route element={<NoticeLayout />}>
+              <Route path="/notice" element={<NoticePage />} />
+            </Route>
 
             {/* Scheduling */}
             <Route path="/scheduling/budget-select" element={<BudgetSelectPage />} />

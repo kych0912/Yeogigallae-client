@@ -20,6 +20,7 @@ type NoticeType = "VOTE" | "COURSE" | "BUDGET";
 export function useNotice() {
     const [notices, setNotices] = useState<Notice[]>([]);
 
+    //DB로부터 data를 받아오는 것으로 가정
     const mocks:NoticeDBItem[] = [{
         id: 1,
         title: "홈 화면 테스트",
@@ -32,6 +33,8 @@ export function useNotice() {
         type:"BUDGET",
     }];
 
+
+    //localStorage에 읽은 알림 id를 불러온 후 해당 알림을 읽은 상태로 변경
     useEffect(() => {
         const readNoticeIds = JSON.parse(localStorage.getItem('readNoticeIds') || '[]');
         const updatedNotices = mocks.map(notice => ({
@@ -41,6 +44,7 @@ export function useNotice() {
         setNotices(updatedNotices);
     }, []);
 
+    //클릭 시 localSoage에 읽은 알림 id를 저장하고 해당 알림을 읽은 상태로 변경
     const handleNoticeClick = (id: number) => {
         const readNoticeIds = JSON.parse(localStorage.getItem('readNoticeIds') || '[]');
         

@@ -1,14 +1,10 @@
 import styled from "styled-components";
 
 export const CalendarContainer = styled.div`
-  width: 100%;
+  margin: 1rem 1.25rem;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
-  gap: 0.75rem;
-  font-size: 0.875rem;
-  font-family: ${({ theme }) => theme.fontFamily.regular};
+  gap: 0.5rem;
 `;
 
 export const WeekDays = styled.div`
@@ -17,23 +13,22 @@ export const WeekDays = styled.div`
   text-align: center;
   color: #ccc;
   font-size: 0.875rem;
-  font-family: ${({ theme }) => theme.fontFamily.semiBold};
 `;
 
-
-export const WeekDay = styled.div`
-  width: 1.5rem;
-  height: 1.5rem;
-  margin: 0.75rem;
+export const Spacer = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
+  margin: 0 auto;
+  width: 90%; 
+  height: 0.5px; 
+  background-color: #434343; 
 `;
+
+export const WeekDay = styled.div``;
 
 export const Days = styled.div`
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  margin: 1rem;
+  gap: 0.05rem;
 `;
 
 export const Day = styled.div<{
@@ -44,20 +39,22 @@ export const Day = styled.div<{
   $isStart?: boolean;
   $isEnd?: boolean;
 }>`
-  width: 2.875rem;
-  height: 2.875rem;
+  width: 39px;
+  height: 39px;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 1.5px;
   background-color: ${({ $isInRange, $isSelected }) =>
     $isSelected ? "#4f46e5" : $isInRange ? "#2c2c5e" : "transparent"};
   color: ${({ $isCurrentMonth }) => ($isCurrentMonth ? "#fff" : "#666")};
   border-radius: ${({ $isStart, $isEnd }) =>
-    $isStart || $isEnd ? "50%" : "50%"};
+    $isStart || $isEnd ? "50%" : "30%"};
   cursor: pointer;
 
   &:hover {
-    background-color: #3d46f1;
+    background-color: ${({ $isSelected, $isInRange }) =>
+      $isSelected ? "#3c3c9e" : $isInRange ? "#343469" : "#555"};
     border-radius: 50%;
   }
 `;

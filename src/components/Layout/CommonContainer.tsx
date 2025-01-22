@@ -8,6 +8,7 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: start;
   align-items: center;
+  background-color: ${({theme}) => theme.colors.background};
 `
 
 export default function CommonContainer({children}:{children:React.ReactNode}){

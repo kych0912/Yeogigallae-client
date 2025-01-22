@@ -19,7 +19,7 @@ export const HeaderContainer = styled.div`
   width: 100%;
 `;
 
-export const TravelCardWrapper = styled.div`
+export const VoteCardWrapper = styled.div`
   margin: 0.1rem 1.25rem;
 `;
 

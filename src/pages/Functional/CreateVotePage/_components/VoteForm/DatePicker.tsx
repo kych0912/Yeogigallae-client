@@ -12,7 +12,7 @@ const DatePicker: React.FC<DatePickerProps> = ({ value, onChange }) => {
   const navigate = useNavigate(); // React Router의 네비게이션 훅
 
   const handleIconClick = () => {
-    navigate("/functional/calendar"); // "/create-calendar"로 이동
+    navigate("/functonal/calendar"); // "/create-calendar"로 이동
   };
 
   return (

@@ -2,6 +2,7 @@ import React from "react";
 import * as S from "./CalendarDays.styles";
 import { getDaysInMonth, getWeekDays } from "./utils/Calendar.utils";
 import { isDateInRange, isStartDate, isEndDate, createDateFromDay } from "./utils/Days.utils";
+import Card from "../Card";
 
 
 interface CalendarDaysProps {
@@ -37,16 +38,14 @@ const CalendarDays: React.FC<CalendarDaysProps> = ({
 
   return (
     <S.CalendarContainer>
-      {/* 요일 헤더 */}
       <S.WeekDays>
         {weekDays.map((day, index) => (
           <S.WeekDay key={`weekday-${index}`}>{day}</S.WeekDay>
         ))}
       </S.WeekDays>
 
-      <S.Spacer />
+      <Card.Divider />
 
-      {/* 날짜 */}
       <S.Days>
         {daysInMonth.map((day, index) => (
           <S.Day
@@ -68,3 +67,4 @@ const CalendarDays: React.FC<CalendarDaysProps> = ({
 };
 
 export default CalendarDays;
+

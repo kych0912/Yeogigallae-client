@@ -14,3 +14,4 @@ export const Map = styled.div`
   border-radius: 1rem;
   overflow: hidden;
 `;
+

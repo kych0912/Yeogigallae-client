@@ -50,3 +50,4 @@ const SearchInput: React.FC<SearchInputProps> = ({
 };
 
 export default SearchInput;
+

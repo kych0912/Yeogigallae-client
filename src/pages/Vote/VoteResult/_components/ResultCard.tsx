@@ -61,3 +61,4 @@ export default function ResultCard({
     </S.StyledCard>
   );
 }
+

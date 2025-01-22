@@ -130,3 +130,4 @@ export const CustomWrapper = styled.div`
   justify-content: space-between;
   padding: 0; 
 `;
+

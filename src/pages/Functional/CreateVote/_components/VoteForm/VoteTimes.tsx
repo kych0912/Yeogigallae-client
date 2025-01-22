@@ -23,3 +23,4 @@ const VoteTimes: React.FC<{
 };
 
 export default VoteTimes;
+

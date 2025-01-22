@@ -9,6 +9,7 @@ export const PaginationWrapper = styled.div`
   color: #6e6e6e; 
 `;
 
+
 export const ArrowButton = styled.button<{ $disabled: boolean }>`
   background: none;
   border: 1px;

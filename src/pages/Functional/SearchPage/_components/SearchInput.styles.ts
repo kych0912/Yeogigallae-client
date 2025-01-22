@@ -54,3 +54,4 @@ export const SearchButton = styled.button<{ $disabled: boolean }>`
   justify-content: center;
   font-family: ${({ theme }) => theme.fontFamily.medium};
 `;
+

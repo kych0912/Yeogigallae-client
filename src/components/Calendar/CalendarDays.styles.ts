@@ -20,6 +20,7 @@ export const WeekDays = styled.div`
   font-family: ${({ theme }) => theme.fontFamily.semiBold};
 `;
 
+
 export const WeekDay = styled.div`
   width: 1.5rem;
   height: 1.5rem;

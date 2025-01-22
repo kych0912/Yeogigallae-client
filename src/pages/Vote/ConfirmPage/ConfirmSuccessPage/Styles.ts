@@ -13,3 +13,4 @@ export const VoteCardWrapper = styled.div`
 
 
 
+

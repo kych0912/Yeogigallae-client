@@ -42,3 +42,4 @@ const FunctionalFunnel: React.FC = () => {
 };
 
 export default FunctionalFunnel;
+

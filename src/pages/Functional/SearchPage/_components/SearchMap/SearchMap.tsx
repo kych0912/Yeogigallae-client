@@ -105,3 +105,4 @@ const MapSearch: React.FC<MapProps> = ({ center, results }) => {
 };
 
 export default MapSearch;
+

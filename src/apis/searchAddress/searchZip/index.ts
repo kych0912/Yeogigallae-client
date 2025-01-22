@@ -9,6 +9,7 @@ const KAKAO_API_KEY = import.meta.env.VITE_KAKAO_REST_API_KEY;
  * @param document 장소 데이터 객체
  * @returns Promise<any> - 우편번호가 추가된 장소 데이터
  */
+
 export const fetchZipForPlace = async (document: any): Promise<any> => {
   try {
     const response = await axios.get<KakaoCoordToAddressResponse>(BASE_COORD_TO_ADDRESS_URL, {

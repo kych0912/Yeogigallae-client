@@ -42,6 +42,7 @@ export default function VoteCard({
           </S.IconWrapper>
         </S.CustomWrapper>
 
+
         <Card.Divider />
         <Card.Item label="금액">{voteData.price}</Card.Item>
 

@@ -15,3 +15,4 @@ const ImagePlaceholder: React.FC = () => {
 };
 
 export default ImagePlaceholder;
+

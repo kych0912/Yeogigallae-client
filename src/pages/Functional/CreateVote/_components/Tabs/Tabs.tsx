@@ -29,3 +29,4 @@ const Tabs: React.FC<{
 };
 
 export default Tabs;
+

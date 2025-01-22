@@ -7,6 +7,7 @@ import { KakaoPlaceSearchParams } from './types';
  * @param params KakaoPlaceSearchParams - 검색 파라미터
  * @returns Promise<any[]> - 우편번호가 포함된 장소 데이터
  */
+
 export const searchPlaceWithZip = async (
   params: KakaoPlaceSearchParams
 ): Promise<any[]> => {

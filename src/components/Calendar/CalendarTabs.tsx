@@ -25,4 +25,5 @@ const CalendarTabs: React.FC<CalendarTabsProps> = ({ activeTab, onTabChange }) =
   );
 };
 
+
 export default CalendarTabs;

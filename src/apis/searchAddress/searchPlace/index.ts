@@ -6,9 +6,10 @@ const KAKAO_API_KEY = import.meta.env.VITE_KAKAO_REST_API_KEY;
 
 /**
  * 장소 검색 API 호출 함수
- * @param params KakaoPlaceSearchParams - 검색 파라미터
+ * @param params KakaoPlaceSearchParams - 검색 파라미터 
  * @returns Promise<KakaoPlaceSearchResponse> - 검색 결과
  */
+
 export const searchPlace = async (
   params: KakaoPlaceSearchParams
 ): Promise<KakaoPlaceSearchResponse> => {

@@ -12,3 +12,4 @@ const VoteAgreePage: React.FC = () => {
 };
 
 export default VoteAgreePage;
+

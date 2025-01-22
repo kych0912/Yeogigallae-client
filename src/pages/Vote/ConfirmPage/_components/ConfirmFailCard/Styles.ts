@@ -54,3 +54,4 @@ export const InfoContainer = styled.div`
   align-items: flex-start; 
   font-family: ${({ theme }) => theme.fontFamily.medium};
 `;
+

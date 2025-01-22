@@ -71,3 +71,4 @@ export default function VoteForm({
     </S.StyledCard>
   );
 }
+

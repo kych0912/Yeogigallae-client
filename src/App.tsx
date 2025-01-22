@@ -30,6 +30,7 @@ const App: React.FC = () => {
       <ThemeProvider theme={theme}>
         <Router>
           <Routes>
+
             {/* Main */}
             <Route path="/" element={<MainPage />} />
 
@@ -76,3 +77,4 @@ const App: React.FC = () => {
 };
 
 export default App;
+

@@ -1,22 +1,13 @@
-import NoticeItem from "./_components/NoticeItem";
-import { useNotice } from "../../../hooks/useNotice";
+// 알림 화면
+import React from 'react';
+import * as S from './Styles'; 
 
-export default function NoticePage(){
-    const {notices, handleNoticeClick} = useNotice();
-
+const NoticePage: React.FC = () => {
     return (
-        <>
-            {notices.map((notice) => (
-                <NoticeItem 
-                    key={notice.id}
-                    title={notice.title} 
-                    caption={notice.caption}
-                    isRead={notice.isRead}
-                    type={notice.type}
-                    onClick={() => handleNoticeClick(notice.id)}
-                />
-            ))}
-        </>
+        <S.Container>
+            <S.Title>Notice Page!</S.Title>
+        </S.Container>
     );
 };
 
+export default NoticePage;

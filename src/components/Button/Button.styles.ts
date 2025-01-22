@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { ButtonProps } from '../../types/button';
+import { ButtonProps } from './types';
 
 
 const smallButtonStyle = css`

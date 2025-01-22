@@ -36,6 +36,8 @@ import SearchPage from "./pages/Functional/SearchPage/SearchPage";
 import './App.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
+import ProfileLayout from "./components/Layout/ProfileLayout";
+
 const queryClient = new QueryClient();
 
 const App: React.FC = () => {
@@ -61,9 +63,11 @@ const App: React.FC = () => {
             <Route path="/information/share-write" element={<ShareWritePage />} />
 
             {/* MyPage */}
-            <Route path="/mypage/friend" element={<MyFriendPage />} />
-            <Route path="/mypage/profile" element={<MyProfilePage />} />
-            <Route path="/mypage/room" element={<RoomPage />} />
+            <Route element={<ProfileLayout />}>
+              <Route path="/mypage/friend" element={<MyFriendPage />} />
+              <Route path="/mypage/profile" element={<MyProfilePage />} />
+              <Route path="/mypage/room" element={<RoomPage />} />
+            </Route>
 
             {/* Notice */}
             <Route path="/notice" element={<NoticePage />} />

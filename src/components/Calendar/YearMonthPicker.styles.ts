@@ -62,3 +62,4 @@ export const MonthItem = styled.div<{ $selected: boolean }>`
       $selected ? "#3b46f1" : "#444444"};
   }
 `;
+

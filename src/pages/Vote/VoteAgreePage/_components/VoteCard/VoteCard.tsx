@@ -6,7 +6,7 @@ import { voteData } from "./voteData"; // 임시 데이터
 import LinkIcon from "../../../../../assets/icons/LinkIcon.svg?react";
 import * as S from "./Styles";
 
-const VoteCard: React.FC = () => {
+const TravelCard: React.FC = () => {
   const navigate = useNavigate(); // useNavigate 훅 호출
 
   const handleCopyToClipboard = (text: string) => {
@@ -25,6 +25,7 @@ const VoteCard: React.FC = () => {
       <S.InfoContainer>
         {/* 장소 */}
         <S.InfoItem>
+          <S.InfoLabel>장소</S.InfoLabel>
           <S.LocationWrapper>
             <Card.Item label="장소">
               <S.TruncatedText>{voteData.location}</S.TruncatedText>
@@ -39,6 +40,7 @@ const VoteCard: React.FC = () => {
 
         {/* 금액 */}
         <S.InfoItem>
+          <S.InfoLabel>금액</S.InfoLabel>
           <Card.Item label="금액">{voteData.price}</Card.Item>
         </S.InfoItem>
 
@@ -46,6 +48,7 @@ const VoteCard: React.FC = () => {
 
         {/* 기간 */}
         <S.InfoItem>
+          <S.InfoLabel>기간</S.InfoLabel>
           <Card.Item label="기간">{voteData.duration}</Card.Item>
         </S.InfoItem>  
       </S.InfoContainer>
@@ -67,4 +70,4 @@ const VoteCard: React.FC = () => {
   );
 };
 
-export default VoteCard;
+export default TravelCard;

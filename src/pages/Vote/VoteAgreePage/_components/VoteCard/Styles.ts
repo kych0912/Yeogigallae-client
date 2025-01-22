@@ -16,6 +16,17 @@ export const InfoItem = styled.div`
   color: #fff;
 `;
 
+export const InfoLabel = styled.div`
+  display: flex;
+  color: #fff;
+  font-weight: 500;
+  font-size: 14px;
+  margin-bottom: 3px;
+  padding: 5px;
+  align-items: flex-start; 
+  justify-content: flex-start;
+`;
+
 export const LocationWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -23,8 +34,8 @@ export const LocationWrapper = styled.div`
 
 export const TruncatedText = styled.div`
   dispaly: block;
-  width: 100%; 
-  white-space: wrap;
+  max-width: 260px; 
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 `;
@@ -64,4 +75,5 @@ export const InfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start; 
+  padding: 10px;
 `;

@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Card from "../../../../../components/Card";
 import { Button } from "../../../../../components/Button";
-import { afterData } from "../../_data/afterData"; 
+import { voteData } from "../../../VoteAgreePage/_components/VoteCard/voteData";
 import LinkIcon from "../../../../../assets/icons/LinkIcon.svg?react";
 import DurationInfo from "../DurationInfo";
 import * as S from "./Styles";
@@ -28,7 +28,7 @@ const ResultCard: React.FC = () => {
       <Card.Divider />
 
       <Card.Image>  
-        <S.Image src={afterData.imageSrc} alt="placeholder" />
+        <S.Image src={voteData.imageSrc} alt="placeholder" />
       </Card.Image>
       
       <S.InfoContainer>
@@ -36,9 +36,9 @@ const ResultCard: React.FC = () => {
         <S.InfoItem>
           <S.LocationWrapper>
             <Card.Item label="장소">
-              <S.TruncatedText>{afterData.location}</S.TruncatedText>
+              <S.TruncatedText>{voteData.location}</S.TruncatedText>
             </Card.Item>
-            <S.IconWrapper onClick={() => handleCopyToClipboard(afterData.location)}>
+            <S.IconWrapper onClick={() => handleCopyToClipboard(voteData.location)}>
               <LinkIcon />
             </S.IconWrapper>
           </S.LocationWrapper>
@@ -48,7 +48,7 @@ const ResultCard: React.FC = () => {
 
         {/* 금액 */}
         <S.InfoItem>
-          <Card.Item label="금액">{afterData.price}</Card.Item>
+          <Card.Item label="금액">{voteData.price}</Card.Item>
         </S.InfoItem>
 
       </S.InfoContainer>

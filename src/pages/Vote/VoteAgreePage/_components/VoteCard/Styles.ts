@@ -1,4 +1,11 @@
 import styled from "styled-components";
+import Card from "../../../../../components/Card";
+
+export const Container = styled(Card)`
+  margin:0 1.25rem 1rem 1.25rem;
+  min-height: calc(100vh - 92px);
+  position: relative;
+`;
 
 export const Image = styled.img`
   width: 100%;
@@ -27,6 +34,7 @@ export const TruncatedText = styled.div`
   white-space: wrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-w
 `;
 
 export const IconWrapper = styled.div`

@@ -3,8 +3,12 @@ import styled from "styled-components";
 export const CalendarContainer = styled.div`
   width: 100%;
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
-  gap: 1.542rem;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+  font-family: ${({ theme }) => theme.fontFamily.regular};
 `;
 
 export const WeekDays = styled.div`
@@ -13,15 +17,22 @@ export const WeekDays = styled.div`
   text-align: center;
   color: #ccc;
   font-size: 0.875rem;
-  font-weight: semibold;
+  font-family: ${({ theme }) => theme.fontFamily.semiBold};
 `;
 
-export const WeekDay = styled.div``;
+export const WeekDay = styled.div`
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: 0.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 export const Days = styled.div`
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 0.05rem;
+  margin: 1rem;
 `;
 
 export const Day = styled.div<{
@@ -32,12 +43,11 @@ export const Day = styled.div<{
   $isStart?: boolean;
   $isEnd?: boolean;
 }>`
-  width: 39px;
-  height: 39px;
+  width: 2.875rem;
+  height: 2.875rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 1.5px;
   background-color: ${({ $isInRange, $isSelected }) =>
     $isSelected ? "#4f46e5" : $isInRange ? "#2c2c5e" : "transparent"};
   color: ${({ $isCurrentMonth }) => ($isCurrentMonth ? "#fff" : "#666")};

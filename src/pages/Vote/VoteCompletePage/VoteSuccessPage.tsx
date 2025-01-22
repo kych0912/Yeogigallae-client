@@ -5,6 +5,7 @@ import HomeIcon from "../../../assets/icons/Home.svg?react";
 import BackIcon from "../../../assets/icons/Back.svg?react";
 import Header from "../../../components/Header/index";
 import { IconButton } from "../../../components/Button";
+import ResultCard from "./_components/ResultCard/ResultCard";
 import { afterData } from "./_data/afterData"; 
 
 const VoteSuccessPage: React.FC = () => {
@@ -22,6 +23,15 @@ const VoteSuccessPage: React.FC = () => {
         centerContent={<S.Typography>{afterData.groupId} {afterData.groupMembers}</S.Typography>}
         rightContent={<IconButton><HomeIcon /></IconButton>}
       />
+
+      <S.CardWrapper>
+        <ResultCard />
+      </S.CardWrapper>
+
+      <S.Content>
+        {afterData.nickName}님이 여행 투표를 올렸습니다. <br />
+        48시간 이후 종료됩니다.
+      </S.Content>
     </S.Container>
   );
 };

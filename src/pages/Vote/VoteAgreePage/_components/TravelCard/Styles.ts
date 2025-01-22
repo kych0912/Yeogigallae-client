@@ -24,13 +24,6 @@ export const InfoItem = styled.div`
   color: #fff;
 `;
 
-export const InfoLabel = styled.div`
-  color: #fff;
-  font-weight: 500;
-  font-size: 14px;
-  margin-bottom: 4px;
-`;
-
 export const Button = styled.button`
   width: 100%;
   padding: 12px;

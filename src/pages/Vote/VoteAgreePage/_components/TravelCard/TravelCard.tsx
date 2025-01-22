@@ -26,24 +26,21 @@ const TravelCard: React.FC = () => {
       <S.InfoContainer>
         {/* 장소 */}
         <S.InfoItem>
-          <S.InfoLabel>장소</S.InfoLabel>
           <Card.Item label="장소">{tempData.location}</Card.Item>
         </S.InfoItem>
 
         {/* 금액 */}
         <S.InfoItem>
-          <S.InfoLabel>금액</S.InfoLabel>
           <Card.Item label="금액">{tempData.price}</Card.Item>
         </S.InfoItem>
 
         {/* 기간 */}
         <S.InfoItem>
-          <S.InfoLabel>기간</S.InfoLabel>
           <Card.Item label="기간">{tempData.duration}</Card.Item>
         </S.InfoItem>
       </S.InfoContainer>  
       </Card>
-      <Button size="large" onClick={handleButtonClick}>{"투표하기"}</Button>
+      <Button size="large" onClick={handleButtonClick}>{"투표하러 가기"}</Button>
     </Card>
   );
 };

@@ -26,10 +26,12 @@ import VotePage from "./pages/Vote/VoteAgreePage/VotePage";
 import VoteDatePage from "./pages/Vote/VoteDatePage/VoteDatePage";
 import VoteSuccessPage from "./pages/Vote/VoteCompletePage/VoteSuccessPage";
 import VoteFailPage from "./pages/Vote/VoteCompletePage/VoteFailPage";
-import './App.css'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import CourseLayout from './components/Layout/CourseLayout';
 import CoursePage from "./pages/course/page";
+import ConfirmSuccessPage from "./pages/Vote/ConfirmPage/ConfirmSuccessPage/ConfirmSuccessPage";
+import ConfirmFailPage from "./pages/Vote/ConfirmPage/ConfirmFailPage/ConfirmFailPage";
+import './App.css'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import ProfileLayout from "./components/Layout/ProfileLayout";
 
 const queryClient = new QueryClient();
@@ -80,6 +82,8 @@ const App: React.FC = () => {
             <Route path="/vote/date" element={<VoteDatePage />} />
             <Route path="/vote/success" element={<VoteSuccessPage />} />
             <Route path="/vote/fail" element={<VoteFailPage/>} />
+            <Route path="/vote/success/confirm" element={<ConfirmSuccessPage />} />
+            <Route path="/vote/fail/confirm" element={<ConfirmFailPage />} />
 
             {/* Functional */}
             <Route path="/functional/course" element={<CreateCoursePage/>}/>

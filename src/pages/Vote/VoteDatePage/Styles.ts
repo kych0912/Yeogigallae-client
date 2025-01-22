@@ -4,7 +4,6 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   color: #fff;
-  margin:1rem 1.25rem;
 `;
 
 export const Typography = styled.div`

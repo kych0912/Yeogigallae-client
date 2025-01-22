@@ -22,11 +22,9 @@ export const LocationWrapper = styled.div`
 `;
 
 export const TruncatedText = styled.div`
-  dispaly: block;
-  width: 100%; 
-  white-space: wrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  display: flex;
+  flex-direction: column;
+  color: #fff;
 `;
 
 export const IconWrapper = styled.div`
@@ -40,23 +38,6 @@ export const IconWrapper = styled.div`
   svg {
     width: 16px;
     height: 16px;
-  }
-`;
-
-export const TwoSelect = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between; 
-  gap: 1rem; 
-
-  button {
-    color: #fff;
-    background-color: #434343;
-    transition: background-color 0.3s ease;
-
-    &:hover, &:focus, &:active {
-      background-color: #3b46f1; 
-    }
   }
 `;
 

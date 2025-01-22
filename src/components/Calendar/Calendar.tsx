@@ -4,7 +4,7 @@ import CalendarHeader from "./CalendarHeader";
 import YearMonthPicker from "./YearMonthPicker";
 import CompleteButton from "./CompleteButton";
 
-const Calendar: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
+const Calendar: React.FC = () => {
   const today = new Date();
   console.log(`오늘 날짜: ${today}`); // 디버깅용
   const [currentDate, setCurrentDate] = useState(today);
@@ -53,7 +53,7 @@ const Calendar: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
   };
 
   return (
-    <S.StyledCard>
+    <S.CalendarWrapper>
       {isYearMonthPickerVisible && (
         <YearMonthPicker
           currentMonth={month + 1} 
@@ -80,12 +80,10 @@ const Calendar: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
         startDate={startDate}
         endDate={endDate}
         mode={mode}
-        onComplete={onComplete}
       />
       
-    </S.StyledCard>
+    </S.CalendarWrapper>
   );
 };
 
 export default Calendar;
-

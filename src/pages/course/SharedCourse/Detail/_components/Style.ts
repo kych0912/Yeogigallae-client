@@ -32,7 +32,7 @@ export const ButtonWrapper = styled.div`
 export const ButtonContainer = styled.div`
   width: 100%;
   padding: 1rem 0;
-  background-color: #000000;
+  background-color: ${({ theme }) => theme.colors.background};
   position: sticky;
   top: 72px;    
   z-index: 100;

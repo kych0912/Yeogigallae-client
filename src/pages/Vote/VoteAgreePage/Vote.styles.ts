@@ -3,6 +3,8 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
+  color: #fff;
+  margin:1rem 1.25rem;
 `;
 
 export const Typography = styled.div`
@@ -20,7 +22,7 @@ export const HeaderContainer = styled.div`
 `;
 
 export const TravelCardWrapper = styled.div`
-  margin: 0.1rem 1.25rem;
+  margin: 1rem 1.25rem;
 `;
 
 

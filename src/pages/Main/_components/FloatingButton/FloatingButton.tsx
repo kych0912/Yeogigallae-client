@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import * as S from "./Styles";
-import Floating from "../../../assets/icons/Floating.svg";
-import MyFloating from "../../../assets/icons/MyFloating.svg";
-import EditFloating from "../../../assets/icons/EditFloating.svg";
+import Floating from "../../../../assets/icons/Floating.svg";
+import MyFloating from "../../../../assets/icons/MyFloating.svg";
+import EditFloating from "../../../../assets/icons/EditFloating.svg";
 
-const FloatingMenu: React.FC = () => {
+export default function FloatingMenu() {
     const [isActive, setIsActive] = useState(false);
 
     const toggleMenu = () => setIsActive(!isActive);
@@ -26,6 +26,4 @@ const FloatingMenu: React.FC = () => {
             </S.SubButton>
         </S.FloatingContainer>
     );
-};
-
-export default FloatingMenu;
+}

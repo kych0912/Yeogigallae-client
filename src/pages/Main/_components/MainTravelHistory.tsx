@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import * as S from "./Main.Styles";
 import MainSection from "./MainSection/MainSection";
-import International from "../../assets/icons/International.svg";
-import Domestic from "../../assets/icons/Domestic.svg";
-import History from "../../assets/icons/History.png";
+import International from "../../../assets/icons/International.svg";
+import Domestic from "../../../assets/icons/Domestic.svg";
+import History from "../../../assets/icons/History.png";
 import TravelListItem from "./TravelListItem/TravelListItem";
-import { completedRooms } from "../../pages/Main/MainPage/test";
+import { completedRooms } from "../MainPage/test";
 import Empty from "./TravelListItem/Empty";
 
-const MainTravelHistory: React.FC = () => {
+export default function MainTravelHistory() {
     const [selectedButton, setSelectedButton] = useState<string>("domestic");
 
     const handleButtonClick = (buttonType: string) => {
@@ -37,9 +37,11 @@ const MainTravelHistory: React.FC = () => {
                 </S.selectBtn>
             </S.BtnBar>
             {/* 완료된 여행 리스트 */}
-            {filteredRooms.length > 0 ? <TravelListItem rooms={filteredRooms} /> : <Empty />}
+            {filteredRooms.length > 0 ? (
+                <TravelListItem rooms={filteredRooms} /> // rooms를 props로 전달
+            ) : (
+                <Empty />
+            )}
         </S.HistoryContainer>
     );
-};
-
-export default MainTravelHistory;
+}

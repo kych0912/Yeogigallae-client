@@ -1,15 +1,12 @@
-import React from "react";
 import * as S from "../Main.Styles";
-import * as U from "./UpcomingItem.Styles";
+import * as H from "./TravelListItem.Styles";
 
-const Empty: React.FC = () => {
+export default function Empty() {
     return (
         <S.Emptylist>
-            <U.EmptyBox>
+            <H.EmptyBox>
                 <S.Text>친구들을 추가하여 여행을 계획해보세요!</S.Text>
-            </U.EmptyBox>
+            </H.EmptyBox>
         </S.Emptylist>
     );
-};
-
-export default Empty;
+}

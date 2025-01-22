@@ -1,13 +1,11 @@
-// 홈 화면 : 예정된 여행
-import React from "react";
 import * as S from "./Main.Styles";
 import MainSection from "./MainSection/MainSection";
 import UpcomingItem from "./UpcomingItem/UpcomingItem";
-import Upcoming from "../../assets/icons/Upcoming.svg";
-import { UPcomingRooms } from "../../pages/Main/MainPage/test";
+import Upcoming from "../../../assets/icons/Upcoming.svg";
+import { UPcomingRooms } from "../MainPage/test";
 import Empty from "./UpcomingItem/Empty";
 
-const MainUpcomingList: React.FC = () => {
+export default function MainUpcomingList() {
     return (
         <S.Container>
             <MainSection
@@ -23,6 +21,4 @@ const MainUpcomingList: React.FC = () => {
             {UPcomingRooms.length > 0 ? <UpcomingItem /> : <Empty />}
         </S.Container>
     );
-};
-
-export default MainUpcomingList;
+}

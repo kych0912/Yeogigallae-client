@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import BaseButton from "../Button/Button";
-import IconButton from "../Button/IconButton";
+import BaseButton from "../../../components/Button/Button";
+import IconButton from "../../../components/Button/IconButton";
 
 //컨테이너
 

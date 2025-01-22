@@ -1,9 +1,8 @@
-import React from "react";
 import * as S from "./Main.Styles";
-import MyBtn from "../../assets/icons/MyBtn.svg";
-import Alarm from "../../assets/icons/Alarm.svg";
+import MyBtn from "../../../assets/icons/MyBtn.svg";
+import Alarm from "../../../assets/icons/Alarm.svg";
 
-const MainTop: React.FC = () => {
+export default function MainTop() {
     return (
         <S.TopContainer>
             <S.Title>
@@ -19,6 +18,4 @@ const MainTop: React.FC = () => {
             </S.IconContainer>
         </S.TopContainer>
     );
-};
-
-export default MainTop;
+}

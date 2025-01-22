@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import * as S from "../Main.Styles";
 import * as V from "./VotingItem.Styles";
-import { votingRooms } from "../../../pages/Main/MainPage/test"; // 임시 데이터 임포트
+import { votingRooms } from "../../MainPage/test"; // 임시 데이터 임포트
 import calculateVoteGauge from "./calculateVoteGauge"; //투표율 게이지
 import renderParticipantProfiles from "./renderParticipantProfiles";
 import calculateRemainingTime from "./calculateRemainingTime";

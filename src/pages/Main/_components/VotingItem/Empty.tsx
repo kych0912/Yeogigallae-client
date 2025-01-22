@@ -1,8 +1,7 @@
-import React from "react";
 import * as S from "../Main.Styles";
 import * as V from "./VotingItem.Styles";
 
-const Empty: React.FC = () => {
+export default function Empty() {
     return (
         <S.Emptylist>
             <V.EmptyBox>
@@ -13,6 +12,4 @@ const Empty: React.FC = () => {
             </V.EmptyBox>
         </S.Emptylist>
     );
-};
-
-export default Empty;
+}

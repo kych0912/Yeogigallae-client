@@ -1,13 +1,12 @@
 // 홈 화면
-import React from "react";
 import * as S from "./Styles";
-import MainTop from "../../../components/Main/MainTop";
-import MainVotingList from "../../../components/Main/MainVotingList";
-import MainUpcomingList from "../../../components/Main/MainUpcomingList";
-import MainTravelHistory from "../../../components/Main/MainTravelHistory";
-import FloatingButton from "../../../components/Main/FloatingButton/FloatingButton";
+import MainTop from "../_components/MainTop";
+import MainVotingList from "../_components/MainVotingList";
+import MainUpcomingList from "../_components/MainUpcomingList";
+import MainTravelHistory from "../_components/MainTravelHistory";
+import FloatingButton from "../_components/FloatingButton/FloatingButton";
 
-const MainPage: React.FC = () => {
+export default function MainPage() {
     return (
         <S.Container>
             <MainTop></MainTop>
@@ -17,6 +16,4 @@ const MainPage: React.FC = () => {
             <FloatingButton></FloatingButton>
         </S.Container>
     );
-};
-
-export default MainPage;
+}

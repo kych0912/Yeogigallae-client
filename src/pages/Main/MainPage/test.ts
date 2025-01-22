@@ -18,7 +18,7 @@ interface UPcomingRoom {
     image: string; // 이미지 URL
 }
 
-interface CompletedRoom {
+export interface CompletedRoom {
     id: number;
     name: string; // 방 이름
     location: string; // 장소
@@ -31,7 +31,7 @@ interface CompletedRoom {
 export const votingRooms: VotingRoom[] = [
     {
         id: 1,
-        name: "봄 소풍",
+        name: "봄 피크닉",
         location: "대한민국 서울 특별시 서울숲의 위치가 어디일까요 모르게따",
         participantProfiles: ["https://www.studiopeople.kr/common/img/default_profile.png", "https://www.studiopeople.kr/common/img/default_profile.png", "https://www.studiopeople.kr/common/img/default_profile.png"],
         remainingTime: "06:00:00", // 초기 값
@@ -83,7 +83,7 @@ export const UPcomingRooms: UPcomingRoom[] = [
     {
         id: 2,
         name: "일곱글자를해볼게 ",
-        location: "정동진",
+        location: "주소는 글자수제한 말고 길이로 제한해서 길어지는 부분은 생략이 될건데 진짜 될런지 테스트용 긴 주소 쓰는중인데 이거 맞나",
         date: "2025-02-01",
         image: "https://i.namu.wiki/i/uH7NzgRSXa3ilcIkybwnrfVRdHM3DQC6MnbNoKk1K3Grz-NIKd7KB4UiuTBLXihaxv1iRk8gw6ngUw6ITP6RVQ.webp",
     },
@@ -97,7 +97,7 @@ export const completedRooms: CompletedRoom[] = [
         date: "2024-12-15",
         image: "https://i.namu.wiki/i/uH7NzgRSXa3ilcIkybwnrfVRdHM3DQC6MnbNoKk1K3Grz-NIKd7KB4UiuTBLXihaxv1iRk8gw6ngUw6ITP6RVQ.webp",
         type: "국내여행",
-    },
+    } /*
     {
         id: 2,
         name: "유럽 투어",
@@ -113,5 +113,5 @@ export const completedRooms: CompletedRoom[] = [
         date: "2024-11-20",
         image: "https://i.namu.wiki/i/uH7NzgRSXa3ilcIkybwnrfVRdHM3DQC6MnbNoKk1K3Grz-NIKd7KB4UiuTBLXihaxv1iRk8gw6ngUw6ITP6RVQ.webp",
         type: "세계여행",
-    },
+    },*/,
 ];

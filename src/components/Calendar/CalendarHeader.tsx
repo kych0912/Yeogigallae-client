@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import * as S from "./CalendarHeader.styles";
 import FlexibleSelect from "../FlexibleSelect/FlexibleSelect";
 import CalendarDays from "./CalendarDays";
 import CalendarTabs from "./CalendarTabs";
@@ -44,9 +43,7 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
 
   return (
     <>
-      <S.Header>
-        <CalendarTabs activeTab={activeTab} onTabChange={handleTabChange} />
-      </S.Header>
+      <CalendarTabs activeTab={activeTab} onTabChange={handleTabChange} />
 
       {activeTab !== "flexible" && (
         <MonthNavigation

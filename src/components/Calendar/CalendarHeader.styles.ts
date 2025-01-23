@@ -1,17 +1,5 @@
 import styled from "styled-components";
 
-export const Header = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(255, 255, 255, 0.08);
-  padding: 3px 3px;
-  border-radius: 30px;
-  width: 236px;   
-  height: 48px; 
-`;
-
 export const MonthHeader = styled.div`
   display: flex;
   justify-content: flex-start;

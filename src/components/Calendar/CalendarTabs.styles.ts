@@ -1,24 +1,84 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+interface ProgressLineProps {
+  $completed: boolean;
+  width: string;
+}
+
+const fillProgress = keyframes`
+  from {
+    background-size: 0% 100%;
+  }
+  to {
+    background-size: 100% 100%;
+  }
+`;
+
+const shrinkProgress = keyframes`
+  from {
+    background-size: 100% 100%;
+  }
+  to {
+    background-size: 0% 100%;
+  }
+`;
 
 export const TabGroup = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
 `;
 
-export const TabButton = styled.button<{ $active: boolean }>`
-  background-color: #434343;
-  color: #fff;
-  border: none;
-  border-radius: 20px;
-  width: 106px;  
-  height: 36px;  
-  margin: 0 5px; 
-  cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.3s ease;
+export const ProgressContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 16.969rem;
+  position: relative;
+`;
 
-  &:hover {
-    background-color: ${({ $active }) => ($active ? "#3b46f1" : "#434343")};
-  }
+export const ProgressCircleWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1; 
+  cursor: pointer;
+`;
+
+export const ProgressCircle = styled.div<{ $active: boolean }>`
+  width: ${(props) => (props.$active ? "2.125rem" : "1.775rem")};
+  height: ${(props) => (props.$active ? "2.125rem" : "1.775rem")};
+  background-color: ${(props) => (props.$active ? "#3B46F1" : "#A1A1A1")};
+  border: ${(props) => (props.$active ? "0.25rem solid #414589" : "0.094rem solid #6E6E6E")};
+  border-radius: 50%;
+  transition: all 0.5s ease-in-out;
+`;
+
+export const ProgressLine = styled.div<ProgressLineProps>`
+  display: flex;
+  align-items:center;
+  justify-content: center;
+  height: 0.25rem;
+  border-radius: 100px;
+  width: ${(props) => props.width};
+  background-color: #6e6e6e; 
+  background-image: linear-gradient(to right, #3b46f1, #3b46f1); 
+  background-repeat: no-repeat;
+  background-size: ${(props) => (props.$completed ? "100% 100%" : "0% 100%")};
+  animation: ${(props) =>
+      props.$completed ? fillProgress : shrinkProgress}
+    0.5s ease-in-out;
+  transition: background-size 0.3s ease-in-out;
+  position: relative;
+  top: -0.65rem;
+`;
+
+export const ProgressLabel = styled.div<{ $active: boolean }>`
+  font-size: ${(props) => (props.$active ? "0.75rem" : "0.625rem")};
+  color: ${(props) => (props.$active ? "#3B46F1" : "#6E6E6E")};
+  text-align: center;
+  margin-top: 0.25rem;
+  line-height: 1.013rem;
+  transition: all 0.3s ease-in-out;
 `;

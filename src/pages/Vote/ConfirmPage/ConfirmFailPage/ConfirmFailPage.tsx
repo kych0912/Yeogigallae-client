@@ -1,15 +1,15 @@
 import React from "react";
-import * as S from "./Styles";
-import ConfirmFailCard from "../_components/ConfirmFailCard/ConfirmFailCard";
+import VoteCard from "../../VoteCard/_components/VoteCard";
+import { useFunnel } from "../../../../hooks/useFunnel/useFunnel";
 
+const ConfirmFailPage: React.FC = () => {
+  const { currentStep } = useFunnel(" ");
 
-const VoteAgreePage: React.FC = () => {
-    return (
-        <S.Container>
-                <ConfirmFailCard />
-        </S.Container>
-    );
+  return (
+    <>
+      <VoteCard showConfirmMessage={currentStep === "반대확인"} />
+    </>
+  );
 };
 
-export default VoteAgreePage;
-
+export default ConfirmFailPage;

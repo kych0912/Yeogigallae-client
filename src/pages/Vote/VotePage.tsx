@@ -29,6 +29,7 @@ const VotePage: React.FC = () => {
               setVoteType("반대"); 
               setStep("결과"); // 반대로 바로 이동
             }}
+            showConfirmMessage={false}
           />
         </Step>
 

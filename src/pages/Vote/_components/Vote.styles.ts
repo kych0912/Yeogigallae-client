@@ -12,9 +12,18 @@ export const Content = styled.div`
   font-size: 0.875rem;
   color: #6E6E6E;
   text-align: center;
-  line-height: 1.5;
-  font-size: 1.5rem;
+  line-height: 1.25rem;
+  font-size: 0.875rem;
+  margin-top: 0.75rem;
   font-family: ${({ theme }) => theme.fontFamily.medium};
+`;
+
+export const ReContent = styled.div`
+  font-size: 0.875rem;
+  color: #fff;
+  text-align: center;
+  line-height: 1.25rem;
+  font-family: ${({ theme }) => theme.fontFamily.regular};
 `;
 
 export const StyledCardTitle = styled(Card.Title)`
@@ -131,3 +140,42 @@ export const CustomWrapper = styled.div`
   padding: 0; 
 `;
 
+export const text = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: #ffffff; 
+  font-family: ${({ theme }) => theme.fontFamily.regular};
+`;
+
+export const Custom = styled.div`
+  margin-bottom: 0.625rem;
+`;
+
+export const CustomItem = styled.div`
+  margin-top: 0.75rem;
+`;
+
+export const RecommendButton = styled.div`
+  display: flex;
+  justify-content: space-between; 
+  flex-direction: row;
+  align-items: center; 
+  gap: 0.625rem; 
+  flex-wrap: nowrap; 
+  width: 100%; 
+
+  button {
+    font-weight: medium;
+    padding: 0.75rem 0;
+    border-radius: 0.938rem;
+    font-size: 1rem;
+  }
+
+`;
+
+export const CustomSpacer = styled(Card.Divider)`
+  background-color: transparent !important;
+`;

@@ -19,8 +19,10 @@ import VoteLayout from "./components/Layout/VoteLayout";
 import FunctionalLayout from "./components/Layout/FunctionalLayout";
 import CoursePage from "./pages/Course/CoursePage";
 import ProfileLayout from "./components/Layout/ProfileLayout";
+import MyFriendPage from "./pages/MyPage/MyFriendPage/MyFriendPage";
 import "./App.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 const queryClient = new QueryClient();
 
 const App: React.FC = () => {
@@ -41,6 +43,7 @@ const App: React.FC = () => {
                         {/* MyPage */}
                         <Route element={<ProfileLayout />}>
                             <Route path="/mypage/profile" element={<MyProfilePage />} />
+                            <Route path="/mypage/friend" element={<MyFriendPage />} />
                             <Route path="/mypage/room" element={<RoomPage />} />
                         </Route>
 

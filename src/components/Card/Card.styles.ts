@@ -35,8 +35,8 @@ const Image = styled.div`
 
 const Title = styled.div`
     font-family:${({theme}) => theme.fontFamily.bold};
-    font-size:${({theme}) => theme.fontSize.large};
-    line-height:2.4rem;
+    font-size:1.5rem;
+    line-height:2rem;
     color:#FFFFFF;
     display:flex;
     align-items:center;

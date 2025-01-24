@@ -1,13 +1,10 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Container = styled.div`
     display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-`;
-
-export const Title = styled.h1`
-    font-size: 2.5rem;
-    color: ${({ theme }) => theme.textColor || '#333'};
+    background-color: ${({ theme }) => theme.colors.background || "#0A0A0A"};
 `;

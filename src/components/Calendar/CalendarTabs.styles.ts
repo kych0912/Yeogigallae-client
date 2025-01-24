@@ -46,13 +46,36 @@ export const ProgressCircleWrapper = styled.div`
   cursor: pointer;
 `;
 
-export const ProgressCircle = styled.div<{ $active: boolean }>`
-  width: ${(props) => (props.$active ? "2.125rem" : "1.775rem")};
-  height: ${(props) => (props.$active ? "2.125rem" : "1.775rem")};
-  background-color: ${(props) => (props.$active ? "#3B46F1" : "#A1A1A1")};
-  border: ${(props) => (props.$active ? "0.25rem solid #414589" : "0.094rem solid #6E6E6E")};
+export const ProgressCircle = styled.div<{ $active: boolean; $completed?: boolean }>`
+  width: ${(props) =>
+    props.$completed ? "1.775rem" : props.$active ? "2.125rem" : "1.775rem"};
+  height: ${(props) =>
+    props.$completed ? "1.775rem" : props.$active ? "2.125rem" : "1.775rem"};
+  background-color: ${(props) => (props.$completed ? "#3B46F1" : props.$active ? "#3B46F1" : "#A1A1A1")};
+  border: ${(props) => 
+    (props.$completed ? "0.094rem solid #414589" : props.$active ? "0.25rem solid #414589" : "0.094rem solid #6E6E6E")};
   border-radius: 50%;
   transition: all 0.5s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const CircleText = styled.span<{ $active: boolean }>`
+  font-family: ${(props) =>
+    props.$active ? props.theme.fontFamily.bold : props.theme.fontFamily.semiBold};
+  font-size: 0.75rem;
+  color: ${(props) => (props.$active ? "#fff" : "#6E6E6E")};
+  transition: all 0.3s ease-in-out;
+`;
+
+export const CustomCheckIcon = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
 `;
 
 export const ProgressLine = styled.div<ProgressLineProps>`

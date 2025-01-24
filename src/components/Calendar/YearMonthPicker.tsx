@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import * as S from "./YearMonthPicker.styles";
+import MonthNavigation from "./MonthNavigation";
 
 interface YearMonthPickerProps {
   currentYear: number;
@@ -12,14 +13,14 @@ interface YearMonthPickerProps {
 
 const YearMonthPicker: React.FC<YearMonthPickerProps> = ({
   currentYear,
-  currentMonth, // 1부터 시작
+  currentMonth, 
   onSelectYear,
   onSelectMonth,
   onSelect,
   closePicker,
 }) => {
   const [years] = useState<number[]>(() =>
-    Array.from({ length: 31 }, (_, i) => currentYear - 5 + i)
+    Array.from({ length: 41 }, (_, i) => currentYear - 20 + i)
   );
   const [selectedYear, setSelectedYear] = useState(currentYear);
   const [selectedMonth, setSelectedMonth] = useState<number | null>(currentMonth); 
@@ -72,33 +73,39 @@ const YearMonthPicker: React.FC<YearMonthPickerProps> = ({
   }, [years, selectedYear]);
 
   return (
-    <S.Wrapper>
-      {/* 연도 선택 */}
-      <S.YearDial ref={yearDialRef}>
-        {years.map((year, index) => (
-          <S.YearItem
-            key={index}
-            $selected={year === selectedYear}
-            onClick={() => handleYearChange(year)}
-          >
-            {year}
-          </S.YearItem>
-        ))}
-      </S.YearDial>
+    <>
+      <MonthNavigation
+          currentYear={currentYear}
+          currentMonth={currentMonth}
+      />
+      <S.Wrapper>
+        {/* 연도 선택 */}
+        <S.YearDial ref={yearDialRef}>
+          {years.map((year, index) => (
+            <S.YearItem
+              key={index}
+              $selected={year === selectedYear}
+              onClick={() => handleYearChange(year)}
+            >
+              {year}
+            </S.YearItem>
+          ))}
+        </S.YearDial>
 
-      {/* 월 선택 */}
-      <S.MonthGrid>
-        {Array.from({ length: 12 }, (_, i) => i + 1).map((month) => (
-          <S.MonthItem
-            key={month}
-            $selected={month === selectedMonth}
-            onClick={() => handleMonthChange(month)}
-          >
-            {month}월
-          </S.MonthItem>
-        ))}
-      </S.MonthGrid>
-    </S.Wrapper>
+        {/* 월 선택 */}
+        <S.MonthGrid>
+          {Array.from({ length: 12 }, (_, i) => i + 1).map((month) => (
+            <S.MonthItem
+              key={month}
+              $selected={month === selectedMonth}
+              onClick={() => handleMonthChange(month)}
+            >
+              {month}월
+            </S.MonthItem>
+          ))}
+        </S.MonthGrid>
+      </S.Wrapper>
+    </>
   );
 };
 

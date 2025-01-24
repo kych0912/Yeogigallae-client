@@ -21,7 +21,9 @@ const CalendarTabs: React.FC<CalendarTabsProps> = ({ activeTab, onTabChange }) =
               <CheckIcon />
             </S.CustomCheckIcon> : <S.CircleText $active={activeTab === "date"}>1</S.CircleText>}
           </S.ProgressCircle>
-          <S.ProgressLabel $active={activeTab === "date"}>연 • 월 지정</S.ProgressLabel>
+          <S.ProgressLabel $active={activeTab === "date"} $completed={activeTab === "date" || activeTab === "flexible"}>
+            연 • 월 지정
+          </S.ProgressLabel>
         </S.ProgressCircleWrapper>
 
         <S.ProgressLine width="68px" $completed={activeTab === "flexible"} />

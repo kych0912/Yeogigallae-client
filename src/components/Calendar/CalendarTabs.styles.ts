@@ -97,9 +97,10 @@ export const ProgressLine = styled.div<ProgressLineProps>`
   top: -0.65rem;
 `;
 
-export const ProgressLabel = styled.div<{ $active: boolean }>`
+export const ProgressLabel = styled.div<{ $active: boolean; $completed?: boolean }>`
   font-size: ${(props) => (props.$active ? "0.75rem" : "0.625rem")};
-  color: ${(props) => (props.$active ? "#3B46F1" : "#6E6E6E")};
+  color: ${(props) =>
+    props.$completed ? "#3B46F1" : props.$active ? "#3B46F1" : "#6E6E6E"};
   text-align: center;
   margin-top: 0.25rem;
   line-height: 1.013rem;

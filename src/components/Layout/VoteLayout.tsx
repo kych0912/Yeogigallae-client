@@ -4,7 +4,7 @@ import BackIcon from "../../assets/icons/Back.svg?react";
 import { IconButton } from "../Button";
 import styled from 'styled-components'
 import { Outlet, useNavigate } from 'react-router-dom';
-import { voteData } from "../../pages/Vote/VoteAgreePage/_components/VoteCard/voteData";
+import { voteData } from "../../pages/Vote/voteData";
 
 export default function Layout() {
     const navigate = useNavigate();

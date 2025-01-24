@@ -5,6 +5,7 @@ export const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: ${({ theme }) => theme.fontFamily.regular};
 `;
 
 export const Content = styled.div`
@@ -14,4 +15,6 @@ export const Content = styled.div`
   color: #fff;
   text-align: center; 
   line-height: 1.3;
+  font-family: ${({ theme }) => theme.fontFamily.bold};
 `;
+

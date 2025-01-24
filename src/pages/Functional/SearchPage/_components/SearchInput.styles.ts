@@ -1,37 +1,57 @@
 import styled from "styled-components";
 
-export const SearchInput = styled.input<{ $isError: boolean }>`
-  padding: 8px;
-  border: ${({ $isError }) => ($isError ? "1px solid red" : "none")}; /* 입력 오류 시 빨간색, 기본 border 없음 */
-  border-radius: 8px;
-  font-size: 16px;
-  background-color: #fff; 
-  color: #222222; 
-  outline: none;
+export const Container = styled.div<{ $isError: boolean }>`
+  display: flex;
+  align-items: center;
+  background-color: #222; 
+  border-radius: 6.25rem; 
+  padding: 0.813rem 1.25rem;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: ${({ theme }) => theme.fontFamily.medium};
+`;
 
-  &:focus {
-    outline: none; 
-    border: ${({ $isError }) => ($isError ? "2px solid red" : "1px solid #434343")}; 
-  }
+export const InputWrapper = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  position: relative;
+  font-family: ${({ theme }) => theme.fontFamily.medium};
+`;
+
+export const SearchInput = styled.input`
+  width: 100%;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: #6E6E6E; 
+  font-size: 1rem;
+  font-family: ${({ theme }) => theme.fontFamily.medium};
 
   &::placeholder {
-    color: #6e6e6e; 
+    color: #6E6E6E; 
   }
 `;
 
-export const SearchButton = styled.button<{ $disabled?: boolean }>`
-  background-color: ${({ $disabled }) => ($disabled ? "#3b46f1" : "#434343")};
-  color: #fff;
-  padding: 10px 20px;
+export const ClearButton = styled.button`
+  position: absolute;
+  right: 0;
+  background: none;
   border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: ${({ $disabled }) => ($disabled ? "not-allowed" : "pointer")};
-  opacity: ${({ $disabled }) => ($disabled ? 0.6 : 1)};
-  transition: background-color 0.3s ease, opacity 0.3s ease;
-
-  &:hover {
-    background-color: ${({ $disabled }) =>
-      $disabled ? "#6e6e6e" : "#2f39d0"}; /* 활성화 상태에서만 hover 효과 */
-  }
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #6E6E6E; 
+  font-family: ${({ theme }) => theme.fontFamily.medium};
 `;
+
+export const SearchButton = styled.button<{ $disabled: boolean }>`
+  background-color: transparent;
+  border: none;
+  color: white;
+  cursor: ${({ $disabled }) => ($disabled ? "not-allowed" : "pointer")};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: ${({ theme }) => theme.fontFamily.medium};
+`;
+

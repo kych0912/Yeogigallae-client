@@ -1,28 +1,27 @@
-import axios from 'axios';
-import { KakaoPlaceSearchParams, KakaoPlaceSearchResponse } from './types';
-
-const BASE_URL = 'https://dapi.kakao.com/v2/local/search/keyword';
-const KAKAO_API_KEY = import.meta.env.VITE_KAKAO_REST_API_KEY; 
+import { searchPlace } from './searchPlace';
+import { fetchZipForPlace } from './searchZip';
+import { KakaoPlaceSearchParams } from './types';
 
 /**
- * 장소 검색 API 호출 함수
+ * 장소 검색 및 우편번호 결합 함수
  * @param params KakaoPlaceSearchParams - 검색 파라미터
- * @returns Promise<KakaoPlaceSearchResponse> - 검색 결과
+ * @returns Promise<any[]> - 우편번호가 포함된 장소 데이터
  */
 
-export const searchPlace = async (
+export const searchPlaceWithZip = async (
   params: KakaoPlaceSearchParams
-): Promise<KakaoPlaceSearchResponse> => {
+): Promise<any[]> => {
   try {
-    const response = await axios.get<KakaoPlaceSearchResponse>(BASE_URL, {
-      headers: {
-        Authorization: `KakaoAK ${KAKAO_API_KEY}`,
-      },
-      params,
-    });
-    return response.data;
+    const placeData = await searchPlace(params);
+
+    // 장소 데이터에 우편번호 추가
+    const placesWithZip = await Promise.all(
+      placeData.documents.map((document) => fetchZipForPlace(document))
+    );
+
+    return placesWithZip;
   } catch (error) {
-    console.error('Error while fetching places:', error);
+    console.error('Error while fetching places with zip codes:', error);
     throw error;
   }
 };

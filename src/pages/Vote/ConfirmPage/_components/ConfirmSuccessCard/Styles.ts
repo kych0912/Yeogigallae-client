@@ -14,11 +14,13 @@ export const InfoItem = styled.div`
   justify-content: flex-start;
   padding: 20px 0;
   color: #fff;
+  font-family: ${({ theme }) => theme.fontFamily.medium};
 `;
 
 export const LocationWrapper = styled.div`
   display: flex;
   align-items: center;
+  font-family: ${({ theme }) => theme.fontFamily.medium};
 `;
 
 export const TruncatedText = styled.div`
@@ -27,11 +29,13 @@ export const TruncatedText = styled.div`
   white-space: wrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-family: ${({ theme }) => theme.fontFamily.medium};
 `;
 
 export const IconWrapper = styled.div`
   cursor: pointer;
   color: #007bff;
+  font-family: ${({ theme }) => theme.fontFamily.medium};
 
   &:hover {
     color: #0056b3;
@@ -46,4 +50,6 @@ export const IconWrapper = styled.div`
 export const InfoContainer = styled.div`
   display: flex;
   flex-direction: column;
+  font-family: ${({ theme }) => theme.fontFamily.medium};
 `;
+

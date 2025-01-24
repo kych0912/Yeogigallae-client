@@ -4,12 +4,13 @@ export const theme = {
         secondary: "#222222",
         background: "#0A0A0A",
         disabled: "#434343",
+        GrayText: "#6E6E6E",
         Kakao: "#fae100",
     },
     fontSize: {
         small: "0.75rem",
         medium: "1rem",
-        large: "1.25rem",
+        large: "1.25rem", 
     },
     fontFamily: {
         regular: "PaperLodgy-Regular",

@@ -6,7 +6,6 @@ export const getDaysInMonth = (year: number, month: number) => {
   const firstDay = new Date(year, month, 1).getDay();
   const lastDate = new Date(year, month + 1, 0).getDate();
 
-  // 이전 달 날짜 추가
   const prevMonthLastDate = new Date(year, month, 0).getDate();
   const prevMonth = month === 0 ? 11 : month - 1;
   const prevYear = month === 0 ? year - 1 : year;

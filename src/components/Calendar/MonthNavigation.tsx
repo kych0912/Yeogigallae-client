@@ -24,3 +24,4 @@ const MonthNavigation: React.FC<MonthNavigationProps> = ({
 };
 
 export default MonthNavigation;
+

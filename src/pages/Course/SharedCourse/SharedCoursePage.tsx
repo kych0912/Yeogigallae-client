@@ -4,26 +4,11 @@ import { useFunnel } from "../../../hooks/useFunnel/useFunnel";
 import Detail from "./Detail";
 import { UseQueryResult } from "@tanstack/react-query";
 import Overview from "./Overview";
-import { useHeaderContext } from "../../../contexts/HeaderContext";
-import { useEffect } from 'react';
-import HeaderCenterContent from "../../../components/Header/HeaderCenterContent";
 
-export default function SharedCoursePage({allCoursesQueries,title}:
-{allCoursesQueries:UseQueryResult<Route | null, Error>[],title:string}){
+export default function SharedCoursePage({allCoursesQueries}:
+{allCoursesQueries:UseQueryResult<Route | null, Error>[]}){
 
-  const {Funnel,Step,setStep,currentStep} = useFunnel("코스개요");
-  const {setCustomCenterContent} = useHeaderContext();
-
-  useEffect(()=>{
-    switch(currentStep){
-      case "코스개요":
-        setCustomCenterContent(<HeaderCenterContent title={title} number={4}/>);
-        break;
-      case "코스목록":
-        setCustomCenterContent(<HeaderCenterContent title={"코스 확인 중"}/>);
-        break;  
-    }
-  },[currentStep]);
+  const {Funnel,Step,setStep} = useFunnel("코스개요");
 
     return (
     <>

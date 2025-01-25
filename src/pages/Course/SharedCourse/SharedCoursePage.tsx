@@ -5,7 +5,6 @@ import Detail from "./Detail";
 import { UseQueryResult } from "@tanstack/react-query";
 import Overview from "./Overview";
 
-
 export default function SharedCoursePage({allCoursesQueries}:
 {allCoursesQueries:UseQueryResult<Route | null, Error>[]}){
 

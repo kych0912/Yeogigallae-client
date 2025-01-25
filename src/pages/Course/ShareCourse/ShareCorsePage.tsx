@@ -1,16 +1,16 @@
 import Detail from "./Detail";
-import * as S from "../_components/Course.style";
 import { Route } from "../../../apis/map/types";
 import { useFunnel } from "../../../hooks/useFunnel/useFunnel";
 import List from "./List";
 import Share from "./Share";
+import CommonContainer from "../../../components/Layout/CommonContainer";
 
 export default function ShareCorsePage({dayOnCourseQueries}:{dayOnCourseQueries:Route | undefined | null})
 {
     const {Funnel,Step,setStep} = useFunnel("여행상세");
     
     return (
-    <S.Container>
+    <CommonContainer>
       <Funnel>
         <Step name="여행상세"> 
           <Detail 
@@ -31,6 +31,6 @@ export default function ShareCorsePage({dayOnCourseQueries}:{dayOnCourseQueries:
         </Step>
 
       </Funnel>
-    </S.Container>
+    </CommonContainer>
     )
 }

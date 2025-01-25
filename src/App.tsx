@@ -12,19 +12,14 @@ import BudgetSelectPage from "./pages/Scheduling/BudgetSelectPage/BudgetSelectPa
 import DateSelectPage from "./pages/Scheduling/DateSelectPage/DateSelectPage";
 import SchedulePage from "./pages/Scheduling/SchedulePage/SchedulePage";
 import SplashPage from "./pages/Splash/SplashPage/SplashPage";
-import VoteAgreePage from "./pages/Vote/VoteAgreePage/VoteAgreePage";
-import CreateCoursePage from "./pages/Functional/CreateCoursePage/CreateCoursePage";
-import CreateVotePage from "./pages/Functional/CreateVotePage/CreateVotePage";
-import CreateCalendar from "./pages/Functional/CreateCalendar/CreateCalendar";
-import VotePage from "./pages/Vote/VoteAgreePage/VotePage";
-import VoteDatePage from "./pages/Vote/VoteDatePage/VoteDatePage";
-import VoteSuccessPage from "./pages/Vote/VoteCompletePage/VoteSuccessPage";
-import VoteFailPage from "./pages/Vote/VoteCompletePage/VoteFailPage";
-import './App.css'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import CourseLayout from './components/Layout/CourseLayout';
+import VotePage from "./pages/Vote/VotePage";
+import FunctionalPage from "./pages/Functional/FunctionalPage";
+import CourseLayout from "./components/Layout/CourseLayout";
+import VoteLayout from "./components/Layout/VoteLayout";
+import FunctionalLayout from "./components/Layout/FunctionalLayout";
 import CoursePage from "./pages/Course/CoursePage";
 import ProfileLayout from "./components/Layout/ProfileLayout";
+import MyFriendPage from "./pages/MyPage/MyFriendPage/MyFriendPage";
 import "./App.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
@@ -48,6 +43,7 @@ const App: React.FC = () => {
                         {/* MyPage */}
                         <Route element={<ProfileLayout />}>
                             <Route path="/mypage/profile" element={<MyProfilePage />} />
+                            <Route path="/mypage/friend" element={<MyFriendPage />} />
                             <Route path="/mypage/room" element={<RoomPage />} />
                         </Route>
 

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuthStore } from "./useAuthStore";
@@ -10,59 +10,41 @@ interface KakaoProps {
     provider: Provider;
 }
 
+const sendAuthCodeToServer = async (data: { code: string; provider: Provider }) => {
+    const response = await axios.post(`/login/${data.provider}`, { code: data.code }, { withCredentials: true });
+    return response.data;
+};
+
 const Kakao = ({ provider }: KakaoProps) => {
     const navigate = useNavigate();
-    const processedRef = useRef(false);
-    const setAccessToken = useAuthStore((state) => state.setAccessToken);
+    const { setAccessToken } = useAuthStore();
 
-    const sendAuthCodeToServer = useCallback(
-        async (code: string) => {
-            try {
-                // 가짜 서버 응답
-                const response = {
-                    data: {
-                        accessToken: "mock_access_token_123", // 가짜 토큰
-                    },
-                };
-                /* 실제 서버로 요청을 보내는 코드 : 이걸로 나중에 변경
-                const response = await axios.post(
-                    `/login/${provider}`,
-                    { code },
-                    {
-                        withCredentials: true,
-                    }
-                ); */
-                if (response.data.accessToken) {
-                    console.log("저장할 토큰:", response.data.accessToken);
-                    setAccessToken(response.data.accessToken, provider);
-                    navigate("/");
-                }
-            } catch (error) {
-                console.error(`${provider} 로그인 실패:`, error);
-                navigate("/login", { replace: true });
+    const mutation = useMutation({
+        mutationFn: sendAuthCodeToServer,
+        onSuccess: (data) => {
+            if (data.accessToken) {
+                setAccessToken(data.accessToken, provider);
+                navigate("/");
             }
         },
-        [navigate, provider, setAccessToken]
-    );
+        onError: (error) => {
+            console.error(`${provider} 로그인 실패:`, error);
+            navigate("/login", { replace: true });
+        },
+    });
 
-    useEffect(() => {
-        if (processedRef.current) return;
+    const searchParams = new URLSearchParams(window.location.search);
+    const code = searchParams.get("code");
 
-        const searchParams = new URLSearchParams(window.location.search);
-        const code = searchParams.get("code");
-
-        if (code) {
-            sendAuthCodeToServer(code);
-        } else {
-            navigate("/", { replace: true });
-        }
-
-        processedRef.current = true;
-    }, [navigate, sendAuthCodeToServer]);
+    if (code && !mutation.isLoading && !mutation.isSuccess) {
+        mutation.mutate({ code, provider });
+    } else if (!code) {
+        navigate("/", { replace: true });
+    }
 
     return (
         <S.Container>
-            <S.Title>로그인중입니다...</S.Title>
+            <S.Title>{mutation.isLoading ? "로그인 중입니다..." : mutation.isError ? "로그인에 실패했습니다." : "로그인을 진행합니다."}</S.Title>
         </S.Container>
     );
 };

@@ -1,8 +1,8 @@
-import { create } from "zustand"; // 명명된 내보내기로 수정
+import { create } from "zustand";
 
 interface AuthState {
     accessToken: string | null;
-    lastProvider: string | null; // 새로운 필드 추가
+    lastProvider: string | null;
     setAccessToken: (token: string, provider: string) => void;
     clearAccessToken: () => void;
 }

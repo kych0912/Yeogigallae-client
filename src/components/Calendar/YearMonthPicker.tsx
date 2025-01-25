@@ -1,47 +1,47 @@
-import React, { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import * as S from "./YearMonthPicker.styles";
 import MonthNavigation from "./MonthNavigation";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/swiper-bundle.css";
+import { FreeMode, Navigation } from "swiper/modules";
 
 interface YearMonthPickerProps {
   currentYear: number;
-  currentMonth: number; // 1부터 시작하는 값으로 전달받아야 함
+  currentMonth: number;
   onSelectYear: (year: number) => void;
   onSelectMonth: (month: number) => void;
   onSelect?: (selectedYear: number, selectedMonth: number) => void;
   closePicker: () => void;
 }
 
-const YearMonthPicker: React.FC<YearMonthPickerProps> = ({
+export default function YearMonthPicker({
   currentYear,
-  currentMonth, 
+  currentMonth,
   onSelectYear,
   onSelectMonth,
   onSelect,
   closePicker,
-}) => {
+}: YearMonthPickerProps) {
   const [years] = useState<number[]>(() =>
     Array.from({ length: 41 }, (_, i) => currentYear - 20 + i)
   );
   const [selectedYear, setSelectedYear] = useState(currentYear);
-  const [selectedMonth, setSelectedMonth] = useState<number | null>(currentMonth); 
+  const [selectedMonth, setSelectedMonth] = useState<number | null>(currentMonth);
   const yearDialRef = useRef<HTMLDivElement>(null);
 
-  // 연도 변경
   const handleYearChange = (year: number) => {
     setSelectedYear(year);
-    setSelectedMonth(null); // 연도 변경 시 월 초기화
+    setSelectedMonth(null);
     onSelectYear(year);
   };
 
-  // 월 변경
   const handleMonthChange = (month: number) => {
     setSelectedMonth(month);
     onSelectMonth(month);
-    if (onSelect) onSelect(selectedYear, month); // 선택된 연도와 월 전달
-    closePicker(); // Picker 닫기
+    if (onSelect) onSelect(selectedYear, month);
+    closePicker();
   };
 
-  // 스크롤 이벤트 처리
   useEffect(() => {
     const handleScrollStop = () => {
       if (!yearDialRef.current) return;
@@ -74,23 +74,34 @@ const YearMonthPicker: React.FC<YearMonthPickerProps> = ({
 
   return (
     <>
-      <MonthNavigation
-          currentYear={currentYear}
-          currentMonth={currentMonth}
-      />
+      <MonthNavigation currentYear={currentYear} currentMonth={currentMonth} />
       <S.Wrapper>
-        {/* 연도 선택 */}
-        <S.YearDial ref={yearDialRef}>
-          {years.map((year, index) => (
-            <S.YearItem
-              key={index}
-              $selected={year === selectedYear}
-              onClick={() => handleYearChange(year)}
-            >
-              {year}
-            </S.YearItem>
+        <Swiper
+          slidesPerView={4.12}
+          centeredSlides
+          spaceBetween={10}
+          resistanceRatio={0.85}
+          speed={500}
+          style={{
+            width: "100%",
+          }}
+          onSlideChange={(swiper) => {
+            const newYear = 2025 + swiper.activeIndex;
+            if (newYear > 2050) {
+              swiper.slideTo(25);
+            } else {
+              setSelectedYear(newYear);
+              onSelectYear(newYear);
+            }
+          }}
+          modules={[FreeMode, Navigation]}
+        >
+          {Array.from({ length: 26 }, (_, i) => 2025 + i).map((year) => (
+            <SwiperSlide key={year}>
+              <S.YearItem $selected={year === selectedYear}>{year}</S.YearItem>
+            </SwiperSlide>
           ))}
-        </S.YearDial>
+        </Swiper>
 
         {/* 월 선택 */}
         <S.MonthGrid>
@@ -107,7 +118,4 @@ const YearMonthPicker: React.FC<YearMonthPickerProps> = ({
       </S.Wrapper>
     </>
   );
-};
-
-export default YearMonthPicker;
-
+}

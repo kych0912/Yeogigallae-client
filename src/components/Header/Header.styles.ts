@@ -5,7 +5,7 @@ const Header = styled.header`
     top: 0;
     left: 0;
     width: 100%;
-    background-color:#000000;
+    background-color:${({theme}) => theme.colors.background};
     z-index: 100;
     font-family:${({theme}) => theme.fontFamily.medium};
 `;

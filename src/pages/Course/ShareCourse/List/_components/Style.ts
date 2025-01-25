@@ -5,6 +5,7 @@ export const ItemContainer = styled.div`
   flex-direction: column;
   gap:1.25rem;
   padding-bottom:5rem;
+  width: 100%;
 `;
 
 export const AddPlaceButton = styled.div`

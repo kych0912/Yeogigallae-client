@@ -17,11 +17,13 @@ import FunctionalPage from "./pages/Functional/FunctionalPage";
 import CourseLayout from "./components/Layout/CourseLayout";
 import VoteLayout from "./components/Layout/VoteLayout";
 import FunctionalLayout from "./components/Layout/FunctionalLayout";
-import CoursePage from "./pages/course/page";
+import CoursePage from "./pages/Course/CoursePage";
 import ProfileLayout from "./components/Layout/ProfileLayout";
 import Kakao from "./pages/Login/Kakao";
+import MyFriendPage from "./pages/MyPage/MyFriendPage/MyFriendPage";
 import "./App.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import NoticeLayout from "./components/Layout/NoticeLayout";
 
 const queryClient = new QueryClient();
 
@@ -44,11 +46,14 @@ const App: React.FC = () => {
                         {/* MyPage */}
                         <Route element={<ProfileLayout />}>
                             <Route path="/mypage/profile" element={<MyProfilePage />} />
+                            <Route path="/mypage/friend" element={<MyFriendPage />} />
                             <Route path="/mypage/room" element={<RoomPage />} />
                         </Route>
 
                         {/* Notice */}
-                        <Route path="/notice" element={<NoticePage />} />
+                        <Route element={<NoticeLayout />}>
+                            <Route path="/notice" element={<NoticePage />} />
+                        </Route>
 
                         {/* Scheduling */}
                         <Route path="/scheduling/budget-select" element={<BudgetSelectPage />} />

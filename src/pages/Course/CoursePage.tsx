@@ -10,7 +10,7 @@ export default function Page(){
 
   const isLoading = allCoursesQueries.some(query => query.isLoading);
   const isError = allCoursesQueries.some(query => query.isError);
-  const isEnd = false;
+  const isEnd = true;
 
   if(isLoading) return <div style={{textAlign:"center",color:"white"}}>Loading...</div>;
   if(isError) return <div style={{textAlign:"center",color:"white"}}>Error...</div>;
@@ -19,6 +19,7 @@ export default function Page(){
     <>
       <ShareCorsePage 
         dayOnCourseQueries={allCoursesQueries[0].data}
+        title={"지구마블"}
       />
     </>
   )
@@ -27,6 +28,7 @@ export default function Page(){
     <>
       <SharedCoursePage   
         allCoursesQueries={allCoursesQueries}
+        title={"지구마블"}
       />
     </>
   );

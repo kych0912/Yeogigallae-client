@@ -4,10 +4,27 @@ import { useFunnel } from "../../../hooks/useFunnel/useFunnel";
 import List from "./List";
 import Share from "./Share";
 import CommonContainer from "../../../components/Layout/CommonContainer";
+import { useEffect } from "react";import { useOutletContext } from "react-router-dom";
+import { HeaderConfig } from "../../../types/header/header";
 
-export default function ShareCorsePage({dayOnCourseQueries}:{dayOnCourseQueries:Route | undefined | null})
+export default function ShareCorsePage({dayOnCourseQueries,title}:{dayOnCourseQueries:Route | undefined | null,title:string})
 {
-    const {Funnel,Step,setStep} = useFunnel("여행상세");
+    const {Funnel,Step,setStep,currentStep} = useFunnel("여행상세");
+    const {setHeaderConfig} = useOutletContext<{setHeaderConfig: (config: HeaderConfig) => void}>();
+
+    useEffect(()=>{
+      switch(currentStep){
+        case "여행상세":
+          setHeaderConfig({title:title, number:4});
+          break;
+        case "코스목록":
+          setHeaderConfig({title:"장소 공유하기"});
+          break;
+        case "공유":
+          setHeaderConfig({title:title, number:4});
+          break;
+      }
+    },[currentStep,setHeaderConfig,title]);
     
     return (
     <CommonContainer>

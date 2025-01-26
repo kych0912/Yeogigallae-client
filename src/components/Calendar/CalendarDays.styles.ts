@@ -37,28 +37,57 @@ export const Days = styled.div`
 `;
 
 export const Day = styled.div<{
-  $isToday?: boolean;
-  $isCurrentMonth?: boolean;
-  $isInRange?: boolean;
-  $isSelected?: boolean;
-  $isStart?: boolean;
-  $isEnd?: boolean;
+  $isToday?: boolean | null; // null 허용
+  $isCurrentMonth?: boolean | null;
+  $isInRange?: boolean | null;
+  $isSelected?: boolean | null;
+  $isStart?: boolean | null;
+  $isEnd?: boolean | null;
 }>`
   width: 2.875rem;
   height: 2.875rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${({ $isInRange, $isSelected }) =>
-    $isSelected ? "#4f46e5" : $isInRange ? "#2c2c5e" : "transparent"};
+  position: relative;
+  z-index: 10;
+  background-color: ${({ $isSelected }) =>
+    $isSelected ? "#4f46e5" : "transparent"};
   color: ${({ $isCurrentMonth }) => ($isCurrentMonth ? "#fff" : "#666")};
   border-radius: ${({ $isStart, $isEnd }) =>
-    $isStart || $isEnd ? "50%" : "50%"};
+    $isStart || $isEnd ? "50%" : "0"};
   cursor: pointer;
 
-  &:hover {
-    background-color: #3d46f1;
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: ${({ $isStart }) => ($isStart ? "50%" : "0")};
+    right: ${({ $isEnd }) => ($isEnd ? "50%" : "0")};
+    background-color: ${({ $isInRange }) =>
+      $isInRange ? "#2c2c5e" : "transparent"};
+    z-index: -1;
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: ${({ $isStart, $isEnd }) =>
+      $isStart || $isEnd ? "#4f46e5" : "transparent"};
     border-radius: 50%;
+    z-index: -1;
+  }
+
+  &:hover {
+    background-color: ${({ $isSelected }) =>
+      $isSelected ? "#3d46f1" : "rgba(61, 70, 241, 0.7)"};
   }
 `;
+
+
 

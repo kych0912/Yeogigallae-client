@@ -1,34 +1,24 @@
-import { useMutation } from "@tanstack/react-query";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useMutation } from "@tanstack/react-query";
 import { useAuthStore } from "./useAuthStore";
+import { sendAuthCodeToServer } from "./api";
 import * as S from "./LoginPage/Styles";
 
-type Provider = "kakao";
-
-interface KakaoProps {
-    provider: Provider;
-}
-
-const sendAuthCodeToServer = async (data: { code: string; provider: Provider }) => {
-    const response = await axios.post(`/login/${data.provider}`, { code: data.code }, { withCredentials: true });
-    return response.data;
-};
-
-const Kakao = ({ provider }: KakaoProps) => {
+const Kakao = ({ provider }: { provider: string }) => {
     const navigate = useNavigate();
     const { setAccessToken } = useAuthStore();
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-    const mutation = useMutation({
-        mutationFn: sendAuthCodeToServer,
-        onSuccess: (data) => {
+    const mutation = useMutation<{ accessToken: string }, Error, { code: string; provider: string }>(sendAuthCodeToServer, {
+        onSuccess: (data: { accessToken: string }) => {
             if (data.accessToken) {
                 setAccessToken(data.accessToken, provider);
                 navigate("/");
             }
         },
-        onError: (error) => {
-            console.error(`${provider} 로그인 실패:`, error);
+        onError: () => {
+            setErrorMessage("로그인에 실패했습니다. 다시 시도해주세요.");
             navigate("/login", { replace: true });
         },
     });
@@ -36,15 +26,17 @@ const Kakao = ({ provider }: KakaoProps) => {
     const searchParams = new URLSearchParams(window.location.search);
     const code = searchParams.get("code");
 
-    if (code && !mutation.isLoading && !mutation.isSuccess) {
+    if (code) {
         mutation.mutate({ code, provider });
-    } else if (!code) {
-        navigate("/", { replace: true });
+    } else {
+        setErrorMessage("유효하지 않은 로그인 요청입니다.");
+        navigate("/login", { replace: true });
     }
 
     return (
         <S.Container>
-            <S.Title>{mutation.isLoading ? "로그인 중입니다..." : mutation.isError ? "로그인에 실패했습니다." : "로그인을 진행합니다."}</S.Title>
+            {errorMessage && <S.Title>{errorMessage}</S.Title>}
+            <S.Title>{mutation.isPending ? "로그인 중입니다..." : mutation.isError ? "로그인에 실패했습니다." : "로그인을 진행합니다."}</S.Title>
         </S.Container>
     );
 };

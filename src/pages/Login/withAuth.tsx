@@ -1,18 +1,20 @@
-// withAuth.tsx
+// withAuthHandler.tsx
 import React from "react";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "./useAuthStore";
 
-export function withAuth(Component: React.ComponentType): React.ComponentType {
-    return function AuthenticatedComponent() {
-        const accessToken = useAuthStore(function (state) {
-            return state.accessToken;
-        });
+const withAuthHandler = <P extends object>(WrappedComponent: React.FC<P>) => {
+    return (props: P) => {
+        const navigate = useNavigate();
+        const { accessToken } = useAuthStore();
 
         if (!accessToken) {
-            return <Navigate to="/login" replace />;
+            navigate("/login", { replace: true });
+            return null;
         }
 
-        return <Component />;
+        return <WrappedComponent {...props} />;
     };
-}
+};
+
+export default withAuthHandler;

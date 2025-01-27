@@ -1,7 +1,7 @@
 import Card from "../../../../../components/Card";
 import CourseTitle from '../../../_components/CourseTitle';
 import Map from "../../../../../components/Map";
-import CoursePlaces from './CoursePlaces';
+import CoursePlaces from '../../../_components/CoursePlaces';
 import { Route } from "../../../../../apis/map/types";
 import { StyledCard } from "../../../_components/Course.style";
 

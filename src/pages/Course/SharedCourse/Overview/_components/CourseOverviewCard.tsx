@@ -3,7 +3,7 @@ import Map from "../../../../../components/Map";
 import { Route } from "../../../../../apis/map/types";   
 import { Button } from "../../../../../components/Button";
 import * as S from "../../../_components/Course.style";
-import CoursePlaces from "../../Detail/_components/CoursePlaces";
+import CoursePlaces from "../../../_components/CoursePlaces";
 import CourseTitle from "../../../_components/CourseTitle";
 import CommonContainer from "../../../../../components/Layout/CommonContainer";
 

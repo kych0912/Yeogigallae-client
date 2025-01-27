@@ -1,8 +1,8 @@
-import * as S from "./Style";
-import { Section } from "../../../../../apis/map/types";
+import * as S from "./Course.style";
+import { Section } from "../../../apis/map/types";
 
-import Marker from "../../../../../assets/icons/Marker.svg?react"
-import { RouteDetail } from "../../../../../apis/map/types";
+import Marker from "../../../assets/icons/Marker.svg?react"
+import { RouteDetail } from "../../../apis/map/types";
 
 export default function CoursePlaces({ 
     places, 
@@ -23,7 +23,7 @@ export default function CoursePlaces({
         : allPlaces;
     
     return (
-        <S.PlaceWrapper>
+        <S.CoursePlaces.PlaceWrapper>
             {displayPlaces.map((place, index) => (
                 <PlaceItem 
                     key={index}
@@ -32,7 +32,7 @@ export default function CoursePlaces({
                     sectionInfo={index < sections.length ? sections[index] : null}
                 />
             ))}
-        </S.PlaceWrapper>
+        </S.CoursePlaces.PlaceWrapper>
     );
 }
 
@@ -52,20 +52,20 @@ function PlaceItem({ place, isLast, sectionInfo }: PlaceItemProps) {
 
     return (
         <>
-            <S.PlaceNameWrapper>
-                <S.MarkerWrapper>
+            <S.CoursePlaces.PlaceNameWrapper>
+                <S.CoursePlaces.MarkerWrapper>
                     <Marker/>
-                </S.MarkerWrapper>
+                </S.CoursePlaces.MarkerWrapper>
                 {place.name}
-            </S.PlaceNameWrapper>
+            </S.CoursePlaces.PlaceNameWrapper>
 
             {!isLast && sectionInfo && (
-                <S.PlaceDistanceWrapper>
-                    <S.PlaceLine line={lineDistance}/>
+                <S.CoursePlaces.PlaceDistanceWrapper>
+                    <S.CoursePlaces.PlaceLine line={lineDistance}/>
                     {convertDistance(sectionInfo.distance)}km
                     {" "}
                     {`${Math.round(sectionInfo.duration / 60)}분`}
-                </S.PlaceDistanceWrapper>
+                </S.CoursePlaces.PlaceDistanceWrapper>
             )}
         </>
     );

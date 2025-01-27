@@ -1,6 +1,8 @@
 import CommonContainer from "../../../components/Layout/CommonContainer";
 import { Accordion, AccordionTitle, AccordionItemWrapper } from "./_components/Accordion";
 import FriendItem from "./_components/FriendItem";
+import { useOutletContext } from "react-router-dom";
+import { HeaderConfig } from "../../../types/header/header";
 
 export default function MyFriendPage() {
     // 실제로는 API나 상태관리로 받아올 데이터
@@ -10,6 +12,9 @@ export default function MyFriendPage() {
         { name: "친구 2", Avatar: "https://picsum.photos/200/300" },
         { name: "친구 3", Avatar: "https://picsum.photos/200/300" },
     ];
+
+    const {setHeaderConfig} = useOutletContext<{setHeaderConfig: (config: HeaderConfig) => void}>();
+    setHeaderConfig({title:"친구"});
 
     return (
         <CommonContainer>

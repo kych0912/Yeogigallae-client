@@ -12,13 +12,14 @@ import React from 'react';
  * @param children 카드 컨텐츠
  */
 
-function CardRoot({ children,gap }: {
+function CardRoot({ children,gap,className }: {
     children: React.ReactNode;
     gap?:string;
+    className?:string;
 }) {
 
     return (
-        <S.Card>
+        <S.Card className={className}>
             <S.CardWrapper style={{gap:gap}}>
                 {children}
             </S.CardWrapper>

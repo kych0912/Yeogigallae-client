@@ -4,7 +4,6 @@ import { getDaysInMonth, getWeekDays } from "./utils/Calendar.utils";
 import { isDateInRange, isStartDate, isEndDate, createDateFromDay } from "./utils/Days.utils";
 import Card from "../Card";
 
-
 interface CalendarDaysProps {
   year: number;
   month: number;
@@ -14,26 +13,33 @@ interface CalendarDaysProps {
   setCurrentDate: React.Dispatch<React.SetStateAction<Date>>;
 }
 
-const CalendarDays: React.FC<CalendarDaysProps> = ({
+export default function CalendarDays({
   year,
   month,
   startDate,
   endDate,
   onDayClick,
   setCurrentDate,
-}) => {
+}: CalendarDaysProps) {
   const daysInMonth = getDaysInMonth(year, month);
   const weekDays = getWeekDays();
 
   const handleDayClick = (day: typeof daysInMonth[number]) => {
     const targetDate = createDateFromDay(day.year, day.month, day.date);
-
-    // 월 또는 연도가 변경되면 현재 날짜를 업데이트
     if (day.month !== month || day.year !== year) {
-      setCurrentDate(createDateFromDay(day.year, day.month, 1));
+      setCurrentDate(targetDate);
     }
 
-    onDayClick(targetDate);
+    if (!startDate || (startDate && endDate)) {
+      onDayClick(targetDate);
+    } else if (startDate && !endDate) {
+      if (targetDate < startDate) {
+        onDayClick(startDate);
+        onDayClick(targetDate); 
+      } else {
+        onDayClick(targetDate);
+      }
+    }
   };
 
   return (
@@ -50,12 +56,37 @@ const CalendarDays: React.FC<CalendarDaysProps> = ({
         {daysInMonth.map((day, index) => (
           <S.Day
             key={`day-${day.year}-${day.month}-${day.date}-${index}`}
-            $isToday={day.isToday}
-            $isCurrentMonth={day.isCurrentMonth}
-            $isInRange={isDateInRange(createDateFromDay(day.year, day.month, day.date), startDate, endDate)}
-            $isSelected={isStartDate(createDateFromDay(day.year, day.month, day.date), startDate) || isEndDate(createDateFromDay(day.year, day.month, day.date), endDate)}
-            $isStart={isStartDate(createDateFromDay(day.year, day.month, day.date), startDate)}
-            $isEnd={isEndDate(createDateFromDay(day.year, day.month, day.date), endDate)}
+            $isToday={day.isToday || undefined}
+            $isCurrentMonth={day.isCurrentMonth || undefined}
+            $isInRange={
+              isDateInRange(
+                createDateFromDay(day.year, day.month, day.date),
+                startDate,
+                endDate
+              ) || undefined
+            }
+            $isSelected={
+              isStartDate(
+                createDateFromDay(day.year, day.month, day.date),
+                startDate
+              ) ||
+              isEndDate(
+                createDateFromDay(day.year, day.month, day.date),
+                endDate
+              ) || undefined
+            }
+            $isStart={
+              isStartDate(
+                createDateFromDay(day.year, day.month, day.date),
+                startDate
+              ) || undefined
+            }
+            $isEnd={
+              isEndDate(
+                createDateFromDay(day.year, day.month, day.date),
+                endDate
+              ) || undefined
+            }
             onClick={() => handleDayClick(day)}
           >
             {day.date}
@@ -64,7 +95,4 @@ const CalendarDays: React.FC<CalendarDaysProps> = ({
       </S.Days>
     </S.CalendarContainer>
   );
-};
-
-export default CalendarDays;
-
+}

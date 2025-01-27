@@ -14,67 +14,69 @@ import SchedulePage from "./pages/Scheduling/SchedulePage/SchedulePage";
 import SplashPage from "./pages/Splash/SplashPage/SplashPage";
 import VotePage from "./pages/Vote/VotePage";
 import FunctionalPage from "./pages/Functional/FunctionalPage";
-import CourseLayout from './components/Layout/CourseLayout';
+import CourseLayout from "./components/Layout/CourseLayout";
 import VoteLayout from "./components/Layout/VoteLayout";
 import FunctionalLayout from "./components/Layout/FunctionalLayout";
-import CoursePage from "./pages/course/page";
+import CoursePage from "./pages/Course/CoursePage";
 import ProfileLayout from "./components/Layout/ProfileLayout";
-import './App.css';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import MyFriendPage from "./pages/MyPage/MyFriendPage/MyFriendPage";
+import "./App.css";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import NoticeLayout from "./components/Layout/NoticeLayout";
 
 const queryClient = new QueryClient();
 
 const App: React.FC = () => {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={theme}>
-        <Router>
-          <Routes>
+    return (
+        <QueryClientProvider client={queryClient}>
+            <ThemeProvider theme={theme}>
+                    <Router>
+                        <Routes>
+                            {/* Main */}
+                        <Route path="/" element={<MainPage />} />
 
-            {/* Main */}
-            <Route path="/" element={<MainPage />} />
+                        {/* Login */}
+                        <Route path="/login" element={<LoginPage />} />
 
-            {/* Login */}
-            <Route path="/login" element={<LoginPage />} />
+                        {/* Budget */}
+                        <Route path="/budget" element={<BudgetPage />} />
 
-            {/* Budget */}
-            <Route path="/budget" element={<BudgetPage />} />
+                        {/* MyPage */}
+                        <Route element={<ProfileLayout />}>
+                            <Route path="/mypage/profile" element={<MyProfilePage />} />
+                            <Route path="/mypage/friend" element={<MyFriendPage />} />
+                            <Route path="/mypage/room" element={<RoomPage />} />
+                        </Route>
 
-            {/* MyPage */}
-            <Route element={<ProfileLayout />}>
-              <Route path="/mypage/profile" element={<MyProfilePage />} />
-              <Route path="/mypage/room" element={<RoomPage />} />
-            </Route>
+                        {/* Notice */}
+                        <Route element={<NoticeLayout />}>
+                          <Route path="/notice" element={<NoticePage />} />
+                        </Route>
 
-            {/* Notice */}
-            <Route path="/notice" element={<NoticePage />} />
+                        {/* Scheduling */}
+                        <Route path="/scheduling/budget-select" element={<BudgetSelectPage />} />
+                        <Route path="/scheduling/date-select" element={<DateSelectPage />} />
+                        <Route path="/scheduling/schedule" element={<SchedulePage />} />
 
-            {/* Scheduling */}
-            <Route path="/scheduling/budget-select" element={<BudgetSelectPage />} />
-            <Route path="/scheduling/date-select" element={<DateSelectPage />} />
-            <Route path="/scheduling/schedule" element={<SchedulePage />} />
+                        {/* Splash */}
+                        <Route path="/splash" element={<SplashPage />} />
 
-            {/* Splash */}
-            <Route path="/splash" element={<SplashPage />} />
+                        <Route element={<VoteLayout />}>
+                            <Route path="/vote" element={<VotePage />} />
+                        </Route>
 
-            <Route element={<VoteLayout />}>
-              <Route path="/vote" element={<VotePage />} />
-            </Route>
+                        <Route element={<FunctionalLayout />}>
+                            <Route path="/functional" element={<FunctionalPage />} />
+                        </Route>
 
-            <Route element={<FunctionalLayout />}>
-              <Route path="/functional" element={<FunctionalPage />} />
-            </Route>
-            
-            <Route element={<CourseLayout />}>
-                <Route path="/course" element={<CoursePage />} />
-            </Route>
-
-          </Routes>
-        </Router>
-      </ThemeProvider>
-    </QueryClientProvider>
-  );
+                        <Route element={<CourseLayout />}>
+                            <Route path="/course" element={<CoursePage />} />
+                        </Route>
+                    </Routes>
+                </Router>
+            </ThemeProvider>
+        </QueryClientProvider>
+    );
 };
 
 export default App;
-

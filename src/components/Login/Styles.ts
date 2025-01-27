@@ -1,12 +1,14 @@
 import styled from "styled-components";
-import BaseButton from "../Button/Button"; // 공통 컴포넌트 Button을 Base로 가져오기
+import BaseButton from "../Button/Button";
 
 export const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
     margin-top: 6.25rem;
+    padding: 0 1.25rem;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
 `;
 
 export const Logo = styled.img`
@@ -23,8 +25,8 @@ export const Text = styled.p`
 `;
 
 export const KakaoButton = styled(BaseButton)`
-    width: 24rem;
     padding: 0.875rem 0;
     color: #371d1e;
     background-color: #fae100;
+    width: 100%;
 `;

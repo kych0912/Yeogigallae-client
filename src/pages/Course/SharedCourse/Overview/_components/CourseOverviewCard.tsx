@@ -22,7 +22,7 @@ export default function CourseOverviewCard({ dailyRoutes,onNext }:{
     
     return (
         <CommonContainer>
-            <S.StyledCard>
+            <Card>
                 <Card.Image>
                     <Map 
                         width="100%" 
@@ -54,7 +54,7 @@ export default function CourseOverviewCard({ dailyRoutes,onNext }:{
                     </Button>
                 </Card.Item>
 
-            </S.StyledCard>
+            </Card>
 
             <S.CompleteMessage>
                 {"AI 코스 생성이 완료되었습니다."}

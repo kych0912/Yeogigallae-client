@@ -3,7 +3,6 @@ import CourseTitle from '../../../_components/CourseTitle';
 import Map from "../../../../../components/Map";
 import CoursePlaces from '../../../_components/CoursePlaces';
 import { Route } from "../../../../../apis/map/types";
-import { StyledCard } from "../../../_components/Course.style";
 
 export default function CourseDetailCard({ dailyRoutes }:{
     dailyRoutes: Route | null | undefined,
@@ -17,7 +16,7 @@ export default function CourseDetailCard({ dailyRoutes }:{
     );
     
     return (
-        <StyledCard>
+        <Card>
             <Card.Image>
                 <Map 
                     width="100%" 
@@ -38,6 +37,6 @@ export default function CourseDetailCard({ dailyRoutes }:{
                 <CoursePlaces places={dailyRoutes.routes[0]} />
             </Card.Item>
 
-        </StyledCard>
+        </Card>
     );
 }

@@ -78,16 +78,6 @@ export const DetailCardWrapper = styled.div`
   align-items: center;
 `;
 
-export const StyledCard = styled(Card)`
-  width: 100%;
-  background: white;
-  border-radius: 20px;
-  overflow: hidden;
-  transform-style: preserve-3d;
-  transition: transform 0.5s;
-`;
-
-
 export const StyledSwiper = styled(Swiper)`
   padding-bottom: 2rem;  
 

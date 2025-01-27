@@ -35,7 +35,7 @@ export default function CalendarDays({
     } else if (startDate && !endDate) {
       if (targetDate < startDate) {
         onDayClick(startDate);
-        onDayClick(targetDate); 
+        onDayClick(targetDate);
       } else {
         onDayClick(targetDate);
       }
@@ -43,56 +43,63 @@ export default function CalendarDays({
   };
 
   return (
-    <S.CalendarContainer>
-      <S.WeekDays>
-        {weekDays.map((day, index) => (
-          <S.WeekDay key={`weekday-${index}`}>{day}</S.WeekDay>
-        ))}
-      </S.WeekDays>
+    <>
+      {/* 현재 연도와 월 표시 */}
+      <S.CurrentDate>
+        {year}년 {month}월
+      </S.CurrentDate>
 
-      <Card.Divider />
+      <S.CalendarContainer>
+        <S.WeekDays>
+          {weekDays.map((day, index) => (
+            <S.WeekDay key={`weekday-${index}`}>{day}</S.WeekDay>
+          ))}
+        </S.WeekDays>
 
-      <S.Days>
-        {daysInMonth.map((day, index) => (
-          <S.Day
-            key={`day-${day.year}-${day.month}-${day.date}-${index}`}
-            $isToday={day.isToday || undefined}
-            $isCurrentMonth={day.isCurrentMonth || undefined}
-            $isInRange={
-              isDateInRange(
-                createDateFromDay(day.year, day.month, day.date),
-                startDate,
-                endDate
-              ) || undefined
-            }
-            $isSelected={
-              isStartDate(
-                createDateFromDay(day.year, day.month, day.date),
-                startDate
-              ) ||
-              isEndDate(
-                createDateFromDay(day.year, day.month, day.date),
-                endDate
-              ) || undefined
-            }
-            $isStart={
-              isStartDate(
-                createDateFromDay(day.year, day.month, day.date),
-                startDate
-              ) || undefined
-            }
-            $isEnd={
-              isEndDate(
-                createDateFromDay(day.year, day.month, day.date),
-                endDate
-              ) || undefined
-            }
-            onClick={() => handleDayClick(day)}
-          >
-            {day.date}
-          </S.Day>
-        ))}
-      </S.Days>
-    </S.CalendarContainer>
+        <Card.Divider />
+
+        <S.Days>
+          {daysInMonth.map((day, index) => (
+            <S.Day
+              key={`day-${day.year}-${day.month}-${day.date}-${index}`}
+              $isToday={day.isToday || undefined}
+              $isCurrentMonth={day.isCurrentMonth || undefined}
+              $isInRange={
+                isDateInRange(
+                  createDateFromDay(day.year, day.month, day.date),
+                  startDate,
+                  endDate
+                ) || undefined
+              }
+              $isSelected={
+                isStartDate(
+                  createDateFromDay(day.year, day.month, day.date),
+                  startDate
+                ) ||
+                isEndDate(
+                  createDateFromDay(day.year, day.month, day.date),
+                  endDate
+                ) || undefined
+              }
+              $isStart={
+                isStartDate(
+                  createDateFromDay(day.year, day.month, day.date),
+                  startDate
+                ) || undefined
+              }
+              $isEnd={
+                isEndDate(
+                  createDateFromDay(day.year, day.month, day.date),
+                  endDate
+                ) || undefined
+              }
+              onClick={() => handleDayClick(day)}
+            >
+              {day.date}
+            </S.Day>
+          ))}
+        </S.Days>
+      </S.CalendarContainer>
+    </>
   );
 }

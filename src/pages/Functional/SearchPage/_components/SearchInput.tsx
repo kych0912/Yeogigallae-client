@@ -6,22 +6,18 @@ interface SearchInputProps {
   query: string;
   setQuery: React.Dispatch<React.SetStateAction<string>>;
   isError: boolean;
-  setIsTouched: React.Dispatch<React.SetStateAction<boolean>>;
   handleSearch: () => void;
   isButtonDisabled: boolean;
 }
 
-const SearchInput: React.FC<SearchInputProps> = ({
+export default function SearchInput({
   query,
   setQuery,
   isError,
-  setIsTouched,
   handleSearch,
   isButtonDisabled,
-}) => {
-  const handleClear = () => {
-    setQuery(""); // 검색어 초기화
-  };
+}: SearchInputProps) {
+  const handleClear = () => setQuery("");
 
   return (
     <S.Container $isError={isError}>
@@ -30,7 +26,6 @@ const SearchInput: React.FC<SearchInputProps> = ({
           placeholder="도로명 또는 지번을 입력하세요"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          onFocus={() => setIsTouched(true)}
         />
         {query && (
           <S.ClearButton onClick={handleClear}>
@@ -47,7 +42,4 @@ const SearchInput: React.FC<SearchInputProps> = ({
       </S.SearchButton>
     </S.Container>
   );
-};
-
-export default SearchInput;
-
+}

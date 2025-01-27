@@ -1,52 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
 import * as S from "./ResultList.styles";
 import MapComponent from "./SearchMap/SearchMap";
 import ToggleIcon from "../../../../assets/icons/ToggleIcon.svg?react";
-
-interface Result {
-  id: string;
-  place_name: string;
-  zone_no: string | null;
-  road_address_name?: string;
-  address_name?: string;
-  x: number;
-  y: number;
-}
+import { Place } from "../../../../hooks/useSearchLogic";
 
 interface ResultListProps {
-  results: Result[];
-  selectedResult: string | null;
-  handleSelectItem: (selected: { id: string | null; placeName: string | null }) => void;
+  results: Place[];
+  selectedResult: Place | null;
+  handleSelectItem: (item: Place) => void;
 }
 
-const ResultList: React.FC<ResultListProps> = ({
+export default function ResultList({
   results,
   selectedResult,
   handleSelectItem,
-}) => {
-  const [rotatedId, setRotatedId] = useState<string | null>(null);
-
-  // 항목 선택 처리 함수
-  const toggleSelectItem = (id: string, placeName: string) => {
-    const isSelected = selectedResult === id;
-    handleSelectItem({ id: isSelected ? null : id, placeName: isSelected ? null : placeName });
-    setRotatedId(isSelected ? null : id);
-    console.log("현재 선택된 항목 ID:", isSelected ? null : id);
-  };
-
-  // 결과 배열 유효성 확인
-  if (!results || results.length === 0) {
-    return (
-      <S.Results $isVisible={false}>
-        <S.NoResults>검색 결과가 없습니다.</S.NoResults>
-      </S.Results>
-    );
-  }
-
+}: ResultListProps) {
   return (
     <S.Results $isVisible={results.length > 0}>
       {results.map((result, index) => {
-        const isSelected = selectedResult === result.id;
+        const isSelected = selectedResult?.id === result.id;
 
         return (
           <React.Fragment key={result.id}>
@@ -54,7 +26,7 @@ const ResultList: React.FC<ResultListProps> = ({
               <S.ResultItem
                 $isFirst={index === 0}
                 $isLast={index === results.length - 1}
-                onClick={() => toggleSelectItem(result.id, result.place_name)}
+                onClick={() => handleSelectItem(result)}
                 $isSelected={isSelected}
               >
                 <S.ZipCode>{result.zone_no || "우편번호 없음"}</S.ZipCode>
@@ -65,36 +37,29 @@ const ResultList: React.FC<ResultListProps> = ({
                   </S.AddressName>
                   <S.MapButton>
                     지도
-                    <S.RotateIcon $isRotated={rotatedId === result.id}>
+                    <S.RotateIcon $isRotated={isSelected}>
                       <ToggleIcon />
                     </S.RotateIcon>
                   </S.MapButton>
                 </S.InfoContainer>
               </S.ResultItem>
-
-              {isSelected && (
-                <MapComponent
-                  center={{
-                    x: result.x.toString(),
-                    y: result.y.toString(),
-                  }}
-                  results={[
-                    {
-                      ...result,
-                      x: result.x.toString(),
-                      y: result.y.toString(),
-                    },
-                  ]}
-                />
-              )}
             </S.ResultWrapper>
+
+            {isSelected && (
+              <MapComponent
+                center={{
+                  x: result.x.toString(),
+                  y: result.y.toString(),
+                }}
+                results={[{ ...result, x: result.x.toString(), y: result.y.toString() }]}
+                mapContainerId={`map-${result.id}`}
+              />
+            )}
+
             {index < results.length - 1 && <S.Divider />}
           </React.Fragment>
         );
       })}
     </S.Results>
   );
-};
-
-export default ResultList;
-
+}

@@ -2,12 +2,16 @@ import Header from "../Header"
 import HomeIcon from "../../assets/icons/Home.svg?react";
 import BackIcon from "../../assets/icons/Back.svg?react";
 import { IconButton } from "../Button";
-import styled from 'styled-components'
 import { Outlet, useNavigate } from 'react-router-dom';
 import CommonContainer from './CommonContainer';
+import HeaderCenterContent from "../Header/HeaderCenterContent";
+import { useState } from "react";
+import { HeaderConfig } from "../../types/header/header";
 
 export default function Layout() {
     const navigate = useNavigate();
+    const [headerConfig, setHeaderConfig] = useState<HeaderConfig>({title:""});
+    const { title } = headerConfig;
 
     return (
         <>
@@ -17,7 +21,9 @@ export default function Layout() {
                         <BackIcon/>
                     </IconButton>
                 }
-                centerContent={<Typography>{"알림"}</Typography>}
+                centerContent={
+                    <HeaderCenterContent title={title} />
+                }
                 rightContent={
                     <IconButton onClick={() => navigate('/')}>
                         <HomeIcon/>
@@ -26,16 +32,9 @@ export default function Layout() {
             />
             <main>
                 <CommonContainer>   
-                    <Outlet />
+                    <Outlet context={{setHeaderConfig}} />
                 </CommonContainer>
             </main>
         </>
     )
 }
-
-const Typography = styled.div`
-  font-size:1rem;
-  color:#ffffff;
-  font-weight:500;
-  line-height:1.178rem;
-`

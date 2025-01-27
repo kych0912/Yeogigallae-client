@@ -2,8 +2,8 @@ import * as S from "./Header.styles";
 
 interface HeaderProps {
     leftContent?: React.ReactNode;
-    centerContent?: React.ReactNode;
     rightContent?: React.ReactNode;
+    centerContent?: React.ReactNode;
 }
 
 /**
@@ -13,7 +13,7 @@ interface HeaderProps {
  * @param rightContent 오른쪽 컨텐츠
  */
 
-export default function Header({ leftContent, centerContent, rightContent }: HeaderProps) {
+export default function Header({ leftContent, rightContent, centerContent }: HeaderProps) {
     return (
         <S.Header>
             <S.HeaderWrapper>

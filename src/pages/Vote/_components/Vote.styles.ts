@@ -1,10 +1,9 @@
 import styled from "styled-components";
 import Card from "../../../components/Card";
+import CommonContainer from "../../../components/Layout/CommonContainer";
 
-export const Container = styled.div`
-  margin:0 1.25rem 1rem 1.25rem;
-  min-height: calc(100vh - 88px);
-  position: relative;
+
+export const StyledCommonContainer = styled(CommonContainer)`
   font-family: ${({ theme }) => theme.fontFamily.medium};
 `
 
@@ -47,6 +46,7 @@ export const StyledCard = styled(Card)`
   overflow: hidden;
   transform-style: preserve-3d;
   transition: transform 0.5s;
+  font-family: ${({ theme }) => theme.fontFamily.medium};
 `;
 
 export const StyledItem = styled(Card.Item)`

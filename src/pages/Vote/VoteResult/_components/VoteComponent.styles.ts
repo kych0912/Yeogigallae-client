@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const CustomContainer = styled.div`
   width: 100%;
   padding: 0; 
   display: flex;
@@ -27,7 +27,7 @@ export const VoteButton = styled.button<{ $isSelected: boolean; $selectedColor: 
   pointer-events: none; 
   border: none;
   overflow: hidden; 
-  font-family: ${({ theme }) => theme.fontFamily.semi};
+  font-family: ${({ theme }) => theme.fontFamily.semiBold};
 
   span {
     position: relative;
@@ -75,10 +75,7 @@ export const VoteCounter = styled.span`
 export const VoteMessage = styled.div`
   display: flex;
   font-size: 1rem;
-  font-weight: semi-bold;
   color: #fff;
   line-height: 1.5;
   gap: 0.25rem;
-
-  font-family: ${({ theme }) => theme.fontFamily.regular};
 `;

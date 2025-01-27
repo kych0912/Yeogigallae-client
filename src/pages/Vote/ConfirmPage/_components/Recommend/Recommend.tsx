@@ -1,9 +1,8 @@
-import React from "react";
 import * as S from "../../../_components/Vote.styles";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../../../../components/Button";
 
-const ConfirmSuccessCard: React.FC = () => {
+export default function ConfirmSuccessCard() {
   const navigate = useNavigate();
   return (
     <S.StyledCard>
@@ -25,6 +24,4 @@ const ConfirmSuccessCard: React.FC = () => {
     </S.StyledCard>
   );
 };
-
-export default ConfirmSuccessCard;
 

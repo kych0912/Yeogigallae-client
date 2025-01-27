@@ -1,8 +1,7 @@
-import React from "react";
 import VoteCard from "../../VoteCard/_components/VoteCard";
 import { useFunnel } from "../../../../hooks/useFunnel/useFunnel";
 
-const ConfirmFailPage: React.FC = () => {
+export default function ConfirmFailPage() {
   const { currentStep } = useFunnel(" ");
 
   return (
@@ -12,4 +11,3 @@ const ConfirmFailPage: React.FC = () => {
   );
 };
 
-export default ConfirmFailPage;

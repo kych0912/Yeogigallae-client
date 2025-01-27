@@ -2,11 +2,19 @@ import Header from "../Header";
 import HomeIcon from "../../assets/icons/Home.svg?react";
 import BackIcon from "../../assets/icons/Back.svg?react";
 import { IconButton } from "../Button";
-import styled from "styled-components";
 import { Outlet, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import HeaderCenterContent from "../Header/HeaderCenterContent";
+
+interface HeaderConfig {
+    title:string;
+    number?:number;
+}
 
 export default function Layout() {
     const navigate = useNavigate();
+    const [headerConfig, setHeaderConfig] = useState<HeaderConfig>({title:""});
+    const { title, number } = headerConfig;
 
     return (
         <>
@@ -17,27 +25,17 @@ export default function Layout() {
                     </IconButton>
                 }
                 centerContent={
-                    <Typography>
-                        {"여행 가보자고"}
-                        {" 3"}
-                    </Typography>
+                    <HeaderCenterContent title={title} number={number} />
                 }
                 rightContent={
                     <IconButton onClick={() => navigate("/")}>
                         <HomeIcon />
                     </IconButton>
-                }
+                }   
             />
             <main>
-                <Outlet />
+                <Outlet context={{setHeaderConfig}} />
             </main>
         </>
     );
 }
-
-const Typography = styled.div`
-    font-size: 1rem;
-    color: #ffffff;
-    font-weight: 500;
-    line-height: 1.178rem;
-`;

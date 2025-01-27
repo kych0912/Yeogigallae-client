@@ -1,8 +1,7 @@
-import React from "react";
 import * as S from "./Styles";
 import Calendar from "../../../components/Calendar/Calendar";
 
-const CreateCalendar: React.FC = () => {
+export default function CreateCalendar() {
   const handleComplete = () => {
     console.log("날짜가 성공적으로 선택되었습니다!");
   };
@@ -13,6 +12,4 @@ const CreateCalendar: React.FC = () => {
     </S.Container>
   );
 };
-
-export default CreateCalendar;
 

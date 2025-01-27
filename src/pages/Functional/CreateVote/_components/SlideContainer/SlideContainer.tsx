@@ -1,4 +1,3 @@
-import React from "react";
 import * as S from "./Styles";
 
 interface ButtonData {
@@ -14,12 +13,12 @@ interface SlideContainerProps {
   activeButton: string; 
 }
 
-const SlideContainer: React.FC<SlideContainerProps> = ({
+export default function SlideContainer({
   buttonData,
   handleCreateButton,
   onButtonClick,
   activeButton,
-}) => {
+}: SlideContainerProps) {
   return (
     <S.StyledCard>
       {buttonData.map((button, index) => (
@@ -60,6 +59,4 @@ const SlideContainer: React.FC<SlideContainerProps> = ({
     </S.StyledCard>
   );
 };
-
-export default SlideContainer;
 

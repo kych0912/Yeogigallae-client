@@ -1,44 +1,62 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
+import { useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAuthStore } from "./useAuthStore";
 import { sendAuthCodeToServer } from "./api";
 import * as S from "./LoginPage/Styles";
 
-const Kakao = ({ provider }: { provider: string }) => {
+const KakaoLogIn = ({ provider }: { provider: string }) => {
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
     const { setAccessToken } = useAuthStore();
-    const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-    const mutation = useMutation<{ accessToken: string }, Error, { code: string; provider: string }>(sendAuthCodeToServer, {
-        onSuccess: (data: { accessToken: string }) => {
-            if (data.accessToken) {
-                setAccessToken(data.accessToken, provider);
-                navigate("/");
+    useEffect(() => {
+        const code = searchParams.get("code");
+
+        const handleLogin = async () => {
+            if (!code) {
+                navigate("/login", { replace: true });
+                return;
             }
-        },
-        onError: () => {
-            setErrorMessage("로그인에 실패했습니다. 다시 시도해주세요.");
-            navigate("/login", { replace: true });
-        },
-    });
 
-    const searchParams = new URLSearchParams(window.location.search);
-    const code = searchParams.get("code");
+            const response = await sendAuthCodeToServer({ code, provider });
 
-    if (code) {
-        mutation.mutate({ code, provider });
-    } else {
-        setErrorMessage("유효하지 않은 로그인 요청입니다.");
-        navigate("/login", { replace: true });
-    }
+            if (response.accessToken) {
+                setAccessToken(response.accessToken, provider);
+                navigate("/");
+            } else {
+                navigate("/login", { replace: true });
+            }
+        };
 
+        handleLogin();
+    }, [searchParams, provider, navigate, setAccessToken]);
+
+    // 로딩 화면을 무조건 띄움
     return (
         <S.Container>
-            {errorMessage && <S.Title>{errorMessage}</S.Title>}
-            <S.Title>{mutation.isPending ? "로그인 중입니다..." : mutation.isError ? "로그인에 실패했습니다." : "로그인을 진행합니다."}</S.Title>
+            <S.Title>로그인중...</S.Title>
         </S.Container>
     );
 };
 
-export default Kakao;
+export default KakaoLogIn;
+
+/*export default function KakaoLogIn() {
+  const searchParams = useSearchParams();
+  const code = searchParams.get("code");
+
+  useEffect(() => {
+    (async () => {
+      if (code) {
+        await kakaoLogIn(code);
+      }
+    })();
+  }, [code]);
+
+  return (
+    <main className="w-full h-screen flex justify-center items-center flex-col gap-16">
+      <LoadingDots />
+      <h3 className="text-lg font-semibold">로그인 진행 중</h3>
+    </main>
+  );
+}*/

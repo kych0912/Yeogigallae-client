@@ -76,11 +76,9 @@ export default function Input({
 //   variant="search"
 //   value={query}
 //   onChange={(e) => setQuery(e.target.value)}
-//   onClear={() => setQuery("")}
 //   onSearch={handleSearch}
 //   isSearchButtonDisabled={isButtonDisabled}
 //   isError={isError}
 //   placeholder="도로명 또는 지번을 입력하세요"
-//   onFocus={() => setIsTouched(true)}
 // />
 

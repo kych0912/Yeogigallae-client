@@ -22,7 +22,7 @@ export default function ResultCard({
   };
 
   return (
-    <S.StyledCard theme={theme}>
+    <S.StyledCard>
         <VoteContent />
         <DurationInfo />
         <VoteComponent step={step}/>

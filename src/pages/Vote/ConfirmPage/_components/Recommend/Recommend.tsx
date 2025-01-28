@@ -1,31 +1,27 @@
-import React from "react";
-import * as S from "./Styles";
+import * as S from "../../../_components/Vote.styles";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../../../../components/Button";
 
-const ConfirmSuccessCard: React.FC = () => {
+export default function ConfirmSuccessCard() {
   const navigate = useNavigate();
   return (
-    <S.RecommendComponent>
-      <S.Content>추천 기능</S.Content>
+    <S.StyledCard>
+      <S.ReContent>추천 기능</S.ReContent>
       <S.RecommendButton>
-        <Button color="primary" size="medium" onClick={() => {
+        <Button color="primary" size="large" onClick={() => {
           navigate(`/course`);
           }}
         >
           {"AI코스 짜기"}
         </Button>
-        <Button color="primary" size="medium" onClick={() => {
+        <Button color="primary" size="large" onClick={() => {
           navigate(`/budget`);
           }}
         >
           {"예산 정하기"}
         </Button>
-        <Button color="primary" size="medium">{"물품 리스트 작성"}</Button>
       </S.RecommendButton>
-    </S.RecommendComponent>
+    </S.StyledCard>
   );
 };
-
-export default ConfirmSuccessCard;
 

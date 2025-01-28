@@ -3,6 +3,7 @@ import { Accordion, AccordionTitle, AccordionItemWrapper } from "./_components/A
 import FriendItem from "./_components/FriendItem";
 import { useOutletContext } from "react-router-dom";
 import { HeaderConfig } from "../../../types/header/header";
+import { useEffect } from "react";
 
 export default function MyFriendPage() {
     // 실제로는 API나 상태관리로 받아올 데이터
@@ -14,7 +15,10 @@ export default function MyFriendPage() {
     ];
 
     const {setHeaderConfig} = useOutletContext<{setHeaderConfig: (config: HeaderConfig) => void}>();
-    setHeaderConfig({title:"친구"});
+
+    useEffect(() => {   
+        setHeaderConfig({title:"친구"});
+    }, []);
 
     return (
         <CommonContainer>

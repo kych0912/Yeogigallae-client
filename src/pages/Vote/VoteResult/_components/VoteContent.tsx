@@ -1,8 +1,7 @@
-import React from "react";
 import * as S from "./VoteContent.styles";
 import { voteData } from "../../voteData";
 
-const VoteContent: React.FC = () => {
+export default function VoteContent() {
   return (
     <S.Wrapper>
       <S.Content>
@@ -11,5 +10,3 @@ const VoteContent: React.FC = () => {
     </S.Wrapper>
   )
 }
-
-export default VoteContent;

@@ -7,6 +7,7 @@ export const MonthHeader = styled.div`
   color: #fff;
   font-size: 14px;
   width: 100%;
+  margin-top: 0.25rem;
 `;
 
 export const NavButton = styled.button`

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Card from "../../../../components/Card";
+import Card from "../../../components/Card";
 
 export const Results = styled.div<{ $isVisible: boolean }>`
   display: ${({ $isVisible }) => ($isVisible ? "flex" : "none")};

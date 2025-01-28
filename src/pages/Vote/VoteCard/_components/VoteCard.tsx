@@ -2,23 +2,41 @@ import Card from "../../../../components/Card";
 import { Button } from "../../../../components/Button";
 import { voteData } from "./../../voteData";
 import LinkIcon from "../../../../assets/icons/LinkIcon.svg?react";
+import ConfirmMessage from "../../ConfirmPage/_components/ConfirmFailCard/ConfirmMessage";
 import * as S from "./../../_components/Vote.styles";
+import { useNavigate } from "react-router-dom";
 
 export default function VoteCard({
   onAgree,
   onDisagree,
+  showConfirmMessage,
 }: {
-  onAgree: () => void; 
-  onDisagree: () => void; 
+  onAgree?: () => void; 
+  onDisagree?: () => void; 
+  showConfirmMessage?: boolean;
 }) {
   const handleCopyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text).then(() => {
       console.log("클립보드에 복사되었습니다:", text);
     });
   };
+  const navigate = useNavigate();
 
   return (
     <S.StyledCard>
+      {showConfirmMessage && (
+        <>
+          <ConfirmMessage />
+          <Button
+            size="large"
+            onClick={() => {
+              navigate(`/`);
+            }}
+          >
+            {"확인"}
+          </Button>
+        </>
+      )}
         <Card.Image>
           <img
             src={voteData.imageSrc}
@@ -49,14 +67,22 @@ export default function VoteCard({
         <Card.Divider />
         <Card.Item label="기간">{voteData.duration}</Card.Item>
 
-        <S.TwoSelect>
-          <Button size="large" onClick={onDisagree}>
-            {"난 못 가.."}
-          </Button>
-          <Button size="large" onClick={onAgree} style={{ backgroundColor: "#3b46fa" }}>
-            {"좋아!"}
-          </Button>
-        </S.TwoSelect>
+        <S.CustomSpacer />
+
+        {onAgree && onDisagree && ( 
+          <S.TwoSelect>
+            <Button size="large" onClick={onDisagree}>
+              {"난 못 가.."}
+            </Button>
+            <Button
+              size="large"
+              onClick={onAgree}
+              style={{ backgroundColor: "#3b46fa" }}
+            >
+              {"좋아!"}
+            </Button>
+          </S.TwoSelect>
+        )}
     </S.StyledCard>
   );
 }

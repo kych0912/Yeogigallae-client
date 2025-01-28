@@ -35,27 +35,45 @@ export const ProgressCircleWrapper = styled.div`
   position: relative;
 `;
 
-export const ProgressCircle = styled.div<{ $active: boolean; $completed?: boolean }>`
+export const ProgressCircle = styled.div<{ $active: boolean; $completed?: boolean; $isStartAndEnd?: boolean }>`
   width: 1.5rem;
   height: 1.5rem;
   background-color: ${(props) => (props.$completed ? "#3B46F1" : "transparent")};
   border: ${(props) =>
-    props.$completed ? "none" : props.$active ? "1px solid #fff" : "1px solid #a1a1a1"};
+    props.$completed
+      ? "none"
+      : props.$active 
+      ? "1px solid #fff"
+      : "1px solid #a1a1a1"}; 
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   transition: all 0.3s ease-in-out;
+
+  /* 시작점과 끝점 둘다 선택하면 파란색 추가 */
+  ${(props) =>
+    props.$isStartAndEnd &&
+    `
+    background-color: #3B46F1;
+    border: 1px solid transparent;
+  `}
 `;
 
-export const CircleText = styled.span<{ $active: boolean }>`
+export const CircleText = styled.span<{
+  $active: boolean;
+  $isStartAndEnd?: boolean;
+}>`
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 0.125rem;
   font-family: ${({ theme }) => theme.fontFamily.regular};
   font-size: 0.625rem;
-  color: ${(props) => (props.$active ? "#fff" : "#a1a1a1")};
+  color: ${(props) =>
+    props.$active
+      ? "#fff"
+      : "#a1a1a1"};
   transition: all 0.3s ease-in-out;
   z-index: 1;
 `;

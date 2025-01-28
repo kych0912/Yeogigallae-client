@@ -25,16 +25,21 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
   handleYearMonthSelect,
 }) => {
   const [activeTab, setActiveTab] = useState<"date" | "flexible">("date");
+  const [isStartAndEnd, setIsStartAndEnd] = useState(false); 
 
   const handleTabChange = (tab: "date" | "flexible") => {
     setActiveTab(tab);
     onModeChange(tab);
   };
 
+  const handleStateChange = (isStartAndEnd: boolean) => {
+    setIsStartAndEnd(isStartAndEnd);
+  };
+
   return (
     <>
       {/* 상단 탭 */}
-      <CalendarTabs activeTab={activeTab} onTabChange={handleTabChange} />
+      <CalendarTabs activeTab={activeTab} onTabChange={handleTabChange}  isStartAndEnd={isStartAndEnd}/>
 
       {/* flexible 모드: 달력 */}
       {activeTab === "flexible" && (
@@ -45,6 +50,7 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
           endDate={endDate}
           onDayClick={handleDayClick}
           setCurrentDate={setCurrentDate}
+          onStateChange={handleStateChange}
         />
       )}
 

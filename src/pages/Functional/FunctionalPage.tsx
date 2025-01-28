@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useFunnel } from "../../hooks/useFunnel/useFunnel";
-import CreateCalendarPage from "../Functional/CreateCalendar/CreateCalendar";
-import SearchPage from "../SearchPage";
+import CreateCalendar from "./CreateCalendar/_components/CreateCalendar";
+import SearchPage from "../SearchPage/SearchPage";
 import CreateVote from "../Functional/CreateVote/_components/CreateVote";
 import CommonContainer from "../../components/Layout/CommonContainer";
 
@@ -23,7 +23,10 @@ export default function FunctionalFunnel() {
         </Step>
 
         <Step name="캘린더">
-          <CreateCalendarPage />
+          <CreateCalendar 
+            onNext={() => {
+              setStep("생성"); 
+            }}/>
         </Step>
 
         <Step name="주소검색">

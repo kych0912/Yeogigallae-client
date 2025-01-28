@@ -1,8 +1,8 @@
-import * as S from "./Functional/SearchPage/Styles";
-import SearchInput from "./Functional/SearchPage/_components/SearchInput";
-import ResultList from "./Functional/SearchPage/_components/ResultList";
-import Pagination from "./Functional/SearchPage/_components/Pagination";
-import { useSearchLogic } from "../hooks/useSearchLogic";
+import * as S from "./Styles";
+import SearchInput from "./_components/SearchInput";
+import ResultList from "./_components/ResultList";
+import Pagination from "./_components/Pagination";
+import { useSearchLogic } from "../../hooks/useSearchLogic";
 
 export default function SearchPage() {
   const {

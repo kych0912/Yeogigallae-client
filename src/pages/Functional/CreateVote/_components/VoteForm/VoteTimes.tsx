@@ -7,7 +7,7 @@ export default function VoteTimes({
   selectedTime: string | null;
   onTimeChange: (time: string) => void;
 }) {
-  const timeOptions = ["30분", "60분", "4시간", "6시간"];
+  const timeOptions = ["30분", "60분", "2시간","4시간", "6시간"];
 
   return (
     <S.ButtonContainer>

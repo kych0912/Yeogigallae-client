@@ -1,6 +1,6 @@
 import React from "react";
 import * as S from "./SearchInput.styles";
-import SearchIcon from "../../../../assets/icons/SearchIcon.svg?react";
+import SearchIcon from "../../../assets/icons/SearchIcon.svg?react";
 
 interface SearchInputProps {
   query: string;

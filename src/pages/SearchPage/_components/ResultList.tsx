@@ -1,8 +1,8 @@
 import React from "react";
 import * as S from "./ResultList.styles";
 import MapComponent from "./SearchMap/SearchMap";
-import ToggleIcon from "../../../../assets/icons/ToggleIcon.svg?react";
-import { Place } from "../../../../hooks/useSearchLogic";
+import ToggleIcon from "../../../assets/icons/ToggleIcon.svg?react";
+import { Place } from "../../../hooks/useSearchLogic";
 
 interface ResultListProps {
   results: Place[];

@@ -99,8 +99,15 @@ export const CustomCardItem = styled(Card.Item)`
 
 export const ButtonContainer = styled.div`
   display: flex;
-  width: 100%;
   gap: 0.5rem;
+  overflow-x: auto;
+
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
+  
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const TimeButton = styled.button<{ $isActive: boolean }>`
@@ -108,12 +115,15 @@ export const TimeButton = styled.button<{ $isActive: boolean }>`
   color: #fff;
   border: none;
   border-radius: 6.25rem;
-  padding: 0.531rem 1.5rem; 
+  width: 5.25rem;
+  height: 2.25rem;
+  flex-shrink: 0;
   cursor: pointer;
   transition: background-color 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 1rem;
   font-family: ${({ theme }) => theme.fontFamily.medium};
 
   &:hover {

@@ -24,6 +24,11 @@ import MyFriendPage from "./pages/MyPage/MyFriendPage/MyFriendPage";
 import "./App.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import NoticeLayout from "./components/Layout/NoticeLayout";
+import withAuth from "./pages/Login/withAuth";
+
+const ProtectedMainPage = withAuth(MainPage, true);
+const ProtectedLoginPage = withAuth(LoginPage, false);
+const ProtectedKakao = withAuth(Kakao, false);
 
 const queryClient = new QueryClient();
 
@@ -34,11 +39,12 @@ const App: React.FC = () => {
                 <Router>
                     <Routes>
                         {/* Main */}
-                        <Route path="/" element={<MainPage />} />
+                        {/*<Route path="/" element={<MainPage />} />*/}
+                        <Route path="/" element={<ProtectedMainPage />} />
 
                         {/* Login */}
-                        <Route path="/login" element={<LoginPage />} />
-                        <Route path="/login/kakao" element={<Kakao provider="kakao" />} />
+                        <Route path="/login" element={<ProtectedLoginPage />} />
+                        <Route path="/login/kakao" element={<ProtectedKakao />} />
 
                         {/* Budget */}
                         <Route path="/budget" element={<BudgetPage />} />

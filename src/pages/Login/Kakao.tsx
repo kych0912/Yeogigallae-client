@@ -4,7 +4,7 @@ import { useAuthStore } from "./useAuthStore";
 import { sendAuthCodeToServer } from "./api";
 import * as S from "./LoginPage/Styles";
 
-const KakaoLogIn = () => {
+export default function Kakao() {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const { setAccessToken } = useAuthStore();
@@ -36,6 +36,4 @@ const KakaoLogIn = () => {
             <S.Title>로그인중...</S.Title>
         </S.Container>
     );
-};
-
-export default KakaoLogIn;
+}

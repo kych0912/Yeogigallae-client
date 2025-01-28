@@ -1,12 +1,14 @@
-import Card from "../../../../../components/Card";
-import CourseTitle from '../../../_components/CourseTitle';
-import Map from "../../../../../components/Map";
-import CoursePlaces from '../../../_components/CoursePlaces';
-import { Route } from "../../../../../apis/map/types";
+import { Route } from "../../../../apis/map/types";
+import Card from "../../../../components/Card";
+import Map from "../../../../components/Map";
+import CourseTitle from "../../_components/CourseTitle";
+import CoursePlaces from "../../_components/CoursePlaces";
+import { RecommendCard, UpComingButton } from "./UpComingCourse.style";
 
-export default function CourseDetailCard({ dailyRoutes }:{
-    dailyRoutes: Route | null | undefined,
+export default function UpComingCourseCard({ dailyRoutes }:{
+    dailyRoutes: Route | null | undefined
 }) {
+
     if(!dailyRoutes) return (
         <Card>
             <Card.Title>
@@ -16,7 +18,11 @@ export default function CourseDetailCard({ dailyRoutes }:{
     );
     
     return (
-        <Card>
+        <RecommendCard>
+            <UpComingButton disabled={true} size="large" color="secondary">
+                {"2024.02.12 코스 시작 예정"}
+            </UpComingButton>
+
             <Card.Image>
                 <Map 
                     width="100%" 
@@ -36,7 +42,6 @@ export default function CourseDetailCard({ dailyRoutes }:{
             <Card.Item>
                 <CoursePlaces places={dailyRoutes.routes[0]} />
             </Card.Item>
-
-        </Card>
+        </RecommendCard>
     );
 }

@@ -1,6 +1,5 @@
 import Card from "../../../../../components/Card";
 import { Route } from "../../../../../apis/map/types";
-import * as S from "../../../_components/Course.style";
 import { Button } from "../../../../../components/Button";
 import { CompleteMessage } from "../../../_components/Course.style";
 
@@ -19,7 +18,7 @@ export default function DetailCard({ dailyRoutes,onNext }:{
     
     return (
         <>
-            <S.StyledCard>
+            <Card>
                 <Card.Image>
                     <img src={"https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"} 
                     alt="course" 
@@ -52,7 +51,7 @@ export default function DetailCard({ dailyRoutes,onNext }:{
                     {"원하는 장소 공유하기"}
                 </Button>
 
-            </S.StyledCard>
+            </Card>
 
             <CompleteMessage>
                 {"규림님이 코스짜기를 시작했습니다."}

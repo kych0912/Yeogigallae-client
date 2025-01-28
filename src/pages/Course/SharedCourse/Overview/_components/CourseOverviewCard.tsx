@@ -3,7 +3,7 @@ import Map from "../../../../../components/Map";
 import { Route } from "../../../../../apis/map/types";   
 import { Button } from "../../../../../components/Button";
 import * as S from "../../../_components/Course.style";
-import CoursePlaces from "../../Detail/_components/CoursePlaces";
+import CoursePlaces from "../../../_components/CoursePlaces";
 import CourseTitle from "../../../_components/CourseTitle";
 import CommonContainer from "../../../../../components/Layout/CommonContainer";
 
@@ -22,7 +22,7 @@ export default function CourseOverviewCard({ dailyRoutes,onNext }:{
     
     return (
         <CommonContainer>
-            <S.StyledCard>
+            <Card>
                 <Card.Image>
                     <Map 
                         width="100%" 
@@ -54,7 +54,7 @@ export default function CourseOverviewCard({ dailyRoutes,onNext }:{
                     </Button>
                 </Card.Item>
 
-            </S.StyledCard>
+            </Card>
 
             <S.CompleteMessage>
                 {"AI 코스 생성이 완료되었습니다."}

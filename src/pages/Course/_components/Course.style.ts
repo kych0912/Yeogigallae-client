@@ -78,16 +78,6 @@ export const DetailCardWrapper = styled.div`
   align-items: center;
 `;
 
-export const StyledCard = styled(Card)`
-  width: 100%;
-  background: white;
-  border-radius: 20px;
-  overflow: hidden;
-  transform-style: preserve-3d;
-  transition: transform 0.5s;
-`;
-
-
 export const StyledSwiper = styled(Swiper)`
   padding-bottom: 2rem;  
 
@@ -122,3 +112,57 @@ export const CompleteMessage = styled.div`
     margin-top:0.75rem;
 `
 
+export const CoursePlaces = {
+  PlaceDistanceWrapper: styled.div`
+    font-family:${({theme})=>theme.fontFamily.regular};
+    font-size:0.625rem;
+    line-height:0.875rem;
+    color:#ffffff;
+    display:flex;
+    align-items:center;
+    gap:0.75rem;
+  `,
+  PlaceLine:  styled.div<{line: number}>`
+    width: 1px;
+    background-color: #ffffff;
+    margin-left:calc(1.25rem - 1px);
+    height: ${({ line = 0 }) => {
+      // 로그 함수를 사용하여 0-100을 0-2rem으로 매핑
+      // line이 0일 때는 0을 반환
+      if (line <= 0) return '0';
+      
+      // 로그 스케일 계산 (1을 더해 발산 방지)
+      const logValue = Math.log(line + 1);
+      const maxLog = Math.log(101); // 100 + 1
+      
+      // 0-2rem 범위로 매핑
+      const heightInRem = (logValue / maxLog) * 2;
+      
+      return `${heightInRem}rem`;
+    }};
+  `,
+  PlaceWrapper: styled.div`
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:start;
+    gap:0.5rem;
+    width:100%;
+  `,
+  MarkerWrapper: styled.div`
+    border-radius:50%;
+    background-color:#434343;
+    padding:0.5rem;
+  `,
+  PlaceNameWrapper:styled.div`
+  display:flex;
+  justify-content:start;
+  align-items:center;
+  gap:0.5rem;
+  width:100%;
+  font-family:${({theme})=>theme.fontFamily.semiBold};
+  font-size:0.875rem;
+  line-height:1rem;
+  color:#ffffff;
+  `
+}

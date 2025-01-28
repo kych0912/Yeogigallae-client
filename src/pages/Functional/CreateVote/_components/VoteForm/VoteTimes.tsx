@@ -1,11 +1,13 @@
-import React from "react";
 import * as S from "../../../_components/Functional.styles";
 
-const VoteTimes: React.FC<{
-  selectedTime: string | null; 
-  onTimeChange: (time: string) => void; 
-}> = ({ selectedTime, onTimeChange }) => {
-  const timeOptions = ["30분", "60분", "4시간", "6시간"];
+export default function VoteTimes({
+  selectedTime,
+  onTimeChange,
+}: {
+  selectedTime: string | null;
+  onTimeChange: (time: string) => void;
+}) {
+  const timeOptions = ["30분", "60분", "2시간","4시간", "6시간"];
 
   return (
     <S.ButtonContainer>
@@ -20,7 +22,4 @@ const VoteTimes: React.FC<{
       ))}
     </S.ButtonContainer>
   );
-};
-
-export default VoteTimes;
-
+}

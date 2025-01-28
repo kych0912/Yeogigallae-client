@@ -11,6 +11,6 @@ export const Container = styled.div`
   background-color: ${({theme})=>theme.colors.background};
 `
 
-export default function CommonContainer({children}:{children:React.ReactNode}){
-    return <Container>{children}</Container>
+export default function CommonContainer({children,className}:{children:React.ReactNode,className?:string}){
+    return <Container className={className}>{children}</Container>
 }

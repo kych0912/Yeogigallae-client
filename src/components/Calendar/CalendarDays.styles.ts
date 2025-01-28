@@ -85,7 +85,6 @@ export const Day = styled.div<{
       $isInRange && "rgba(59, 70, 241, 0.3)"};
     z-index: -1;
 
-    /* 양쪽 끝부분에 둥근 처리 */
     border-radius: ${({ $isStart, $isEnd }) =>
       $isStart ? "50px 0 0 50px" 
       : $isEnd && "0 50px 50px 0"}; 
@@ -93,12 +92,12 @@ export const Day = styled.div<{
 
   &:nth-child(7n + 1):before {
     border-radius: ${({ $isStart }) =>
-      $isStart && "50px 0 0 50px"};
+      $isStart ? "50px 0 0 50px" : "50px 0 0 50px"}; 
   }
 
   &:nth-child(7n):before {
     border-radius: ${({ $isEnd }) =>
-      $isEnd && "0 50px 50px 0"};
+      $isEnd ? "0 50px 50px 0" : "0 50px 50px 0"}; 
   }
 
   &:after {
@@ -109,7 +108,7 @@ export const Day = styled.div<{
     right: 0;
     bottom: 0;
     background-color: ${({ $isStart, $isEnd }) =>
-      ($isStart || $isEnd) && "#3b46f1"};
+      $isStart || $isEnd ? "#3b46f1" : "transparent"};
     border-radius: 50%; 
     z-index: -1;
   }

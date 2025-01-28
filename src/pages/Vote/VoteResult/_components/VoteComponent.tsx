@@ -26,7 +26,7 @@ export default function VoteComponent({
   };
 
   return (
-    <S.Container>
+    <S.CustomContainer>
       <S.VoteButton
         $isSelected={selected === "like"}
         $selectedColor="#3b46f1"
@@ -50,7 +50,7 @@ export default function VoteComponent({
         </S.TextWrapper>
         <S.VoteCounter>{voteData.votes.dislike}표</S.VoteCounter>
       </S.VoteButton>
-    </S.Container>
+    </S.CustomContainer>
   );
 }
 

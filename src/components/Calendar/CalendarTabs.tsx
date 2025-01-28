@@ -1,20 +1,13 @@
 import * as S from "./CalendarTabs.styles";
 import CheckIcon from "../../assets/icons/CheckIcon.svg?react";
-
-interface CalendarTabsProps {
-  activeTab: "date" | "flexible";
-  onTabChange: (tab: "date" | "flexible") => void;
-  isStart?: boolean;
-  isEnd?: boolean;
-  isStartAndEnd?: boolean; // 추가: 시작점과 끝점 모두 선택된 상태
-}
+import { CalendarTabsProps } from "./types/types";
 
 export default function CalendarTabs({
   activeTab,
   onTabChange,
   isStart,
   isEnd,
-  isStartAndEnd, // 추가
+  isStartAndEnd, 
 }: CalendarTabsProps) {
   return (
     <S.TabGroup>
@@ -43,7 +36,6 @@ export default function CalendarTabs({
           </S.ProgressLabel>
         </S.ButtonContainer>
 
-        {/* 선 */}
         <S.ProgressLine width="5.844rem" $completed={activeTab === "flexible"} />
 
         {/* 2번 버튼 */}

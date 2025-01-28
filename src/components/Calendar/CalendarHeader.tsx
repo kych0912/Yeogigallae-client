@@ -1,20 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import CalendarTabs from "./CalendarTabs";
 import CalendarDays from "./CalendarDays";
 import YearMonthPicker from "./YearMonthPicker";
+import { CalendarHeaderProps } from "./types/types";
 
-interface CalendarHeaderProps {
-  currentYear: number;
-  currentMonth: number;
-  setCurrentDate: React.Dispatch<React.SetStateAction<Date>>;
-  onModeChange: (mode: "date" | "flexible") => void;
-  startDate: Date | null;
-  endDate: Date | null;
-  handleDayClick: (date: Date) => void;
-  handleYearMonthSelect: (year: number, month: number) => void;
-}
-
-const CalendarHeader: React.FC<CalendarHeaderProps> = ({
+export default function CalendarHeader({
   currentYear,
   currentMonth,
   setCurrentDate,
@@ -23,7 +13,7 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
   endDate,
   handleDayClick,
   handleYearMonthSelect,
-}) => {
+}: CalendarHeaderProps) {
   const [activeTab, setActiveTab] = useState<"date" | "flexible">("date");
   const [isStartAndEnd, setIsStartAndEnd] = useState(false); 
 
@@ -38,10 +28,8 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
 
   return (
     <>
-      {/* 상단 탭 */}
-      <CalendarTabs activeTab={activeTab} onTabChange={handleTabChange}  isStartAndEnd={isStartAndEnd}/>
+      <CalendarTabs activeTab={activeTab} onTabChange={handleTabChange} isStartAndEnd={isStartAndEnd} />
 
-      {/* flexible 모드: 달력 */}
       {activeTab === "flexible" && (
         <CalendarDays
           year={currentYear}
@@ -54,7 +42,6 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
         />
       )}
 
-      {/* 그 외 모드: YearMonthPicker */}
       {activeTab !== "flexible" && (
         <YearMonthPicker
           currentYear={currentYear}
@@ -67,6 +54,4 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
       )}
     </>
   );
-};
-
-export default CalendarHeader;
+}

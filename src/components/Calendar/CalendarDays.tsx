@@ -3,16 +3,7 @@ import * as S from "./CalendarDays.styles";
 import { getDaysInMonth, getWeekDays } from "./utils/Calendar.utils";
 import { isDateInRange, isStartDate, isEndDate, createDateFromDay } from "./utils/Days.utils";
 import Card from "../Card";
-
-interface CalendarDaysProps {
-  year: number;
-  month: number;
-  startDate: Date | null;
-  endDate: Date | null;
-  onDayClick: (date: Date) => void;
-  setCurrentDate: React.Dispatch<React.SetStateAction<Date>>;
-  onStateChange: (isStartAndEnd: boolean) => void; 
-}
+import { CalendarDaysProps } from "./types/types";
 
 export default function CalendarDays({
   year,

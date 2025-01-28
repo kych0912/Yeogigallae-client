@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import * as S from "../Calendar/Calender.styles";
 import CalendarHeader from "./CalendarHeader";
 import CompleteButton from "./CompleteButton";
 
-const Calendar: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
+export default function Calendar({ onComplete }: { onComplete: () => void }) {
   const today = new Date();
   const [currentDate, setCurrentDate] = useState(today);
   const [startDate, setStartDate] = useState<Date | null>(null);
@@ -52,6 +52,4 @@ const Calendar: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
       />
     </S.StyledCard>
   );
-};
-
-export default Calendar;
+}

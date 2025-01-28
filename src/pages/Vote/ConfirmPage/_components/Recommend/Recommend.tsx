@@ -1,27 +1,27 @@
 import * as S from "../../../_components/Vote.styles";
 import { useNavigate } from "react-router-dom";
-import { Button } from "../../../../../components/Button";
+import Card from "../../../../../components/Card";
 
-export default function ConfirmSuccessCard() {
+export default function Recommend() {
   const navigate = useNavigate();
   return (
-    <S.StyledCard>
+    <Card>
       <S.ReContent>추천 기능</S.ReContent>
       <S.RecommendButton>
-        <Button color="primary" size="large" onClick={() => {
+        <S.FixedSizeButton color="primary" size="large" onClick={() => {
           navigate(`/course`);
           }}
         >
           {"AI코스 짜기"}
-        </Button>
-        <Button color="primary" size="large" onClick={() => {
+        </S.FixedSizeButton>
+        <S.FixedSizeButton color="primary" size="large" onClick={() => {
           navigate(`/budget`);
           }}
         >
           {"예산 정하기"}
-        </Button>
+        </S.FixedSizeButton>
       </S.RecommendButton>
-    </S.StyledCard>
+    </Card>
   );
 };
 

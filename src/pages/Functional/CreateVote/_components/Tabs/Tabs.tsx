@@ -1,4 +1,4 @@
-import * as S from "./Styles";
+import * as S from "./Tabs.styles";
 
 export default function Tabs({
   activeTab,
@@ -14,7 +14,7 @@ export default function Tabs({
 
   return (
     <>
-      <S.StyledCard>
+      <S.CustomCard>
         {tabs.map((tab) => (
           <S.StyledButton
             key={tab.key}
@@ -25,7 +25,7 @@ export default function Tabs({
             {tab.title}
           </S.StyledButton>
         ))}
-      </S.StyledCard>
+      </S.CustomCard>
     </>
   );
 }

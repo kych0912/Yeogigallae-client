@@ -1,5 +1,5 @@
 export const budgetPageData = {
-    roomName: "어디갈래",
+    roomName: "Skrrr",
     peopleCount: 4,
     priceRange: {
         min: 10,

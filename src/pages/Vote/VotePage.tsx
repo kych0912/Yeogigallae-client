@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useFunnel } from "../../hooks/useFunnel/useFunnel";
 import ConfirmSuccessPage from "./ConfirmPage/ConfirmSuccessPage/ConfirmSuccessPage";
 import ConfirmFailPage from "./ConfirmPage/ConfirmFailPage/ConfirmFailPage";
@@ -8,12 +8,12 @@ import VoteCard from "./VoteCard/_components/VoteCard";
 import VoteDate from "./VoteDate/_components/VoteDate";
 import VoteResult from "./VoteResult/_components/VoteResult";
 
-const VotePage: React.FC = () => {
+export default function VotePage() {
   const { Funnel, Step, setStep } = useFunnel("투표메인");
   const [voteType, setVoteType] = useState<"찬성" | "반대" | null>(null); 
 
   return (
-    <S.Container>
+    <S.StyledCommonContainer>
       <Funnel>
         <Step name="투표메인">
           <TravelCard onNext={() => setStep("투표동의")} />
@@ -27,8 +27,9 @@ const VotePage: React.FC = () => {
             }}
             onDisagree={() => {
               setVoteType("반대"); 
-              setStep("결과"); // 반대로 바로 이동
+              setStep("결과"); 
             }}
+            showConfirmMessage={false}
           />
         </Step>
 
@@ -59,9 +60,7 @@ const VotePage: React.FC = () => {
           <ConfirmFailPage />
         </Step>
       </Funnel>
-    </S.Container>
+    </S.StyledCommonContainer>
   );
 };
-
-export default VotePage;
 

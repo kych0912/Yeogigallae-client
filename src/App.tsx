@@ -24,6 +24,7 @@ import MyFriendPage from "./pages/MyPage/MyFriendPage/MyFriendPage";
 import "./App.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import NoticeLayout from "./components/Layout/NoticeLayout";
+import UpComingCoursePage from "./pages/Course/UpComingCourse/UpComingCoursePage";
 import withAuth from "./pages/Login/withAuth";
 
 const ProtectedMainPage = withAuth(MainPage, true);
@@ -79,6 +80,7 @@ const App: React.FC = () => {
 
                         <Route element={<CourseLayout />}>
                             <Route path="/course" element={<CoursePage />} />
+                            <Route path="/course/upcoming" element={<UpComingCoursePage />} />
                         </Route>
                     </Routes>
                 </Router>

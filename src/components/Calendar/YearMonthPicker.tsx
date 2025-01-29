@@ -4,15 +4,7 @@ import MonthNavigation from "./MonthNavigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
 import { FreeMode, Navigation } from "swiper/modules";
-
-interface YearMonthPickerProps {
-  currentYear: number;
-  currentMonth: number;
-  onSelectYear: (year: number) => void;
-  onSelectMonth: (month: number) => void;
-  onSelect?: (selectedYear: number, selectedMonth: number) => void;
-  closePicker: () => void;
-}
+import { YearMonthPickerProps } from "./types/types";
 
 export default function YearMonthPicker({
   currentYear,

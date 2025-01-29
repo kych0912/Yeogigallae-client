@@ -1,15 +1,10 @@
-import React from "react";
 import * as S from "./CalendarHeader.styles";
+import { MonthNavigationProps } from "./types/types"
 
-interface MonthNavigationProps {
-  currentYear: number;
-  currentMonth: number;
-}
-
-const MonthNavigation: React.FC<MonthNavigationProps> = ({
+export default function MonthNavigation({
   currentYear,
   currentMonth,
-}) => {
+}: MonthNavigationProps) {
   return (
     <S.MonthHeader>
       <S.CurrentMonth>
@@ -17,7 +12,4 @@ const MonthNavigation: React.FC<MonthNavigationProps> = ({
       </S.CurrentMonth>
     </S.MonthHeader>
   );
-};
-
-export default MonthNavigation;
-
+}

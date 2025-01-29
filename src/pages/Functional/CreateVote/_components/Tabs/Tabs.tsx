@@ -1,10 +1,12 @@
-import React from "react";
 import * as S from "./Styles";
 
-const Tabs: React.FC<{
+export default function Tabs({
+  activeTab,
+  onTabChange,
+}: {
   activeTab: "vote" | "course";
   onTabChange: (tab: "vote" | "course") => void;
-}> = ({ activeTab, onTabChange }) => {
+}) {
   const tabs = [
     { title: "투표하기", key: "vote" },
     { title: "코스짜기", key: "course" },
@@ -26,7 +28,4 @@ const Tabs: React.FC<{
       </S.StyledCard>
     </>
   );
-};
-
-export default Tabs;
-
+}

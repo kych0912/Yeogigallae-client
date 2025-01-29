@@ -1,9 +1,8 @@
-import React from "react";
 import * as S from "./Image.styles";
 import Card from "../../../../../components/Card";
 import Default_image from "../../../../../assets/icons/Default_image.svg";
 
-const ImagePlaceholder: React.FC = () => {
+export default function ImagePlaceholder() {
   return (
     <S.ImagePlaceholder>
       <Card>
@@ -13,6 +12,4 @@ const ImagePlaceholder: React.FC = () => {
     </S.ImagePlaceholder>
   );
 };
-
-export default ImagePlaceholder;
 

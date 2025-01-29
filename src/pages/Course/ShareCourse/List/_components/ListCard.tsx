@@ -18,7 +18,7 @@ export default function ListCard({ dailyRoutes }:{
     
     return (
         <>
-            <S.StyledCard>
+            <Card>
                     <Card.Image>    </Card.Image>
 
                 <Card.Item>
@@ -42,7 +42,7 @@ export default function ListCard({ dailyRoutes }:{
 
 
 
-            </S.StyledCard>
+            </Card>
         </>
     );
 }

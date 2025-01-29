@@ -1,7 +1,6 @@
-import React from "react";
 import * as S from "./ConfrimMessage.styles";
 
-const ConfirmMessage: React.FC = () => {
+export default function ConfirmMessage() {
   return (
     <S.Wrapper>
       <S.Content>
@@ -12,4 +11,3 @@ const ConfirmMessage: React.FC = () => {
   )
 }
 
-export default ConfirmMessage;

@@ -1,45 +1,60 @@
-import React from "react";
 import * as S from "./CalendarTabs.styles";
 import CheckIcon from "../../assets/icons/CheckIcon.svg?react";
+import { CalendarTabsProps } from "./types/types";
 
-interface CalendarTabsProps {
-  activeTab: "date" | "flexible";
-  onTabChange: (tab: "date" | "flexible") => void;
-}
-
-const CalendarTabs: React.FC<CalendarTabsProps> = ({ activeTab, onTabChange }) => {
+export default function CalendarTabs({
+  activeTab,
+  onTabChange,
+  isStart,
+  isEnd,
+  isStartAndEnd, 
+}: CalendarTabsProps) {
   return (
     <S.TabGroup>
-      <S.ProgressContainer>
-        <S.ProgressLine width="46px" $completed={activeTab === "date" || activeTab === "flexible"} />
-
-        {/* 1번 */}
-        <S.ProgressCircleWrapper onClick={() => onTabChange("date")}>
-          <S.ProgressCircle $active={activeTab === "date" || activeTab === "flexible"} $completed={activeTab === "flexible"}>
-          {activeTab === "flexible" ?
-            <S.CustomCheckIcon>
-              <CheckIcon />
-            </S.CustomCheckIcon> : <S.CircleText $active={activeTab === "date"}>1</S.CircleText>}
-          </S.ProgressCircle>
-          <S.ProgressLabel $active={activeTab === "date"} $completed={activeTab === "date" || activeTab === "flexible"}>
+      <S.ProgressRow>
+        {/* 1번 버튼 */}
+        <S.ButtonContainer>
+          <S.ProgressCircleWrapper onClick={() => onTabChange("date")}>
+            <S.ProgressCircle
+              $active={activeTab === "date" || activeTab === "flexible"}
+              $completed={activeTab === "flexible"}
+            >
+              {activeTab === "flexible" ? (
+                <S.CustomCheckIcon>
+                  <CheckIcon />
+                </S.CustomCheckIcon>
+              ) : (
+                <S.CircleText $active={activeTab === "date"}>1</S.CircleText>
+              )}
+            </S.ProgressCircle>
+          </S.ProgressCircleWrapper>
+          <S.ProgressLabel
+            $active={activeTab === "date"}
+            $completed={activeTab === "date" || activeTab === "flexible"}
+          >
             연 • 월 지정
           </S.ProgressLabel>
-        </S.ProgressCircleWrapper>
+        </S.ButtonContainer>
 
-        <S.ProgressLine width="68px" $completed={activeTab === "flexible"} />
+        <S.ProgressLine width="5.844rem" $completed={activeTab === "flexible"} />
 
-        {/* 2번 */}
-        <S.ProgressCircleWrapper onClick={() => onTabChange("flexible")}>
-          <S.ProgressCircle $active={activeTab === "flexible"}>
-            <S.CircleText $active={activeTab === "flexible"}>2</S.CircleText>
-          </S.ProgressCircle>
-          <S.ProgressLabel $active={activeTab === "flexible"}>날짜 지정</S.ProgressLabel>
-        </S.ProgressCircleWrapper>
-
-        <S.ProgressLine width="46px" $completed={false} />
-      </S.ProgressContainer>
+        {/* 2번 버튼 */}
+        <S.ButtonContainer>
+          <S.ProgressCircleWrapper onClick={() => onTabChange("flexible")}>
+            <S.ProgressCircle
+              $active={activeTab === "flexible" || !!isStart || !!isEnd}
+              $isStartAndEnd={!!isStartAndEnd} 
+            >
+              <S.CircleText $active={activeTab === "flexible" || !!isStartAndEnd}>
+                2
+              </S.CircleText>
+            </S.ProgressCircle>
+          </S.ProgressCircleWrapper>
+          <S.ProgressLabel $active={activeTab === "flexible" || !!isStartAndEnd}>
+            날짜 지정
+          </S.ProgressLabel>
+        </S.ButtonContainer>
+      </S.ProgressRow>
     </S.TabGroup>
   );
-};
-
-export default CalendarTabs;
+}

@@ -4,6 +4,10 @@ import Card from "../../../components/Card";
 export const BudgetCard = styled(Card)`
     padding-bottom: 0.875rem;
 `;
+export const BudgetInfoCard = styled(Card)`
+    padding: 0.25rem 0.5rem;
+    box-sizing: border-box;
+`;
 
 export const Title = styled(Card.Title)`
     text-align: center;
@@ -47,4 +51,85 @@ export const CustomWrapper = styled.div`
     justify-content: space-between;
     padding: 0;
     margin-top: 0.5rem;
+`;
+
+//info card
+
+export const DayHeader = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    padding-bottom: 0.25rem;
+`;
+
+export const DayContent = styled.div`
+    width: 100%;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+`;
+
+export const BudgetItem = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1.25rem;
+`;
+
+export const BudgetIcon = styled.div`
+    height: 2.875rem;
+    width: 2.875rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: ${({ theme }) => theme.colors.disabled};
+    //이미지 사이즈 조절
+    img {
+        width: 1.5rem;
+        height: 1.5rem;
+
+`;
+
+export const BudgetDetails = styled.div`
+    flex: 1;
+    align-self: flex-start;
+    margin-left: 1rem;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.35rem;
+`;
+
+export const BudgetName = styled.div`
+    font-size: 1rem;
+    font-family: ${({ theme }) => theme.fontFamily.semiBold};
+    color: white;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 9rem;
+`;
+
+export const BudgetCategory = styled.div`
+    font-size: 12px;
+    color: #aaa;
+`;
+
+export const BudgetCost = styled.div`
+    font-size: 1rem;
+    font-family: ${({ theme }) => theme.fontFamily.semiBold};
+    color: ${({ theme }) => theme.colors.primary};
+    align-self: flex-start;
+`;
+
+export const Day = styled.div`
+    font-size: 1rem;
+    color: white;
+    font-family: ${({ theme }) => theme.fontFamily.semiBold};
+`;
+export const Toggle = styled.div`
+    font-size: 1rem;
+    color: ${({ theme }) => theme.colors.GrayText};
+    font-family: ${({ theme }) => theme.fontFamily.semiBold};
 `;

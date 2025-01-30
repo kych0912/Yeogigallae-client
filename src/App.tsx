@@ -24,6 +24,7 @@ import "./App.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import NoticeLayout from "./components/Layout/NoticeLayout";
 import UpComingCoursePage from "./pages/Course/UpComingCourse/UpComingCoursePage";
+import BudgetLayout from "./components/Layout/BudgetLayout";
 
 const queryClient = new QueryClient();
 
@@ -31,16 +32,18 @@ const App: React.FC = () => {
     return (
         <QueryClientProvider client={queryClient}>
             <ThemeProvider theme={theme}>
-                    <Router>
-                        <Routes>
-                            {/* Main */}
+                <Router>
+                    <Routes>
+                        {/* Main */}
                         <Route path="/" element={<MainPage />} />
 
                         {/* Login */}
                         <Route path="/login" element={<LoginPage />} />
 
                         {/* Budget */}
-                        <Route path="/budget" element={<BudgetPage />} />
+                        <Route element={<BudgetLayout />}>
+                            <Route path="/budget" element={<BudgetPage />} />
+                        </Route>
 
                         {/* MyPage */}
                         <Route element={<ProfileLayout />}>
@@ -51,7 +54,7 @@ const App: React.FC = () => {
 
                         {/* Notice */}
                         <Route element={<NoticeLayout />}>
-                          <Route path="/notice" element={<NoticePage />} />
+                            <Route path="/notice" element={<NoticePage />} />
                         </Route>
 
                         {/* Scheduling */}

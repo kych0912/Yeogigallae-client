@@ -24,17 +24,18 @@ export const ButtonGroup = styled.div`
 
 export const ModalContent = styled(Card)`
   text-align: center;
-  width: 21.9rem;
+  max-width: 22.5rem;
   border-radius: 30px;
   font-family:${({theme}) => theme.fontFamily.regular};
 `;
 
 export const ConfirmText = styled.p`
-  font-size: 20px;
   font-family: ${({ theme }) => theme.fontFamily.bold};
   color: white;
+  font-size: 1.25rem;
   text-align: center;
-  line-height: 1.5;
+  line-height: 1.875rem;
+  margin: 0.625rem 0;
 `;
 
 export const TabContainer = styled.div`

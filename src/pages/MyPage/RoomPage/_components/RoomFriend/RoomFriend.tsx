@@ -1,9 +1,9 @@
 import { Control, useController } from "react-hook-form";
-import * as S from "./Room.style";
+import * as S from "../Room.style";
 import { z } from "zod";
-import { roomSchema } from "../schema";
+import { roomSchema } from "../../schema";
 import FriendListAvatar from "./RoomFriendListAvatar";
-import { useFriend } from "../../../../contexts/FriendContext";
+import { useFriend } from "../../../../../contexts/FriendContext";
 type RoomFormValues = z.infer<typeof roomSchema>;
 
 export default function RoomFriend({control}:{

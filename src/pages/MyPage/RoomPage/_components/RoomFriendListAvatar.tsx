@@ -1,8 +1,15 @@
+import { HTMLAttributes } from "react";
 import * as S from "./Room.style";
 
-export default function FriendListAvatar({name,src,size}:{name:string,src:string,size:string}) {
+interface FriendListAvatarProps extends HTMLAttributes<HTMLDivElement>{
+    name:string;
+    src:string;
+    size:string;
+}
+
+export default function FriendListAvatar({name,src,size,onClick}:FriendListAvatarProps) {
     return (
-        <S.RoomFriendListAvatar.RoomFriendListAvatarContainer>
+        <S.RoomFriendListAvatar.RoomFriendListAvatarContainer onClick={onClick}>
             <S.Avatar src={src} size={size} />
             <S.RoomFriendListAvatar.RoomFriendListAvatarName>
                 {name}

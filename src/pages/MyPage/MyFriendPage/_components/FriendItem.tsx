@@ -1,5 +1,6 @@
 import { AccordionItem } from "./Accordion"
 import * as S from "./Friend.style"
+import * as M from "../../_components/MyPage.style"
 
 export default function FriendItem({
     index,
@@ -14,9 +15,9 @@ export default function FriendItem({
     if(index===0){
         return(
         <AccordionItem index={0}>
-            <S.Item.AddCircle>
+            <M.AddCircle>
                 {"+"}
-            </S.Item.AddCircle>
+            </M.AddCircle>
             {"친구 추가"}
         </AccordionItem>
         )

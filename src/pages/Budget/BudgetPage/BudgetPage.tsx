@@ -9,6 +9,7 @@ const BudgetPage: React.FC = () => {
         <S.Container>
             <BudgetCard />
             <BudgetInfoCard />
+            <S.Text>각 분야별 평균적인 금액을 계산하여 생성된 예산입니다.</S.Text>
         </S.Container>
     );
 };

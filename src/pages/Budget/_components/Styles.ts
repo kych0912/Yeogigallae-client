@@ -33,10 +33,6 @@ export const IconWrapper = styled.div`
     align-items: center;
     margin-top: auto;
 
-    &:hover {
-        color: #0056b3;
-    }
-
     svg {
         width: 1.5rem;
         height: 1.5em;
@@ -85,11 +81,6 @@ export const BudgetIcon = styled.div`
     justify-content: center;
     align-items: center;
     background-color: ${({ theme }) => theme.colors.disabled};
-    //이미지 사이즈 조절
-    img {
-        width: 1.5rem;
-        height: 1.5rem;
-
 `;
 
 export const BudgetDetails = styled.div`
@@ -112,8 +103,9 @@ export const BudgetName = styled.div`
 `;
 
 export const BudgetCategory = styled.div`
-    font-size: 12px;
-    color: #aaa;
+    font-size: 0.875rem;
+    font-family: ${({ theme }) => theme.fontFamily.regular};
+    color: ${({ theme }) => theme.colors.GrayText};
 `;
 
 export const BudgetCost = styled.div`

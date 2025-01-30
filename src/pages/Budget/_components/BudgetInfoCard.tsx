@@ -18,6 +18,8 @@ export default function BudgetInfoCard() {
                 예산을 만들었어요!
             </Card.Title>
 
+            <div></div>
+
             {sampleBudgetData.map((dayData) => (
                 <Card.Item key={dayData.day}>
                     <S.DayHeader onClick={() => toggleDay(dayData.day)}>

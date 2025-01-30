@@ -26,15 +26,15 @@ export const sampleBudgetData = [
     {
         day: "Day 2",
         items: [
-            { id: 1, name: "서울타워", category: "활동비", cost: "50,000원", icon: "🏔️" },
-            { id: 2, name: "한강 피크닉", category: "식사비", cost: "40,000원", icon: "🥪" },
+            { id: 1, name: "한강 피크닉", category: "식사비", cost: "40,000원", icon: "🍎" },
+            { id: 2, name: "서울타워", category: "활동비", cost: "50,000원", icon: "📸" },
         ],
     },
     {
         day: "Day 3",
         items: [
-            { id: 1, name: "경복궁 투어", category: "활동비", cost: "20,000원", icon: "🏯" },
-            { id: 2, name: "기념품 구매", category: "쇼핑비", cost: "10,000원", icon: "🛒" },
+            { id: 1, name: "경복궁 투어", category: "활동비", cost: "20,000원", icon: "📸" },
+            { id: 2, name: "기념품 구매", category: "쇼핑비", cost: "10,000원", icon: "🛍️" },
         ],
     },
 ];

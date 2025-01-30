@@ -170,7 +170,7 @@ export const MyFriendListItem = {
         display:flex;
         align-items:center;
         justify-content:center;
-        gap:0.375rem;
+        gap:0.75rem;
     `,
     MyFriendListItemName : styled.div`
         font-family:${({theme})=>theme.fontFamily.regular};

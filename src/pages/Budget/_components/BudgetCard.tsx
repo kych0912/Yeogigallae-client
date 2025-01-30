@@ -1,10 +1,10 @@
 // 예산 선택화면, 예산 결정
-
 import * as S from "./Styles";
 import Card from "../../../components/Card";
 import { budgetPageData } from "../test";
 import MoneyBag from "../../../assets/icons/MoneyBag.svg";
 import LinkIcon from "../../../assets/icons/LinkIcon.svg?react";
+
 export default function BudgetCard() {
     const handleCopyToClipboard = (text: string) => {
         navigator.clipboard.writeText(text).then(() => {

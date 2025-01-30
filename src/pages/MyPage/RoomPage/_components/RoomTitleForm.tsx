@@ -9,6 +9,7 @@ type RoomFormValues = z.infer<typeof roomSchema>;
 export default function RoomTitleForm({control}:{control:Control<RoomFormValues>}) {
     const { 
         field:{value,onChange,name},
+        formState:{errors}
     } = useController({control,name:'roomName'});
 
     return ( 
@@ -20,6 +21,9 @@ export default function RoomTitleForm({control}:{control:Control<RoomFormValues>
                 name={name}
                 placeholder="방이름을 정해주세요"
             />
+
+            {/* 임시 에러 */}
+            {errors.roomName && <S.RoomTitleForm.RoomTitleFormError>{errors.roomName.message}</S.RoomTitleForm.RoomTitleFormError>}
         </S.RoomTitleForm.RoomTitleFormContainer>
     );
 

@@ -71,6 +71,15 @@ export const RoomTitleForm = {
         justify-content:center;
         width:100%;
     `,
+    RoomTitleFormError : styled.div`
+        font-family:${({theme})=>theme.fontFamily.regular};
+        font-size:0.75rem;
+        color:red;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        width:100%;
+    `
 }
 
 //roomfriend 공통 style

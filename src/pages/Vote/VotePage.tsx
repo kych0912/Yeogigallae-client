@@ -10,7 +10,17 @@ import VoteResult from "./VoteResult/_components/VoteResult";
 
 export default function VotePage() {
   const { Funnel, Step, setStep } = useFunnel("투표메인");
-  const [voteType, setVoteType] = useState<"찬성" | "반대" | null>(null); 
+  const [voteType, setVoteType] = useState<"찬성" | "반대" | null>(null);
+
+  const handleVote = (type: "찬성" | "반대") => {
+    setVoteType(type);
+
+    if (type === "찬성") {
+      setStep("날짜지정"); 
+    } else {
+      setStep("결과"); 
+    }
+  };
 
   return (
     <S.StyledCommonContainer>
@@ -21,33 +31,21 @@ export default function VotePage() {
 
         <Step name="투표동의">
           <VoteCard
-            onAgree={() => {
-              setVoteType("찬성"); 
-              setStep("날짜지정"); 
-            }}
-            onDisagree={() => {
-              setVoteType("반대"); 
-              setStep("결과"); 
-            }}
+            onAgree={() => handleVote("찬성")}
+            onDisagree={() => handleVote("반대")}
             showConfirmMessage={false}
           />
         </Step>
 
         <Step name="날짜지정">
-          <VoteDate
-            onNext={() => {
-              setStep("결과"); // 결과(찬성)로 이동
-            }}
-          />
+          <VoteDate onNext={() => setStep("결과")} />
         </Step>
 
-        <Step name="결과"> 
+        <Step name="결과">
           <VoteResult
-            type={voteType!} // 찬성 or 반대
+            type={voteType!}
             onNext={() =>
-              voteType === "찬성" 
-                ? setStep("찬성확인") 
-                : setStep("반대확인") 
+              voteType === "찬성" ? setStep("찬성확인") : setStep("반대확인")
             }
           />
         </Step>
@@ -62,5 +60,4 @@ export default function VotePage() {
       </Funnel>
     </S.StyledCommonContainer>
   );
-};
-
+}

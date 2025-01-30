@@ -5,6 +5,7 @@ import LinkIcon from "../../../../assets/icons/LinkIcon.svg?react";
 import ConfirmMessage from "../../ConfirmPage/_components/ConfirmFailCard/ConfirmMessage";
 import * as S from "./../../_components/Vote.styles";
 import { useNavigate } from "react-router-dom";
+import { useVoteStore } from "../../../../store/VoteStore";
 
 export default function VoteCard({
   onAgree,
@@ -21,6 +22,7 @@ export default function VoteCard({
     });
   };
   const navigate = useNavigate();
+  const { addVote } = useVoteStore();
 
   return (
     <S.StyledCard>
@@ -71,12 +73,21 @@ export default function VoteCard({
 
         {onAgree && onDisagree && ( 
           <S.TwoSelect>
-            <Button size="large" onClick={onDisagree}>
+            <Button
+              size="large"
+              onClick={() => {
+                addVote("BAD"); 
+                onDisagree?.(); 
+              }}
+            >
               {"난 못 가.."}
             </Button>
             <Button
               size="large"
-              onClick={onAgree}
+              onClick={() => {
+                addVote("GOOD"); 
+                onAgree?.();
+              }}
               style={{ backgroundColor: "#3b46fa" }}
             >
               {"좋아!"}

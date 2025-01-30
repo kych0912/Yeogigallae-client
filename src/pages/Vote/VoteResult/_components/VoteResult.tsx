@@ -1,16 +1,18 @@
 import * as S from "../../_components/Vote.styles";
 import ResultCard from "./ResultCard";
 import { voteData } from "../../voteData";
+import { useVoteStore } from "../../../../store/VoteStore";
 
 export default function VoteResult({
-  type,
   onNext,
 }: {
   type: "찬성" | "반대";
   onNext: () => void;
 }) {
-  const step = type === "찬성" ? "찬성확인" : "반대확인";
-  
+  const { voteCount } = useVoteStore(); 
+
+  const step = voteCount.찬성 > voteCount.반대 ? "찬성확인" : "반대확인";
+
   return (
     <>
       <ResultCard step={step} onNext={onNext} />
@@ -21,4 +23,3 @@ export default function VoteResult({
     </>
   );
 }
-

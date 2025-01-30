@@ -51,6 +51,30 @@ export const mockVoteData: { userId: number; userName: string; type: VoteType }[
       userId: 10, 
       userName: "유저10", 
       type: "BAD" 
-    },
+    }
   ],
 ];
+
+// ✅ 찬성 및 반대 개수
+export const voteCount = {
+  찬성: mockVoteData[0].filter((user) => user.type === "GOOD").length,
+  반대: mockVoteData[0].filter((user) => user.type === "BAD").length,
+};
+
+export const mockVoteResult = {
+  httpStatus: "OK",
+  code: "VOTE_200",
+  message: "투표 성공",
+  result: {
+    userId: 1,
+    userName: "유저1",
+    type: "GOOD" as VoteType,
+    count: voteCount.찬성,
+  },
+};
+
+export const mockVoteRoomData = {
+  tripId: 1,
+  masterId: 100,
+  votes: mockVoteData[0], 
+};

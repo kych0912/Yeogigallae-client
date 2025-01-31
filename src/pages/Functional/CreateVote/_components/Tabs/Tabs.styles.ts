@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Button } from "../../../../../components/Button";
 import { Card } from "../../../../../components/Card/Card.styles";
 
-export const StyledCard = styled(Card)`
+export const CustomCard = styled(Card)`
   display: flex;
   justify-content: space-between; 
   align-items: center;

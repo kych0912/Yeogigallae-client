@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import BaseButton from "../Button/Button";
+import BaseButton from "../../../components/Button/Button";
 
 export const Container = styled.div`
     align-items: center;

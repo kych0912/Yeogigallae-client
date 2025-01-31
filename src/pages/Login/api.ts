@@ -11,11 +11,11 @@ export const sendAuthCodeToServer = async (code: string) => {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                withCredentials: true, // 쿠키를 포함하도록 설정
+                withCredentials: true,
             }
         );
 
-        return response.data; // 서버 응답 데이터 반환
+        return response.data;
     } catch (error) {
         console.error("Error sending auth code to server:", error);
         throw new Error("Failed to send auth code to server");

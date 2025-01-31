@@ -3,8 +3,10 @@ export type VoteType = "GOOD" | "BAD";
 // 주석은 지울 예정
 // POST 투표
 export interface VoteRequest {
+  userEmail: string;
   tripId: number;
   type: VoteType;
+  voteRoomId: number;
 }
 
 export interface VoteResponse {

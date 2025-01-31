@@ -2,13 +2,7 @@ import React from "react";
 import * as S from "./ResultList.styles";
 import MapComponent from "./SearchMap/SearchMap";
 import ToggleIcon from "../../../assets/icons/ToggleIcon.svg?react";
-import { Place } from "../../../hooks/useSearchLogic";
-
-interface ResultListProps {
-  results: Place[];
-  selectedResult: Place | null;
-  handleSelectItem: (item: Place) => void;
-}
+import { ResultListProps } from "../types/types";
 
 export default function ResultList({
   results,

@@ -7,15 +7,6 @@ export const Container = styled.div`
   position: relative;
 `
 
-export const StyledCard = styled(Card)`
-  width: 100%;
-  background: white;
-  border-radius: 1.875rem;
-  overflow: hidden;
-  transform-style: preserve-3d;
-  transition: transform 0.5s;
-`;
-
 export const StyledDivider = styled(Card.Divider)`
   background-color: rgba(255, 255, 255, 0.08); // #fff 8%
 `;

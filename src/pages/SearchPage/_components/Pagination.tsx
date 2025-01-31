@@ -1,11 +1,5 @@
 import * as S from "./Pagination.styles";
-
-interface PaginationProps {
-  currentPage: number;
-  totalItems: number;
-  itemsPerPage: number;
-  onPageChange: (page: number) => void;
-}
+import { PaginationProps } from "../types/types";
 
 export default function Pagination({
   currentPage,

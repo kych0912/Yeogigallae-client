@@ -22,7 +22,7 @@ export default function ResultCard({
   };
 
   return (
-    <S.StyledCard>
+    <Card>
         <VoteContent />
         <DurationInfo />
         <VoteComponent step={step}/>
@@ -58,7 +58,7 @@ export default function ResultCard({
         >
           {"투표하러 가기"}
         </Button>
-    </S.StyledCard>
+    </Card>
   );
 }
 

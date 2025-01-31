@@ -25,7 +25,7 @@ export default function VoteCard({
   const { addVote } = useVoteStore();
 
   return (
-    <S.StyledCard>
+    <Card>
       {showConfirmMessage && (
         <>
           <ConfirmMessage />
@@ -94,6 +94,6 @@ export default function VoteCard({
             </Button>
           </S.TwoSelect>
         )}
-    </S.StyledCard>
+    </Card>
   );
 }

@@ -46,14 +46,16 @@ export interface VoteDaysResponse {
 
 }
 
-// POST  투표 방 생성하기 
 export interface VoteRoomRequest {
   tripId: number;
-  masterId: number;
+  // masterId: number;
 }
 
 export interface VoteRoomResponse {
-
+  httpStatus: string,
+  code: string,
+  message: string,
+  result: string[]
 }
 
 // 필요 시

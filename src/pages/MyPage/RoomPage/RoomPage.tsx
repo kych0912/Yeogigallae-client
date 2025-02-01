@@ -1,13 +1,16 @@
-// 방만드는 화면 
-import React from 'react';
-import * as S from './Styles'; 
+import CommonContainer from "../../../components/Layout/CommonContainer";
+import { FriendProvider } from "../../../contexts/FriendContext";
+import RoomPageContent from "./RoomPageContent";
 
-const RoomPage: React.FC = () => {
+export default function RoomPage() {
+
     return (
-        <S.Container>
-            <S.Title>My Profile Page!</S.Title>
-        </S.Container>
-    );
-};
+        <CommonContainer>
+            <FriendProvider>
+                <RoomPageContent />
+            </FriendProvider>
+        </CommonContainer>
 
-export default RoomPage;
+    );
+}
+

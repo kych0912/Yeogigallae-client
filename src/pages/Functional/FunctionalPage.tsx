@@ -8,7 +8,6 @@ import CommonContainer from "../../components/Layout/CommonContainer";
 export default function FunctionalFunnel() {
   const { Funnel, Step, setStep } = useFunnel("생성");
 
-  // 선택된 장소 이름 상태 관리
   const [selectedPlaceName] = useState<string | null>(null);
 
   return (

@@ -9,8 +9,8 @@ export const postSelectedImage = async (data: ImageSelectRequest): Promise<Image
     const url = `${API_BASE_URL}/images/select?userId=${data.userId}&imageUrl=${data.imageUrl}`;
 
     // // 실제 API 요청 (현재 주석 처리)
-    // const response = await axios.post(url);
-    // return response.data;
+    const response = await axios.post(url);
+    return response.data;
 
     console.warn("API 요청 URL:", url); // ✅ API URL 확인용 로그
     console.warn("목데이터 반환");

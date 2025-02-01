@@ -1,11 +1,11 @@
 import axios from "axios";
 import { VoteRequest, VoteResponse, VoteErrorResponse } from "../../types/voteTypes/voteTypes";
 
-const API_URL = "http://43.201.12.8:8081/api/vote"; 
+const API_URL = import.meta.env.VITE_API_URL as string;
 
 export const postVote = async (voteData: VoteRequest): Promise<VoteResponse> => {
   try {
-    console.log("POST test:", voteData); // ✅ 요청 데이터 로깅
+    console.log("POST test:", voteData); 
 
     const response = await axios.post<VoteResponse>(API_URL, voteData, {
       headers: {

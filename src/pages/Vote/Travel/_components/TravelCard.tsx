@@ -2,7 +2,7 @@ import Card from "./../../../../components/Card";
 import { Button } from "../../../../components/Button";
 import { dummyData } from "../../dummyData";
 import * as S from "../../_components/Vote.styles";
-import { useVoteMutation } from "../../../../react-query/mutation/useVoteMutation";
+import useVoteMutation from "../../../../react-query/mutation/useVoteMutation";
 import { useVoteStore } from "../../../../store/useVoteStore";
 
 export default function TravelCard({

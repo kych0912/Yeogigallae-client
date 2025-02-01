@@ -1,12 +1,12 @@
 import axios from "axios";
 import { VoteRoomRequest, VoteRoomResponse, VoteErrorResponse } from "../../types/voteTypes/voteTypes";
 
-const API_URL = "http://43.201.12.8:8081/api/vote/new-room";
+const API_URL = import.meta.env.VITE_API_URL as string;
 
 export const createVoteRoom = (voteRoomData: VoteRoomRequest): Promise<VoteRoomResponse> => {
     console.log("POST test: ", voteRoomData);
 
-    return axios.post<VoteRoomResponse>(API_URL, voteRoomData)
+    return axios.post<VoteRoomResponse>(`${API_URL}/new-room`, voteRoomData)
     .then((response) => {
         console.log(response.data);
         return response.data;

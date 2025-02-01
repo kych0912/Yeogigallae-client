@@ -43,7 +43,8 @@ export default function VotePage() {
 
         <Step name="결과">
           <VoteResult
-            type={voteType!}
+            tripId={123}
+            type={voteType as "찬성" | "반대"} 
             onNext={() =>
               voteType === "찬성" ? setStep("찬성확인") : setStep("반대확인")
             }

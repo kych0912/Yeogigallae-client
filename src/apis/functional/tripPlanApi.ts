@@ -8,8 +8,8 @@ export const createTripPlan = async (tripPlanType: string, data: TripPlanRequest
   try {
     const url = `${API_BASE_URL}/trip-plan/votes/${tripPlanType}`;
 
-    // const response = await axios.post(url, data);
-    // return response.data;
+    const response = await axios.post(url, data);
+    return response.data;
 
     console.warn("API 요청 URL:", url); // ✅ API 요청 URL 확인용 로그
     console.warn("목데이터 반환");

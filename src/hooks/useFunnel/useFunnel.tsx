@@ -24,11 +24,10 @@ export interface useFunnelOption<TStepContextMap extends AnyStepContextMap>{
 }
 
 
-export type setStepFn<TStepContextMap extends AnyStepContextMap> = 
-  <TCurrentStep extends keyof TStepContextMap & string, TNextStep extends keyof TStepContextMap & string>(
-    nextStep: TNextStep,
-    context?: TStepContextMap[TCurrentStep]
-  ) => void;
+export type setStepFn<TStepContextMap extends AnyStepContextMap> = <TCurrentStep extends keyof TStepContextMap>(
+  nextStep: keyof TStepContextMap,
+  context: TStepContextMap[TCurrentStep]
+) => void;
 
 //useFunnel 훅은 현재 스텝을 관리하고, Funnel 컴포넌트와 setStep 함수를 반환
 //{
@@ -78,19 +77,19 @@ export const useFunnel = <TStepContextMap extends AnyStepContextMap>(
   );
 
   //setStep 함수로 url 파라미터를 변경한다.
-  const setStep: setStepFn<TStepContextMap> = useCallback(
-    <TCurrentStep extends keyof TStepContextMap & string, TNextStep extends keyof TStepContextMap & string>(
-      nextStep: TNextStep,
-      context?: TStepContextMap[TCurrentStep]
-    ) => {
-      setSearchParams((prev) => {
-        prev.set(options.stepQueryKey, nextStep);
-        return prev;
-      });
-      setContextMap(prev => ({...prev, [currentStep]: context}));
-    },
-    [setSearchParams, currentStep]
-);
+  const setStep = useCallback(<TCurrentStep extends keyof TStepContextMap>(
+    nextStep: keyof TStepContextMap,
+    context: TStepContextMap[TCurrentStep]
+  ) => {
+    setSearchParams((prev) => {
+      prev.set(stepQueryKey, nextStep as string);
+      return prev;
+    });
+    setContextMap(prev => ({
+      ...prev,
+      [currentStep]: context
+    }));
+  }, [setSearchParams, stepQueryKey, currentStep]) 
 
   return [FunnelComponent, setStep, contextMap] as const;
 };  

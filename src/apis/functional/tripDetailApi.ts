@@ -8,8 +8,8 @@ export const fetchTripPlanDetails = async (tripPlanId: number): Promise<TripPlan
   try {
     const url = `${API_BASE_URL}/trip-plan/${tripPlanId}/details`;
 
-    // const response = await axios.get(url);
-    // return response.data;
+    const response = await axios.get(url);
+    return response.data;
 
     console.warn("API 요청 URL:", url); // ✅ API 요청 URL 확인용 로그
     console.warn("목데이터 반환");

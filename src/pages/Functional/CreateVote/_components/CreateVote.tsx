@@ -4,6 +4,7 @@ import Tabs from "./Tabs/Tabs";
 import VoteForm from "./VoteForm/VoteForm";
 import SlideContainer from "./SlideContainer/SlideContainer";
 import buttonData from "./../_data/buttonData";
+import { useTripDetailStore } from "../../../../store/functionalStore/useTripDetailStore";
 
 interface ButtonState {
   voteMessage: string;
@@ -15,7 +16,7 @@ interface ButtonState {
 
 export default function CreateVote({
   onCalendar,
-  onSearch,
+  onSearch, 
 }: {
   onCalendar?: () => void;
   onSearch?: (callback: (selectedPlaceName: string) => void) => void;
@@ -30,7 +31,6 @@ export default function CreateVote({
   );
   const [activeButton, setActiveButton] = useState<string>("BUTTON1");
 
-  // 버튼별 상태를 저장
   const [buttonStates, setButtonStates] = useState<Record<string, ButtonState>>(
     buttonData.reduce((acc, button) => {
       acc[button.id] = {
@@ -76,7 +76,7 @@ export default function CreateVote({
   };
 
   const toggleActiveButton = (id: string) => {
-    setActiveButton(id); // 클릭된 버튼 활성화
+    setActiveButton(id); 
     setButtons((prevButtons) =>
       prevButtons.map((button) =>
         button.id === id
@@ -86,7 +86,6 @@ export default function CreateVote({
     );
   };
 
-  // 필드 값 업데이트
   const handleFieldChange = (field: keyof ButtonState, value: any) => {
     setButtonStates((prevStates) => ({
       ...prevStates,
@@ -98,23 +97,34 @@ export default function CreateVote({
   };
 
   const renderContent = () => {
-    const currentState = buttonStates[activeButton]; 
-
+    const { tripPlanDetails } = useTripDetailStore(); // ✅ Zustand에서 상태 가져오기
+    const currentState = buttonStates[activeButton];
+  
     return (
       <>
         <VoteForm
           onSearch={handleDefaultSearch}
           onCalendar={onCalendar || handleDefaultCalendar}
           isVote={activeTab === "vote"}
-          messageValue={activeTab === "vote" ? currentState.voteMessage : currentState.courseMessage}
+          messageValue={
+            tripPlanDetails?.result.description ||
+            (activeTab === "vote" ? currentState.voteMessage : currentState.courseMessage)
+          } // ✅ tripPlanDetails 값이 있으면 덮어쓰기
           onMessageChange={(value) =>
             handleFieldChange(activeTab === "vote" ? "voteMessage" : "courseMessage", value)
           }
-          selectedTime={activeTab === "vote" ? currentState.voteTime : currentState.courseTime}
+          selectedTime={
+            tripPlanDetails?.result.voteLimitTime || 
+            (activeTab === "vote" ? currentState.voteTime : currentState.courseTime)
+          } // ✅ tripPlanDetails 값이 있으면 덮어쓰기
           onTimeChange={(time) =>
             handleFieldChange(activeTab === "vote" ? "voteTime" : "courseTime", time)
           }
-          selectedLocation={currentState.selectedLocation || "장소를 입력하세요"}
+          selectedLocation={
+            tripPlanDetails?.result.location || 
+            currentState.selectedLocation || 
+            "장소를 입력하세요"
+          } // ✅ tripPlanDetails 값이 있으면 덮어쓰기
         />
         <SlideContainer
           handleCreateButton={handleCreateButton}
@@ -128,6 +138,7 @@ export default function CreateVote({
       </>
     );
   };
+  
 
   return (
     <>

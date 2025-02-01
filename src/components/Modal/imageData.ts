@@ -6,14 +6,14 @@ import nature1 from "../../assets/icons/nature1.svg?react";
 import nature2 from "../../assets/icons/nature2.svg?react";
 import nature3 from "../../assets/icons/nature3.svg?react";
 import nature4 from "../../assets/icons/nature4.svg?react";
+import { mockSelectedImage } from "../../mocks/imageMock"; 
 
-type SVGComponent = React.FC<React.SVGProps<SVGSVGElement>>;
-
+type SVGComponent = React.FC<React.SVGProps<SVGSVGElement>> | string; 
 export default function getImageData(): Record<string, SVGComponent[]> {
   return {
-    건물: [building1, building2, building3, building4, building1],
-    자연: [nature1, nature2, nature3, nature4, nature3],
-    활동: [building1, building2, building3, nature2, nature3],
-    음식: [nature4, nature1, building1, building2, nature2],
+    건물: [building1, building2, building3, building4, mockSelectedImage], 
+    자연: [nature1, nature2, nature3, nature4, mockSelectedImage], 
+    활동: [building1, building2, building3, nature2, mockSelectedImage], 
+    음식: [nature4, nature1, building1, building2, mockSelectedImage], 
   };
 }

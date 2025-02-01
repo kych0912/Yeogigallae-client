@@ -29,7 +29,6 @@ export const Funnel = <Steps extends StepsType<string>>({ steps,step,children }:
     >;
     //validChildren 중 step과 일치하는 컴포넌트 찾기
     const targetStep = validChildren.find(child => child.props.name === step);
-    console.log(targetStep);
 
     if(!targetStep) throw new Error(`${step} 스텝이 존재하지 않습니다.`);
 

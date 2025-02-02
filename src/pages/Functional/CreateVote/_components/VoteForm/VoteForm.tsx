@@ -25,7 +25,7 @@ export default function VoteForm({
   selectedLocation: string | null; 
 }) {
   return (
-    <S.StyledCard>
+    <Card>
       <ImagePlaceholder />
 
       <MessageInput value={messageValue} onChange={onMessageChange} />
@@ -68,7 +68,7 @@ export default function VoteForm({
           <CalendarIcon />
         </S.IconWrapper>
       </S.StyledCardItem>
-    </S.StyledCard>
+    </Card>
   );
 }
 

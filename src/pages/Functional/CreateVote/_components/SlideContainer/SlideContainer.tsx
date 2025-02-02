@@ -20,7 +20,7 @@ export default function SlideContainer({
   activeButton,
 }: SlideContainerProps) {
   return (
-    <S.StyledCard>
+    <S.CustomCard>
       {buttonData.map((button, index) => (
         <S.SlideContainer
           key={button.id}
@@ -56,7 +56,7 @@ export default function SlideContainer({
           </S.Label>
         </S.SlideContainer>
       ))}
-    </S.StyledCard>
+    </S.CustomCard>
   );
 };
 

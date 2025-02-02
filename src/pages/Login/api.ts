@@ -15,7 +15,10 @@ export const sendAuthCodeToServer = async (code: string) => {
             }
         );
 
-        return response.data;
+        return {
+            accessToken: response.data["String accessToken"],
+            refreshToken: response.data["String RefreshToken"],
+        };
     } catch (error) {
         console.error("Error sending auth code to server:", error);
         throw new Error("Failed to send auth code to server");

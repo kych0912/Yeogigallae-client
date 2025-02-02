@@ -7,7 +7,7 @@ import * as S from "./LoginPage/Styles";
 export default function Kakao() {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
-    const { setAccessToken } = useAuthStore();
+    const { setAccessToken, setRefreshToken } = useAuthStore();
 
     useEffect(() => {
         const code = searchParams.get("code");
@@ -18,18 +18,24 @@ export default function Kakao() {
                 return;
             }
 
-            const response = await sendAuthCodeToServer(code);
+            try {
+                const response = await sendAuthCodeToServer(code);
 
-            if (response.accessToken) {
-                setAccessToken(response.accessToken);
-                navigate("/");
-            } else {
+                if (response.accessToken && response.refreshToken) {
+                    setAccessToken(response.accessToken);
+                    setRefreshToken(response.refreshToken); // refreshToken 저장
+                    navigate("/");
+                } else {
+                    navigate("/login", { replace: true });
+                }
+            } catch (error) {
+                console.error("Login failed:", error);
                 navigate("/login", { replace: true });
             }
         };
 
         handleLogin();
-    }, [searchParams, navigate, setAccessToken]);
+    }, [searchParams, navigate, setAccessToken, setRefreshToken]);
 
     return (
         <S.Container>

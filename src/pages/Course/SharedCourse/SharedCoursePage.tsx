@@ -4,42 +4,44 @@ import { useFunnel } from "../../../hooks/useFunnel/useFunnel";
 import Detail from "./Detail";
 import { UseQueryResult } from "@tanstack/react-query";
 import Overview from "./Overview";
-import { useEffect } from 'react';
-import { useOutletContext } from 'react-router-dom';
-import { HeaderConfig } from "../../../types/header/header";
+
+type TSharedCourseContext = {
+  //eslint-disable-next-line @typescript-eslint/no-empty-object-type
+  코스개요:{},
+  //eslint-disable-next-line @typescript-eslint/no-empty-object-type
+  코스목록:{},
+}
 
 export default function SharedCoursePage({allCoursesQueries,title}:
 {allCoursesQueries:UseQueryResult<Route | null, Error>[],title:string}){
 
-  const {Funnel,Step,setStep,currentStep} = useFunnel("코스개요");
-  const {setHeaderConfig} = useOutletContext<{setHeaderConfig: (config: HeaderConfig) => void}>();
+  const [ Funnel, setStep, context] = useFunnel<TSharedCourseContext>({
+    steps:["코스개요","코스목록"],
+    init:{
+      step:"코스개요",
 
-  useEffect(()=>{
-    switch(currentStep){
-      case "코스개요":
-        setHeaderConfig({title:title, number:4});
-        break;
-      case "코스목록":
-        setHeaderConfig({title:"코스 확인중"});
-        break;
-    }
-  },[currentStep,setHeaderConfig,title]);
+      context:{},
+    },
+    stepQueryKey:"step",
+  });
+
+  console.log(context);
 
     return (
     <>
       <Funnel>
-        <Step name="코스개요">
+        <Funnel.Step name="코스개요">
           <Overview 
             dailyRoutes={allCoursesQueries[0].data}
-            onNext={()=>setStep("코스목록")}
+            onNext={()=>setStep<"코스개요">("코스목록",{})}  
+            title={title}
           />
-        </Step>
-        <Step name="코스목록">
+        </Funnel.Step>
+        <Funnel.Step name="코스목록">
           <Detail 
-            allCoursesQueries={allCoursesQueries}
+            allCoursesQueries={allCoursesQueries as UseQueryResult<Route, Error>[]}
           />
-        </Step>
-
+        </Funnel.Step>
       </Funnel>
     </>
     )

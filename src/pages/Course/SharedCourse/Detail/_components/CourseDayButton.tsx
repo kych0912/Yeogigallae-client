@@ -20,8 +20,9 @@ export default function CourseDayButton({
             allCoursesQueries.map((_,index)=>(
               <S.DayButton 
                 onClick={()=>handleSlideChange(index)} 
-                isActive={activeIndex === index}
+                $isActive={activeIndex === index}
                 size="small"
+                key={index + Date.now()}
               >
                 {`${index+1}일차`}
               </S.DayButton>

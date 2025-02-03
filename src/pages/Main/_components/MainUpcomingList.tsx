@@ -4,10 +4,17 @@ import UpcomingItem from "./UpcomingItem/UpcomingItem";
 import Upcoming from "../../../assets/icons/Upcoming.svg";
 import { UPcomingRooms } from "../MainPage/test";
 import Empty from "./UpcomingItem/Empty";
+import { useNavigate } from "react-router-dom";
 
 export default function MainUpcomingList() {
+    const navigate = useNavigate();
+
+    const handleNavigate = () => {
+        navigate("/course/upcoming");
+    };
+
     return (
-        <S.Container>
+        <S.Container onClick={handleNavigate} style={{ cursor: "pointer" }}>
             <MainSection
                 leftContent={
                     <>

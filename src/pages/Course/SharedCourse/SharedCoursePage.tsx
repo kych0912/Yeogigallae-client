@@ -15,7 +15,7 @@ type TSharedCourseContext = {
 export default function SharedCoursePage({allCoursesQueries,title}:
 {allCoursesQueries:UseQueryResult<Route | null, Error>[],title:string}){
 
-  const [ Funnel, setStep, context] = useFunnel<TSharedCourseContext>({
+  const [ Funnel, setStep ] = useFunnel<TSharedCourseContext>({
     steps:["코스개요","코스목록"],
     init:{
       step:"코스개요",
@@ -24,8 +24,6 @@ export default function SharedCoursePage({allCoursesQueries,title}:
     },
     stepQueryKey:"step",
   });
-
-  console.log(context);
 
     return (
     <>

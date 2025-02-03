@@ -3,7 +3,7 @@ import { Route } from "../../../../../apis/map/types";
 import * as S from "./Style";
 
 interface ICourseDayButtonProps{
-    allCoursesQueries:UseQueryResult<Route | null, Error>[],
+    allCoursesQueries:UseQueryResult<Route, Error>[],
     handleSlideChange:(index:number)=>void,
     activeIndex:number
 }

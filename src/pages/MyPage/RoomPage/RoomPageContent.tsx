@@ -7,6 +7,9 @@ import MyFriend from "./_components/MyFriend";
 import RoomTitleForm from "./_components/RoomTitleForm";
 import * as z from "zod";
 import * as S from "./_components/Room.style";
+import { useOutletContext } from "react-router-dom";
+import { setStepFn } from '../../../hooks/useFunnel/useFunnel';
+import { useEffect } from 'react';
 
 type RoomFormValues = z.infer<typeof roomSchema>;
 
@@ -18,6 +21,7 @@ export default function RoomPageContent() {
             roomFriend:[]
         }
     });
+    const {setHeaderConfig} = useOutletContext();
 
     
     const onSubmit = (data: RoomFormValues) => {
@@ -25,8 +29,13 @@ export default function RoomPageContent() {
         // 여기에 API 호출 등의 로직 추가
     };
 
+    useEffect(()=>{
+        setHeaderConfig({title:"방 만들기"});
+    },[]);
+
     return (
         <S.RoomForm onSubmit={handleSubmit(onSubmit)}>
+
 
             <RoomTitleForm control={control} />
 

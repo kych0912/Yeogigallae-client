@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import * as S from "./Main.Styles";
 import MainSection from "./MainSection/MainSection";
 import Voting from "../../../assets/icons/Voting.svg";
@@ -6,8 +7,10 @@ import { votingRooms } from "../MainPage/test";
 import Empty from "./VotingItem/Empty";
 
 export default function MainVotingList() {
+    const navigate = useNavigate();
+
     return (
-        <S.Container>
+        <S.Container onClick={() => navigate("/vote")}>
             <MainSection
                 leftContent={
                     <>
@@ -15,7 +18,7 @@ export default function MainVotingList() {
                     </>
                 }
                 rightContent={votingRooms.length}
-            ></MainSection>
+            />
 
             {/*카드부분*/}
             {votingRooms.length > 0 ? <VotingItem /> : <Empty />}

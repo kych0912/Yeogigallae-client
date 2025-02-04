@@ -2,18 +2,6 @@ import { useNavigate } from "react-router-dom";
 import * as S from "./Main.Styles";
 import MyBtn from "../../../assets/icons/MyBtn.svg";
 import Alarm from "../../../assets/icons/Alarm.svg";
-import styled from "styled-components";
-
-// 파란 점 스타일
-const NotificationDot = styled.div`
-    position: absolute;
-    top: 0.65rem;
-    right: 0.65rem;
-    width: 0.35rem;
-    height: 0.35rem;
-    background-color: ${({ theme }) => theme.colors.primary};
-    border-radius: 50%;
-`;
 
 export default function MainTop() {
     const navigate = useNavigate();
@@ -27,7 +15,7 @@ export default function MainTop() {
             <S.IconContainer>
                 <S.CustomIconButton onClick={() => navigate("/notice")} style={{ position: "relative" }}>
                     <img src={Alarm} alt="Alarm Icon" />
-                    {hasNotification && <NotificationDot />}
+                    {hasNotification && <S.NotificationDot />}
                 </S.CustomIconButton>
                 <S.CustomIconButton onClick={() => navigate("/mypage/profile")}>
                     <img src={MyBtn} alt="MyBtn Icon" />

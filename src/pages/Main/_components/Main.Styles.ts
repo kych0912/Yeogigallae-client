@@ -52,6 +52,16 @@ export const Emptylist = styled(Container)`
 `;
 
 //메인 탑
+export const NotificationDot = styled.div`
+    position: absolute;
+    top: 0.65rem;
+    right: 0.65rem;
+    width: 0.35rem;
+    height: 0.35rem;
+    background-color: ${({ theme }) => theme.colors.primary};
+    border-radius: 50%;
+`;
+
 export const Title = styled.h1`
     font-size: 1.5rem;
     font-family: ${({ theme }) => theme.fontFamily.semiBold};

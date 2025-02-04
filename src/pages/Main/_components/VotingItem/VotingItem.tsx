@@ -40,12 +40,7 @@ const VotingItem: React.FC = () => {
                         </S.Box>
                         <S.Box>
                             {/* 참여자 프로필 이미지 */}
-                            <V.ParticipantContainer>
-                                {renderParticipantProfiles(
-                                    room.participantProfiles,
-                                    "https://media.istockphoto.com/id/688550958/vector/black-plus-sign-positive-symbol.jpg?s=612x612&w=0&k=20&c=0tymWBTSEqsnYYXWeWmJPxMotTGUwaGMGs6BMJvr7X4=" // 임의로 그냥 + 이미지 가져옴
-                                )}
-                            </V.ParticipantContainer>
+                            <V.ParticipantContainer>{renderParticipantProfiles(room.participantProfiles)}</V.ParticipantContainer>
                             {/* 투표율 */}
                             <V.VoteBox>
                                 <V.VoteText>{room.votedParticipants}명 투표 완료</V.VoteText>

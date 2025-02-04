@@ -29,7 +29,7 @@ import BudgetLayout from "./components/Layout/BudgetLayout";
 import UpComingCoursePage from "./pages/Course/UpComingCourse/UpComingCoursePage";
 import withAuth from "./pages/Login/withAuth";
 
-const ProtectedMainPage = withAuth(MainPage, true);
+// const ProtectedMainPage = withAuth(MainPage, true);
 const ProtectedLoginPage = withAuth(LoginPage, false);
 const ProtectedKakao = withAuth(Kakao, false);
 
@@ -43,7 +43,8 @@ const App: React.FC = () => {
                     <Routes>
                         {/* Main */}
                         {/*<Route path="/" element={<MainPage />} />*/}
-                        <Route path="/" element={<ProtectedMainPage />} />
+                        {/* <Route path="/" element={<ProtectedMainPage />} /> */}
+                        <Route path="/" element={<MainPage />} />
 
                         {/* Login */}
                         <Route path="/login" element={<ProtectedLoginPage />} />

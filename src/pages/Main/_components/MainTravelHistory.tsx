@@ -29,7 +29,7 @@ export default function MainTravelHistory() {
                 rightContent={completedRooms.length}
             />
             <S.BtnBar>
-                <S.selectBtn selected={selectedButton === "domestic"} size="medium" onClick={() => handleButtonClick("domestic")}>
+                <S.selectBtn selected={selectedButton === "domestic"} size="large" onClick={() => handleButtonClick("domestic")}>
                     <S.Icon src={Domestic} alt="Domestic" /> 국내여행
                 </S.selectBtn>
                 <S.selectBtn selected={selectedButton === "international"} size="large" onClick={() => handleButtonClick("international")}>

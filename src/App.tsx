@@ -19,12 +19,19 @@ import VoteLayout from "./components/Layout/VoteLayout";
 import FunctionalLayout from "./components/Layout/FunctionalLayout";
 import CoursePage from "./pages/Course/CoursePage";
 import ProfileLayout from "./components/Layout/ProfileLayout";
+import Kakao from "./pages/Login/Kakao";
 import MyFriendPage from "./pages/MyPage/MyFriendPage/MyFriendPage";
 import "./App.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import NoticeLayout from "./components/Layout/NoticeLayout";
-import UpComingCoursePage from "./pages/Course/UpComingCourse/UpComingCoursePage";
+
 import BudgetLayout from "./components/Layout/BudgetLayout";
+import UpComingCoursePage from "./pages/Course/UpComingCourse/UpComingCoursePage";
+import withAuth from "./pages/Login/withAuth";
+
+const ProtectedMainPage = withAuth(MainPage, true);
+const ProtectedLoginPage = withAuth(LoginPage, false);
+const ProtectedKakao = withAuth(Kakao, false);
 
 const queryClient = new QueryClient();
 
@@ -35,10 +42,12 @@ const App: React.FC = () => {
                 <Router>
                     <Routes>
                         {/* Main */}
-                        <Route path="/" element={<MainPage />} />
+                        {/*<Route path="/" element={<MainPage />} />*/}
+                        <Route path="/" element={<ProtectedMainPage />} />
 
                         {/* Login */}
-                        <Route path="/login" element={<LoginPage />} />
+                        <Route path="/login" element={<ProtectedLoginPage />} />
+                        <Route path="/login/kakao" element={<ProtectedKakao />} />
 
                         {/* Budget */}
                         <Route element={<BudgetLayout />}>

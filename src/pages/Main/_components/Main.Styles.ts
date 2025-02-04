@@ -136,7 +136,7 @@ export const TravelList = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100vw;
+    width: 100%;
     box-sizing: border-box;
     padding: 0 1.25rem;
 `;

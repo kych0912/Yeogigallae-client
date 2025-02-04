@@ -10,7 +10,7 @@ export const mockTripPlanDetailResponse: TripPlanDetailResponse = {
     location: "서울시",
     description: "좋은 명소 위주로 진행 예정",
     startDate: "2025-12-11",
-    endData: "2025-12-16",
+    endDate: "2025-12-16",
     price: "20만원", 
     imageUrl: "https://example.com/images/1.jpg",
     tripPlanType: "COURSE",
@@ -18,6 +18,6 @@ export const mockTripPlanDetailResponse: TripPlanDetailResponse = {
     voteLimitTime: "THIRTY_MINUTES",
     minDays: 3,
     maxDays: 5,
-    groupNmae: "hi",
+    groupName: "hi",
   },
 };

@@ -5,6 +5,7 @@ import Alarm from "../../../assets/icons/Alarm.svg";
 
 export default function MainTop() {
     const navigate = useNavigate();
+    const hasNotification = true; // 알람 존재 여부 상태 (테스트용)
 
     return (
         <S.TopContainer>
@@ -12,8 +13,9 @@ export default function MainTop() {
                 정민님, 오늘은 <br /> 어디 가실래요?
             </S.Title>
             <S.IconContainer>
-                <S.CustomIconButton onClick={() => navigate("/notice")}>
+                <S.CustomIconButton onClick={() => navigate("/notice")} style={{ position: "relative" }}>
                     <img src={Alarm} alt="Alarm Icon" />
+                    {hasNotification && <S.NotificationDot />}
                 </S.CustomIconButton>
                 <S.CustomIconButton onClick={() => navigate("/mypage/profile")}>
                     <img src={MyBtn} alt="MyBtn Icon" />

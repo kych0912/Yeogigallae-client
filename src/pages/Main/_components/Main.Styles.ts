@@ -171,7 +171,7 @@ export const RowTravelList = styled.div`
 export const selectBtn = styled(BaseButton)<{ selected: boolean }>`
     color: ${({ theme, selected }) => (selected ? "#fff" : theme.colors.GrayText)};
     background-color: ${({ theme, selected }) => (selected ? theme.colors.GrayText : theme.colors.secondary)};
-    font-family: ${({ theme, selected }) => (selected ? theme.fontFamily.medium : theme.fontFamily.regular)};
+    font-family: ${({ theme, selected }) => (selected ? theme.fontFamily.semiBold : theme.fontFamily.medium)};
     border: none;
     width: 11.875rem;
     height: 3.25rem;

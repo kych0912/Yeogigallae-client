@@ -1,42 +1,95 @@
-import { ReactElement, ReactNode } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { 
+  StepsType,
+  AnyStepContextMap,
+  FunnelStateByContextMap
+} from './types';
+import { Funnel, FunnelProps, StepProps, Step } from './Funnel';
 
-export interface StepProps {
-  name: string;
-  children: ReactNode;
+
+type RouteFunnelProps<Steps extends StepsType<string>> = Omit<FunnelProps<Steps>, 'steps' | 'step'>;
+
+type FunnelComponent<Steps extends StepsType<string>> = ((props: RouteFunnelProps<Steps>) => JSX.Element) & {
+  Step: (props: StepProps<Steps>) => JSX.Element;
+};
+
+//steps : ["step1","step2"]
+//init: {step:"step1",context:{message:"hello"}}
+//stepQueryKey : "step"
+export interface useFunnelOption<TStepContextMap extends AnyStepContextMap>{
+  steps: StepsType<keyof TStepContextMap & string>,
+  init:FunnelStateByContextMap<TStepContextMap>,
+  stepQueryKey: string;
 }
 
-export interface FunnelProps {
-  children: Array<ReactElement<StepProps>>;
-}
 
-export const useFunnel = (defaultStep: string) => {
+export type setStepFn<TStepContextMap extends AnyStepContextMap> = <TCurrentStep extends keyof TStepContextMap>(
+  nextStep: keyof TStepContextMap,
+  context: TStepContextMap[TCurrentStep]
+) => void;
 
-  //searchParams를 통해 현재 스텝을 관리한다.
+//useFunnel 훅은 현재 스텝을 관리하고, Funnel 컴포넌트와 setStep 함수를 반환
+//{
+//  step1:{message:"hello"},
+//  step2:{message:"world"}
+//}
+export const useFunnel = <TStepContextMap extends AnyStepContextMap>(
+  options: useFunnelOption<TStepContextMap>
+):readonly [
+  FunnelComponent<typeof options.steps>,
+  setStepFn<TStepContextMap>,
+  TStepContextMap
+]=>{
+  const stepQueryKey = options?.stepQueryKey ?? "step";
   const [searchParams, setSearchParams] = useSearchParams();
-  const step = searchParams.get("step") || defaultStep;
+  const currentStep = (searchParams.get(stepQueryKey) ?? options?.init.step) as keyof TStepContextMap & string;
 
-  //Step 컴포넌트는 각 스텝의 컨텐츠를 렌더링한다.
-  //여기서 name을 이용해서 Funnel 컴포넌트에서 현재 스텝을 찾는다.
-  const Step = (props: StepProps): ReactElement => {
-    return <>{props.children}</>;
-  };
+  //init 파라미터로 초기 상태를 설정
+  const [contextMap, setContextMap] = useState<TStepContextMap>(() => {
+    const initialState = {} as TStepContextMap;
+    initialState[options.init.step] = options.init.context ?? ({} as TStepContextMap[typeof options.init.step]);
+    return initialState;
+  });
+
+  //<Funnel> 컴포넌트 반환
+  //StepProps를 할당한 Step assign
+  const FunnelComponent = useMemo(
+    () =>
+      Object.assign(
+        function RouteFunnel(props: RouteFunnelProps<typeof options.steps>) {
+          const step = searchParams.get(stepQueryKey) ?? options?.init.step;
+
+          //런타임 에러 방지
+          if (step == null) {
+            throw new Error(
+              `표시할 스텝을 step 쿼리 파라미터에 지정해주세요.`
+            );
+          }
+          return <Funnel<StepsType<keyof TStepContextMap & string>> steps={options.steps} step={step} {...props} />;
+
+
+        },{
+          Step
+        }
+      ),
+    [searchParams]
+  );
 
   //setStep 함수로 url 파라미터를 변경한다.
-  const setStep = (step: string) => {
+  const setStep = useCallback(<TCurrentStep extends keyof TStepContextMap>(
+    nextStep: keyof TStepContextMap,
+    context: TStepContextMap[TCurrentStep]
+  ) => {
     setSearchParams((prev) => {
-      prev.set("step", step);
+      prev.set(stepQueryKey, nextStep as string);
       return prev;
     });
-  };
+    setContextMap(prev => ({
+      ...prev,
+      [currentStep]: context
+    }));
+  }, [setSearchParams, stepQueryKey, currentStep]) 
 
-  //Funnel 컴포넌트는 여러 단계의 Step 컴포넌트 중 현재 활성화된 스텝을 렌더링한다.
-  //find를 통해 Step 중 현재 Step을 찾아 렌더링
-  const Funnel = ({ children }: FunnelProps) => {
-    const targetStep = children.find((childStep) => childStep.props.name === step);
-
-    return <>{targetStep}</>;
-  };
-
-  return { Funnel, Step, setStep, currentStep: step } as const;
-};
+  return [FunnelComponent, setStep, contextMap] as const;
+};  

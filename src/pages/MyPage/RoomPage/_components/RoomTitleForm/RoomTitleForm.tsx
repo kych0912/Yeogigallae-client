@@ -1,8 +1,8 @@
 import { Control, useController } from "react-hook-form";
-import Input from "../../../../components/Input";
-import * as S from "./Room.style";
+import Input from "../../../../../components/Input";
+import * as S from "../Room.style";
 import { z } from "zod";
-import { roomSchema } from "../schema";
+import { roomSchema } from "../../schema";
 
 type RoomFormValues = z.infer<typeof roomSchema>;
 

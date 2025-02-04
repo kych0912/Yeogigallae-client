@@ -25,9 +25,15 @@ export default function FloatingMenu() {
                     console.log("POST 성공 데이터:", data);
                     setTripPlan(data); 
                     navigate("/functional"); 
+                    closeMenu();
                 },
             }
         );
+    }
+
+    const handleMyClick = () => {
+        navigate("/mypage/friend");
+        closeMenu();
     };
 
     return (
@@ -37,14 +43,17 @@ export default function FloatingMenu() {
             <S.FloatingButtonStyled $isMain $isActive={isActive} onClick={toggleMenu}>
                 <img src={Floating} alt="Floating Icon" />
             </S.FloatingButtonStyled>
-
+            {/* 기능별 화면 이동 */}
             <S.SubButton $isActive={isActive} onClick={handleEditClick}>
                 <img src={EditFloating} alt="Edit Floating Icon" />
             </S.SubButton>
-            <S.SubButton $isActive={isActive}>
+
+            {/* 투표 방 화면 이동 */}
+            <S.SubButton $isActive={isActive} onClick={handleMyClick}> 
                 <img src={MyFloating} alt="My Floating Icon" />
             </S.SubButton>
         </S.FloatingContainer>
     );
 }
+
 

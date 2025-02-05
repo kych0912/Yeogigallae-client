@@ -128,6 +128,7 @@ export const Image = styled.img`
     width: 8.125rem;
     height: 8.125rem;
     border-radius: 1.25rem;
+    opacity: 0.8;
 `;
 //완료된 여행
 

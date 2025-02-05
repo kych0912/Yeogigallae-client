@@ -6,10 +6,10 @@ export default function VoteComponent({
   voteData,
 }: {
   step: "결과" | "찬성확인" | "반대확인";
-  voteData: any; // voteData의 타입은 실제 API 데이터 구조에 맞게 설정
+  voteData: any;
 }) {
-  const [selected, setSelected] = useState<"like" | "dislike" | null>(
-    step === "찬성확인" ? "like" : step === "반대확인" ? "dislike" : null
+  const [selected, setSelected] = useState<"GOOD" | "BAD" | null>(
+    step === "찬성확인" ? "GOOD" : step === "반대확인" ? "BAD" : null
   );
   const [voteMessage, setVoteMessage] = useState<string>(
     step === "찬성확인"
@@ -19,37 +19,37 @@ export default function VoteComponent({
       : "반대 선택"
   );
 
-  const handleVote = (type: "like" | "dislike") => {
+  const handleVote = (type: "GOOD" | "BAD") => {
     setSelected(type);
     setVoteMessage(
-      type === "like" ? "찬성을 선택하셨습니다." : "반대를 선택하셨습니다."
+      type === "GOOD" ? "찬성을 선택하셨습니다." : "반대를 선택하셨습니다."
     );
   };
 
   return (
     <S.CustomContainer>
       <S.VoteButton
-        $isSelected={selected === "like"}
+        $isSelected={selected === "GOOD"}
         $selectedColor="#3b46f1"
-        onClick={() => handleVote("like")}
+        onClick={() => handleVote("GOOD")}
       >
         <S.TextWrapper>
           <S.Text>좋아</S.Text>
-          {selected === "like" && <S.VoteMessage>{voteMessage}</S.VoteMessage>}
+          {selected === "GOOD" && <S.VoteMessage>{voteMessage}</S.VoteMessage>}
         </S.TextWrapper>
-        <S.VoteCounter>{voteData.votes.like}표</S.VoteCounter> {/* 여기서 voteData 사용 */}
+        <S.VoteCounter>{voteData.votes.like}표</S.VoteCounter>
       </S.VoteButton>
 
       <S.VoteButton
-        $isSelected={selected === "dislike"}
+        $isSelected={selected === "BAD"}
         $selectedColor="#f1443b"
-        onClick={() => handleVote("dislike")}
+        onClick={() => handleVote("BAD")}
       >
         <S.TextWrapper>
           <S.Text>나 못가...</S.Text>
-          {selected === "dislike" && <S.VoteMessage>{voteMessage}</S.VoteMessage>}
+          {selected === "BAD" && <S.VoteMessage>{voteMessage}</S.VoteMessage>}
         </S.TextWrapper>
-        <S.VoteCounter>{voteData.votes.dislike}표</S.VoteCounter> {/* 여기서 voteData 사용 */}
+        <S.VoteCounter>{voteData.votes.dislike}표</S.VoteCounter> 
       </S.VoteButton>
     </S.CustomContainer>
   );

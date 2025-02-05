@@ -13,7 +13,7 @@ interface Room {
 }
 
 interface UpcomingItemProps {
-    rooms: Room[]; // MainUpcomingList에서 전달하는 rooms 데이터
+    rooms: Room[];
 }
 
 export default function UpcomingItem({ rooms }: UpcomingItemProps) {

@@ -36,7 +36,7 @@ export default function MainUpcomingList() {
                 rightContent={upcomingRooms.length}
             ></MainSection>
 
-            {/* 로딩 상태 처리 */}
+            {/* 로딩 상태 처리 =>스켈레톤 ui 적용 예정*/}
             {isLoading && <p>Loading...</p>}
             {error && <p>Error loading upcoming rooms</p>}
 

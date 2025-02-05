@@ -2,6 +2,7 @@ import { useGetAllCourses } from "../../react-query/queries/queries";
 import { sampleData } from "./test";
 import SharedCoursePage from "./SharedCourse/SharedCoursePage";
 import ShareCorsePage from "./ShareCourse/ShareCorsePage";
+import CourseOverviewCardSkeleton from "./_components/CourseOverviewCardSkeleton";
 
 export default function Page(){
 
@@ -12,7 +13,7 @@ export default function Page(){
   const isError = allCoursesQueries.some(query => query.isError);
   const isEnd = true;
 
-  if(isLoading) return <div style={{textAlign:"center",color:"white"}}>Loading...</div>;
+  if(isLoading) return <CourseOverviewCardSkeleton/>;
   if(isError) return <div style={{textAlign:"center",color:"white"}}>Error...</div>;
 
   if(!isEnd) return(

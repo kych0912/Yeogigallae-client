@@ -1,5 +1,5 @@
 import { HTMLAttributes } from "react";
-import * as S from "./Room.style";
+import * as S from "../Room.style";
 
 interface FriendListAvatarProps extends HTMLAttributes<HTMLDivElement>{
     name:string;

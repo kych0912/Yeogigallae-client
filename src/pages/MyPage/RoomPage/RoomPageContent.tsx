@@ -7,26 +7,13 @@ import MyFriend from "./_components/MyFriend";
 import RoomTitleForm from "./_components/RoomTitleForm";
 import * as z from "zod";
 import * as S from "./_components/Room.style";
-import { useFriend } from "../../../contexts/FriendContext";
+import { useOutletContext } from "react-router-dom";
+import { setStepFn } from '../../../hooks/useFunnel/useFunnel';
 import { useEffect } from 'react';
 
 type RoomFormValues = z.infer<typeof roomSchema>;
 
-const DEFAULT_MY_FRIEND = [
-    {
-        id:1,
-        name:"박준호1",
-        src:"https://placehold.co/2.5rem",
-    },
-    {
-        id:2,
-        name:"박준호2",
-        src:"https://placehold.co/2.5rem",
-    }
-]
-
 export default function RoomPageContent() {
-    const { setAvailableFriends } = useFriend();
     const {control,handleSubmit,formState:{errors}} = useForm<RoomFormValues>({
         resolver: zodResolver(roomSchema),
         defaultValues:{
@@ -34,6 +21,7 @@ export default function RoomPageContent() {
             roomFriend:[]
         }
     });
+    const {setHeaderConfig} = useOutletContext();
 
     
     const onSubmit = (data: RoomFormValues) => {
@@ -42,11 +30,12 @@ export default function RoomPageContent() {
     };
 
     useEffect(()=>{
-        setAvailableFriends(DEFAULT_MY_FRIEND)
-    },[])
+        setHeaderConfig({title:"방 만들기"});
+    },[]);
 
     return (
         <S.RoomForm onSubmit={handleSubmit(onSubmit)}>
+
 
             <RoomTitleForm control={control} />
 

@@ -1,6 +1,6 @@
 import React from "react";
 import * as S from "./Styles";
-import Kakao from "../../assets/icons/kakaoLogo.svg";
+import Kakao from "../../../assets/icons/kakaoLogo.svg";
 
 const KakaoButton: React.FC = () => {
     const K_REST_API_KEY = import.meta.env.VITE_KAKAO_REST_API_KEY;

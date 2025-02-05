@@ -1,5 +1,5 @@
-import * as S from "./Room.style";
-import * as M from "../../_components/MyPage.style";
+import * as S from "../Room.style";
+import * as M from "../../../_components/MyPage.style";
 import { HTMLAttributes } from "react";
 
 interface MyFriendListItemProps extends HTMLAttributes<HTMLDivElement>{

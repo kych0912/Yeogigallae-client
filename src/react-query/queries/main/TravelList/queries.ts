@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getFriends } from "../../../apis/friend";
+import { getFriends } from "../../../../apis/friend";
 
 export const useGetFriends = () => {
     return useQuery({

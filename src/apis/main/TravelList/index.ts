@@ -1,9 +1,9 @@
 import axios from "axios";
-import { DEFAULT_MY_FRIEND } from "./mocks";
+import { DEFAULT_Main } from "./mocks";
 
 export const getmain = async () => {
     if (import.meta.env.MODE === "development") {
-        return DEFAULT_MY_FRIEND;
+        return DEFAULT_Main;
     }
 
     const response = await axios.get(`${import.meta.env.VITE_API_URL}/friend-info`);

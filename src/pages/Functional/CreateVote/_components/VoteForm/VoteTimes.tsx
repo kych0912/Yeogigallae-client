@@ -1,15 +1,12 @@
+import { useEffect, useRef } from "react";
 import * as S from "../../../_components/Functional.styles";
-import { useTripPlanStore } from "../../../../../store/functionalStore/useTripPlanStore";
 
-export default function VoteTimes({
-  selectedTime,
-  onTimeChange,
-}: {
-  selectedTime: string | null;
-  onTimeChange: (time: string) => void;
-}) {
-  const { tripPlan } = useTripPlanStore(); // ✅ Zustand에서 `tripPlan` 상태 가져오기
+interface VoteTimesProps {
+  value: string;
+  onChange: (value: string) => void;
+}
 
+export default function VoteTimes({ value, onChange }: VoteTimesProps) {
   const voteTimeMapping: Record<string, string> = {
     "THIRTY_MINUTES": "30분",
     "SIXTY_MINUTES": "60분",
@@ -18,17 +15,29 @@ export default function VoteTimes({
     "SIX_HOURS": "6시간",
   };
 
-  const defaultSelectedTime = selectedTime || voteTimeMapping[tripPlan?.result.voteLimitTime || ""] || "30분";
+  const selectedTime = voteTimeMapping[value] || "";
+  const timeOptions = Object.values(voteTimeMapping);
 
-  const timeOptions = ["30분", "60분", "2시간", "4시간", "6시간"];
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.scrollLeft = 0;
+    }
+  }, []);
 
   return (
-    <S.ButtonContainer>
+    <S.ButtonContainer ref={containerRef}>
       {timeOptions.map((time) => (
         <S.TimeButton
           key={time}
-          $isActive={defaultSelectedTime === time} // ✅ 서버 데이터 반영
-          onClick={() => onTimeChange(time)}
+          $isActive={selectedTime === time}
+          onClick={() => {
+            const selectedKey = Object.keys(voteTimeMapping).find(
+              (key) => voteTimeMapping[key] === time
+            );
+            if (selectedKey) onChange(selectedKey);
+          }}
         >
           {time}
         </S.TimeButton>

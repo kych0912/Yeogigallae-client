@@ -81,7 +81,7 @@ export interface TripPlanDetailResponse {
     location: string;
     description: string;
     startDate: string;
-    endData: string;
+    endDate: string;
     price: string;
     imageUrl: string;
     tripPlanType: string;
@@ -89,7 +89,7 @@ export interface TripPlanDetailResponse {
     voteLimitTime: string;
     minDays: number;
     maxDays: number;
-    groupNmae: string;
+    groupName: string;
   }
 }
 

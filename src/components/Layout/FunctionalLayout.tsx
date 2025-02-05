@@ -3,8 +3,7 @@ import HomeIcon from "../../assets/icons/Home.svg?react";
 import BackIcon from "../../assets/icons/Back.svg?react";
 import { IconButton } from "../Button";
 import { Outlet, useNavigate } from "react-router-dom";
-import { useFunnel } from "../../hooks/useFunnel/useFunnel";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import HeaderCenterContent from "../Header/HeaderCenterContent";
 
 interface HeaderConfig {
@@ -13,30 +12,13 @@ interface HeaderConfig {
 }
 
 export default function Layout() {
-  const { currentStep: step, setStep } = useFunnel("생성");
   const navigate = useNavigate();
-  const [headerConfig, setHeaderConfig] = useState<HeaderConfig>({ title: "" });
+  const [headerConfig, setHeaderConfig] = useState<HeaderConfig>({ title: "생성하기" });
+
   const { title, number } = headerConfig;
 
-  useEffect(() => {
-    if (!title.trim()) {
-      setHeaderConfig({ title: "생성하기" });
-    }
-  }, [title]);
-
-  const getCenterContent = () => {
-    if (title.trim()) return <HeaderCenterContent title={title} number={number} />;
-    if (step === "주소검색") return "장소 찾기";
-    if (step === "캘린더") return "기간 정하기";
-    return "생성하기"; 
-  };
-
   const handleBack = () => {
-    if (step === "주소검색" || step === "캘린더") {
-      setStep("생성");
-    } else {
-      navigate(-1);
-    }
+    navigate(-1);
   };
 
   return (
@@ -47,15 +29,16 @@ export default function Layout() {
             <BackIcon />
           </IconButton>
         }
-        centerContent={getCenterContent()} 
+        centerContent={<HeaderCenterContent title={title} number={number} />}
         rightContent={
-          <IconButton onClick={() => navigate("/")}> 
+          <IconButton onClick={() => navigate("/")}>
             <HomeIcon />
           </IconButton>
         }
       />
       <main>
-        <Outlet context={{ setHeaderConfig }} /> 
+        {/* ✅ FunctionalFunnel에서 `setHeaderConfig` 사용 가능하도록 Outlet을 통해 전달 */}
+        <Outlet context={{ setHeaderConfig }} />
       </main>
     </>
   );

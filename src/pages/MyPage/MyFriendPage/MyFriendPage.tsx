@@ -1,10 +1,9 @@
 import CommonContainer from "../../../components/Layout/CommonContainer";
-import { Accordion, AccordionTitle, AccordionItemWrapper } from "./_components/Accordion";
-import FriendItem from "./_components/FriendItem";
 import { useOutletContext } from "react-router-dom";
 import { HeaderConfig } from "../../../types/header/header";
 import { useEffect } from "react";
 import Room from "./_components/Room";
+import Friend from "./_components/Friend";
 
 export default function MyFriendPage() {
     const {setHeaderConfig} = useOutletContext<{setHeaderConfig: (config: HeaderConfig) => void}>();
@@ -16,15 +15,7 @@ export default function MyFriendPage() {
     return (
         <CommonContainer>
             <Room />
-
-            {/* <Accordion>
-                <AccordionTitle number={mockFriends.length}>{"여행 친구들"}</AccordionTitle>
-                <AccordionItemWrapper>
-                    {mockFriends.map((friend, index) => (
-                        <FriendItem key={index} index={index} name={friend.name} Avatar={friend.Avatar} />
-                    ))}
-                </AccordionItemWrapper>
-            </Accordion> */}
+            <Friend />
         </CommonContainer>
     );
 }

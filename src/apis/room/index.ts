@@ -1,5 +1,5 @@
 import axios from "axios";
-import { RoomFormValues } from "./types";
+import { RoomFormValues, Rooms } from "./types";
 import { DEFAULT_ROOMS } from "./mocks";
 
 export const createRoom = async (data:RoomFormValues) => {
@@ -12,6 +12,6 @@ export const getRooms = async () => {
         return DEFAULT_ROOMS;
     }
 
-    const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/rooms`);
-    return response.data;
+    const response = await axios.get<Rooms>(`${import.meta.env.VITE_API_URL}/api/rooms`);
+    return response.data.rooms;
 }

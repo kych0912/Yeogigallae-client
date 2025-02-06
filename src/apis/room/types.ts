@@ -3,8 +3,18 @@ export interface RoomFormValues {
     userIds:number[];
 }
 
+export interface Member {
+    userId: number;
+    profileImage: string;
+}
+
 export interface Room {
-    roomId:number;
-    roomName:string;
-    masterName:string;
+    roomId: number;
+    roomName: string;
+    members: Member[];
+
+}
+
+export interface Rooms {
+    rooms:Room[]
 }

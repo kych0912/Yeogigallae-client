@@ -28,7 +28,6 @@ const VotingItem: React.FC<VotingItemProps> = ({ rooms = [] }) => {
             {rooms.map((room) => {
                 const voteGauge = calculateVoteGauge(room.completedVotes, room.totalMembers);
                 const remainingTimeStr = formatTime(remainingTimes[room.roomName] || 0);
-
                 return (
                     <V.VotingItem key={room.roomName}>
                         <S.Box>

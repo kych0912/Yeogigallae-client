@@ -34,7 +34,7 @@ export default function MainVotingList() {
             />
 
             {/*카드부분*/}
-            {votingRooms.length > 0 ? <VotingItem /> : <Empty />}
+            {votingRooms.length > 0 ? <VotingItem rooms={votingRooms} /> : <Empty />}
         </S.Container>
     );
 }

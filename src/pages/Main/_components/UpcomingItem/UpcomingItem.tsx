@@ -3,7 +3,6 @@ import * as U from "./UpcomingItem.Styles";
 import Calender2 from "../../../../assets/icons/Calender2.svg";
 import { useNavigate } from "react-router-dom";
 
-// Room 타입 정의
 interface Room {
     roomName: string;
     location: string;

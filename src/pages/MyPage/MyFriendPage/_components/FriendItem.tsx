@@ -1,9 +1,7 @@
 import { AccordionItem } from "./Accordion"
-import * as S from "./Friend.style"
 import * as M from "../../_components/MyPage.style"
 import { Member } from "../../../../apis/room/types"
 import ProfileGroup from "./ProfileGroup"
-
 
 //접히는 컴포넌트용
 export function FriendItem({
@@ -20,6 +18,7 @@ export function FriendItem({
             <ProfileGroup members={member} />
                 {name}
         </AccordionItem>
+
 
     )
 }

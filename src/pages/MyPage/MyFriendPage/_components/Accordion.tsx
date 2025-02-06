@@ -6,7 +6,7 @@ const AccordionContext = createContext<{isOpen:boolean, setIsOpen:(isOpen:boolea
 const useAccordionContext = () => useContext(AccordionContext);
 
 export function Accordion({children}:{children:React.ReactNode}){
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(true);
 
     return <AccordionContext.Provider value={{isOpen, setIsOpen}}>
         <S.Accordion.Wrapper>

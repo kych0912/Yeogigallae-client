@@ -1,11 +1,11 @@
 import axios from "axios";
-import { DEFAULT_Main } from "./mocks";
+import { DEFAULT_Complete } from "./mocks";
 
-export const getmain = async () => {
+export const getTravelList = async () => {
     if (import.meta.env.MODE === "development") {
-        return DEFAULT_Main;
+        return DEFAULT_Complete;
     }
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/home/completed-trip-plans`);
 
-    const response = await axios.get(`${import.meta.env.VITE_API_URL}/friend-info`);
-    return response.data;
+    return response.data.result.rooms;
 };

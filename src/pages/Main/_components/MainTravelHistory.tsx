@@ -5,18 +5,40 @@ import International from "../../../assets/icons/International.svg";
 import Domestic from "../../../assets/icons/Domestic.svg";
 import History from "../../../assets/icons/History.png";
 import TravelListItem from "./TravelListItem/TravelListItem";
-import { completedRooms } from "../MainPage/test";
 import Empty from "./TravelListItem/Empty";
+import { useGetTravelList } from "../../../react-query/queries/main/TravelList/queries";
+
+// Room 인터페이스 정의
+interface Room {
+    tripName: string;
+    location: string;
+    startDate: string;
+    endDate: string;
+    tripType: "DOMESTIC" | "INTERNATIONAL";
+    imageUrl: string;
+}
 
 export default function MainTravelHistory() {
+    const { data: travellistRooms = [], isLoading, error } = useGetTravelList();
+
+    // 로딩 상태에서 콘솔 로그
+    if (isLoading) {
+        console.log("Loading TravelHistory rooms...");
+    }
+
+    // 에러 상태에서 콘솔 로그
+    if (error) {
+        console.error("Error TravelHistory upcoming rooms:", error);
+    }
+
     const [selectedButton, setSelectedButton] = useState<string>("domestic");
 
     const handleButtonClick = (buttonType: string) => {
         setSelectedButton(buttonType);
     };
 
-    // 필터링된 데이터 생성
-    const filteredRooms = completedRooms.filter((room) => (selectedButton === "domestic" ? room.type === "국내여행" : room.type === "세계여행"));
+    // filteredRooms에서 room 타입을 명시적으로 지정
+    const filteredRooms: Room[] = travellistRooms.filter((room: Room) => (selectedButton === "domestic" ? room.tripType === "DOMESTIC" : room.tripType === "INTERNATIONAL"));
 
     return (
         <S.HistoryContainer>
@@ -26,7 +48,7 @@ export default function MainTravelHistory() {
                         <img src={History} alt="History Icon" /> 완료된 여행
                     </>
                 }
-                rightContent={completedRooms.length}
+                rightContent={travellistRooms.length}
             />
             <S.BtnBar>
                 <S.selectBtn selected={selectedButton === "domestic"} size="large" onClick={() => handleButtonClick("domestic")}>
@@ -37,11 +59,7 @@ export default function MainTravelHistory() {
                 </S.selectBtn>
             </S.BtnBar>
             {/* 완료된 여행 리스트 */}
-            {filteredRooms.length > 0 ? (
-                <TravelListItem rooms={filteredRooms} /> // rooms를 props로 전달
-            ) : (
-                <Empty />
-            )}
+            {filteredRooms.length > 0 ? <TravelListItem rooms={filteredRooms} /> : <Empty />}
         </S.HistoryContainer>
     );
 }

@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { getFriends } from "../../../../apis/friend";
+import { getTravelList } from "../../../../apis/main/TravelList";
 
-export const useGetFriends = () => {
+export const useGetTravelList = () => {
     return useQuery({
-        queryKey: ["friends"],
-        queryFn: getFriends,
+        queryKey: ["travelList"],
+        queryFn: getTravelList,
         refetchOnWindowFocus: false,
         refetchOnMount: false,
         refetchOnReconnect: false,

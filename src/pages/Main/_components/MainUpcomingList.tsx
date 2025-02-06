@@ -6,14 +6,7 @@ import { useGetUpcoming } from "../../../react-query/queries/main/Upcoming/queri
 import Empty from "./UpcomingItem/Empty";
 
 export default function MainUpcomingList() {
-    const userEmail = "wjdals030328@naver.com"; //임시 이메일
-
-    // 이메일이 없을 때 콘솔 로그
-    if (!userEmail) {
-        console.error(userEmail);
-    }
-
-    const { data: upcomingRooms = [], isLoading, error } = useGetUpcoming(userEmail);
+    const { data: upcomingRooms = [], isLoading, error } = useGetUpcoming();
 
     // 로딩 상태에서 콘솔 로그
     if (isLoading) {
@@ -38,6 +31,7 @@ export default function MainUpcomingList() {
 
             {/* 로딩 상태 처리 =>스켈레톤 ui 적용 예정*/}
             {isLoading && <p>Loading...</p>}
+
             {error && <p>Error loading upcoming rooms</p>}
 
             {/* 카드 부분 */}

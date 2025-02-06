@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { getFriends } from "../../../../apis/friend";
+import { getVoting } from "../../../../apis/main/Voting/index";
 
-export const useGetFriends = () => {
+export const useGetVoting = (userEmail: string | null) => {
     return useQuery({
-        queryKey: ["friends"],
-        queryFn: getFriends,
+        queryKey: ["voting", userEmail],
+        queryFn: () => getVoting(userEmail ?? ""),
+        enabled: !!userEmail,
         refetchOnWindowFocus: false,
         refetchOnMount: false,
         refetchOnReconnect: false,

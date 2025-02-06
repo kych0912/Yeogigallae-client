@@ -1,11 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { getVoting } from "../../../../apis/main/Voting/index";
 
-export const useGetVoting = (userEmail: string | null) => {
+export const useGetVoting = () => {
     return useQuery({
-        queryKey: ["voting", userEmail],
-        queryFn: () => getVoting(userEmail ?? ""),
-        enabled: !!userEmail,
+        queryKey: ["voting"],
+        queryFn: getVoting,
         refetchOnWindowFocus: false,
         refetchOnMount: false,
         refetchOnReconnect: false,

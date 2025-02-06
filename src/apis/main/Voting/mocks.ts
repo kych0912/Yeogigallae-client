@@ -5,6 +5,9 @@ export const DEFAULT_Voting = [
         totalMembers: 4,
         remainingTime: "00:45:32",
         completedVotes: 3,
+        profileImageUrls: ["Images.com", "Images.com", "Images.com", "Images.com"],
+        createdAt: "2025-02-05T13:30:08.696Z",
+        tripPlanType: "COURSE",
     },
     {
         roomName: "가족 여행",
@@ -12,5 +15,8 @@ export const DEFAULT_Voting = [
         totalMembers: 5,
         remainingTime: "01:15:10",
         completedVotes: 2,
+        profileImageUrls: ["Images.com", "Images.com", "Images.com", "Images.com", "Images.com"],
+        createdAt: "2025-02-05T13:30:08.696Z",
+        tripPlanType: "SCHEDULE",
     },
 ];

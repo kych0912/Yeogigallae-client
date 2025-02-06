@@ -24,7 +24,7 @@ export default function Room(){
 
     return (
         <Accordion>
-            <AccordionTitle number={rooms?.length}>{"여행 크루 만들기"}</AccordionTitle>
+            <AccordionTitle number={rooms?.length ?? 0}>{"여행 크루 만들기"}</AccordionTitle>
             <AccordionItemWrapper>
                 <AddFriendItem title={"방 만들기"} onClick={()=>{}} />
 

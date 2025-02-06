@@ -2,7 +2,7 @@ import { AccordionItemWrapper, AccordionTitle } from "../Accordion";
 import { Accordion } from "../Accordion";
 import { FriendItem, AddFriendItem } from "../FriendItem";
 import { useGetRooms } from "../../../../../react-query/queries/room/queries";
-import FriendItemSkeleton from "../Skeleton";
+import { FriendItemSkeleton } from "../Skeleton";
 import { AccordionTitleSkeleton } from "../Skeleton";
 
 export default function Room(){

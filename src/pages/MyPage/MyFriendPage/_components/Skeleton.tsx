@@ -2,8 +2,6 @@ import Skeleton from "../../../../components/Skeleton";
 import * as S from "./Friend.style";
 
 export function AccordionTitleSkeleton(){
-
-
     return (
         <S.Accordion.Title>
             <Skeleton width="50%" height="1.5rem" />
@@ -13,4 +11,10 @@ export function AccordionTitleSkeleton(){
         </S.Accordion.Title>
 
     );
+}
+
+export function FriendItemSkeleton(){
+    return (
+        <Skeleton width="100%" height="4rem" />
+    )
 }

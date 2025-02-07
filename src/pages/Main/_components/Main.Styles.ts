@@ -182,3 +182,9 @@ export const Icon = styled.img`
     padding: 0 0.625rem 0 0;
     align-self: center;
 `;
+
+export const HighlightedText = styled.span`
+    color: ${({ theme }) => theme.colors.GrayText};
+    font-family: ${({ theme }) => theme.fontFamily.regular};
+    font-size: 0.75rem;
+`;

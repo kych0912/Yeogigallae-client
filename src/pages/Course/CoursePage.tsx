@@ -11,7 +11,7 @@ export default function Page(){
 
   const isLoading = allCoursesQueries.some(query => query.isLoading);
   const isError = allCoursesQueries.some(query => query.isError);
-  const isEnd = true;
+  const isEnd = false;
 
   if(isLoading) return <CourseOverviewCardSkeleton/>;
   if(isError) return <div style={{textAlign:"center",color:"white"}}>Error...</div>;

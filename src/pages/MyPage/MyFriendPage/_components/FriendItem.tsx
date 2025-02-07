@@ -1,32 +1,38 @@
 import { AccordionItem } from "./Accordion"
-import * as S from "./Friend.style"
 import * as M from "../../_components/MyPage.style"
+import { Member } from "../../../../apis/room/types"
+import ProfileGroup from "./ProfileGroup"
 
-export default function FriendItem({
+//접히는 컴포넌트용
+export function FriendItem({
     index,
     name,
-    Avatar
+    member
 }:{
     index:number,
     name:string,
-    Avatar:string,
+    member:Member[],
 }){
-
-    if(index===0){
-        return(
-        <AccordionItem index={0}>
-            <M.AddCircle>
-                {"+"}
-            </M.AddCircle>
-            {"친구 추가"}
-        </AccordionItem>
-        )
-    }
-    
     return(
         <AccordionItem index={index}>
-            <S.Accordion.Avatar src={Avatar} alt="friend" />
+            <ProfileGroup members={member} />
                 {name}
         </AccordionItem>
+
+
+    )
+}
+
+//접히지 않는 컴포넌트용
+export function AddFriendItem({title, onClick}:{title:string, onClick:()=>void}){
+    return(
+        <AccordionItem index={0}>
+            <M.AddCircle onClick={onClick}>
+
+                {"+"}
+            </M.AddCircle>
+            {title}
+        </AccordionItem>
+
     )
 }

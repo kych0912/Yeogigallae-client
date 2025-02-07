@@ -1,34 +1,39 @@
-import { useState, useEffect, useRef } from "react";
-import { calculateRemainingTime } from "./calculateRemainingTime";
+import { useState, useEffect } from "react";
 
-interface Room {
-    roomName: string;
-    createdAt: string;
-}
+const COUNTDOWN_TIME = (6 - 9) * 60 * 60 * 1000;
 
-const useRemainingTimes = (rooms: Room[]) => {
-    const [remainingTimes, setRemainingTimes] = useState<{ [key: string]: number }>({});
-    const roomsRef = useRef(rooms);
+const calculateRemainingTime = (createdAt: string): number => {
+    const createdTime = new Date(createdAt).getTime();
+    const now = Date.now();
 
-    useEffect(() => {
-        roomsRef.current = rooms;
-    }, [rooms]);
+    const remaining = COUNTDOWN_TIME - (now - createdTime);
+    return remaining > 0 ? remaining : 0;
+};
+
+const formatTime = (milliseconds: number): string => {
+    const hours = Math.floor(milliseconds / (1000 * 60 * 60));
+    const minutes = Math.floor((milliseconds % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((milliseconds % (1000 * 60)) / 1000);
+    return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+};
+
+const useRemainingTimes = (rooms: { roomName: string; createdAt: string }[]) => {
+    const [remainingTimes, setRemainingTimes] = useState<{ [key: string]: string }>(() => Object.fromEntries(rooms.map(({ roomName, createdAt }) => [roomName, formatTime(calculateRemainingTime(createdAt))])));
 
     useEffect(() => {
         const updateRemainingTimes = () => {
-            setRemainingTimes(
-                roomsRef.current.reduce((acc, room) => {
-                    acc[room.roomName] = calculateRemainingTime(room.createdAt);
-                    return acc;
-                }, {} as { [key: string]: number })
-            );
+            setRemainingTimes((prev) => {
+                const updatedTimes = { ...prev };
+                for (const { roomName, createdAt } of rooms) {
+                    updatedTimes[roomName] = formatTime(calculateRemainingTime(createdAt));
+                }
+                return updatedTimes;
+            });
         };
-
-        updateRemainingTimes();
 
         const interval = setInterval(updateRemainingTimes, 1000);
         return () => clearInterval(interval);
-    }, []);
+    }, [rooms]);
 
     return remainingTimes;
 };

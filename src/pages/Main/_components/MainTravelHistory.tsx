@@ -8,7 +8,6 @@ import TravelListItem from "./TravelListItem/TravelListItem";
 import Empty from "./TravelListItem/Empty";
 import { useGetTravelList } from "../../../react-query/queries/main/TravelList/queries";
 
-// Room 인터페이스 정의
 interface Room {
     tripName: string;
     location: string;
@@ -37,7 +36,6 @@ export default function MainTravelHistory() {
         setSelectedButton(buttonType);
     };
 
-    // filteredRooms에서 room 타입을 명시적으로 지정
     const filteredRooms: Room[] = travellistRooms.filter((room: Room) => (selectedButton === "domestic" ? room.tripType === "DOMESTIC" : room.tripType === "INTERNATIONAL"));
 
     return (

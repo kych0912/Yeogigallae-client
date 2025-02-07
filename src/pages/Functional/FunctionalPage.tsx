@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFunnel } from "../../hooks/useFunnel/useFunnel";
 import CreateCalendar from "./CreateCalendar/_components/CreateCalendar";
 import SearchPage from "../SearchPage/SearchPage";
 import CreateVote from "../Functional/CreateVote/_components/CreateVote";
 import CommonContainer from "../../components/Layout/CommonContainer";
+import { useOutletContext } from "react-router-dom";
 
 export default function FunctionalFunnel() {
   const funnelOptions = {
@@ -13,9 +14,19 @@ export default function FunctionalFunnel() {
   };
 
   const [FunnelComponent, setStep, contextMap] = useFunnel(funnelOptions);
+  const currentStep = Object.keys(contextMap).pop() || "생성";
 
-  // 선택된 장소 이름 상태 관리
   const [selectedPlaceName] = useState<string | null>(null);
+
+  const { setHeaderConfig } = useOutletContext<{ setHeaderConfig: (config: { title: string; number?: number }) => void }>();
+
+  useEffect(() => {
+    let newTitle = "생성하기";
+    if (currentStep === "주소검색") newTitle = "장소 찾기";
+    if (currentStep === "캘린더") newTitle = "기간 정하기";
+    
+    setHeaderConfig({ title: newTitle });
+  }, [currentStep, setHeaderConfig]);
 
   return (
     <CommonContainer>
@@ -33,7 +44,6 @@ export default function FunctionalFunnel() {
             onNext={() => setStep("생성", contextMap["캘린더"] || {})} 
           />
         </FunnelComponent.Step>
-
 
         <FunnelComponent.Step name="주소검색">
           <SearchPage />

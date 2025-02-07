@@ -28,6 +28,8 @@ import NoticeLayout from "./components/Layout/NoticeLayout";
 import BudgetLayout from "./components/Layout/BudgetLayout";
 import UpComingCoursePage from "./pages/Course/UpComingCourse/UpComingCoursePage";
 import withAuth from "./pages/Login/withAuth";
+import FullVotingListPage from "./pages/Main/FullVotingListPage/FullVotingListPage";
+import FullVotingListLayout from "./components/Layout/FullVotingListLayout";
 
 // const ProtectedMainPage = withAuth(MainPage, true);
 const ProtectedLoginPage = withAuth(LoginPage, false);
@@ -45,6 +47,9 @@ const App: React.FC = () => {
                         {/*<Route path="/" element={<MainPage />} />*/}
                         {/* <Route path="/" element={<ProtectedMainPage />} /> */}
                         <Route path="/" element={<MainPage />} />
+                        <Route element={<FullVotingListLayout />}>
+                            <Route path="/fulllist" element={<FullVotingListPage />} />
+                        </Route>
 
                         {/* Login */}
                         <Route path="/login" element={<ProtectedLoginPage />} />

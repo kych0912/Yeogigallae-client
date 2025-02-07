@@ -17,7 +17,6 @@ export default function FunctionalFunnel() {
   const [FunnelComponent, setStep, contextMap] = useFunnel(funnelOptions);
   const currentStep = Object.keys(contextMap).pop() || "생성";
 
-  // ✅ Layout에서 setHeaderConfig 가져오기
   const { setHeaderConfig } = useOutletContext<{ setHeaderConfig: (config: { title: string }) => void }>();
 
   useEffect(() => {
@@ -29,7 +28,7 @@ export default function FunctionalFunnel() {
   }, [currentStep, setHeaderConfig]);
 
   return (
-    <VoteFormProvider>
+    <VoteFormProvider tripPlanId={22}>
       <CommonContainer>
         <FunnelComponent>
           <FunnelComponent.Step name="생성">

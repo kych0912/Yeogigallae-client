@@ -14,7 +14,7 @@ export const VoteFormContext = createContext<VoteFormContextType | null>(null);
 
 interface VoteFormProviderProps {
   children: ReactNode;
-  tripPlanId: 22; // ✅ tripPlanId를 받아 API 호출
+  tripPlanId: 22; 
 }
 
 export default function VoteFormProvider({ children, tripPlanId }: VoteFormProviderProps) {

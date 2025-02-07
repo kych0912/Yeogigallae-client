@@ -15,9 +15,6 @@ const getVoteResultQueryOptions = (tripId: number): UseQueryOptions<VoteResultRe
   staleTime: 60 * 1000,
   gcTime: 5 * 60 * 1000,
   retry: 0, 
-  refetchOnWindowFocus: false,
-  refetchOnMount: false, 
-  refetchOnReconnect: false, 
   enabled: !!tripId,
 });
 

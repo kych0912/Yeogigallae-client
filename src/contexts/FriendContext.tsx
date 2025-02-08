@@ -20,7 +20,7 @@ export function FriendProvider({ children }: { children: ReactNode }) {
     const [availableFriends, setAvailableFriends] = useState<Friend[]>([]);
 
     const removeFriend = (friend: Friend) => {
-        setAvailableFriends(prev => prev.filter(f => f.id !== friend.id));
+        setAvailableFriends(prev => prev.filter(f => f.friendId !== friend.friendId));
     };
 
     const addFriend = (friend: Friend) => {

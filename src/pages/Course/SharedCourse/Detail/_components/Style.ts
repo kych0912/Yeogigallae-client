@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { BaseButton } from "../../../../../components/Button/Button.styles";
 
 interface ButtonProps {
-    isActive?: boolean;
+    $isActive?: boolean;
     size?: string;
 }
 
@@ -12,9 +12,9 @@ export const ButtonTypography = styled.div`
 
 export const DayButton = styled(BaseButton)<ButtonProps>`
     padding: 0.875rem 2rem;
-    background-color: ${({isActive, theme}) => isActive ? theme.colors.primary : theme.colors.secondary};
+    background-color: ${({$isActive, theme}) => $isActive ? theme.colors.primary : theme.colors.secondary};
     color: #ffffff;
-    font-family: ${({isActive, theme}) => isActive ? theme.fontFamily.semiBold : theme.fontFamily.regular};
+    font-family: ${({$isActive, theme}) => $isActive ? theme.fontFamily.semiBold : theme.fontFamily.regular};
     line-height: 1rem;
     font-size:0.875rem;
 `
@@ -32,7 +32,7 @@ export const ButtonWrapper = styled.div`
 export const ButtonContainer = styled.div`
   width: 100%;
   padding: 1rem 0;
-  background-color: #000000;
+  background-color: #0a0a0a;
   position: sticky;
   top: 72px;    
   z-index: 100;

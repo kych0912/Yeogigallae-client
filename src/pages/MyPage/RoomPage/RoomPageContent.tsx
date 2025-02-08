@@ -27,7 +27,7 @@ export default function RoomPageContent() {
 
     
     const onSubmit = (data: RoomFormValues) => {
-        const friendIds = data.roomFriend.map((friend) => friend.id);
+        const friendIds = data.roomFriend.map((friend) => friend.friendId);
 
         const roomData = {
             roomName:data.roomName,

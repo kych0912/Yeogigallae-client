@@ -66,7 +66,6 @@ function VoteProcess() {
 
         <FunnelComponent.Step name="결과">
           <VoteResult 
-            type={voteType!}
             onNext={() => {
               setVoteType(voteType === "찬성" ? "찬성" : "반대");
             }}

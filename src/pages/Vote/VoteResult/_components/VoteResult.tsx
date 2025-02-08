@@ -6,27 +6,22 @@ import ResultCard from "./ResultCard";
 import * as S from "../../_components/Vote.styles";
 
 export default function VoteResult({
-  type,
   onNext,
 }: {
-  type: "찬성" | "반대";
   onNext: () => void;
 }) {
   return (
     <VoteProvider>
-      <VoteResultContent type={type} onNext={onNext} />
+      <VoteResultContent onNext={onNext} />
     </VoteProvider>
   );
 }
 
 function VoteResultContent({
-  type,
   onNext,
 }: {
-  type: "찬성" | "반대";
   onNext: () => void;
 }) {
-  const step = type === "찬성" ? "찬성확인" : "반대확인";
   const { state } = useVoteContext();
   const { voteResult } = state;
   const { tripInfo } = useTripInfoContext();
@@ -41,14 +36,36 @@ function VoteResultContent({
     }
   }, [tripInfo, setHeaderConfig]);
 
-  if (!voteResult || !tripInfo) return <p>로딩 중...</p>;
+  if (!voteResult) {
+    return <p>⏳ 로딩 중...</p>;
+  }
+
+  const step = voteResult.type === "GOOD" ? "찬성확인" : "반대확인";
+
+  const timeMapping: Record<string, number> = {
+    THIRTY_MINUTES: 30,
+    ONE_HOUR: 60,
+    TWO_HOURS: 120,
+    TWELVE_HOURS: 720,
+    ONE_DAY: 1440,
+    TWO_DAYS: 2880,
+  };
+
+  const voteLimitMinutes = timeMapping[tripInfo?.voteLimitTime || "TWO_DAYS"] || 2880;
+
+  const hours = Math.floor(voteLimitMinutes / 60);
+  const minutes = voteLimitMinutes % 60;
+
+  const formattedTime = hours > 0 
+    ? `${hours}시간 ${minutes > 0 ? `${minutes}분` : ""}`
+    : `${minutes}분`;
 
   return (
     <>
       <ResultCard step={step} onNext={onNext} />
       <S.Content>
-        {tripInfo.userName || "정보 없음"}님이 여행 투표를 올렸습니다. <br />
-        48시간 이후 종료됩니다.
+        {tripInfo?.masterName || "정보 없음"}님이 여행 투표를 올렸습니다. <br />
+        {formattedTime} 후 종료됩니다.
       </S.Content>
     </>
   );

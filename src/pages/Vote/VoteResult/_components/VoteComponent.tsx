@@ -1,29 +1,23 @@
 import { useState } from "react";
 import * as S from "./VoteComponent.styles";
+import { useVoteContext } from "../../context/VoteResultContext";
 
 export default function VoteComponent({
   step,
-  voteData,
 }: {
   step: "결과" | "찬성확인" | "반대확인";
-  voteData: any;
 }) {
+  const { state, dispatch } = useVoteContext();
+  const { voteResult } = state;
+
   const [selected, setSelected] = useState<"GOOD" | "BAD" | null>(
     step === "찬성확인" ? "GOOD" : step === "반대확인" ? "BAD" : null
-  );
-  const [voteMessage, setVoteMessage] = useState<string>(
-    step === "찬성확인"
-      ? `${voteData.userName}님의 투표`
-      : step === "반대확인"
-      ? `${voteData.userName}님의 투표`
-      : "반대 선택"
   );
 
   const handleVote = (type: "GOOD" | "BAD") => {
     setSelected(type);
-    setVoteMessage(
-      type === "GOOD" ? "찬성을 선택하셨습니다." : "반대를 선택하셨습니다."
-    );
+    dispatch({ type: "SET_VOTE_TYPE", payload: type });
+    dispatch({ type: "SET_VOTE_RESULT", payload: { ...voteResult, type, count: voteResult.count + 1 } });
   };
 
   return (
@@ -35,9 +29,9 @@ export default function VoteComponent({
       >
         <S.TextWrapper>
           <S.Text>좋아</S.Text>
-          {selected === "GOOD" && <S.VoteMessage>{voteMessage}</S.VoteMessage>}
+          {selected === "GOOD" && <S.VoteMessage>{voteResult.userName}님의 투표</S.VoteMessage>}
         </S.TextWrapper>
-        <S.VoteCounter>{voteData.votes.like}표</S.VoteCounter>
+        <S.VoteCounter>{voteResult.type === "GOOD" ? voteResult.count : voteResult.count}표</S.VoteCounter>
       </S.VoteButton>
 
       <S.VoteButton
@@ -47,9 +41,9 @@ export default function VoteComponent({
       >
         <S.TextWrapper>
           <S.Text>나 못가...</S.Text>
-          {selected === "BAD" && <S.VoteMessage>{voteMessage}</S.VoteMessage>}
+          {selected === "BAD" && <S.VoteMessage>{voteResult.userName}님의 투표</S.VoteMessage>}
         </S.TextWrapper>
-        <S.VoteCounter>{voteData.votes.dislike}표</S.VoteCounter> 
+        <S.VoteCounter>{voteResult.type === "BAD" ? voteResult.count : voteResult.count}표</S.VoteCounter>
       </S.VoteButton>
     </S.CustomContainer>
   );

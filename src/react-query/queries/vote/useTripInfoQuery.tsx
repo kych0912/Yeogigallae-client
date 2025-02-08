@@ -3,8 +3,6 @@ import { getTripInfo } from "../../../apis/vote/tripInfo";
 import { TripInfo } from "../../../pages/Vote/context/tripInfo/tripInfoSchema";
 
 export const useTripInfoQuery = (tripId?: number, roomId?: number, masterId?: number) => {
-  console.log("useTripInfoQuery called with:", tripId, roomId, masterId);
-
   const queryOptions: UseQueryOptions<TripInfo, Error> = {
     queryKey: tripId !== undefined && roomId !== undefined && masterId !== undefined
       ? ["tripInfo", tripId, roomId, masterId]

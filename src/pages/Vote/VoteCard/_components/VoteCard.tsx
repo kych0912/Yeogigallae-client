@@ -83,7 +83,7 @@ export default function VoteCard({
       <Card.Divider />
       <Card.Item label="기간">
         {tripInfo.startDate && tripInfo.endDate
-          ? `최소 ${tripInfo.minDays}박 ~ 최대 ${tripInfo.maxDays}박 / ${formatTripMonths(tripInfo.startDate, tripInfo.endDate)}`
+          ? `최소 ${tripInfo.minDays}박 ~ 최대 ${tripInfo.maxDays-1}박 / ${formatTripMonths(tripInfo.startDate, tripInfo.endDate)}`
           : "기간 미정"}
       </Card.Item>
       <S.CustomSpacer />

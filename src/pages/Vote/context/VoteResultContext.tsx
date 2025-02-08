@@ -1,21 +1,31 @@
-import { createContext, useContext, useReducer, ReactNode, useEffect } from "react";
-import { VoteResult } from "./voteResultSchema";
+import { createContext, useContext, useReducer, ReactNode } from "react";
 import { VoteType } from "../../../types/voteTypes/voteTypes";
-import { useVoteResultQuery } from "../../../react-query/queries/useVoteResultQuerie";
+import { VoteResultSchema } from "./voteResultSchema";
+import { DEFAULT_VoteResult } from "../../../apis/vote/mocks/voteResultMocks";
 
 interface VoteState {
   voteType: VoteType;
-  voteResult: VoteResult | null;
+  voteResult: {
+    userId: number;
+    userName: string;
+    type: "GOOD" | "BAD";
+    count: number;
+  };
 }
 
 type VoteAction =
   | { type: "SET_VOTE_TYPE"; payload: VoteType }
-  | { type: "SET_VOTE_RESULT"; payload: VoteResult };
+  | { type: "SET_VOTE_RESULT"; payload: VoteState["voteResult"] };
 
 const voteResultReducer = (state: VoteState, action: VoteAction): VoteState => {
+
   switch (action.type) {
     case "SET_VOTE_TYPE":
-      return { ...state, voteType: action.payload };
+      return { 
+        ...state, 
+        voteType: action.payload,
+        voteResult: { ...state.voteResult, type: action.payload } // ✅ type도 같이 변경
+      };
     case "SET_VOTE_RESULT":
       return { ...state, voteResult: action.payload };
     default:
@@ -25,21 +35,15 @@ const voteResultReducer = (state: VoteState, action: VoteAction): VoteState => {
 
 const initialVoteState: VoteState = {
   voteType: "GOOD",
-  voteResult: null,
+  voteResult: VoteResultSchema.parse(DEFAULT_VoteResult).result, 
 };
 
 const VoteContext = createContext<{ state: VoteState; dispatch: React.Dispatch<VoteAction> } | null>(null);
 
-export const VoteProvider = ({ children, tripId }: { children: ReactNode; tripId: number }) => {
+export const VoteProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(voteResultReducer, initialVoteState);
-  const { data, isLoading, error } = useVoteResultQuery(tripId);
 
-  useEffect(() => {
-    if (data && !isLoading && !error) {
-      dispatch({ type: "SET_VOTE_RESULT", payload: data });
-    }
-  }, [data, isLoading, error, dispatch]);
-
+  console.log(state.voteResult);
   return <VoteContext.Provider value={{ state, dispatch }}>{children}</VoteContext.Provider>;
 };
 

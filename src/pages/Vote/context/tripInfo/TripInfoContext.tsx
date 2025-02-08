@@ -1,10 +1,11 @@
-import { createContext, useContext } from "react";
+import { createContext } from "react";
 import { TripInfo } from "./tripInfoSchema";
+import { TripInfoProvider } from "./TripInfoProvider"; 
 
 interface TripInfoContextType {
-  tripId: number;
-  roomId: number;
-  masterId: number;
+  tripId: number | null;
+  roomId: number | null;
+  masterId: number | null;
   tripInfo: TripInfo | null;
   isLoading: boolean;
   error: Error | null;
@@ -12,10 +13,4 @@ interface TripInfoContextType {
 
 export const TripInfoContext = createContext<TripInfoContextType | undefined>(undefined);
 
-export const useTripInfoContext = () => {
-  const context = useContext(TripInfoContext);
-  if (!context) {
-    throw new Error("useTripInfoContext must be used within a TripInfoProvider");
-  }
-  return context;
-};
+export { TripInfoProvider };

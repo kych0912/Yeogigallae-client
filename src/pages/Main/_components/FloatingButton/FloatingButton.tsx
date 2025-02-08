@@ -4,30 +4,17 @@ import Floating from "../../../../assets/icons/Floating.svg";
 import MyFloating from "../../../../assets/icons/MyFloating.svg";
 import EditFloating from "../../../../assets/icons/EditFloating.svg";
 import { useNavigate } from "react-router-dom";
-import useVoteRoomMutation from "../../../../react-query/mutation/useVoteRoomMutation";
-import useVoteRoomStore from "../../../../store/useVoteRooomStore"; 
 
 export default function FloatingMenu() {
     const [isActive, setIsActive] = useState(false);
     const navigate = useNavigate();
-    const { tripId } = useVoteRoomStore(); 
-    
-    const { mutate: voteRoom, isPending } = useVoteRoomMutation(); 
 
     const toggleMenu = () => setIsActive(!isActive);
     const closeMenu = () => setIsActive(false);
 
-    const handleVoteClick = () => {
-        voteRoom(
-            { tripId },
-            {
-                onSuccess: () => {
-                    console.log("투표 방 생성 성공!");
-                    navigate("/vote");
-                    closeMenu();
-                },
-            }
-        );
+    const handleMyClick = () => {
+        navigate("/mypage/profile");
+        closeMenu();
     };
 
     const handleEditClick = () => {
@@ -49,7 +36,7 @@ export default function FloatingMenu() {
             </S.SubButton>
 
             {/* 투표 방 생성 요청 후 화면 이동 */}
-            <S.SubButton $isActive={isActive} onClick={handleVoteClick} disabled={isPending}> 
+            <S.SubButton $isActive={isActive} onClick={handleMyClick}> 
                 <img src={MyFloating} alt="My Floating Icon" />
             </S.SubButton>
         </S.FloatingContainer>

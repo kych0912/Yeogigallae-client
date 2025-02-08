@@ -7,19 +7,22 @@ import TravelCard from "./Travel/_components/TravelCard";
 import VoteCard from "./VoteCard/_components/VoteCard";
 import VoteDate from "./VoteDate/_components/VoteDate";
 import VoteResult from "./VoteResult/_components/VoteResult";
+import { VoteProvider } from "./context/VoteResultContext";
 import { TripInfoProvider } from "./context/tripInfo/TripInfoProvider"; 
-import { useTripInfoContext } from "./context/tripInfo/TripInfoContext"; 
+import { useTripInfoContext } from "../../hooks/useTripInfo";
 
-export default function VotePage({ tripId, roomId, masterId }: { tripId: number; roomId: number; masterId: number }) {
+export default function VotePage() {
   return (
-    <TripInfoProvider tripId={tripId} roomId={roomId} masterId={masterId}>  
-      <VoteProcess />
+    <TripInfoProvider>
+      <VoteProvider>
+        <VoteProcess />
+      </VoteProvider>
     </TripInfoProvider>
   );
 }
 
 function VoteProcess() {
-  const { tripId, roomId, masterId } = useTripInfoContext();  
+  const { tripId, roomId, masterId } = useTripInfoContext();
 
   const funnelOptions = {
     steps: ["투표메인", "투표동의", "날짜지정", "결과", "찬성확인", "반대확인"] as const, 
@@ -42,7 +45,7 @@ function VoteProcess() {
     <S.StyledCommonContainer>
       <FunnelComponent>
         <FunnelComponent.Step name="투표메인">
-          <TravelCard onNext={() => setStep("투표동의", { ...contextMap["투표메인"], tripId, roomId, masterId })} />
+          <TravelCard onNext={() => setStep("투표동의", { ...contextMap["투표메인"], tripId })} />
         </FunnelComponent.Step>
 
         <FunnelComponent.Step name="투표동의">
@@ -62,8 +65,7 @@ function VoteProcess() {
         </FunnelComponent.Step>
 
         <FunnelComponent.Step name="결과">
-          <VoteResult
-            tripId={tripId}  
+          <VoteResult 
             type={voteType!}
             onNext={() => {
               setVoteType(voteType === "찬성" ? "찬성" : "반대");

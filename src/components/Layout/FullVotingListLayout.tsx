@@ -1,4 +1,5 @@
 import Header from "../Header";
+import { useState } from "react";
 import FilterIcon from "../../assets/icons/filter.svg?react";
 import BackIcon from "../../assets/icons/Back.svg?react";
 import { IconButton } from "../Button";
@@ -7,6 +8,15 @@ import HeaderCenterContent from "../Header/HeaderCenterContent";
 
 export default function Layout() {
     const navigate = useNavigate();
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
+    const handleRightContentClick = () => {
+        setIsModalVisible(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalVisible(false);
+    };
 
     return (
         <>
@@ -18,13 +28,13 @@ export default function Layout() {
                 }
                 centerContent={<HeaderCenterContent title={"참여하기 목록"} />}
                 rightContent={
-                    <IconButton onClick={() => navigate("/")}>
+                    <IconButton onClick={handleRightContentClick}>
                         <FilterIcon />
                     </IconButton>
                 }
             />
             <main>
-                <Outlet />
+                <Outlet context={{ isModalVisible, handleCloseModal }} />
             </main>
         </>
     );

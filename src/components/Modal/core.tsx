@@ -42,15 +42,25 @@ export default function Modal() {
     }
   };
 
+  const handleCancel = () => {
+    if(config.onCancel){
+      config.onCancel();
+    }
+    hideModal();
+  }
+
+
   return(
-    <S.StyledContainer onClick={config.onCancel || hideModal}>
+    <S.StyledContainer onClick={handleCancel}>
+
       <S.ModalContent onClick={(e)=>e.stopPropagation()} gap="1.5rem">
         {renderModal()}
         <S.ButtonGroup>
 
-          <Button style={{ background: "#434343" }} variant="contained" size="large" onClick={config.onCancel || hideModal}>
+          <Button style={{ background: "#434343" }} variant="contained" size="large" onClick={handleCancel}>
             {config.cancelText || "취소"}
           </Button>
+
           <Button 
             color="primary" 
             variant="contained" 

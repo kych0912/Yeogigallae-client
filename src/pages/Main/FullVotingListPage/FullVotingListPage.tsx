@@ -6,15 +6,17 @@ import { useOutletContext } from "react-router-dom";
 type LayoutContextType = {
     isModalVisible: boolean;
     handleCloseModal: () => void;
+    selectedFilter: string;
+    handleFilterChange: (filter: string) => void;
 };
 
 export default function FullVotingListPage() {
-    const { isModalVisible, handleCloseModal } = useOutletContext<LayoutContextType>();
+    const { isModalVisible, handleCloseModal, selectedFilter, handleFilterChange } = useOutletContext<LayoutContextType>();
 
     return (
         <S.Container>
-            <FullVotingItem />
-            <TostModal isVisible={isModalVisible} onClose={handleCloseModal} />
+            <FullVotingItem selectedFilter={selectedFilter} />
+            <TostModal isVisible={isModalVisible} onClose={handleCloseModal} onFilterChange={handleFilterChange} />
         </S.Container>
     );
 }

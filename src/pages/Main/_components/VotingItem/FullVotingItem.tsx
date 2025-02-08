@@ -9,7 +9,11 @@ import calculateVoteGauge from "./calculateVoteGauge";
 import renderParticipantProfiles from "./renderParticipantProfiles";
 import calculateRemainingTime from "./calculateRemainingTime";
 
-const FullVotingItem: React.FC = () => {
+interface FullVotingItemProps {
+    selectedFilter: string;
+}
+
+const FullVotingItem: React.FC<FullVotingItemProps> = ({ selectedFilter }) => {
     const [rooms, setRooms] = useState(votingRooms);
 
     const getTripPlanInfo = (tripPlanType: string) => {
@@ -20,10 +24,11 @@ const FullVotingItem: React.FC = () => {
                 return { icon: Budget, text: "예산" };
             case "SCHEDULE":
                 return { icon: Schedule, text: "일정" };
+            default:
+                return null;
         }
     };
 
-    // 시간 업데이트
     useEffect(() => {
         const interval = setInterval(() => {
             setRooms((prevRooms) =>
@@ -37,9 +42,11 @@ const FullVotingItem: React.FC = () => {
         return () => clearInterval(interval);
     }, []);
 
+    const filteredRooms = selectedFilter ? rooms.filter((room) => room.tripPlanType === selectedFilter) : rooms;
+
     return (
         <>
-            {rooms.map((room) => {
+            {filteredRooms.map((room) => {
                 const totalParticipants = room.participantProfiles.length;
                 const voteGauge = calculateVoteGauge(room.votedParticipants, totalParticipants);
 

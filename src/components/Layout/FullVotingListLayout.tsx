@@ -9,12 +9,18 @@ import HeaderCenterContent from "../Header/HeaderCenterContent";
 export default function Layout() {
     const navigate = useNavigate();
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const [selectedFilter, setSelectedFilter] = useState<string>("");
 
     const handleRightContentClick = () => {
         setIsModalVisible(true);
     };
 
     const handleCloseModal = () => {
+        setIsModalVisible(false);
+    };
+
+    const handleFilterChange = (filter: string) => {
+        setSelectedFilter(filter);
         setIsModalVisible(false);
     };
 
@@ -34,7 +40,7 @@ export default function Layout() {
                 }
             />
             <main>
-                <Outlet context={{ isModalVisible, handleCloseModal }} />
+                <Outlet context={{ isModalVisible, handleCloseModal, selectedFilter, handleFilterChange }} />
             </main>
         </>
     );

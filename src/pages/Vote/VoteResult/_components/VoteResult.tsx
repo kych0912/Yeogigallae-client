@@ -1,21 +1,19 @@
 import { VoteProvider, useVoteContext } from "../../context/VoteResultContext";
-import { useTripInfoContext } from "../../context/tripInfo/TripInfoContext";
+import { useTripInfoContext } from "../../../../hooks/useTripInfo";
 import { useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
 import ResultCard from "./ResultCard";
 import * as S from "../../_components/Vote.styles";
 
 export default function VoteResult({
-  tripId,
   type,
   onNext,
 }: {
-  tripId: number;
   type: "찬성" | "반대";
   onNext: () => void;
 }) {
   return (
-    <VoteProvider tripId={tripId}>
+    <VoteProvider>
       <VoteResultContent type={type} onNext={onNext} />
     </VoteProvider>
   );

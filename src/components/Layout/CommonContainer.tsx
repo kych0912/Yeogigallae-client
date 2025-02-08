@@ -11,6 +11,13 @@ export const Container = styled.div`
   background-color: ${({theme})=>theme.colors.background};
 `
 
-export default function CommonContainer({children,className}:{children:React.ReactNode,className?:string}){
-    return <Container className={className}>{children}</Container>
+interface CommonContainerProps extends React.HTMLAttributes<HTMLDivElement>{
+    children:React.ReactNode;
+    className?:string;
+    onClick?:()=>void;
 }
+
+export default function CommonContainer({children,className,onClick}:CommonContainerProps){
+    return <Container onClick={onClick} className={className}>{children}</Container>
+}
+

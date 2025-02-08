@@ -55,10 +55,19 @@ function VoteResultContent({
 
   const hours = Math.floor(voteLimitMinutes / 60);
   const minutes = voteLimitMinutes % 60;
-
   const formattedTime = hours > 0 
     ? `${hours}시간 ${minutes > 0 ? `${minutes}분` : ""}`
     : `${minutes}분`;
+
+  useEffect(() => {
+    if (voteLimitMinutes > 0) {
+      const timer = setTimeout(() => {
+        onNext();
+      }, voteLimitMinutes * 60 * 1000); 
+
+      return () => clearTimeout(timer); 
+    }
+  }, [voteLimitMinutes, onNext]);
 
   return (
     <>

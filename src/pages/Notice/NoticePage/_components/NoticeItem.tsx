@@ -2,6 +2,8 @@ import * as S from "./Notice.style"
 import Vote from "../../../../assets/icons/Notice/VoteNoticeIcon.svg?react"
 import Course from "../../../../assets/icons/Notice/CourseNoticeIcon.svg?react"
 import Budget from "../../../../assets/icons/Notice/BudgetNoticeIcon.svg?react"
+import { Notice } from "../../../../apis/notice/types";
+
 
 interface INoticeItemProps extends React.HTMLAttributes<HTMLDivElement>{
     title:string,
@@ -10,7 +12,7 @@ interface INoticeItemProps extends React.HTMLAttributes<HTMLDivElement>{
     type:NoticeType
 }
 
-type NoticeType = "VOTE" | "COURSE" | "BUDGET";
+type NoticeType = Notice["type"];
 
 export default function NoticeItem({
     title,
@@ -21,11 +23,10 @@ export default function NoticeItem({
 }:INoticeItemProps){
 
     const TypeIcon:React.FC<{type:NoticeType}> = ({type}) => {
-        if(type === "VOTE") return <Vote/>
-        if(type === "COURSE") return <Course/>
-        if(type === "BUDGET") return <Budget/>
+        if(type === "VOTE_START" || type === "VOTE_COMPLETE") return <Vote/>
+        if(type === "COURSE_START" || type === "COURSE_COMPLETE") return <Course/>
+        if(type === "BUDGET_START" || type === "BUDGET_COMPLETE") return <Budget/>
     }
-
 
     return(
         <S.Wrapper.NoticeWrapper onClick={onClick}>

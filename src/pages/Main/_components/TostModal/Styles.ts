@@ -1,29 +1,29 @@
 import styled from "styled-components";
+import BaseButton from "../../../../components/Button/Button";
 
 export const Container = styled.div`
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(10px);
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
     z-index: 1000;
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    padding: 1rem;
 `;
 
 export const ModalContent = styled.div`
-    background: #1a1a1a;
-    border-radius: 1rem;
+    background: ${({ theme }) => theme.colors.secondary || "#222222"};
+    border-radius: 1.875rem;
     width: 90%;
     max-width: 400px;
-    padding: 1.5rem;
+    padding: 1rem 1.5rem 2.5rem;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.5rem;
     align-items: center;
 `;
 
@@ -38,30 +38,33 @@ export const CloseButton = styled.button`
 
 export const Title = styled.h2`
     color: white;
-    font-size: 1.25rem;
+    font-size: 1.125rem;
     text-align: center;
+    font-family: ${({ theme }) => theme.fontFamily.medium};
 `;
 
 export const Options = styled.div`
     display: flex;
-    justify-content: space-around;
+    background: ${({ theme }) => theme.colors.disabled};
+    border-radius: 1.5rem;
     width: 100%;
-    gap: 1rem;
+    align-items: center;
+    justify-content: center;
 `;
 
 export const Option = styled.div<{ selected?: boolean }>`
     display: flex;
+    flex: 1;
     flex-direction: column;
     align-items: center;
-    cursor: pointer;
-    background: ${({ selected }) => (selected ? "#4caf50" : "#333")};
-    padding: 1rem;
-    border-radius: 0.5rem;
-    transition: background 0.3s;
-
-    &:hover {
-        background: #555;
-    }
+    justify-content: center;
+    background: ${({ selected, theme }) => (selected ? `${theme.colors.primary}40` : theme.colors.disabled)};
+    flex: 1;
+    padding: 1rem 2rem;
+    border-radius: 1.5rem;
+    border: 1px solid ${({ selected, theme }) => (selected ? `${theme.colors.primary}` : `transparent`)};
+    transition: background 0.3s, border 0.3s;
+    text-align: center;
 `;
 
 export const Icon = styled.img`
@@ -72,20 +75,21 @@ export const Icon = styled.img`
 
 export const OptionText = styled.span`
     color: white;
-    font-size: 0.875rem;
+    font-size: 0.75rem;
+    font-family: ${({ theme }) => theme.fontFamily.medium};
 `;
 
-export const ApplyButton = styled.button`
-    background: #007bff;
+export const Button = styled(BaseButton)`
+    padding: 0.875rem 0;
     color: white;
-    border: none;
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
-    border-radius: 0.5rem;
-    cursor: pointer;
+    background-color: ${({ theme }) => theme.colors.primary};
     width: 100%;
+    border-radius: 1rem;
+    font-size: 1rem;
+`;
 
-    &:hover {
-        background: #0056b3;
-    }
+export const RadioButton = styled.input.attrs({ type: "radio" })`
+    height: 1.25rem;
+    width: 1.25rem;
+    margin-bottom: 1rem;
 `;

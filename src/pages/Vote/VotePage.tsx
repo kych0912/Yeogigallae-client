@@ -49,19 +49,23 @@ function VoteProcess() {
         </FunnelComponent.Step>
 
         <FunnelComponent.Step name="투표동의">
+        <FunnelComponent.Step name="투표동의">
           <VoteCard
             onAgree={() => setStep("날짜지정", { ...contextMap["투표동의"], tripId, roomId, masterId })}   
             onDisagree={() => setStep("결과", { ...contextMap["투표동의"], tripId, roomId, masterId })} 
             showConfirmMessage={false}
           />
         </FunnelComponent.Step>
+        </FunnelComponent.Step>
 
+        <FunnelComponent.Step name="날짜지정">
         <FunnelComponent.Step name="날짜지정">
           <VoteDate
             onNext={() => {
               setStep("결과", { ...contextMap["날짜지정"], tripId, roomId, masterId }); 
             }}
           />
+        </FunnelComponent.Step>
         </FunnelComponent.Step>
 
         <FunnelComponent.Step name="결과">
@@ -71,13 +75,19 @@ function VoteProcess() {
             }}
           />
         </FunnelComponent.Step>
+        </FunnelComponent.Step>
 
+        <FunnelComponent.Step name="찬성확인">
         <FunnelComponent.Step name="찬성확인">
           <ConfirmSuccessPage />
         </FunnelComponent.Step>
+        </FunnelComponent.Step>
 
         <FunnelComponent.Step name="반대확인">
+        <FunnelComponent.Step name="반대확인">
           <ConfirmFailPage />
+        </FunnelComponent.Step>
+      </FunnelComponent>
         </FunnelComponent.Step>
       </FunnelComponent>
     </S.StyledCommonContainer>

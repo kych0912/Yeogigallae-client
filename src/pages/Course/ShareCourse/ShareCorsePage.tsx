@@ -39,6 +39,7 @@ export default function ShareCorsePage({dayOnCourseQueries,title}:{dayOnCourseQu
           <Detail 
             dailyRoutes={dayOnCourseQueries}
             onNext={()=>setStep<"여행상세">("코스목록",{})}
+            title={title}
           />
         </Funnel.Step>
 
@@ -51,7 +52,7 @@ export default function ShareCorsePage({dayOnCourseQueries,title}:{dayOnCourseQu
         </Funnel.Step>
 
         <Funnel.Step name="공유">
-          <Share />
+          <Share title={title} />
         </Funnel.Step>
 
       </Funnel>

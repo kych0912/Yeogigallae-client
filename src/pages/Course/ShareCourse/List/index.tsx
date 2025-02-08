@@ -2,13 +2,15 @@ import ListCard from "./_components/ListCard";
 import { Button } from "../../../../components/Button";
 import * as S from "./_components/Style";
 import AddPlace from "./_components/AddPlace";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ShareCourseData, TShareCourseContext } from "../ShareCorsePage";
+import { useOutletContext } from "react-router-dom";
+import { HeaderConfig } from "../../../../types/header/header";
+
 
 export default function List({
     onNext,
     context,
-
 }: {
     onNext:(data:ShareCourseData)=>void
     context:TShareCourseContext
@@ -28,8 +30,15 @@ export default function List({
         }]);
     }
 
+    const {setHeaderConfig} = useOutletContext<{setHeaderConfig: (config: HeaderConfig) => void}>();
+
+    useEffect(()=>{
+        setHeaderConfig({title:"장소 공유하기"});
+    },[]);
+
     return (
         <>
+
             <S.ItemContainer> 
                 {places.map((place,index) => (
                     <ListCard 

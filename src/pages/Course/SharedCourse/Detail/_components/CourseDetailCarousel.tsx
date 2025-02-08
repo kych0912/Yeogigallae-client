@@ -12,7 +12,7 @@ export default function CourseDetailCarousel({
     setSwiperInstance,
     setActiveIndex
 }:{
-    allCoursesQueries:UseQueryResult<Route | null, Error>[],
+    allCoursesQueries:UseQueryResult<Route, Error>[],
     setSwiperInstance:(swiper:Swiper)=>void,
     setActiveIndex:(index:number)=>void
 }){

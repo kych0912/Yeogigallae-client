@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useVoteContext } from "../../context/VoteResultContext";
 import { useTripInfoContext } from "../../../../hooks/useTripInfo"; 
 import { Button } from "../../../../components/Button";
@@ -19,6 +20,7 @@ export default function VoteCard({
   onDisagree?: () => void;
   showConfirmMessage?: boolean;
 }) {
+  const navigate = useNavigate(); 
   const { dispatch } = useVoteContext();
   const { tripInfo } = useTripInfoContext();
 
@@ -51,7 +53,7 @@ export default function VoteCard({
       {showConfirmMessage && (
         <>
           <ConfirmMessage />
-          <Button size="large" onClick={() => console.log("확인 버튼 클릭")}>{"확인"}</Button>
+          <Button size="large" onClick={() => navigate("/")}>{"확인"}</Button>
         </>
       )}
       <Card.Image>
@@ -88,14 +90,16 @@ export default function VoteCard({
       </Card.Item>
       <S.CustomSpacer />
 
-      <S.TwoSelect>
-        <Button size="large" onClick={() => handleVote("BAD")}>
-          {"난 못 가.."}
-        </Button>
-        <Button size="large" onClick={() => handleVote("GOOD")} style={{ backgroundColor: "#3b46fa" }}>
-          {"좋아!"}
-        </Button>
-      </S.TwoSelect>
+      {!showConfirmMessage && (
+        <S.TwoSelect>
+          <Button size="large" onClick={() => handleVote("BAD")}>
+            {"난 못 가.."}
+          </Button>
+          <Button size="large" onClick={() => handleVote("GOOD")} style={{ backgroundColor: "#3b46fa" }}>
+            {"좋아!"}
+          </Button>
+        </S.TwoSelect>
+      )}
     </Card>
   );
 }

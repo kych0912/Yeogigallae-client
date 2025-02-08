@@ -1,13 +1,27 @@
 import React, { useState, useEffect } from "react";
 import * as S from "../Main.Styles";
 import * as V from "./VotingItem.Styles";
+import Course from "../../../../assets/icons/course.svg";
+import Budget from "../../../../assets/icons/budget.svg";
+import Schedule from "../../../../assets/icons/calendar3.svg";
 import { votingRooms } from "../../MainPage/test";
-import calculateVoteGauge from "./calculateVoteGauge"; // 투표율 게이지 계산 함수
-import renderParticipantProfiles from "./renderParticipantProfiles"; // 참여자 프로필 렌더링 함수
-import calculateRemainingTime from "./calculateRemainingTime"; // 남은 시간 계산 함수
+import calculateVoteGauge from "./calculateVoteGauge";
+import renderParticipantProfiles from "./renderParticipantProfiles";
+import calculateRemainingTime from "./calculateRemainingTime";
 
 const FullVotingItem: React.FC = () => {
-    const [rooms, setRooms] = useState(votingRooms); // 상태 관리
+    const [rooms, setRooms] = useState(votingRooms);
+
+    const getTripPlanInfo = (tripPlanType: string) => {
+        switch (tripPlanType) {
+            case "COURSE":
+                return { icon: Course, text: "코스" };
+            case "BUDGET":
+                return { icon: Budget, text: "예산" };
+            case "SCHEDULE":
+                return { icon: Schedule, text: "일정" };
+        }
+    };
 
     // 시간 업데이트
     useEffect(() => {
@@ -29,8 +43,14 @@ const FullVotingItem: React.FC = () => {
                 const totalParticipants = room.participantProfiles.length;
                 const voteGauge = calculateVoteGauge(room.votedParticipants, totalParticipants);
 
+                const tripPlanInfo = getTripPlanInfo(room.tripPlanType) || { icon: "", text: "" };
+
                 return (
-                    <V.VotingItem key={room.id}>
+                    <V.FullVotingItem key={room.id}>
+                        <S.Type>
+                            <S.Icon2 src={tripPlanInfo.icon} />
+                            {tripPlanInfo.text}
+                        </S.Type>
                         <S.Box>
                             <S.TextBox>
                                 <V.Title>{room.name}</V.Title>
@@ -49,7 +69,7 @@ const FullVotingItem: React.FC = () => {
                                 </V.VoteGauge>
                             </V.VoteBox>
                         </S.Box>
-                    </V.VotingItem>
+                    </V.FullVotingItem>
                 );
             })}
         </>

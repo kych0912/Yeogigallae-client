@@ -39,7 +39,7 @@ export const votingRooms: VotingRoom[] = [
         voteGauge: 0,
         votedParticipants: 2,
         createdAt: new Date().toISOString(), // 생성 시간
-        tripPlanType: "COURSE",
+        tripPlanType: "SCHEDULE",
     },
     {
         id: 2,
@@ -61,7 +61,7 @@ export const votingRooms: VotingRoom[] = [
         voteGauge: 0,
         votedParticipants: 2,
         createdAt: new Date().toISOString(), // 생성 시간
-        tripPlanType: "COURSE",
+        tripPlanType: "BUDGET",
     },
     {
         id: 4,

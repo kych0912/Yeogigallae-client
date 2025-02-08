@@ -19,7 +19,6 @@ export function useNotice() {
             isRead: readNoticeIds.includes(notice.id)
         }));
         setNoticeWithRead(updatedNotices);
-        console.log(updatedNotices);
     }
 
     //클릭 시 localSoage에 읽은 알림 id를 저장하고 해당 알림을 읽은 상태로 변경

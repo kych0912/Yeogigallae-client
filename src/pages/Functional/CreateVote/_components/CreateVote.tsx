@@ -39,7 +39,6 @@ export default function CreateVoteContent({
     console.log("POST test ", testFormData);
 
     voteMutation.mutate(testFormData);
-
   };
 
   return (

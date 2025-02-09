@@ -6,6 +6,7 @@ import CreateVote from "../Functional/CreateVote/_components/CreateVote";
 import CommonContainer from "../../components/Layout/CommonContainer";
 import { useOutletContext } from "react-router-dom";
 import { VoteFormProvider } from "./context/VoteFormContext";
+import Modal from "../../components/Modal/core";
 
 export default function FunctionalFunnel() {
   const funnelOptions = {
@@ -30,6 +31,9 @@ export default function FunctionalFunnel() {
   return (
     <VoteFormProvider >
       <CommonContainer>
+
+        <Modal />
+
         <FunnelComponent>
           <FunnelComponent.Step name="생성">
             {currentStep === "생성" && (

@@ -28,6 +28,8 @@ import NoticeLayout from "./components/Layout/NoticeLayout";
 import BudgetLayout from "./components/Layout/BudgetLayout";
 import UpComingCoursePage from "./pages/Course/UpComingCourse/UpComingCoursePage";
 import withAuth from "./pages/Login/withAuth";
+import FullVotingListPage from "./pages/Main/FullVotingListPage/FullVotingListPage";
+import FullVotingListLayout from "./components/Layout/FullVotingListLayout";
 
 // const ProtectedMainPage = withAuth(MainPage, true);
 const ProtectedLoginPage = withAuth(LoginPage, false);
@@ -36,6 +38,10 @@ const ProtectedKakao = withAuth(Kakao, false);
 const queryClient = new QueryClient();
 
 const App: React.FC = () => {
+    const token = import.meta.env.VITE_ACCESS_TOKEN as string;
+    const expirationDate = new Date('Sun, 08 Feb 2026 17:27:47 GMT');
+    document.cookie = `accessToken=${token}; Path=/; Expires=${expirationDate.toUTCString()};`;
+
     return (
         <QueryClientProvider client={queryClient}>
             <ThemeProvider theme={theme}>
@@ -45,6 +51,9 @@ const App: React.FC = () => {
                         {/*<Route path="/" element={<MainPage />} />*/}
                         {/* <Route path="/" element={<ProtectedMainPage />} /> */}
                         <Route path="/" element={<MainPage />} />
+                        <Route element={<FullVotingListLayout />}>
+                            <Route path="/fulllist" element={<FullVotingListPage />} />
+                        </Route>
 
                         {/* Login */}
                         <Route path="/login" element={<ProtectedLoginPage />} />

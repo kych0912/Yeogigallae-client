@@ -1,22 +1,33 @@
-import { useState } from "react";
 import * as S from "./Image.styles";
-import Card from "../../../../../components/Card";
 import Default_image from "../../../../../assets/icons/Default_image.svg";
-import SelectModal from "../../../../../components/Modal/ImageModal";
+import modal from "../../../../../components/Modal"; 
+import Card from "../../../../../components/Card";
+import { useState } from "react";
 
 export default function ImagePlaceholder() {
-  const [isOpen, setIsOpen] = useState(false); 
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   return (
     <>
-      <S.ImagePlaceholder onClick={() => setIsOpen(true)}> 
-        <Card>
-          <S.Icon src={Default_image} alt="Default Icon" />
-          <S.Text>원하는 이미지를 첨부하세요.</S.Text>
-        </Card>
+      <S.ImagePlaceholder
+        $imageUrl={selectedImage || ""} 
+        onClick={() => {
+          modal.image.show({
+            onConfirm: (image: string) => {
+              setSelectedImage(image);
+            },
+            confirmText: "확인",
+            cancelText: "취소"
+          });
+        }}
+      >
+        {!selectedImage && (
+          <Card>
+            <S.Icon src={Default_image} alt="Default Icon" />
+            <S.Text>원하는 이미지를 첨부하세요.</S.Text>
+          </Card>
+        )}
       </S.ImagePlaceholder>
-
-      <SelectModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </>
   );
 }

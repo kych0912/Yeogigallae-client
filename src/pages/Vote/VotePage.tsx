@@ -5,12 +5,11 @@ import ConfirmFailPage from "./ConfirmPage/ConfirmFailPage/ConfirmFailPage";
 import * as S from "./_components/Vote.styles";
 import TravelCard from "./Travel/_components/TravelCard";
 import VoteCard from "./VoteCard/_components/VoteCard";
-import VoteDate from "./VoteDate/_components/VoteDate";
 import VoteResult from "./VoteResult/_components/VoteResult";
 
 export default function VotePage() {
   const funnelOptions = {
-    steps: ["투표메인", "투표동의", "날짜지정", "결과", "찬성확인", "반대확인"] as const, 
+    steps: ["투표메인", "투표동의", "결과", "찬성확인", "반대확인"] as const, 
     init: { step: "투표메인", context: {} },
     stepQueryKey: "step",
   };
@@ -29,21 +28,13 @@ export default function VotePage() {
           <VoteCard
             onAgree={() => {
               setVoteType("찬성");
-              setStep("날짜지정", contextMap["투표동의"] || {});
+              setStep("결과", contextMap["투표동의"] || {});
             }}
             onDisagree={() => {
               setVoteType("반대");
               setStep("결과", contextMap["투표동의"] || {});
             }}
             showConfirmMessage={false}
-          />
-        </FunnelComponent.Step>
-
-        <FunnelComponent.Step name="날짜지정">
-          <VoteDate
-            onNext={() => {
-              setStep("결과", contextMap["날짜지정"] || {});
-            }}
           />
         </FunnelComponent.Step>
 

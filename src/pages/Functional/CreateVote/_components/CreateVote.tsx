@@ -1,4 +1,5 @@
-import { useVoteFormContext } from "../context/VoteFormContext/VoteFormProvider";
+import { useState } from "react";
+import { useVoteFormContext } from "../../context/VoteFormContext";
 import Tabs from "./Tabs/Tabs";
 import VoteForm from "./VoteForm/VoteForm";
 import SlideContainer from "./SlideContainer/SlideContainer";
@@ -8,32 +9,24 @@ export default function CreateVoteContent({
   onCalendar,
   onSearch,
 }: {
-  onCalendar?: () => void;
-  onSearch?: (callback: (selectedPlaceName: string) => void) => void;
+  onCalendar: () => void;
+  onSearch: (callback: (selectedPlaceName: string) => void) => void;
 }) {
-  const { isLoading, tripPlanType, setTripPlanType } = useVoteFormContext();
+  const { tripPlanType, setTripPlanType } = useVoteFormContext();
+  const [roomId] = useState(22); 
 
-  const tripPlanId = 22;
+  console.log("🔹 강제 설정된 roomId:", roomId);
 
-  console.log("🔹 강제 설정된 tripPlanId:", tripPlanId);
-  
   return (
     <>
-      <Tabs activeTab={tripPlanType} onTabChange={(tab) => setTripPlanType(tab)} />
-
-      {isLoading ? (
-        <p>로딩 중...</p>
-      ) : (
+      <Tabs activeTab={tripPlanType} onTabChange={setTripPlanType} />
         <>
-          <VoteForm tripPlanType={tripPlanType} onSearch={onSearch || (() => {})} onCalendar={onCalendar || (() => {})} />
-
+          <VoteForm tripPlanType={tripPlanType} roomId={roomId} onSearch={onSearch} onCalendar={onCalendar} />
           <SlideContainer />
-
           <Button size="large" style={{ marginTop: "1.25rem" }}>
-            {tripPlanType === "VOTE" ? "투표 공유하기" : "코스 저장하기"}
+            {tripPlanType === "SCHEDULE" ? "투표 공유하기" : "코스 저장하기"}
           </Button>
         </>
-      )}
     </>
   );
 }

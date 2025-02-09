@@ -5,7 +5,7 @@ import SearchPage from "../SearchPage/SearchPage";
 import CreateVote from "../Functional/CreateVote/_components/CreateVote";
 import CommonContainer from "../../components/Layout/CommonContainer";
 import { useOutletContext } from "react-router-dom";
-import VoteFormProvider from "../Functional/CreateVote/context/VoteFormContext/VoteFormProvider";
+import { VoteFormProvider } from "./context/VoteFormContext";
 
 export default function FunctionalFunnel() {
   const funnelOptions = {
@@ -28,7 +28,7 @@ export default function FunctionalFunnel() {
   }, [currentStep, setHeaderConfig]);
 
   return (
-    <VoteFormProvider tripPlanId={22}>
+    <VoteFormProvider >
       <CommonContainer>
         <FunnelComponent>
           <FunnelComponent.Step name="생성">

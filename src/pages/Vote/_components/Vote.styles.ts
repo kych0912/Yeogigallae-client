@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import Card from "../../../components/Card";
 import CommonContainer from "../../../components/Layout/CommonContainer";
-import { Button } from "../../../components/Button";
-
 
 export const StyledCommonContainer = styled(CommonContainer)`
   font-family: ${({ theme }) => theme.fontFamily.medium};
@@ -161,32 +159,30 @@ export const CustomItem = styled.div`
 `;
 
 export const RecommendButton = styled.div`
-  margin: 0 1.25rem 0 1.25rem;
   display: flex;
   justify-content: space-between; 
   align-items: center;
   gap: 0.625rem;
   width: 100%;
-
-  & > button {
-    flex-grow: 1; 
-    min-width: 0; 
-  }
+  margin: 0 5rem;
 `;
 
 export const CustomSpacer = styled(Card.Divider)`
   background-color: transparent !important;
 `;
 
-export const FixedSizeButton = styled(Button)`
+export const FixedSizeButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1rem;
-  border-radius: 10px; 
-  white-space: nowrap;
-  height: 43px;
-  width: 8.513rem;
+  border-radius: 16px; 
+  height: 2.688rem;
+  width: 100%;
+  color: #fff;
+  border: none;
+  font-family: ${({theme}) => theme.fontFamily.medium};
+  background-color: #3d46f1;
 `;
 
 

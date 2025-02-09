@@ -109,3 +109,12 @@ export const RotateIcon = styled.div<{ $isRotated: boolean }>`
   transform: ${({ $isRotated }) => ($isRotated ? "rotate(180deg)" : "rotate(0deg)")};
   font-family: ${({ theme }) => theme.fontFamily.medium};
 `;
+
+export const SkeletonWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+`;
+
+

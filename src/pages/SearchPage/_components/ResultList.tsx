@@ -4,8 +4,10 @@ import SearchListItem from "./SearchListItem";
 
 export default function ResultList({
   results,
+  coords,
   handleSelectItem
 }: ResultListProps) {
+  console.log(coords);
   return (
     <S.Results $isVisible={results.length > 0}>
       {results.map((result, index) => {
@@ -13,6 +15,7 @@ export default function ResultList({
           <SearchListItem
             key={result.id}
             result={result}
+            zoneNo={coords[index].zoneNo}
             index={index}
             results={results}
             handleSelectItem={handleSelectItem}
@@ -20,6 +23,5 @@ export default function ResultList({
         );
       })}
     </S.Results>
-
   );
 }

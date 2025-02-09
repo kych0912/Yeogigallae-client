@@ -10,9 +10,11 @@ import { theme } from "../../../../styles/theme";
 
 export default function ResultCard({
   step,
+  type,
   onNext,
 }: {
   step: "결과" | "찬성확인" | "반대확인";
+  type: "찬성" | "반대";
   onNext: () => void;
 }) {
   const handleCopyToClipboard = (text: string) => {
@@ -56,7 +58,7 @@ export default function ResultCard({
           }}
           onClick={onNext}
         >
-          {"투표하러 가기"}
+          {type === "반대" ? "홈으로" : "다시 투표하러 가기"}
         </Button>
     </Card>
   );

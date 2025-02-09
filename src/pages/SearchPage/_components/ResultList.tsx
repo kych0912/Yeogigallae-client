@@ -7,7 +7,6 @@ export default function ResultList({
   coords,
   handleSelectItem
 }: ResultListProps) {
-  console.log(coords);
   return (
     <S.Results $isVisible={results.length > 0}>
       {results.map((result, index) => {

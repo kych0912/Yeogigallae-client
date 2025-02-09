@@ -4,9 +4,10 @@ import { FriendItem, AddFriendItem } from "../FriendItem";
 import { useGetRooms } from "../../../../../react-query/queries/room/queries";
 import { FriendItemSkeleton } from "../Skeleton";
 import { AccordionTitleSkeleton } from "../Skeleton";
-
+import { useNavigate } from "react-router-dom";
 export default function Room(){
     const { data:rooms, isLoading:isRoomsLoading } = useGetRooms();
+    const navigate = useNavigate();
 
     if (isRoomsLoading) {
         return (
@@ -26,7 +27,7 @@ export default function Room(){
         <Accordion>
             <AccordionTitle number={rooms?.length ?? 0}>{"여행 크루 만들기"}</AccordionTitle>
             <AccordionItemWrapper>
-                <AddFriendItem title={"방 만들기"} onClick={()=>{}} />
+                <AddFriendItem title={"방 만들기"} onClick={()=>{navigate("/mypage/room")}} />
 
                 {rooms ? 
                     rooms.map((room, index) => (

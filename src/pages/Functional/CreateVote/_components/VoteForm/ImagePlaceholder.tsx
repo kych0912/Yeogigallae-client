@@ -1,39 +1,64 @@
 import { useState, useEffect } from "react";
 import { useController, Control } from "react-hook-form";
 import * as S from "./Image.styles";
+import DefaultImage from "../../../../../assets/icons/Default_image.svg";
+import modal from "../../../../../components/Modal"; 
 import Card from "../../../../../components/Card";
-import Default_image from "../../../../../assets/icons/Default_image.svg";
-import SelectModal from "../../../../../components/Modal/ImageModal";
 
 interface ImagePlaceholderProps {
   control: Control<any>;
-  tripPlanType: "VOTE" | "COURSE"; // ✅ tripPlanType 추가
+  tripPlanType: "COURSE" | "SCHEDULE"; 
+  roomId: number; 
 }
 
-export default function ImagePlaceholder({ control, tripPlanType }: ImagePlaceholderProps) {
+export default function ImagePlaceholder({ control, tripPlanType, roomId }: ImagePlaceholderProps) {
+  const storageKey = `image_${tripPlanType}_${roomId}`;
+  const savedImage = localStorage.getItem(storageKey) || "";
+
   const { field } = useController({
-    name: tripPlanType === "VOTE" ? "imageUrl_VOTE" : "imageUrl_COURSE", // ✅ 각 탭별로 imageUrl 분리
+    name: "imageUrl",
     control,
-    defaultValue: "",
+    defaultValue: savedImage,
   });
 
-  const [image, setImage] = useState(field.value);
-  const [isOpen, setIsOpen] = useState(false);
+  const [image, setImage] = useState<string>(savedImage);
 
   useEffect(() => {
     setImage(field.value);
   }, [field.value]);
 
+  useEffect(() => {
+    if (image) {
+      localStorage.setItem(storageKey, image); 
+    }
+  }, [image, storageKey]);
+
+  const handleImageChange = (newImage: string) => {
+    setImage(newImage);
+    field.onChange(newImage); 
+  };
+
   return (
     <>
-      <S.ImagePlaceholder onClick={() => setIsOpen(true)}>
-        <Card>
-          <S.Icon src={image || Default_image} alt="Selected Image" />
-          <S.Text>{image ? "이미지를 변경하세요." : "원하는 이미지를 첨부하세요."}</S.Text>
-        </Card>
+      <S.ImagePlaceholder
+        $imageUrl={image} 
+        onClick={() => {
+          modal.image.show({
+            onConfirm: (newImage: string) => {
+              handleImageChange(newImage); 
+            },
+            confirmText: "확인",
+            cancelText: "취소"
+          });
+        }}
+      >
+        {!image && (
+          <Card>
+            <S.Icon src={DefaultImage} alt="Default Icon" />
+            <S.Text>원하는 이미지를 첨부하세요.</S.Text>
+          </Card>
+        )}
       </S.ImagePlaceholder>
-
-      <SelectModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </>
   );
 }

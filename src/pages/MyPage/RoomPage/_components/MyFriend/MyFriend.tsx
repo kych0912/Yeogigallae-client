@@ -44,9 +44,9 @@ export default function MyFriend({control}:{
                                 onChange([...value,friend])
                                 removeFriend(friend)
                             }}
-                            key={friend.id} 
-                            name={friend.name} 
-                            src={friend.src} 
+                            key={friend.friendId} 
+                            name={friend.friendName} 
+                            src={friend.profileImageUrl} 
                         />
                     ))
                 }

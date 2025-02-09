@@ -1,0 +1,10 @@
+type NoticeType = "VOTE_START" | "VOTE_COMPLETE" | "COURSE_START" | "COURSE_COMPLETE" | "BUDGET_START" | "BUDGET_COMPLETE";
+
+export interface Notice {
+    id: number;
+    title: string;
+    caption: string;
+    type: NoticeType;
+};
+
+

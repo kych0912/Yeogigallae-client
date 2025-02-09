@@ -8,13 +8,13 @@ export default function Recommend() {
     <Card>
       <S.ReContent>추천 기능</S.ReContent>
       <S.RecommendButton>
-        <S.FixedSizeButton color="primary" size="large" onClick={() => {
+        <S.FixedSizeButton onClick={() => {
           navigate(`/course`);
           }}
         >
           {"AI코스 짜기"}
         </S.FixedSizeButton>
-        <S.FixedSizeButton color="primary" size="large" onClick={() => {
+        <S.FixedSizeButton onClick={() => {
           navigate(`/budget`);
           }}
         >

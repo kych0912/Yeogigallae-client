@@ -5,10 +5,13 @@ import Course from "../../../../assets/icons/course.svg";
 import Budget from "../../../../assets/icons/budget.svg";
 import Schedule from "../../../../assets/icons/calendar3.svg";
 
-const TostModal: React.FC<{ isVisible: boolean; onClose: () => void; onFilterChange: (filter: string) => void }> = ({ isVisible, onClose, onFilterChange }) => {
+const TostModal: React.FC<{
+    isVisible: boolean;
+    onClose: () => void;
+    onFilterChange: (filter: string) => void;
+}> = ({ isVisible, onClose, onFilterChange }) => {
     const [selectedOption, setSelectedOption] = useState<string>("");
-
-    if (!isVisible) return null;
+    const [isHiding, setIsHiding] = useState(false);
 
     const handleOptionChange = (option: string) => {
         setSelectedOption(option);
@@ -16,13 +19,23 @@ const TostModal: React.FC<{ isVisible: boolean; onClose: () => void; onFilterCha
 
     const handleApplyFilter = () => {
         onFilterChange(selectedOption);
-        onClose();
+        handleClose();
     };
+
+    const handleClose = () => {
+        setIsHiding(true);
+        setTimeout(() => {
+            onClose();
+            setIsHiding(false);
+        }, 300);
+    };
+
+    if (!isVisible && !isHiding) return null;
 
     return (
         <S.Container>
-            <S.ModalContent>
-                <S.CloseButton onClick={onClose}>
+            <S.ModalContent className={isHiding ? "hidden" : ""}>
+                <S.CloseButton onClick={handleClose}>
                     <img src={xBtn} alt="Close" />
                 </S.CloseButton>
                 <S.Title>필터링하고 싶은 항목을 선택하세요</S.Title>

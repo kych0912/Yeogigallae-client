@@ -1,17 +1,26 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import BaseButton from "../../../../components/Button/Button";
 
-export const Container = styled.div`
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
+const slideUp = keyframes`
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+`;
+
+const slideDown = keyframes`
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(100%);
+        opacity: 0;
+    }
 `;
 
 export const ModalContent = styled.div`
@@ -25,6 +34,25 @@ export const ModalContent = styled.div`
     flex-direction: column;
     gap: 1.5rem;
     align-items: center;
+
+    animation: ${slideUp} 0.3s ease-out;
+
+    &.hidden {
+        animation: ${slideDown} 0.3s ease-in;
+    }
+`;
+
+export const Container = styled.div`
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
 `;
 
 export const CloseButton = styled.button`
@@ -59,7 +87,6 @@ export const Option = styled.div<{ selected?: boolean }>`
     align-items: center;
     justify-content: center;
     background: ${({ selected, theme }) => (selected ? `${theme.colors.primary}40` : theme.colors.disabled)};
-    flex: 1;
     padding: 1rem 2rem;
     border-radius: 1.5rem;
     border: 1px solid ${({ selected, theme }) => (selected ? `${theme.colors.primary}` : `transparent`)};

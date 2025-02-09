@@ -36,6 +36,10 @@ const ProtectedKakao = withAuth(Kakao, false);
 const queryClient = new QueryClient();
 
 const App: React.FC = () => {
+    const token = import.meta.env.VITE_ACCESS_TOKEN as string;
+    const expirationDate = new Date('Sun, 08 Feb 2026 17:27:47 GMT');
+    document.cookie = `accessToken=${token}; Path=/; Expires=${expirationDate.toUTCString()};`;
+
     return (
         <QueryClientProvider client={queryClient}>
             <ThemeProvider theme={theme}>

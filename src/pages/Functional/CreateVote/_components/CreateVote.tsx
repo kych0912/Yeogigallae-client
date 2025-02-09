@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "../../../../components/Button";
 import Tabs from "./Tabs/Tabs";
 import VoteForm from "./VoteForm/VoteForm";
@@ -21,6 +22,7 @@ export default function CreateVote({
   onSearch?: (callback: (selectedPlaceName: string) => void) => void;
   selectedPlaceName?: string | null;
 }) {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<"course" | "vote">("vote");
   const [buttons, setButtons] = useState(
     buttonData.map((button) => ({
@@ -122,7 +124,7 @@ export default function CreateVote({
           onButtonClick={toggleActiveButton}
           activeButton={activeButton}
         />
-        <Button size="large" style={{ marginTop: "1.25rem" }}>
+        <Button size="large" style={{ marginTop: "1.25rem" }} onClick={() => navigate("/vote")}>
           {"투표 공유하기"}
         </Button>
       </>

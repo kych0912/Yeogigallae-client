@@ -7,7 +7,7 @@ interface TabsProps {
 
 export default function Tabs({ activeTab, onTabChange }: TabsProps) {
   const tabs = [
-    { title: "일정짜기", key: "SCHEDULE" as const }, 
+    { title: "투표하기", key: "SCHEDULE" as const }, 
     { title: "코스짜기", key: "COURSE" as const },
   ];
 

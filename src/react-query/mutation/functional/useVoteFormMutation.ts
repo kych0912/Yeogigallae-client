@@ -7,7 +7,12 @@ export const useVoteFormMutation = () => {
   const { tripPlanType } = useVoteFormContext();
 
   return useMutation({
-    mutationFn: (formData: VoteFormBody = {} as VoteFormBody) => 
-      postVoteForm({ tripPlanType, ...formData }), 
+    mutationFn: (formData: VoteFormBody) => postVoteForm({ tripPlanType, ...formData }),
+    onSuccess: () => {
+      console.log(tripPlanType);
+    },
+    onError: (error) => {
+      console.error(error);
+    },
   });
 };

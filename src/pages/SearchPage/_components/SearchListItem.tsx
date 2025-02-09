@@ -39,10 +39,14 @@ export default function SearchListItem({
                 <S.AddressName>
                   {result.road_address_name || result.address_name}
                 </S.AddressName>
-                <S.MapButton onClick={() => setIsMapOpen(!isMapOpen)}>
+                <S.MapButton onClick={(e) => {
+                    e.stopPropagation();
+                    setIsMapOpen(!isMapOpen)
+                }}>
                   지도
                   <S.RotateIcon $isRotated={isMapOpen}>
                     <ToggleIcon />
+
                   </S.RotateIcon>
                 </S.MapButton>
               </S.InfoContainer>

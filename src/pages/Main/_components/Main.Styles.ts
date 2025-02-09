@@ -122,6 +122,22 @@ export const TextBox = styled.div`
     width: 100%;
     height: 100%;
 `;
+export const Type = styled.div`
+    font-size: 1rem;
+    font-family: ${({ theme }) => theme.fontFamily.medium};
+    color: white;
+    background-color: ${({ theme }) => theme.colors.GrayText || "#6E6E6E"};
+    border-radius: 0.25rem;
+    border: solid 0.063rem white;
+    height: 2rem;
+    width: 5.063rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    text-align: center;
+    gap: 0.2rem;
+`;
 
 //예정된 여행
 export const Image = styled.img`
@@ -181,4 +197,15 @@ export const selectBtn = styled(BaseButton)<{ selected: boolean }>`
 export const Icon = styled.img`
     padding: 0 0.625rem 0 0;
     align-self: center;
+`;
+export const Icon2 = styled(Icon)`
+    width: 1.25rem;
+    vertical-align: center;
+    display: inline-block;
+`;
+
+export const HighlightedText = styled.span`
+    color: ${({ theme }) => theme.colors.GrayText};
+    font-family: ${({ theme }) => theme.fontFamily.regular};
+    font-size: 0.75rem;
 `;

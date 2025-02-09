@@ -1,19 +1,43 @@
-import building1 from "../../assets/icons/building1.svg?react";
-import building2 from "../../assets/icons/building2.svg?react";
-import building3 from "../../assets/icons/building3.svg?react";
-import building4 from "../../assets/icons/building4.svg?react";
-import nature1 from "../../assets/icons/nature1.svg?react";
-import nature2 from "../../assets/icons/nature2.svg?react";
-import nature3 from "../../assets/icons/nature3.svg?react";
-import nature4 from "../../assets/icons/nature4.svg?react";
-import { mockSelectedImage } from "../../mocks/imageMock"; 
+type category = "활동" | "건물" | "음식" | "자연";
 
-type SVGComponent = React.FC<React.SVGProps<SVGSVGElement>> | string; 
-export default function getImageData(): Record<string, SVGComponent[]> {
+
+export default function getImageData(): Record<category, {count: number, images: string[]}> {
   return {
-    건물: [building1, building2, building3, building4, mockSelectedImage], 
-    자연: [nature1, nature2, nature3, nature4, mockSelectedImage], 
-    활동: [building1, building2, building3, nature2, mockSelectedImage], 
-    음식: [nature4, nature1, building1, building2, mockSelectedImage], 
-  };
+    "활동": {
+      "count": 4,
+      "images": [
+        "https://yeogigallae.s3.ap-southeast-2.amazonaws.com/uploads/activity_image1.jpg",
+        "https://yeogigallae.s3.ap-southeast-2.amazonaws.com/uploads/activity_image2.jpg",
+        "https://yeogigallae.s3.ap-southeast-2.amazonaws.com/uploads/activity_image3.jpg",
+        "https://yeogigallae.s3.ap-southeast-2.amazonaws.com/uploads/activity_image4.jpg"
+      ]
+    },
+    "건물": {
+      "count": 4,
+      "images": [
+        "https://yeogigallae.s3.ap-southeast-2.amazonaws.com/uploads/building_image1.jpg",
+        "https://yeogigallae.s3.ap-southeast-2.amazonaws.com/uploads/building_image2.jpg",
+        "https://yeogigallae.s3.ap-southeast-2.amazonaws.com/uploads/building_image3.jpg",
+        "https://yeogigallae.s3.ap-southeast-2.amazonaws.com/uploads/building_image4.jpg",
+      ]
+    },
+    "음식": {
+      "count": 4,
+      "images": [
+        "https://yeogigallae.s3.ap-southeast-2.amazonaws.com/uploads/food_image1.jpg",
+        "https://yeogigallae.s3.ap-southeast-2.amazonaws.com/uploads/food_image2.jpg",
+        "https://yeogigallae.s3.ap-southeast-2.amazonaws.com/uploads/food_image3.jpg",
+        "https://yeogigallae.s3.ap-southeast-2.amazonaws.com/uploads/food_image4.jpg",
+      ]
+    },
+    "자연": {
+      "count": 4,
+      "images": [
+        "https://yeogigallae.s3.ap-southeast-2.amazonaws.com/uploads/nature_image1.jpg",
+        "https://yeogigallae.s3.ap-southeast-2.amazonaws.com/uploads/nature_image2.jpg",
+        "https://yeogigallae.s3.ap-southeast-2.amazonaws.com/uploads/nature_image3.jpg",
+        "https://yeogigallae.s3.ap-southeast-2.amazonaws.com/uploads/nature_image4.jpg",
+      ]
+    }
+  }
 }

@@ -17,7 +17,7 @@ export default function FunctionalFunnel() {
   const [FunnelComponent, setStep, contextMap] = useFunnel(funnelOptions);
   const currentStep = Object.keys(contextMap).pop() || "생성";
 
-  const { setHeaderConfig } = useOutletContext<{ setHeaderConfig: (config: { title: string }) => void }>();
+  const { setHeaderConfig } = useOutletContext<{ setHeaderConfig: (config: { title: string; number?: number }) => void }>();
 
   useEffect(() => {
     let newTitle = "생성하기";

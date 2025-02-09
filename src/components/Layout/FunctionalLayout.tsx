@@ -3,7 +3,7 @@ import HomeIcon from "../../assets/icons/Home.svg?react";
 import BackIcon from "../../assets/icons/Back.svg?react";
 import { IconButton } from "../Button";
 import { Outlet, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import HeaderCenterContent from "../Header/HeaderCenterContent";
 
 interface HeaderConfig {
@@ -16,6 +16,12 @@ export default function Layout() {
   const [headerConfig, setHeaderConfig] = useState<HeaderConfig>({ title: "생성하기" });
 
   const { title, number } = headerConfig;
+
+  useEffect(() => {
+    if (!title.trim()) {
+      setHeaderConfig({ title: "생성하기" });
+    }
+  }, [title]);
 
   const handleBack = () => {
     navigate(-1);
@@ -37,7 +43,6 @@ export default function Layout() {
         }
       />
       <main>
-        {/* ✅ FunctionalFunnel에서 `setHeaderConfig` 사용 가능하도록 Outlet을 통해 전달 */}
         <Outlet context={{ setHeaderConfig }} />
       </main>
     </>

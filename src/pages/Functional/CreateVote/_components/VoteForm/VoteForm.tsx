@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useVoteForm } from "../../../../../hooks/useForm/useVoteForm";
 import { Controller } from "react-hook-form";
 import ImagePlaceholder from "./ImagePlaceholder";
@@ -7,7 +7,6 @@ import * as S from "../../../_components/Functional.styles";
 import CalendarIcon from "../../../../../assets/icons/Calender.svg?react";
 import Card from "../../../../../components/Card";
 import VoteTimes from "./VoteTimes";
-import { useMemo } from "react";
 
 interface VoteFormProps {
   tripPlanType: "COURSE" | "SCHEDULE";
@@ -23,20 +22,12 @@ export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch, s
   const startDate = watch("startDate");
   const endDate = watch("endDate");
 
-  // ✅ 날짜 포맷팅 함수 (yyyy-mm-dd 형식)
-  const formatDate = (date: string | null) => {
-    if (!date) return "미정";
-    const d = new Date(date);
-    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
-  };
-
-  // ✅ 기간 계산 (n박)
   const nights = useMemo(() => {
-    if (!startDate || !endDate) return "-";
+    if (!startDate || !endDate) return 0;
     const start = new Date(startDate);
     const end = new Date(endDate);
     const diff = Math.max(0, (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24) - 1);
-    return diff || 1; // 최소 1박 보장
+    return diff || 1;
   }, [startDate, endDate]);
 
   useEffect(() => {
@@ -44,6 +35,13 @@ export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch, s
       setValue("location", selectedPlace);
     }
   }, [selectedPlace, setValue]);
+
+  const formatPrice = (price: number) => {
+    if (price === 0) return "";
+    const mainUnit = Math.floor(price / 10000); 
+    const subUnit = price % 10000; 
+    return mainUnit > 0 ? `${mainUnit}만${subUnit > 0 ? ` ${subUnit}원` : ""}` : `${subUnit}원`;
+  };
 
   return (
     <Card>
@@ -61,9 +59,7 @@ export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch, s
       <S.StyledDivider />
 
       <Card.Item label="장소">
-        <S.ClickableText onClick={() => onSearch()}>
-          {watch("location") || "장소를 입력하세요."}
-        </S.ClickableText>
+        <S.ClickableText onClick={onSearch}>{watch("location") || "장소를 입력하세요."}</S.ClickableText>
       </Card.Item>
       <S.StyledDivider />
 
@@ -73,30 +69,48 @@ export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch, s
             <Controller
               name="scheduleDetails.price"
               control={control}
-              render={({ field }) => (
-                <S.Input
-                  type="text"
-                  placeholder={`${nights}박 / 20만원`}
-                  value={field.value ? `${nights}박 / ${field.value}` : ""}
-                  onChange={(e) => field.onChange(e.target.value)}
-                />
-              )}
+              render={({ field }) => {
+                let numericValue = field.value ? field.value.replace(/\D/g, "") : "";
+                let priceNumber = parseInt(numericValue, 10) || 0;
+
+                if (priceNumber > 9990000) {
+                  priceNumber = 9990000; // 최대값 제한
+                }
+
+                const formattedPrice = formatPrice(priceNumber);
+                const safeNights = Math.max(nights, 1);
+
+                return (
+                  <S.Input
+                    type="text"
+                    placeholder={`${safeNights}박 / 20만원`}
+                    value={formattedPrice}
+                    onChange={(e) => {
+                      let priceValue = e.target.value.replace(/\D/g, "");
+                      let newPrice = parseInt(priceValue, 10) || 0;
+                      if (newPrice > 9990000) return;
+
+                      field.onChange(newPrice.toString());
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Backspace") {
+                        e.preventDefault();
+                        let newValue = priceNumber.toString().slice(0, -1);
+                        field.onChange(newValue || "");
+                      }
+                    }}
+                  />
+                );
+              }}
             />
           </Card.Item>
+
           <S.StyledDivider />
         </>
       )}
 
-      {/* ✅ 기간 (n박) */}
-      <Card.Item label="기간">
-        {nights}박 ({formatDate(startDate)} ~ {formatDate(endDate)})
-      </Card.Item>
-
       <S.StyledCardItem>
-        {/* ✅ 날짜 (yyyy.mm.dd 형식) */}
-        <span className="text">
-          날짜 {formatDate(startDate)} ~ {formatDate(endDate)}
-        </span>
+        <span className="text">날짜 {startDate || "미정"} ~ {endDate || "미정"}</span>
         <S.IconWrapper onClick={onCalendar} className="icon">
           <CalendarIcon />
         </S.IconWrapper>

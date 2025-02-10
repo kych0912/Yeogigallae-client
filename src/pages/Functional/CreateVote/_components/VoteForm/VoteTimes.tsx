@@ -1,21 +1,43 @@
+import { useEffect, useRef } from "react";
 import * as S from "../../../_components/Functional.styles";
 
-export default function VoteTimes({
-  selectedTime,
-  onTimeChange,
-}: {
-  selectedTime: string | null;
-  onTimeChange: (time: string) => void;
-}) {
-  const timeOptions = ["30분", "60분", "2시간","4시간", "6시간"];
+interface VoteTimesProps {
+  value: string;
+  onChange: (value: string) => void;
+}
+
+export default function VoteTimes({ value, onChange }: VoteTimesProps) {
+  const voteTimeMapping: Record<string, string> = {
+    "THIRTY_MINUTES": "30분",
+    "SIXTY_MINUTES": "60분",
+    "TWO_HOURS": "2시간",
+    "FOUR_HOURS": "4시간",
+    "SIX_HOURS": "6시간",
+  };
+
+  const selectedTime = voteTimeMapping[value] || "";
+  const timeOptions = Object.values(voteTimeMapping);
+
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.scrollLeft = 0;
+    }
+  }, []);
 
   return (
-    <S.ButtonContainer>
+    <S.ButtonContainer ref={containerRef}>
       {timeOptions.map((time) => (
         <S.TimeButton
           key={time}
           $isActive={selectedTime === time}
-          onClick={() => onTimeChange(time)}
+          onClick={() => {
+            const selectedKey = Object.keys(voteTimeMapping).find(
+              (key) => voteTimeMapping[key] === time
+            );
+            if (selectedKey) onChange(selectedKey);
+          }}
         >
           {time}
         </S.TimeButton>

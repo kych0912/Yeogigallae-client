@@ -1,14 +1,21 @@
 import Calendar from "../../../../components/Calendar/Calendar";
+import { CalendarProvider } from "../../../../components/Calendar/context/CalendarContext";
+import { useState } from "react";
 
 export default function CreateCalendar({
   onNext,
 }: {
-  onNext: () => void; 
+  onNext: () => void;
 }) {
+  const [isMonthSelected, setIsMonthSelected] = useState(false);
+
   return (
-    <>
-      <Calendar onComplete={onNext} /> 
-    </>
+    <CalendarProvider>
+      <Calendar 
+        onComplete={onNext} 
+        onMonthSelect={setIsMonthSelected}
+        isMonthSelected={isMonthSelected} 
+      />
+    </CalendarProvider>
   );
 }
-

@@ -3,8 +3,8 @@ import { DEFAULT_MY_FRIEND } from "./mocks";
 import { Friend } from "./types";
 
 export const getFriends = async () => {
-    if(import.meta.env.MODE === "development"){
-        return DEFAULT_MY_FRIEND.filter((item)=> item.friendId != 1);
+    if (import.meta.env.MODE === "development") {
+        return DEFAULT_MY_FRIEND;
     }
 
     const response = await axios.get<Friend[]>(`${import.meta.env.VITE_API_URL}/friendship/friends`);
@@ -19,4 +19,3 @@ export const deleteFriend = async (friendId:number) => {
     const response = await axios.delete(`${import.meta.env.VITE_API_URL}/friendship/friends/${friendId}`);
     return response.data;
 }   
-

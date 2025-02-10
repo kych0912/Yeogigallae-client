@@ -12,9 +12,9 @@ export interface SearchInputProps {
 // 장소 리스트
 export interface ResultListProps {
   results: KakaoPlaceDocument[];
+  coords: { zoneNo: string | undefined }[];
   handleSelectItem: (item: KakaoPlaceDocument) => void;
 }
-
 
 // 장소 찾기 지도
 export interface MapProps {

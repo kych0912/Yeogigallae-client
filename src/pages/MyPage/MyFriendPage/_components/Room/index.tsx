@@ -36,6 +36,7 @@ export default function Room(){
                             index={index+1} 
                             name={room.roomName} 
                             member={room.members} 
+                            type="room"
                         />
 
                     ))

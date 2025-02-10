@@ -13,7 +13,7 @@ export default function FloatingMenu() {
     const closeMenu = () => setIsActive(false);
 
     const handleMyClick = () => {
-        navigate("/mypage/friend");
+        navigate("/mypage/profile");
         closeMenu();
     };
 

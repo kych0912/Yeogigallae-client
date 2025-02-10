@@ -14,14 +14,33 @@ export default function Calendar({ onComplete }: { onComplete: () => void }) {
   const month = currentDate.getMonth();
 
   const handleDayClick = (date: Date) => {
+    if (startDate && date.getTime() === startDate.getTime() && !endDate) {
+      setStartDate(null);
+      return;
+    }
+  
     if (!startDate || (startDate && endDate)) {
       setStartDate(date);
       setEndDate(null);
     } else {
-      if (date >= startDate) setEndDate(date);
-      else setStartDate(date);
+      if (!endDate) {
+        if (date.getTime() === startDate.getTime()) {
+          return; 
+        }
+  
+        if (date > startDate) {
+          setEndDate(date);
+        } else {
+          setEndDate(startDate);
+          setStartDate(date);
+        }
+      } else {
+        setStartDate(date);
+        setEndDate(null);
+      }
     }
   };
+  
 
   const handleYearMonthSelect = (year: number, month: number) => {
     setCurrentDate(new Date(year, month - 1, 1));

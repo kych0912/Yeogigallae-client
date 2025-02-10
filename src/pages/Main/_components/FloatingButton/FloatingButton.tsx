@@ -12,13 +12,12 @@ export default function FloatingMenu() {
     const toggleMenu = () => setIsActive(!isActive);
     const closeMenu = () => setIsActive(false);
 
-    const handleMyClick = () => {
-        navigate("/mypage/friend");
-        closeMenu();
-    };
-
     const handleEditClick = () => {
         navigate("/functional");
+    };
+
+    const handleMyClick = () => {
+        navigate("/mypage/friend");
         closeMenu();
     };
 

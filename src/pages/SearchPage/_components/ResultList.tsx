@@ -4,6 +4,7 @@ import SearchListItem from "./SearchListItem";
 
 export default function ResultList({
   results,
+  coords,
   handleSelectItem
 }: ResultListProps) {
   return (
@@ -13,6 +14,7 @@ export default function ResultList({
           <SearchListItem
             key={result.id}
             result={result}
+            zoneNo={coords[index].zoneNo}
             index={index}
             results={results}
             handleSelectItem={handleSelectItem}
@@ -20,6 +22,5 @@ export default function ResultList({
         );
       })}
     </S.Results>
-
   );
 }

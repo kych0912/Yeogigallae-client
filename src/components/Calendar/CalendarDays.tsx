@@ -1,58 +1,59 @@
-import { useEffect } from "react";
 import * as S from "./CalendarDays.styles";
 import { getDaysInMonth, getWeekDays } from "./utils/Calendar.utils";
 import { isDateInRange, isStartDate, isEndDate, createDateFromDay } from "./utils/Days.utils";
+import { useCalendar } from "./context/CalendarContext";
 import Card from "../Card";
-import { CalendarDaysProps } from "./types/types";
 
-export default function CalendarDays({
-  year,
-  month,
-  startDate,
-  endDate,
-  onDayClick,
-  setCurrentDate,
-  onStateChange, 
-}: CalendarDaysProps) {
+export default function CalendarDays() {
+  const { currentDate, startDate, endDate, setStartDate, setEndDate, setCurrentDate } = useCalendar();
+  const year = currentDate.getFullYear();
+  const month = currentDate.getMonth() + 1;
   const daysInMonth = getDaysInMonth(year, month);
   const weekDays = getWeekDays();
-
-  const isStartAndEnd = !!(startDate && endDate);
-
-  useEffect(() => {
-    onStateChange(isStartAndEnd); 
-  }, [isStartAndEnd, onStateChange]);
 
   const handleDayClick = (day: typeof daysInMonth[number]) => {
     const targetDate = createDateFromDay(day.year, day.month, day.date);
 
-    // 다른 달로 이동
     if (day.month !== month || day.year !== year) {
       setCurrentDate(targetDate);
     }
 
+    if (targetDate.getTime() === startDate?.getTime()) {
+      setStartDate(null);
+      return;
+    }
+    if (targetDate.getTime() === endDate?.getTime()) {
+      setEndDate(null);
+      return;
+    }
+
     if (!startDate || (startDate && endDate)) {
-      // 시작점이 없거나, 시작점과 끝점이 모두 선택된 경우
-      onDayClick(targetDate);
-    } else if (startDate && !endDate) {
-      // 시작점만 선택된 경우
-      if (targetDate < startDate) {
-        onDayClick(targetDate); // 새 시작점으로 설정
-      } else {
-        onDayClick(targetDate); // 끝점으로 설정
+      setStartDate(targetDate);
+      setEndDate(null);
+    } else {
+      if (targetDate > startDate) {
+        const maxSelectableDate = new Date(startDate);
+        maxSelectableDate.setDate(startDate.getDate() + 7);
+        if (targetDate > maxSelectableDate) return; 
+        setEndDate(targetDate);
+      } 
+      else {
+        const minSelectableDate = new Date(startDate);
+        minSelectableDate.setDate(startDate.getDate() - 7);
+        if (targetDate < minSelectableDate) return;
+        setEndDate(startDate);
+        setStartDate(targetDate);
       }
     }
   };
 
   return (
     <>
-      {/* 현재 연도와 월 표시 */}
       <S.CurrentDate>
         {year}년 {month}월
       </S.CurrentDate>
 
       <S.CalendarContainer>
-        {/* 요일 */}
         <S.WeekDays>
           {weekDays.map((day, index) => (
             <S.WeekDay key={`weekday-${index}`}>{day}</S.WeekDay>
@@ -61,7 +62,6 @@ export default function CalendarDays({
 
         <Card.Divider />
 
-        {/* 날짜 */}
         <S.Days>
           {daysInMonth.map((day, index) => (
             <S.Day
@@ -77,14 +77,8 @@ export default function CalendarDays({
                 isStartDate(createDateFromDay(day.year, day.month, day.date), startDate) ||
                 isEndDate(createDateFromDay(day.year, day.month, day.date), endDate)
               }
-              $isStart={isStartDate(
-                createDateFromDay(day.year, day.month, day.date),
-                startDate
-              )}
-              $isEnd={isEndDate(
-                createDateFromDay(day.year, day.month, day.date),
-                endDate
-              )}
+              $isStart={isStartDate(createDateFromDay(day.year, day.month, day.date), startDate)}
+              $isEnd={isEndDate(createDateFromDay(day.year, day.month, day.date), endDate)}
               onClick={() => handleDayClick(day)}
             >
               {day.date}

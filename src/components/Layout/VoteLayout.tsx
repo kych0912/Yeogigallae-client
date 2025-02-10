@@ -1,39 +1,41 @@
-import Header from "../Header"
+import Header from "../Header";
 import HomeIcon from "../../assets/icons/Home.svg?react";
 import BackIcon from "../../assets/icons/Back.svg?react";
 import { IconButton } from "../Button";
-import styled from 'styled-components'
-import { Outlet, useNavigate } from 'react-router-dom';
-import { voteData } from "../../pages/Vote/voteData";
+import { Outlet, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import HeaderCenterContent from "../Header/HeaderCenterContent";
+
+interface HeaderConfig {
+    title: string;
+    number?: number;
+}
 
 export default function Layout() {
     const navigate = useNavigate();
+    const [headerConfig, setHeaderConfig] = useState<HeaderConfig>({ title: "", number: undefined });
+    const { title, number } = headerConfig;
 
     return (
         <>
-            <Header 
+            <Header
                 leftContent={
-                    <IconButton onClick={ (() => navigate(-1))}>
-                        <BackIcon/>
+                    <IconButton onClick={() => navigate(-1)}>
+                        <BackIcon />
                     </IconButton>
                 }
-                centerContent={<Typography>{voteData.groupId}{voteData.groupMembers}</Typography>}
+                centerContent={
+                    <HeaderCenterContent title={title} number={number} />
+                }
                 rightContent={
-                    <IconButton onClick={() => navigate('/')}>
-                        <HomeIcon/>
+                    <IconButton onClick={() => navigate("/")}>
+                        <HomeIcon />
                     </IconButton>
                 }
             />
             <main>
-                <Outlet />
+                <Outlet context={{ setHeaderConfig }} />
             </main>
         </>
-    )
+    );
 }
-
-const Typography = styled.div`
-  font-size:1rem;
-  color:#ffffff;
-  font-weight:500;
-  line-height:1.178rem;
-`

@@ -15,6 +15,17 @@ export const VotingItem = styled.div`
     height: auto;
     flex-shrink: 0;
 `;
+export const FullVotingItem = styled.div`
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    background-color: ${({ theme }) => theme.colors.secondary || "#222222"};
+    border-radius: 1.25rem;
+    font-family: ${({ theme }) => theme.fontFamily.regular};
+    padding: 1.5rem 1.25rem;
+    height: auto;
+    width: 100%;
+`;
 
 export const EmptyBox = styled.div`
     width: 23.125rem;
@@ -62,6 +73,11 @@ export const ProfileImageOverlay = styled.div`
     justify-content: center;
     align-items: center;
     z-index: 1;
+    background-color: ${({ theme }) => theme.colors.GrayText};
+    font-size: 0.75rem;
+    color: white;
+    font-family: ${({ theme }) => theme.fontFamily.semiBold};
+    box-shadow: -0.25rem 0.25rem 1rem 0px #000000;
 
     &:first-child {
         margin-left: 0;

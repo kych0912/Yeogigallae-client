@@ -6,7 +6,7 @@ export const FloatingContainer = styled.div<{ $isActive: boolean }>`
     right: 1.875rem;
     display: flex;
     flex-direction: column-reverse;
-    align-items: center;
+    align-items: end;
     z-index: 1000;
 `;
 
@@ -16,7 +16,7 @@ export const Overlay = styled.div<{ $isActive: boolean }>`
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.8);
     opacity: ${({ $isActive }) => ($isActive ? 1 : 0)};
     pointer-events: ${({ $isActive }) => ($isActive ? "auto" : "none")};
     transition: opacity 0.3s ease-in-out;
@@ -58,4 +58,26 @@ export const SubButton = styled(FloatingButtonStyled)<{ $isActive: boolean }>`
             pointer-events: auto;
             transform: scale(1);
         `}
+`;
+
+export const MenuItem = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
+    z-index: 1002;
+`;
+
+export const SubText = styled.span<{ $isActive: boolean }>`
+    opacity: ${({ $isActive }) => ($isActive ? 1 : 0)};
+    transform: ${({ $isActive }) => ($isActive ? "translateX(0)" : "translateX(10px)")};
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    white-space: nowrap;
+    color: white;
+    font-size: 1rem;
+    font-family: ${({ theme }) => theme.fontFamily.medium};
+    z-index: 1003;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0.5rem;
 `;

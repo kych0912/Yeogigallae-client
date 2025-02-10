@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Card } from "../../../../../components/Card/Card.styles";
 
-export const StyledCard = styled(Card)`
+export const CustomCard = styled(Card)`
   display: flex;
   flex-direction: row; 
   align-items: center; 

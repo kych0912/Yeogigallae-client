@@ -2,7 +2,6 @@ import styled from "styled-components";
 import Card from "../../../components/Card";
 import CommonContainer from "../../../components/Layout/CommonContainer";
 
-
 export const StyledCommonContainer = styled(CommonContainer)`
   font-family: ${({ theme }) => theme.fontFamily.medium};
 `
@@ -41,7 +40,6 @@ export const StyledCardTitle = styled(Card.Title)`
 
 export const StyledCard = styled(Card)`
   width: 100%;
-  background: white;
   border-radius: 1.875rem;
   overflow: hidden;
   transform-style: preserve-3d;
@@ -141,11 +139,13 @@ export const CustomWrapper = styled.div`
 `;
 
 export const text = styled.div`
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 0.875rem;
   line-height: 1.25rem;
+  margin: 0 8.125rem;
   color: #ffffff; 
   font-family: ${({ theme }) => theme.fontFamily.regular};
 `;
@@ -161,21 +161,28 @@ export const CustomItem = styled.div`
 export const RecommendButton = styled.div`
   display: flex;
   justify-content: space-between; 
-  flex-direction: row;
-  align-items: center; 
-  gap: 0.625rem; 
-  flex-wrap: nowrap; 
-  width: 100%; 
-
-  button {
-    font-weight: medium;
-    padding: 0.75rem 0;
-    border-radius: 0.938rem;
-    font-size: 1rem;
-  }
-
+  align-items: center;
+  gap: 0.625rem;
+  width: 100%;
+  margin: 0 5rem;
 `;
 
 export const CustomSpacer = styled(Card.Divider)`
   background-color: transparent !important;
 `;
+
+export const FixedSizeButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  border-radius: 16px; 
+  height: 2.688rem;
+  width: 100%;
+  color: #fff;
+  border: none;
+  font-family: ${({theme}) => theme.fontFamily.medium};
+  background-color: #3d46f1;
+`;
+
+

@@ -52,6 +52,16 @@ export const Emptylist = styled(Container)`
 `;
 
 //메인 탑
+export const NotificationDot = styled.div`
+    position: absolute;
+    top: 0.65rem;
+    right: 0.65rem;
+    width: 0.35rem;
+    height: 0.35rem;
+    background-color: ${({ theme }) => theme.colors.primary};
+    border-radius: 50%;
+`;
+
 export const Title = styled.h1`
     font-size: 1.5rem;
     font-family: ${({ theme }) => theme.fontFamily.semiBold};
@@ -112,12 +122,30 @@ export const TextBox = styled.div`
     width: 100%;
     height: 100%;
 `;
+export const Type = styled.div`
+    font-size: 1rem;
+    font-family: ${({ theme }) => theme.fontFamily.medium};
+    color: white;
+    background-color: ${({ theme }) => theme.colors.GrayText || "#6E6E6E"};
+    border-radius: 0.25rem;
+    border: solid 0.063rem white;
+    height: 2rem;
+    width: 5.063rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    text-align: center;
+    gap: 0.2rem;
+    margin-bottom: 0.75rem;
+`;
 
 //예정된 여행
 export const Image = styled.img`
     width: 8.125rem;
     height: 8.125rem;
     border-radius: 1.25rem;
+    opacity: 0.8;
 `;
 //완료된 여행
 
@@ -136,7 +164,7 @@ export const TravelList = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100vw;
+    width: 100%;
     box-sizing: border-box;
     padding: 0 1.25rem;
 `;
@@ -161,7 +189,7 @@ export const RowTravelList = styled.div`
 export const selectBtn = styled(BaseButton)<{ selected: boolean }>`
     color: ${({ theme, selected }) => (selected ? "#fff" : theme.colors.GrayText)};
     background-color: ${({ theme, selected }) => (selected ? theme.colors.GrayText : theme.colors.secondary)};
-    font-family: ${({ theme, selected }) => (selected ? theme.fontFamily.medium : theme.fontFamily.regular)};
+    font-family: ${({ theme, selected }) => (selected ? theme.fontFamily.semiBold : theme.fontFamily.medium)};
     border: none;
     width: 11.875rem;
     height: 3.25rem;
@@ -171,4 +199,15 @@ export const selectBtn = styled(BaseButton)<{ selected: boolean }>`
 export const Icon = styled.img`
     padding: 0 0.625rem 0 0;
     align-self: center;
+`;
+export const Icon2 = styled(Icon)`
+    width: 1.25rem;
+    vertical-align: center;
+    display: inline-block;
+`;
+
+export const HighlightedText = styled.span`
+    color: ${({ theme }) => theme.colors.GrayText};
+    font-family: ${({ theme }) => theme.fontFamily.regular};
+    font-size: 0.75rem;
 `;

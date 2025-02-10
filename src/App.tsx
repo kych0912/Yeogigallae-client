@@ -19,26 +19,45 @@ import VoteLayout from "./components/Layout/VoteLayout";
 import FunctionalLayout from "./components/Layout/FunctionalLayout";
 import CoursePage from "./pages/Course/CoursePage";
 import ProfileLayout from "./components/Layout/ProfileLayout";
+import Kakao from "./pages/Login/Kakao";
 import MyFriendPage from "./pages/MyPage/MyFriendPage/MyFriendPage";
 import "./App.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import NoticeLayout from "./components/Layout/NoticeLayout";
-import UpComingCoursePage from "./pages/Course/UpComingCourse/UpComingCoursePage";
+
 import BudgetLayout from "./components/Layout/BudgetLayout";
+import UpComingCoursePage from "./pages/Course/UpComingCourse/UpComingCoursePage";
+import withAuth from "./pages/Login/withAuth";
+import FullVotingListPage from "./pages/Main/FullVotingListPage/FullVotingListPage";
+import FullVotingListLayout from "./components/Layout/FullVotingListLayout";
+
+// const ProtectedMainPage = withAuth(MainPage, true);
+const ProtectedLoginPage = withAuth(LoginPage, false);
+const ProtectedKakao = withAuth(Kakao, false);
 
 const queryClient = new QueryClient();
 
 const App: React.FC = () => {
+    const token = import.meta.env.VITE_ACCESS_TOKEN as string;
+    const expirationDate = new Date('Sun, 08 Feb 2026 17:27:47 GMT');
+    document.cookie = `accessToken=${token}; Path=/; Expires=${expirationDate.toUTCString()};`;
+
     return (
         <QueryClientProvider client={queryClient}>
             <ThemeProvider theme={theme}>
                 <Router>
                     <Routes>
                         {/* Main */}
+                        {/*<Route path="/" element={<MainPage />} />*/}
+                        {/* <Route path="/" element={<ProtectedMainPage />} /> */}
                         <Route path="/" element={<MainPage />} />
+                        <Route element={<FullVotingListLayout />}>
+                            <Route path="/fulllist" element={<FullVotingListPage />} />
+                        </Route>
 
                         {/* Login */}
-                        <Route path="/login" element={<LoginPage />} />
+                        <Route path="/login" element={<ProtectedLoginPage />} />
+                        <Route path="/login/kakao" element={<ProtectedKakao />} />
 
                         {/* Budget */}
                         <Route element={<BudgetLayout />}>

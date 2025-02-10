@@ -1,31 +1,28 @@
-import * as S from "./Styles";
+import * as S from "./Tabs.styles";
 
-export default function Tabs({
-  activeTab,
-  onTabChange,
-}: {
-  activeTab: "vote" | "course";
-  onTabChange: (tab: "vote" | "course") => void;
-}) {
+interface TabsProps {
+  activeTab: "SCHEDULE" | "COURSE"; 
+  onTabChange: (tab: "SCHEDULE" | "COURSE") => void; 
+}
+
+export default function Tabs({ activeTab, onTabChange }: TabsProps) {
   const tabs = [
-    { title: "투표하기", key: "vote" },
-    { title: "코스짜기", key: "course" },
+    { title: "투표하기", key: "SCHEDULE" as const }, 
+    { title: "코스짜기", key: "COURSE" as const },
   ];
 
   return (
-    <>
-      <S.StyledCard>
-        {tabs.map((tab) => (
-          <S.StyledButton
-            key={tab.key}
-            size="large"
-            $isActive={activeTab === tab.key}
-            onClick={() => onTabChange(tab.key as "vote" | "course")}
-          >
-            {tab.title}
-          </S.StyledButton>
-        ))}
-      </S.StyledCard>
-    </>
+    <S.CustomCard>
+      {tabs.map(({ title, key }) => (
+        <S.StyledButton
+          key={key}
+          size="large"
+          $isActive={activeTab === key}
+          onClick={() => activeTab !== key && onTabChange(key)}
+        >
+          {title}
+        </S.StyledButton>
+      ))}
+    </S.CustomCard>
   );
 }

@@ -29,11 +29,11 @@ export default function FloatingMenu() {
                 <img src={Floating} alt="Floating Icon" />
             </S.FloatingButtonStyled>
 
-            <S.SubButton $isActive={isActive} onClick={handleEditClick}>
+            <S.SubButton $isActive={isActive} onClick={handleMyClick}>
                 <img src={usergroup} alt="usergroup Floating Icon" />
             </S.SubButton>
 
-            <S.SubButton $isActive={isActive} onClick={handleMyClick}>
+            <S.SubButton $isActive={isActive} onClick={handleEditClick}>
                 <img src={trip_plan} alt="trip_plan Floating Icon" />
             </S.SubButton>
         </S.FloatingContainer>

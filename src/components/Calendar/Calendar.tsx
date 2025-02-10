@@ -2,53 +2,42 @@ import { useState } from "react";
 import * as S from "../Calendar/Calender.styles";
 import CalendarHeader from "./CalendarHeader";
 import CompleteButton from "./CompleteButton";
+import { useCalendar } from "./context/CalendarContext";
 
-export default function Calendar({ onComplete }: { onComplete: () => void }) {
-  const today = new Date();
-  const [currentDate, setCurrentDate] = useState(today);
-  const [startDate, setStartDate] = useState<Date | null>(null);
-  const [endDate, setEndDate] = useState<Date | null>(null);
-  const [mode, setMode] = useState<"date" | "flexible">("date");
+interface CalendarProps {
+  onComplete: (date: { startDate: string; endDate: string }) => void;
+  onMonthSelect: (selected: boolean) => void; // ✅ 추가
+  isMonthSelected: boolean; // ✅ 추가
+}
 
-  const year = currentDate.getFullYear();
-  const month = currentDate.getMonth();
+export default function Calendar({
+  onComplete,
+  onMonthSelect,
+  isMonthSelected, // ✅ 추가
+}: CalendarProps) {
+  const { startDate, endDate } = useCalendar();
+  const [activeTab, setActiveTab] = useState<"date" | "flexible">("date");
 
-  const handleDayClick = (date: Date) => {
-    if (!startDate || (startDate && endDate)) {
-      setStartDate(date);
-      setEndDate(null);
-    } else {
-      if (date >= startDate) setEndDate(date);
-      else setStartDate(date);
-    }
+  const formatDate = (date: Date | null): string => {
+    if (!date) return "";
+    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
   };
 
-  const handleYearMonthSelect = (year: number, month: number) => {
-    setCurrentDate(new Date(year, month - 1, 1));
-  };
-
-  const handleModeChange = (newMode: "date" | "flexible") => {
-    setMode(newMode);
+  const handleComplete = () => {
+    onComplete({ startDate: formatDate(startDate), endDate: formatDate(endDate) });
   };
 
   return (
     <S.StyledCard>
-      <CalendarHeader
-        currentYear={year}
-        currentMonth={month + 1}
-        setCurrentDate={setCurrentDate}
-        onModeChange={handleModeChange}
-        startDate={startDate}
-        endDate={endDate}
-        handleDayClick={handleDayClick}
-        handleYearMonthSelect={handleYearMonthSelect}
+      <CalendarHeader 
+        activeTab={activeTab} 
+        setActiveTab={setActiveTab} 
+        onMonthSelect={onMonthSelect} 
       />
-
-      <CompleteButton
-        startDate={startDate}
-        endDate={endDate}
-        mode={mode}
-        onComplete={onComplete}
+      <CompleteButton 
+        onComplete={handleComplete} 
+        onTabChange={setActiveTab} 
+        isMonthSelected={isMonthSelected}
       />
     </S.StyledCard>
   );

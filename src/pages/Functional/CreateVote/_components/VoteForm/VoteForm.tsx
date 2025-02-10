@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useVoteForm } from "../../../../../hooks/useForm/useVoteForm";
 import { Controller } from "react-hook-form";
 import ImagePlaceholder from "./ImagePlaceholder";
@@ -12,38 +13,37 @@ interface VoteFormProps {
   tripPlanType: "COURSE" | "SCHEDULE";
   roomId: number;
   onCalendar: () => void;
-  onSearch: (callback: (selectedPlaceName: string) => void) => void;
+  onSearch: () => void;
+  selectedPlace: string;
 }
 
-export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch }: VoteFormProps) {
-  const { control, setValue, watch } = useVoteForm(tripPlanType, roomId);
+export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch, selectedPlace }: VoteFormProps) {
+  const { control, watch, setValue } = useVoteForm(tripPlanType, roomId);
   const isSchedule = tripPlanType === "SCHEDULE";
-
-  const minDays = watch("minDays") || 1;
-  const maxDays = watch("maxDays") || 7;
-
   const startDate = watch("startDate");
   const endDate = watch("endDate");
+
+  // ✅ 날짜 포맷팅 함수 (yyyy-mm-dd 형식)
+  const formatDate = (date: string | null) => {
+    if (!date) return "미정";
+    const d = new Date(date);
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+  };
+
+  // ✅ 기간 계산 (n박)
   const nights = useMemo(() => {
     if (!startDate || !endDate) return "-";
     const start = new Date(startDate);
     const end = new Date(endDate);
     const diff = Math.max(0, (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24) - 1);
-    return diff || 1; 
+    return diff || 1; // 최소 1박 보장
   }, [startDate, endDate]);
 
-  const formatPrice = (price: string) => {
-    if (!price) return "";
-    const num = parseInt(price.replace(/\D/g, ""), 10);
-    if (isNaN(num)) return "";
-
-    if (num >= 10000) {
-      const man = Math.floor(num / 10000);
-      const remain = num % 10000;
-      return remain > 0 ? `${man}만 ${remain.toLocaleString()}원` : `${man}만원`;
+  useEffect(() => {
+    if (selectedPlace) {
+      setValue("location", selectedPlace);
     }
-    return `${num.toLocaleString()}원`;
-  };
+  }, [selectedPlace, setValue]);
 
   return (
     <Card>
@@ -61,7 +61,7 @@ export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch }:
       <S.StyledDivider />
 
       <Card.Item label="장소">
-        <S.ClickableText onClick={() => onSearch((place) => setValue("location", place))}>
+        <S.ClickableText onClick={() => onSearch()}>
           {watch("location") || "장소를 입력하세요."}
         </S.ClickableText>
       </Card.Item>
@@ -77,11 +77,8 @@ export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch }:
                 <S.Input
                   type="text"
                   placeholder={`${nights}박 / 20만원`}
-                  value={field.value ? `${nights}박 / ${formatPrice(field.value)}` : ""}
-                  onChange={(e) => {
-                    const priceValue = e.target.value.replace(/[^0-9]/g, ""); // 숫자만 입력 가능
-                    field.onChange(priceValue);
-                  }}
+                  value={field.value ? `${nights}박 / ${field.value}` : ""}
+                  onChange={(e) => field.onChange(e.target.value)}
                 />
               )}
             />
@@ -90,13 +87,15 @@ export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch }:
         </>
       )}
 
+      {/* ✅ 기간 (n박) */}
       <Card.Item label="기간">
-        최소 {minDays-1}박 ~ 최대 {maxDays-1}박
+        {nights}박 ({formatDate(startDate)} ~ {formatDate(endDate)})
       </Card.Item>
 
       <S.StyledCardItem>
+        {/* ✅ 날짜 (yyyy.mm.dd 형식) */}
         <span className="text">
-          날짜 {startDate || "미정"}~{endDate || "미정"}
+          날짜 {formatDate(startDate)} ~ {formatDate(endDate)}
         </span>
         <S.IconWrapper onClick={onCalendar} className="icon">
           <CalendarIcon />

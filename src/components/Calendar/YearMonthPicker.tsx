@@ -4,34 +4,27 @@ import MonthNavigation from "./MonthNavigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
 import { FreeMode, Navigation } from "swiper/modules";
-import { YearMonthPickerProps } from "./types/types";
 
-export default function YearMonthPicker({
-  currentYear,
-  currentMonth,
-  onSelectYear,
-  onSelectMonth,
-  onSelect,
-  closePicker,
-}: YearMonthPickerProps) {
-  const [years] = useState<number[]>(() =>
-    Array.from({ length: 41 }, (_, i) => currentYear - 20 + i)
-  );
+interface YearMonthPickerProps {
+  onMonthSelect: (selected: boolean) => void;
+}
+
+export default function YearMonthPicker({ onMonthSelect }: YearMonthPickerProps) {
+  const currentYear = new Date().getFullYear();
+  const currentMonth = new Date().getMonth() + 1;
+  const [years] = useState<number[]>(() => Array.from({ length: 41 }, (_, i) => currentYear + i));
   const [selectedYear, setSelectedYear] = useState(currentYear);
-  const [selectedMonth, setSelectedMonth] = useState<number | null>(currentMonth);
+  const [selectedMonth, setSelectedMonth] = useState<number | null>(null);
   const yearDialRef = useRef<HTMLDivElement>(null);
 
   const handleYearChange = (year: number) => {
     setSelectedYear(year);
     setSelectedMonth(null);
-    onSelectYear(year);
   };
 
   const handleMonthChange = (month: number) => {
     setSelectedMonth(month);
-    onSelectMonth(month);
-    if (onSelect) onSelect(selectedYear, month);
-    closePicker();
+    onMonthSelect(true); 
   };
 
   useEffect(() => {
@@ -56,17 +49,21 @@ export default function YearMonthPicker({
       scrollTimeout = setTimeout(handleScrollStop, 300);
     };
 
-    container?.addEventListener("scroll", handleScroll);
+    if (container) {
+      container.addEventListener("scroll", handleScroll);
+    }
 
     return () => {
-      container?.removeEventListener("scroll", handleScroll);
+      if (container) {
+        container.removeEventListener("scroll", handleScroll);
+      }
       if (scrollTimeout) clearTimeout(scrollTimeout);
     };
   }, [years, selectedYear]);
 
   return (
     <>
-      <MonthNavigation currentYear={currentYear} currentMonth={currentMonth} />
+      <MonthNavigation currentYear={selectedYear} currentMonth={selectedMonth || currentMonth} />
       <S.Wrapper>
         <Swiper
           slidesPerView={4.12}
@@ -74,35 +71,22 @@ export default function YearMonthPicker({
           spaceBetween={10}
           resistanceRatio={0.85}
           speed={500}
-          style={{
-            width: "100%",
-          }}
+          style={{ width: "100%" }}
           onSlideChange={(swiper) => {
-            const newYear = 2025 + swiper.activeIndex;
-            if (newYear > 2050) {
-              swiper.slideTo(25);
-            } else {
-              setSelectedYear(newYear);
-              onSelectYear(newYear);
-            }
+            const newYear = years[swiper.activeIndex]; // ✅ Swiper에서 선택한 연도를 반영
+            setSelectedYear(newYear);
           }}
           modules={[FreeMode, Navigation]}
         >
-          {Array.from({ length: 26 }, (_, i) => 2025 + i).map((year) => (
+          {years.map((year) => (
             <SwiperSlide key={year}>
               <S.YearItem $selected={year === selectedYear}>{year}</S.YearItem>
             </SwiperSlide>
           ))}
         </Swiper>
-
-        {/* 월 선택 */}
         <S.MonthGrid>
           {Array.from({ length: 12 }, (_, i) => i + 1).map((month) => (
-            <S.MonthItem
-              key={month}
-              $selected={month === selectedMonth}
-              onClick={() => handleMonthChange(month)}
-            >
+            <S.MonthItem key={month} $selected={month === selectedMonth} onClick={() => handleMonthChange(month)}>
               {month}월
             </S.MonthItem>
           ))}

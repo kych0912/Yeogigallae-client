@@ -20,7 +20,7 @@ export default function ImageModal({ selectedImage, setSelectedImage }: {
     <>
       <S.TabContainer>
         {tabList.map((tab) => (
-          <S.Tab key={tab} active={tab === activeTab} onClick={() => setActiveTab(tab)}>
+          <S.Tab key={tab} $active={tab === activeTab} onClick={() => setActiveTab(tab)}>
             {tab}
           </S.Tab>
         ))}

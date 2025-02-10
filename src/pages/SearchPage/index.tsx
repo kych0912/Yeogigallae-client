@@ -6,6 +6,7 @@ import Input from "../../components/Input";
 import { useState } from "react";
 import SearchSkeleton from "./_components/SearchSkeleton";
 import { KakaoPlaceDocument } from "../../apis/searchAddress/types";
+
 export default function SearchPage({
   handleSelectItem,
 }: {

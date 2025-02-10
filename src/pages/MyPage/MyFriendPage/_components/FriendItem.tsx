@@ -3,6 +3,8 @@ import * as M from "../../_components/MyPage.style"
 import { Member } from "../../../../apis/room/types"
 import ProfileGroup from "./ProfileGroup"
 import * as S from "./Friend.style"
+import modal from "../../../../components/Modal"
+import { useDeleteFriend } from "../../../../react-query/queries/friend/queries"
 
 //접히는 컴포넌트용
 export function FriendItem({
@@ -16,18 +18,22 @@ export function FriendItem({
     member:Member[],
     type?: "room" | "friend"
 }){
+    const {mutate:deleteFriend} = useDeleteFriend();
     return(
         <AccordionItem index={index}>
             <S.Accordion.ProfileWrapper>
                 <ProfileGroup members={member} />
                 {name}
             </S.Accordion.ProfileWrapper>
-            {type === "friend" && <S.Item.DeleteButton/>}
+            {type === "friend" && <S.Item.DeleteButton onClick={()=>{
+                modal.confirm.show({
+                    message:"친구를 삭제하시겠습니까?",
+                    onConfirm:()=>{
+                        deleteFriend(member[0].userId);
+                    }
+                })
+            }}/>}
         </AccordionItem>
-
-
-
-
     )
 }
 

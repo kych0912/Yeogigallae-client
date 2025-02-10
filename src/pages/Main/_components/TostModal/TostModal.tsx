@@ -40,21 +40,21 @@ const TostModal: React.FC<{
                 </S.CloseButton>
                 <S.Title>필터링하고 싶은 항목을 선택하세요</S.Title>
                 <S.Options>
-                    <label>
+                    <label style={{ flex: 1 }}>
                         <S.Option selected={selectedOption === "BUDGET"}>
                             <S.RadioButton name="filter" value="BUDGET" checked={selectedOption === "BUDGET"} onChange={() => handleOptionChange("BUDGET")} />
                             <S.Icon src={Budget} alt="예산" />
                             <S.OptionText>예산 짜기</S.OptionText>
                         </S.Option>
                     </label>
-                    <label>
+                    <label style={{ flex: 1 }}>
                         <S.Option selected={selectedOption === "COURSE"}>
                             <S.RadioButton name="filter" value="COURSE" checked={selectedOption === "COURSE"} onChange={() => handleOptionChange("COURSE")} />
                             <S.Icon src={Course} alt="코스" />
                             <S.OptionText>코스 짜기</S.OptionText>
                         </S.Option>
                     </label>
-                    <label>
+                    <label style={{ flex: 1 }}>
                         <S.Option selected={selectedOption === "SCHEDULE"}>
                             <S.RadioButton name="filter" value="SCHEDULE" checked={selectedOption === "SCHEDULE"} onChange={() => handleOptionChange("SCHEDULE")} />
                             <S.Icon src={Schedule} alt="일정" />

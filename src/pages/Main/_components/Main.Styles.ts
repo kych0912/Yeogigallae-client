@@ -137,6 +137,7 @@ export const Type = styled.div`
     box-sizing: border-box;
     text-align: center;
     gap: 0.2rem;
+    margin-bottom: 0.75rem;
 `;
 
 //예정된 여행

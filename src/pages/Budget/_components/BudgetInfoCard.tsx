@@ -4,6 +4,7 @@ import Card from "../../../components/Card";
 import { sampleBudgetData } from "../test";
 import closeBtn from "../../../assets/icons/closeBtn.svg";
 import openBtn from "../../../assets/icons/openBtn.svg";
+import { getBudgetType } from "./getBudgetType";
 
 export default function BudgetInfoCard() {
     const [openDays, setOpenDays] = useState<{ [key: string]: boolean }>({});
@@ -30,18 +31,25 @@ export default function BudgetInfoCard() {
                     </S.DayHeader>
 
                     <Card.Divider />
+
                     {openDays[dayData.day] && (
                         <S.DayContent>
-                            {dayData.items.map((item) => (
-                                <S.BudgetItem key={item.id}>
-                                    <S.BudgetIcon>{item.icon}</S.BudgetIcon>
-                                    <S.BudgetDetails>
-                                        <S.BudgetName>{item.name}</S.BudgetName>
-                                        <S.BudgetCategory>{item.category}</S.BudgetCategory>
-                                    </S.BudgetDetails>
-                                    <S.BudgetCost>{item.cost}</S.BudgetCost>
-                                </S.BudgetItem>
-                            ))}
+                            {dayData.items.map((item) => {
+                                const { icon, text } = getBudgetType(item.category);
+
+                                return (
+                                    <S.BudgetItem key={item.id}>
+                                        <S.BudgetIcon>
+                                            <img src={icon} alt={text} />
+                                        </S.BudgetIcon>
+                                        <S.BudgetDetails>
+                                            <S.BudgetName>{item.name}</S.BudgetName>
+                                            <S.BudgetCategory>{text}</S.BudgetCategory>
+                                        </S.BudgetDetails>
+                                        <S.BudgetCost>{item.cost}</S.BudgetCost>
+                                    </S.BudgetItem>
+                                );
+                            })}
                         </S.DayContent>
                     )}
                 </Card.Item>

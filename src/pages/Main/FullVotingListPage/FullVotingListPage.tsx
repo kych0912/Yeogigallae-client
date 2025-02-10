@@ -21,17 +21,12 @@ export default function FullVotingListPage() {
 
     // 에러 상태에서 콘솔 로그
     if (error) {
-        console.error("Error loading full voting rooms:", error); // 에러 로그 출력
+        console.error("Error loading full voting rooms:", error);
     }
 
     const { isModalVisible, handleCloseModal, selectedFilter, handleFilterChange } = useOutletContext<LayoutContextType>();
-
-    const outletContext = useOutletContext<LayoutContextType>();
-    console.log("Outlet Context:", outletContext);
-
     return (
         <S.Container>
-            {/* votingRooms 데이터를 FullVotingItem에 전달 */}
             <FullVotingItem rooms={votingRooms ?? []} selectedFilter={selectedFilter} />
 
             <TostModal isVisible={isModalVisible} onClose={handleCloseModal} onFilterChange={handleFilterChange} />

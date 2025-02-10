@@ -4,7 +4,6 @@ import MainSection from "./MainSection/MainSection";
 import Voting from "../../../assets/icons/Voting.svg";
 import SeeMore from "../../../assets/icons/SeeMore.svg";
 import VotingItem from "./VotingItem/VotingItem";
-//import { votingRooms } from "../MainPage/test";
 import Empty from "./VotingItem/Empty";
 import { useGetVoting } from "../../../react-query/queries/main/Voting/queries";
 

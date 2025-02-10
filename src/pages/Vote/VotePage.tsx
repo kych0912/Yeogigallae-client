@@ -24,7 +24,7 @@ function VoteProcess() {
   const { tripId, roomId, masterId } = useTripInfoContext();
 
   const funnelOptions = {
-    steps: ["투표메인", "투표동의", "날짜지정", "결과", "찬성확인", "반대확인"] as const, 
+    steps: ["투표메인", "투표동의", "결과", "찬성확인", "반대확인"] as const, 
     init: { step: "투표메인", context: { tripId, roomId, masterId } },  
     stepQueryKey: "step",
   };
@@ -49,8 +49,8 @@ function VoteProcess() {
 
         <FunnelComponent.Step name="투표동의">
           <VoteCard
-            onAgree={() => setStep("날짜지정", { ...contextMap["투표동의"], tripId, roomId, masterId })}   
-            onDisagree={() => setStep("결과", { ...contextMap["투표동의"], tripId, roomId, masterId })} 
+            onAgree={() => setStep("결과", { ...contextMap["투표동의"], tripId, roomId, masterId, voteType: "찬성" })}   
+            onDisagree={() => setStep("결과", { ...contextMap["투표동의"], tripId, roomId, masterId, voteType: "반대" })} 
             showConfirmMessage={false}
           />
         </FunnelComponent.Step>
@@ -58,7 +58,13 @@ function VoteProcess() {
         <FunnelComponent.Step name="결과">
           <VoteResult 
             onNext={() => {
-              setVoteType(voteType === "찬성" ? "찬성" : "반대");
+              setVoteType(
+                contextMap["결과"]?.voteType === "GOOD"
+                  ? "찬성"
+                  : contextMap["결과"]?.voteType === "BAD"
+                  ? "반대"
+                  : "반대" 
+              );
             }}
           />
         </FunnelComponent.Step>

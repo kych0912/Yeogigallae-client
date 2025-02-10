@@ -1,28 +1,16 @@
-import { VoteProvider, useVoteContext } from "../../context/VoteResultContext";
-import { useTripInfoContext } from "../../../../hooks/useTripInfo";
 import { useEffect } from "react";
+import { useVoteContext } from "../../context/VoteResultContext"; 
+import { useTripInfoContext } from "../../../../hooks/useTripInfo";
 import { useOutletContext } from "react-router-dom";
 import ResultCard from "./ResultCard";
 import * as S from "../../_components/Vote.styles";
 
-export default function VoteResult({
-  onNext,
+export default function VoteResult({ 
+  onNext 
 }: {
-  onNext: () => void;
+  onNext: () => void 
 }) {
-  return (
-    <VoteProvider>
-      <VoteResultContent onNext={onNext} />
-    </VoteProvider>
-  );
-}
-
-function VoteResultContent({
-  onNext,
-}: {
-  onNext: () => void;
-}) {
-  const { state } = useVoteContext();
+  const { state } = useVoteContext(); 
   const { voteResult } = state;
   const { tripInfo } = useTripInfoContext();
   const { setHeaderConfig } = useOutletContext<{ setHeaderConfig: (config: { title: string; number?: number }) => void }>();
@@ -63,15 +51,15 @@ function VoteResultContent({
     if (voteLimitMinutes > 0) {
       const timer = setTimeout(() => {
         onNext();
-      }, voteLimitMinutes * 60 * 1000); 
+      }, voteLimitMinutes * 60 * 1000);
 
-      return () => clearTimeout(timer); 
+      return () => clearTimeout(timer);
     }
   }, [voteLimitMinutes, onNext]);
 
   return (
     <>
-      <ResultCard step={step} type={type} onNext={onNext} />
+      <ResultCard step={step} type={voteResult.type === "GOOD" ? "찬성" : "반대"} onNext={onNext} />
       <S.Content>
         {tripInfo?.masterName || "정보 없음"}님이 여행 투표를 올렸습니다. <br />
         {formattedTime} 후 종료됩니다.

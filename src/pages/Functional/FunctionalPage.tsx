@@ -18,8 +18,7 @@ export default function FunctionalFunnel() {
   const [FunnelComponent, setStep, contextMap] = useFunnel(funnelOptions);
   const navigate = useNavigate();
 
-  const { setHeaderConfig } = useOutletContext<{ setHeaderConfig: (config: { title: string; number?: number }) => void }>();
-
+    const { setHeaderConfig } = useOutletContext<{ setHeaderConfig: (config: { title: string; number?: number }) => void }>();
   const handleStepChange = (step: "생성" | "캘린더" | "주소검색", context = {}) => {
 
     let newTitle = "생성하기";

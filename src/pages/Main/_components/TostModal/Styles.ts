@@ -82,12 +82,11 @@ export const Options = styled.div`
 
 export const Option = styled.div<{ selected?: boolean }>`
     display: flex;
-    flex: 1;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     background: ${({ selected, theme }) => (selected ? `${theme.colors.primary}40` : theme.colors.disabled)};
-    padding: 1rem 2rem;
+    padding: 0.875rem 0;
     border-radius: 1.5rem;
     border: 1px solid ${({ selected, theme }) => (selected ? `${theme.colors.primary}` : `transparent`)};
     transition: background 0.3s, border 0.3s;
@@ -114,9 +113,33 @@ export const Button = styled(BaseButton)`
     border-radius: 1rem;
     font-size: 1rem;
 `;
-
 export const RadioButton = styled.input.attrs({ type: "radio" })`
     height: 1.25rem;
     width: 1.25rem;
     margin-bottom: 1rem;
+    appearance: none;
+    border: 2px solid ${({ theme }) => theme.colors.primary};
+    border-radius: 50%;
+    background-color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    &:checked {
+        background-color: ${({ theme }) => theme.colors.primary}; /* 체크 시 배경 파란색 */
+    }
+
+    &:checked::after {
+        content: "";
+        width: 0.6rem;
+        height: 0.6rem;
+        background-color: white;
+        border-radius: 50%;
+        position: absolute;
+        top: 55%;
+        left: 55%;
+        transform: translate(-50%, -50%);
+    }
 `;

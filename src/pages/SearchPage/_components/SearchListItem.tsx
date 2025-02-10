@@ -1,9 +1,11 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { getAddressToZip } from "../../../apis/searchAddress";
 import { KakaoPlaceDocument } from "../../../apis/searchAddress/types";
 import * as S from "./ResultList.styles";
 import ToggleIcon from "../../../assets/icons/ToggleIcon.svg?react";
 import MapComponent from "./SearchMap/SearchMap";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import Skeleton from "../../../components/Skeleton"; 
 
 interface SearchListItemProps {
     result: KakaoPlaceDocument;
@@ -51,18 +53,18 @@ export default function SearchListItem({
             </S.ResultItem>
           </S.ResultWrapper>
 
-          {isMapOpen && (
-            <MapComponent
-              center={{
-                x: result.x.toString(),
-                y: result.y.toString(),
-              }}
-              results={[{ ...result, x: result.x.toString(), y: result.y.toString() }]}
-              mapContainerId={`map-${result.id}`}
-            />
-          )}
+      {isMapOpen && (
+        <MapComponent
+          center={{
+            x: result.x.toString(),
+            y: result.y.toString(),
+          }}
+          results={[{ ...result, x: result.x.toString(), y: result.y.toString() }]}
+          mapContainerId={`map-${result.id}`}
+        />
+      )}
 
-          {index < results.length - 1 && <S.Divider />}
-        </>
-      );
+      {index < results.length - 1 && <S.Divider />}
+    </>
+  );
 }

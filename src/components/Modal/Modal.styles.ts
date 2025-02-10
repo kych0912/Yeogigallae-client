@@ -67,12 +67,12 @@ export const TabContainer = styled.div`
   margin: 0 1.25rem;
 `;
 
-export const Tab = styled.button<{ active: boolean }>`
+export const Tab = styled.button<{ $active: boolean }>`
   width: 100%;
   padding: 0.688rem 0;
   border-radius: 1rem;
-  background: ${({ active }) => (active ? "#434343" : "#252525")};
-  color: ${({ active }) => (active ? "#fff" : "#a1a1a1")};
+  background: ${({ $active }) => ($active ? "#434343" : "#252525")};
+  color: ${({ $active }) => ($active ? "#fff" : "#a1a1a1")};
   border: none;
   cursor: pointer;
   font-size: 1.25rem;

@@ -83,6 +83,11 @@ export const BudgetIcon = styled.div`
     background-color: ${({ theme }) => theme.colors.disabled};
 `;
 
+export const icon = styled.img`
+    width: 1rem;
+    height: 1rem;
+`;
+
 export const BudgetDetails = styled.div`
     flex: 1;
     align-self: flex-start;

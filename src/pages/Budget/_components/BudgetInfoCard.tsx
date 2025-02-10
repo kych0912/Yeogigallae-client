@@ -2,6 +2,8 @@ import { useState } from "react";
 import * as S from "./Styles";
 import Card from "../../../components/Card";
 import { sampleBudgetData } from "../test";
+import closeBtn from "../../../assets/icons/closeBtn.svg";
+import openBtn from "../../../assets/icons/openBtn.svg";
 
 export default function BudgetInfoCard() {
     const [openDays, setOpenDays] = useState<{ [key: string]: boolean }>({});
@@ -24,7 +26,7 @@ export default function BudgetInfoCard() {
                 <Card.Item key={dayData.day}>
                     <S.DayHeader onClick={() => toggleDay(dayData.day)}>
                         <S.Day>{dayData.day}</S.Day>
-                        <S.Toggle>{openDays[dayData.day] ? "–" : "+"}</S.Toggle>
+                        <S.Toggle>{openDays[dayData.day] ? <S.icon src={closeBtn} alt={closeBtn} /> : <S.icon src={openBtn} alt={openBtn} />}</S.Toggle>
                     </S.DayHeader>
 
                     <Card.Divider />

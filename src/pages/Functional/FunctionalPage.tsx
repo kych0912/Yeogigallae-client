@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useFunnel } from "../../hooks/useFunnel/useFunnel";
 import CreateCalendar from "./CreateCalendar/_components/CreateCalendar";
-import SearchPage from "../SearchPage/SearchPage";
+import SearchPage from "../SearchPage";
 import CreateVote from "../Functional/CreateVote/_components/CreateVote";
 import CommonContainer from "../../components/Layout/CommonContainer";
 import { useOutletContext } from "react-router-dom";

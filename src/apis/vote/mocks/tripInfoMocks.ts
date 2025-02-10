@@ -10,7 +10,7 @@ export const DEFAULT_TripInfo = {
   minDays: 3,
   maxDays: 7,
   month: 2,
-  roomName: "여행가보자고",
+  roomName: "가보자고",
   userCount: 5,
   userName: "고민균",
   masterName: "곰구마",

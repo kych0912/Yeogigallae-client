@@ -36,4 +36,3 @@ export const Text = styled.p`
   font-weight: regular;
   color: #6e6e6e; 
 `;
-

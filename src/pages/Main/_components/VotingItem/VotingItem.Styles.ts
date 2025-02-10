@@ -22,7 +22,6 @@ export const FullVotingItem = styled.div`
     background-color: ${({ theme }) => theme.colors.secondary || "#222222"};
     border-radius: 1.25rem;
     font-family: ${({ theme }) => theme.fontFamily.regular};
-    gap: 1.125rem;
     padding: 1.5rem 1.25rem;
     height: auto;
     width: 100%;

@@ -1,50 +1,32 @@
-import { useMutation } from '@tanstack/react-query';
-import { fetchZipForPlace } from './searchZip';
 import axios from 'axios';
-import { KakaoPlaceSearchParams, KakaoPlaceDocument } from './types';
+import { KakaoPlaceSearchParams, KakaoPlaceSearchResponse, KakaoCoordToAddressParams, KakaoCoordToAddressResponse } from './types';
+/*
+  주소 검색 쿼리
+  @param params KakaoPlaceSearchParams - 주소 검색 파라미터
+  @returns Promise<KakaoPlaceSearchResponse> - 검색 결과
+*/
 
-export const useSearchPlaceWithZip = () => {
-  return useMutation<
-    KakaoPlaceDocument[], 
-    Error,                
-    KakaoPlaceSearchParams 
-  >({
-    mutationFn: async (params: KakaoPlaceSearchParams) => {
-      if (!params.query) {
-        throw new Error('Query is required');
-      }
+export const getSearchPlace = async (params: KakaoPlaceSearchParams) => {
+  const { data: searchResults } = await axios.get<KakaoPlaceSearchResponse>(
+    'https://dapi.kakao.com/v2/local/search/keyword.json',
 
-      // 장소 검색
-      const { data: searchResults } = await axios.get<{ documents: KakaoPlaceDocument[] }>(
-        'https://dapi.kakao.com/v2/local/search/keyword.json',
-        {
-          headers: { Authorization: `KakaoAK ${import.meta.env.VITE_KAKAO_REST_API_KEY}` }, // 수정
-          params,
-        }
-      );
+    {
+      headers: { Authorization: `KakaoAK ${import.meta.env.VITE_KAKAO_REST_API_KEY}` },
+      params,
+    }
+  );
+  return searchResults;
+};
 
-      if (!searchResults.documents || searchResults.documents.length === 0) {
-        console.warn('검색 결과가 없습니다.');
-        return [];
-      }
+export const getAddressToZip = async (params: KakaoCoordToAddressParams) => {
+  const { data: searchResults } = await axios.get<KakaoCoordToAddressResponse>(
+    'https://dapi.kakao.com/v2/local/geo/coord2address.json',
+    {
 
-      const resultsWithZip: KakaoPlaceDocument[] = await Promise.all(
-        searchResults.documents.map(async (document) => {
-          try {
-            const zipResult = await fetchZipForPlace({ x: document.x, y: document.y });
-            return { ...document, zone_no: zipResult?.zone_no }; 
-          } catch (error) {
-            console.warn('우편번호 가져오기 실패:', error);
-            return { ...document, zone_no: undefined }; 
-          }
-        })
-      );
-
-      return resultsWithZip;
-    },
-    onError: (error: Error) => {
-      console.error('장소 검색 및 우편번호 추가 실패:', error.message);
-    },
-  });
+      headers: { Authorization: `KakaoAK ${import.meta.env.VITE_KAKAO_REST_API_KEY}` },
+      params,
+    }
+  );
+  return searchResults;
 };
 

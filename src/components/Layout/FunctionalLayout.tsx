@@ -13,7 +13,8 @@ interface HeaderConfig {
 
 export default function Layout() {
   const navigate = useNavigate();
-  const [headerConfig, setHeaderConfig] = useState<HeaderConfig>({ title: "" });
+  const [headerConfig, setHeaderConfig] = useState<HeaderConfig>({ title: "생성하기" });
+
   const { title, number } = headerConfig;
 
   useEffect(() => {

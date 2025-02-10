@@ -1,7 +1,7 @@
-import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useFunnel } from "../../hooks/useFunnel/useFunnel";
 import CreateCalendar from "./CreateCalendar/_components/CreateCalendar";
-import SearchPage from "../SearchPage/SearchPage";
+import SearchPage from "../SearchPage";
 import CreateVote from "../Functional/CreateVote/_components/CreateVote";
 import CommonContainer from "../../components/Layout/CommonContainer";
 import { useOutletContext } from "react-router-dom";
@@ -16,42 +16,44 @@ export default function FunctionalFunnel() {
   };
 
   const [FunnelComponent, setStep, contextMap] = useFunnel(funnelOptions);
-  const currentStep = Object.keys(contextMap).pop() || "생성";
+  const navigate = useNavigate();
 
   const { setHeaderConfig } = useOutletContext<{ setHeaderConfig: (config: { title: string; number?: number }) => void }>();
 
-  useEffect(() => {
+  const handleStepChange = (step: "생성" | "캘린더" | "주소검색", context = {}) => {
+
     let newTitle = "생성하기";
-    if (currentStep === "주소검색") newTitle = "장소 찾기";
-    if (currentStep === "캘린더") newTitle = "기간 정하기";
-    
+    if (step === "주소검색") newTitle = "장소 찾기";
+    if (step === "캘린더") newTitle = "기간 정하기";
+
     setHeaderConfig({ title: newTitle });
-  }, [currentStep, setHeaderConfig]);
+    setStep(step, context);
+  };
 
   return (
-    <VoteFormProvider >
+    <VoteFormProvider>
       <CommonContainer>
-
         <Modal />
 
         <FunnelComponent>
           <FunnelComponent.Step name="생성">
-            {currentStep === "생성" && (
               <CreateVote
-                onCalendar={() => setStep("캘린더", contextMap["생성"] || {})}
-                onSearch={() => setStep("주소검색", contextMap["생성"] || {})}
+                onCalendar={() => handleStepChange("캘린더", contextMap["생성"])}
+                onSearch={() => handleStepChange("주소검색", contextMap["생성"])}
               />
-            )}
           </FunnelComponent.Step>
 
           <FunnelComponent.Step name="캘린더">
-            {currentStep === "캘린더" && (
-              <CreateCalendar onNext={() => setStep("생성", contextMap["캘린더"] || {})} />
-            )}
+            <CreateCalendar onNext={() => handleStepChange("생성", contextMap["캘린더"])} />
           </FunnelComponent.Step>
 
           <FunnelComponent.Step name="주소검색">
-            {currentStep === "주소검색" && <SearchPage />}
+            <SearchPage
+              handleSelectItem={(item) => {
+                handleStepChange("생성", { ...contextMap["생성"], selectedPlace: item.place_name });
+                navigate(-1); 
+              }}
+            />
           </FunnelComponent.Step>
         </FunnelComponent>
       </CommonContainer>

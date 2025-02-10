@@ -18,10 +18,16 @@ export default function SearchPage({
 
   const {
     placeQuery,
+    coordQueries,
   } = useSearchPlace({ query: searchQuery, page: currentPage, size: 5 });
 
   const { data:placeData, isLoading, refetch } = placeQuery;
   const pageableCount = placeData?.meta.pageable_count;
+
+  // coordQueries의 데이터를 가공하여 저장
+  const coordData = !isLoading ? coordQueries.map((coord) => ({
+    zoneNo: coord.data?.documents[0].road_address?.zone_no
+  })) : [];
 
   return (
     <>
@@ -47,6 +53,7 @@ export default function SearchPage({
       {!isLoading && placeData && placeData.documents.length > 0 && (
         <ResultList
           results={placeData.documents}
+          coords={coordData}
           handleSelectItem={handleSelectItem}
         />
       )}

@@ -12,19 +12,22 @@ import React from 'react';
  * @param children 카드 컨텐츠
  */
 
-function CardRoot({ children,gap,className }: {
-    children: React.ReactNode;
+interface CardProps extends React.HTMLAttributes<HTMLDivElement>{
+    children:React.ReactNode;
     gap?:string;
     className?:string;
-}) {
+}
 
+
+function CardRoot({ children,gap,className,onClick }: CardProps) {
     return (
-        <S.Card className={className}>
+        <S.Card className={className} onClick={onClick}>
             <S.CardWrapper style={{gap:gap}}>
                 {children}
             </S.CardWrapper>
         </S.Card>
     );
+
 }
 
 const Card = Object.assign(CardRoot,{

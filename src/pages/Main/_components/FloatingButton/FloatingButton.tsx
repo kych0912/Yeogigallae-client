@@ -1,8 +1,8 @@
 import { useState } from "react";
 import * as S from "./Styles";
 import Floating from "../../../../assets/icons/Floating.svg";
-import MyFloating from "../../../../assets/icons/MyFloating.svg";
-import EditFloating from "../../../../assets/icons/EditFloating.svg";
+import trip_plan from "../../../../assets/icons/trip_plan.svg";
+import usergroup from "../../../../assets/icons/usergroup.svg";
 import { useNavigate } from "react-router-dom";
 
 export default function FloatingMenu() {
@@ -30,14 +30,12 @@ export default function FloatingMenu() {
                 <img src={Floating} alt="Floating Icon" />
             </S.FloatingButtonStyled>
 
-            {/* 기능별 화면 이동 */}
             <S.SubButton $isActive={isActive} onClick={handleEditClick}>
-                <img src={EditFloating} alt="Edit Floating Icon" />
+                <img src={usergroup} alt="usergroup Floating Icon" />
             </S.SubButton>
 
-            {/* 투표 방 생성 요청 후 화면 이동 */}
-            <S.SubButton $isActive={isActive} onClick={handleMyClick}> 
-                <img src={MyFloating} alt="My Floating Icon" />
+            <S.SubButton $isActive={isActive} onClick={handleMyClick}>
+                <img src={trip_plan} alt="trip_plan Floating Icon" />
             </S.SubButton>
         </S.FloatingContainer>
     );

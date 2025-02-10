@@ -3,7 +3,7 @@ import Card from "../Card";
 import CommonContainer from "../Layout/CommonContainer";
 
 
-export const StyledContainer = styled(CommonContainer)<{ onClick?: () => void }>` 
+export const StyledContainer = styled(CommonContainer)` 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,6 +13,16 @@ export const StyledContainer = styled(CommonContainer)<{ onClick?: () => void }>
   position: fixed;
   top: 0;
   z-index: 2000;
+    animation: fadeIn 0.2s ease-in-out;
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 `;
 
 export const ButtonGroup = styled.div`
@@ -27,6 +37,18 @@ export const ModalContent = styled(Card)`
   max-width: 22.5rem;
   border-radius: 30px;
   font-family:${({theme}) => theme.fontFamily.regular};
+    animation: slideIn 0.2s ease-in-out;
+
+  @keyframes slideIn {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
 `;
 
 export const ConfirmText = styled.p`
@@ -93,3 +115,14 @@ export const ImageWrapper = styled.div<{ selected: boolean }>`
   cursor: pointer;
   transition: border 0.2s ease-in-out;
 `;
+
+export const Message = styled.p`
+  font-family: ${({ theme }) => theme.fontFamily.bold};
+  font-size: 1.25rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+`;
+

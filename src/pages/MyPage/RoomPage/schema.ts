@@ -3,10 +3,11 @@ import * as z from "zod";
 export const roomSchema = z.object({
     roomName: z.string().min(1, { message: "방 이름을 입력해주세요." }),
     roomFriend: z.array(z.object({
-        id:z.number(),
-        name:z.string(),
-        src:z.string(),
+        friendId:z.number(),
+        friendName:z.string(),
+        profileImageUrl:z.string(),
     }))
+
     .min(1, { message: "친구를 추가해주세요." })
     .refine(
         (codes) => {

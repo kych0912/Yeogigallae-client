@@ -5,7 +5,6 @@ import ConfirmFailPage from "./ConfirmPage/ConfirmFailPage/ConfirmFailPage";
 import * as S from "./_components/Vote.styles";
 import TravelCard from "./Travel/_components/TravelCard";
 import VoteCard from "./VoteCard/_components/VoteCard";
-import VoteDate from "./VoteDate/_components/VoteDate";
 import VoteResult from "./VoteResult/_components/VoteResult";
 import { VoteProvider } from "./context/VoteResultContext";
 import { TripInfoProvider } from "./context/tripInfo/TripInfoProvider"; 
@@ -53,14 +52,6 @@ function VoteProcess() {
             onAgree={() => setStep("날짜지정", { ...contextMap["투표동의"], tripId, roomId, masterId })}   
             onDisagree={() => setStep("결과", { ...contextMap["투표동의"], tripId, roomId, masterId })} 
             showConfirmMessage={false}
-          />
-        </FunnelComponent.Step>
-
-        <FunnelComponent.Step name="날짜지정">
-          <VoteDate
-            onNext={() => {
-              setStep("결과", { ...contextMap["날짜지정"], tripId, roomId, masterId }); 
-            }}
           />
         </FunnelComponent.Step>
 

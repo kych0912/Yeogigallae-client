@@ -11,10 +11,12 @@ import { useOutletContext } from "react-router-dom";
 import { useEffect } from 'react';
 import { HeaderConfig } from '../../../types/header/header';
 import { useCreateRoom } from "../../../react-query/mutation/room/mutation";
+import { useNavigate } from 'react-router-dom';
 
 type RoomFormValues = z.infer<typeof roomSchema>;
 
 export default function RoomPageContent() {
+    const navigate = useNavigate();
     const {mutate:createRoom} = useCreateRoom();
     const {control,handleSubmit,formState:{errors}} = useForm<RoomFormValues>({
         resolver: zodResolver(roomSchema),
@@ -27,7 +29,7 @@ export default function RoomPageContent() {
 
     
     const onSubmit = (data: RoomFormValues) => {
-        const friendIds = data.roomFriend.map((friend) => friend.id);
+        const friendIds = data.roomFriend.map((friend) => friend.friendId);
 
         const roomData = {
             roomName:data.roomName,
@@ -57,10 +59,11 @@ export default function RoomPageContent() {
             
             <S.BottomButtonWrapper>
                 <S.CancelButton 
-                    type="submit" 
+                    type='button'
                     size="large" 
                     color="secondary" 
                     style={{color:"white"}}
+                    onClick={() => navigate(-1)}
                 >
                     {"취소"}
                 </S.CancelButton>

@@ -71,7 +71,7 @@ function VoteResultContent({
 
   return (
     <>
-      <ResultCard step={step} onNext={onNext} />
+      <ResultCard step={step} type={type} onNext={onNext} />
       <S.Content>
         {tripInfo?.masterName || "정보 없음"}님이 여행 투표를 올렸습니다. <br />
         {formattedTime} 후 종료됩니다.

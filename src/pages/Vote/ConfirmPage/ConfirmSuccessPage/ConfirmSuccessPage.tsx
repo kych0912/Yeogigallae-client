@@ -23,6 +23,7 @@ export default function VoteAgreePage() {
 
     const { tripInfo } = tripInfoContext;
     const userCount = tripInfo?.userCount ?? 0;
+    const isMaster = tripInfo?.masterId === state.voteResult.userId;
 
     useEffect(() => {
         setIsSuccess(state.voteResult.count > userCount / 2);
@@ -36,9 +37,11 @@ export default function VoteAgreePage() {
 
             <VoteCard showConfirmMessage={false}/>
 
-            <S.CustomItem>
-                <Recommend />
-            </S.CustomItem>
+            {isMaster && (
+                <S.CustomItem>
+                    <Recommend />
+                </S.CustomItem>
+            )} 
 
             {isSuccess !== null && (isSuccess ? <ConfirmSuccessPage /> : <ConfirmFailPage />)}
         </>

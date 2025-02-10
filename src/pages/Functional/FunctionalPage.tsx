@@ -55,6 +55,7 @@ export default function FunctionalFunnel() {
               }}
             />
           </FunnelComponent.Step>
+
         </FunnelComponent>
       </CommonContainer>
     </VoteFormProvider>

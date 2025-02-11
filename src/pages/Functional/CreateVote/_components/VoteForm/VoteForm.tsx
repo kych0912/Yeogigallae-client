@@ -23,11 +23,11 @@ export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch, s
   const endDate = watch("endDate");
 
   const nights = useMemo(() => {
-    if (!startDate || !endDate) return 0;
+    if (!startDate || !endDate) return 1;
     const start = new Date(startDate);
     const end = new Date(endDate);
-    const diff = Math.max(0, (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24) - 1);
-    return diff || 1;
+    const diff = Math.max(1, (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24) - 1);
+    return diff;
   }, [startDate, endDate]);
 
   useEffect(() => {
@@ -36,11 +36,11 @@ export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch, s
     }
   }, [selectedPlace, setValue]);
 
-  const formatPrice = (price: number) => {
-    if (price === 0) return "";
-    const mainUnit = Math.floor(price / 10000); 
-    const subUnit = price % 10000; 
-    return mainUnit > 0 ? `${mainUnit}만${subUnit > 0 ? ` ${subUnit}원` : ""}` : `${subUnit}원`;
+  const formatPrice = (price?: number) => {
+    if (!price || price === 0) return "20만원";
+    const mainUnit = Math.floor(price / 10000);
+    const subUnit = price % 10000;
+    return subUnit === 0 ? `${mainUnit}만 원` : `${mainUnit}만 ${subUnit}원`;
   };
 
   return (
@@ -70,33 +70,32 @@ export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch, s
               name="scheduleDetails.price"
               control={control}
               render={({ field }) => {
-                let numericValue = field.value ? field.value.replace(/\D/g, "") : "";
-                let priceNumber = parseInt(numericValue, 10) || 0;
+                let priceValue = field.value ? field.value.replace(/\D/g, "") : "";
+                let priceNumber = priceValue ? parseInt(priceValue, 10) : 0;
 
-                if (priceNumber > 9990000) {
-                  priceNumber = 9990000; // 최대값 제한
+                if (priceNumber > 10000000 || priceValue.length > 8) {
+                  priceNumber = 10000000;
                 }
-
-                const formattedPrice = formatPrice(priceNumber);
-                const safeNights = Math.max(nights, 1);
 
                 return (
                   <S.Input
                     type="text"
-                    placeholder={`${safeNights}박 / 20만원`}
-                    value={formattedPrice}
+                    placeholder={`${nights}박 / 20만원`}
+                    value={field.value || ""}
                     onChange={(e) => {
-                      let priceValue = e.target.value.replace(/\D/g, "");
-                      let newPrice = parseInt(priceValue, 10) || 0;
-                      if (newPrice > 9990000) return;
-
-                      field.onChange(newPrice.toString());
+                      let newValue = e.target.value.replace(/\D/g, "").slice(0, 7);
+                      field.onChange(newValue);
+                    }}
+                    onBlur={() => {
+                      if (field.value) {
+                        let parsedValue = parseInt(field.value, 10) || 0;
+                        field.onChange(`${nights}박 / ${formatPrice(parsedValue)}`);
+                      }
                     }}
                     onKeyDown={(e) => {
                       if (e.key === "Backspace") {
-                        e.preventDefault();
-                        let newValue = priceNumber.toString().slice(0, -1);
-                        field.onChange(newValue || "");
+                        let newValue = field.value ? field.value.slice(0, -1) : "";
+                        field.onChange(newValue);
                       }
                     }}
                   />

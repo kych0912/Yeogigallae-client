@@ -9,6 +9,7 @@ interface CalendarContextProps {
   setStartDate: (date: Date | null) => void;
   setEndDate: (date: Date | null) => void;
   setMode: (mode: "date" | "flexible") => void;
+  resetCalendar: () => void;  
 }
 
 const CalendarContext = createContext<CalendarContextProps | undefined>(undefined);
@@ -20,9 +21,20 @@ export function CalendarProvider({ children }: { children: ReactNode }) {
   const [endDate, setEndDate] = useState<Date | null>(null);
   const [mode, setMode] = useState<"date" | "flexible">("date");
 
+  const resetCalendar = () => {
+    setCurrentDate(today);
+    setStartDate(null);
+    setEndDate(null);
+    setMode("date");
+  };
+
   return (
     <CalendarContext.Provider
-      value={{ currentDate, startDate, endDate, mode, setCurrentDate, setStartDate, setEndDate, setMode }}
+      value={{ 
+        currentDate, startDate, endDate, mode, 
+        setCurrentDate, setStartDate, setEndDate, setMode,
+        resetCalendar  
+      }}
     >
       {children}
     </CalendarContext.Provider>

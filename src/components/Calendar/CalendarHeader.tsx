@@ -16,6 +16,7 @@ export default function CalendarHeader({ activeTab, setActiveTab }: CalendarHead
   return (
     <>
       <CalendarTabs activeTab={activeTab} />
+      <MonthNavigation />
 
       {activeTab === "flexible" && <CalendarDays />}
 

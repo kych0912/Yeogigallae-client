@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import * as S from "./CompleteButton.styles";
 import { Button } from "../Button";
 import { showToastWithMessage } from "./utils/Complete.utils";
 import { useCalendar } from "./context/CalendarContext";
+import { useFormContext } from "react-hook-form";
 
 export default function CompleteButton({
-  onComplete,
   onTabChange,
   isMonthSelected,
   activeTab,
@@ -13,9 +14,18 @@ export default function CompleteButton({
   onComplete: (date: { startDate: string; endDate: string }) => void;
   onTabChange: (tab: "date" | "flexible") => void;
   isMonthSelected: boolean;
-  activeTab: "date" | "flexible"; 
+  activeTab: "date" | "flexible";
 }) {
+  const navigate = useNavigate();
   const { startDate, endDate } = useCalendar();
+  let formContext;
+  try {
+    formContext = useFormContext();
+  } catch (error) {
+    formContext = null;
+  }
+
+  const { setValue } = formContext || {};
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
@@ -26,19 +36,28 @@ export default function CompleteButton({
 
   const formatDate = (date: Date | null): string => {
     if (!date) return "";
-    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+    return `${date.getFullYear()}-${String(date.getMonth()).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
   };
 
   const handleCompleteClick = () => {
     if (activeTab === "date") {
       onTabChange("flexible");
-    } else {
-      if (!startDate || !endDate) {
-        showToastWithMessage(setShowToast, setToastMessage, "날짜를 선택해주세요");
-        return;
-      }
-      onComplete({ startDate: formatDate(startDate), endDate: formatDate(endDate) });
+      return;
     }
+
+    if (!startDate || !endDate) {
+      showToastWithMessage(setShowToast, setToastMessage, "날짜를 선택해주세요");
+      return;
+    }
+
+    if (setValue) {
+      setValue("startDate", formatDate(startDate));
+      setValue("endDate", formatDate(endDate));
+    }
+
+    localStorage.setItem("voteForm_startDate", formatDate(startDate));
+    localStorage.setItem("voteForm_endDate", formatDate(endDate));
+    navigate(-1);
   };
 
   return (

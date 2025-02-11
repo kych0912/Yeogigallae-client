@@ -49,10 +49,6 @@ export default function CalendarDays() {
 
   return (
     <>
-      <S.CurrentDate>
-        {year}년 {month}월
-      </S.CurrentDate>
-
       <S.CalendarContainer>
         <S.WeekDays>
           {weekDays.map((day, index) => (

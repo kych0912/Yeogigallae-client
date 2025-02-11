@@ -1,6 +1,5 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import * as S from "./YearMonthPicker.styles";
-import MonthNavigation from "./MonthNavigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
 import { FreeMode, Navigation } from "swiper/modules";
@@ -11,21 +10,30 @@ interface YearMonthPickerProps {
 }
 
 export default function YearMonthPicker({ onMonthSelect }: YearMonthPickerProps) {
-  const { currentDate, setCurrentDate } = useCalendar(); 
+  const { currentDate, setCurrentDate } = useCalendar();
+
+  // ✅ 최소 연도를 2025년부터 설정
+  const baseYear = 2025;
+  const [years] = useState<number[]>(Array.from({ length: 41 }, (_, i) => baseYear + i));
+
   const currentYear = currentDate.getFullYear();
   const currentMonth = currentDate.getMonth() + 1;
-
-  const years = Array.from({ length: 41 }, (_, i) => currentYear + i);
   const yearDialRef = useRef<HTMLDivElement>(null);
 
   const handleYearChange = (year: number) => {
-    setCurrentDate(new Date(year, currentDate.getMonth(), 1)); 
+    setCurrentDate(new Date(year, currentMonth - 1, 1)); 
   };
 
   const handleMonthChange = (month: number) => {
-    setCurrentDate(new Date(currentDate.getFullYear(), month - 1, 1)); 
+    setCurrentDate(new Date(currentYear, month - 1, 1));
     onMonthSelect(true);
   };
+
+  useEffect(() => {
+    if (currentYear < baseYear) {
+      setCurrentDate(new Date(baseYear, currentMonth - 1, 1));
+    }
+  }, [currentYear, currentMonth, setCurrentDate]);
 
   useEffect(() => {
     const handleScrollStop = () => {
@@ -63,7 +71,6 @@ export default function YearMonthPicker({ onMonthSelect }: YearMonthPickerProps)
 
   return (
     <>
-      <MonthNavigation />
       <S.Wrapper>
         <Swiper
           slidesPerView={4.12}
@@ -73,7 +80,7 @@ export default function YearMonthPicker({ onMonthSelect }: YearMonthPickerProps)
           speed={500}
           style={{ width: "100%" }}
           onSlideChange={(swiper) => {
-            const newYear = years[swiper.activeIndex]; 
+            const newYear = years[swiper.activeIndex];
             handleYearChange(newYear);
           }}
           modules={[FreeMode, Navigation]}

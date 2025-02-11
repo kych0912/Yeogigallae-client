@@ -6,6 +6,7 @@ import SeeMore from "../../../assets/icons/SeeMore.svg";
 import VotingItem from "./VotingItem/VotingItem";
 import Empty from "./VotingItem/Empty";
 import { useGetVoting } from "../../../react-query/queries/main/Voting/queries";
+import { VotingCardSkeleton } from "./CardSkeleton";
 
 export default function MainVotingList() {
     const navigate = useNavigate();
@@ -39,7 +40,15 @@ export default function MainVotingList() {
             />
 
             {/*카드부분*/}
-            {votingRooms.length > 0 ? <VotingItem rooms={votingRooms} /> : <Empty />}
+            {isLoading ? (
+                <>
+                    <VotingCardSkeleton />
+                </>
+            ) : votingRooms.length > 0 ? (
+                <VotingItem rooms={votingRooms} />
+            ) : (
+                <Empty />
+            )}
         </S.Container>
     );
 }

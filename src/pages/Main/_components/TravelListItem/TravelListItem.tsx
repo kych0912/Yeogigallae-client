@@ -1,7 +1,5 @@
 import * as S from "../Main.Styles";
 import * as H from "./TravelListItem.Styles";
-import { HistoryCardSkeleton } from "../CardSkeleton";
-
 interface Room {
     tripName: string;
     location: string;
@@ -18,7 +16,6 @@ interface TravelListItemProps {
 export default function TravelListItem({ rooms }: TravelListItemProps) {
     return (
         <S.TravelList>
-            <HistoryCardSkeleton />
             {rooms.map((room) => (
                 <H.TravelListItem key={room.tripName}>
                     {" "}

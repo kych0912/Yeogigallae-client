@@ -4,7 +4,6 @@ import * as V from "./VotingItem.Styles";
 import calculateVoteGauge from "./calculateVoteGauge";
 import renderParticipantProfiles from "./renderParticipantProfiles";
 import useRemainingTimes from "./useRemainingTimes";
-import { VotingCardSkeleton } from "../CardSkeleton";
 
 interface Room {
     roomName: string;
@@ -25,7 +24,6 @@ const VotingItem: React.FC<VotingItemProps> = ({ rooms = [] }) => {
 
     return (
         <S.RowTravelList>
-            <VotingCardSkeleton />
             {rooms.map((room) => (
                 <V.VotingItem key={room.roomName}>
                     <V.Box>

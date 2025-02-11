@@ -28,9 +28,15 @@ export default function FullVotingListPage() {
     const { isModalVisible, handleCloseModal, selectedFilter, handleFilterChange } = useOutletContext<LayoutContextType>();
     return (
         <S.Container>
-            <FullVotingItem rooms={votingRooms ?? []} selectedFilter={selectedFilter} />
-            <FullVotingCardSkeleton />
-
+            {isLoading ? (
+                <>
+                    <FullVotingCardSkeleton />
+                    <FullVotingCardSkeleton />
+                    <FullVotingCardSkeleton />
+                </>
+            ) : (
+                <FullVotingItem rooms={votingRooms ?? []} selectedFilter={selectedFilter} />
+            )}
             <TostModal isVisible={isModalVisible} onClose={handleCloseModal} onFilterChange={handleFilterChange} />
         </S.Container>
     );

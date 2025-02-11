@@ -27,9 +27,7 @@ export function VotingCardSkeleton() {
 export function FullVotingCardSkeleton() {
     return (
         <V.FullVotingItem>
-            <S.Type>
-                <Skeleton variant="text" width="100px" height="24px" />
-            </S.Type>
+            <Skeleton variant="text" width="100px" height="24px" />
             <V.Box>
                 <S.Box>
                     <Skeleton variant="text" width="90px" height="24px" />
@@ -68,17 +66,19 @@ export function UpcomingCardSkeleton() {
 
 export function HistoryCardSkeleton() {
     return (
-        <H.TravelListItem>
-            <H.ImageWrapper>
-                <Skeleton variant="rectangular" width="100%" height="100%" />
-            </H.ImageWrapper>
-            <H.InfoWrapper>
-                <S.TextBox>
-                    <Skeleton variant="text" width="100px" height="24px" />
-                    <Skeleton variant="text" width="50px" height="14px" />
-                </S.TextBox>
-                <Skeleton variant="text" width="150px" height="14px" />
-            </H.InfoWrapper>
-        </H.TravelListItem>
+        <S.TravelList>
+            <H.TravelListItem>
+                <H.ImageWrapper>
+                    <Skeleton variant="rectangular" width="100%" height="100%" />
+                </H.ImageWrapper>
+                <H.InfoWrapper>
+                    <S.TextBox>
+                        <Skeleton variant="text" width="100px" height="24px" />
+                        <Skeleton variant="text" width="50px" height="14px" />
+                    </S.TextBox>
+                    <Skeleton variant="text" width="150px" height="14px" />
+                </H.InfoWrapper>
+            </H.TravelListItem>
+        </S.TravelList>
     );
 }

@@ -36,9 +36,6 @@ const FullVotingItem: React.FC<FullVotingItemProps> = ({ rooms = [], selectedFil
     return (
         <>
             {filteredRooms.map((room) => {
-                const totalParticipants = room.profileImageUrls.length;
-                const voteGauge = calculateVoteGauge(room.completedVotes, totalParticipants);
-
                 const tripPlanInfo = (() => {
                     switch (room.tripPlanType) {
                         case "COURSE":
@@ -78,7 +75,12 @@ const FullVotingItem: React.FC<FullVotingItemProps> = ({ rooms = [], selectedFil
                                         </V.VoteGauge>
                                     </>
                                 )}
-                                {room.tripPlanType === "COURSE" && <V.AItext>AI코스 입력 받는 중..</V.AItext>}
+                                {room.tripPlanType === "COURSE" && (
+                                    <S.SpinnerContainer>
+                                        <S.Spinner />
+                                        <V.AItext>AI코스 입력 받는 중..</V.AItext>
+                                    </S.SpinnerContainer>
+                                )}
                             </V.VoteBox>
                         </S.Box>
                     </V.FullVotingItem>

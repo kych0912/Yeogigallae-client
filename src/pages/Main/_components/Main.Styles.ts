@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import BaseButton from "../../../components/Button/Button";
 import IconButton from "../../../components/Button/IconButton";
+import { keyframes } from "styled-components";
 
 //컨테이너
 
@@ -208,4 +209,28 @@ export const HighlightedText = styled.span`
     color: ${({ theme }) => theme.colors.GrayText};
     font-family: ${({ theme }) => theme.fontFamily.regular};
     font-size: 0.75rem;
+`;
+
+const spin = keyframes`
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+`;
+
+export const SpinnerContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.375rem;
+`;
+export const Spinner = styled.div`
+    width: 0.813rem;
+    height: 0.813rem;
+    border: 0.15rem solid ${({ theme }) => theme.colors.disabled};
+    border-top-color: ${({ theme }) => theme.colors.primary || "#FFD262"};
+    border-radius: 50%;
+    animation: ${spin} 2s linear infinite;
 `;

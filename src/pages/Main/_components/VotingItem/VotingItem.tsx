@@ -38,10 +38,20 @@ const VotingItem: React.FC<VotingItemProps> = ({ rooms = [] }) => {
                     <S.Box>
                         <V.ParticipantContainer>{renderParticipantProfiles(room.profileImageUrls)}</V.ParticipantContainer>
                         <V.VoteBox>
-                            <V.VoteText>{room.completedVotes}명 투표 완료</V.VoteText>
-                            <V.VoteGauge>
-                                <V.VoteBar style={{ width: `${calculateVoteGauge(room.completedVotes, room.totalMembers)}%` }} />
-                            </V.VoteGauge>
+                            {room.tripPlanType === "SCHEDULE" && (
+                                <>
+                                    <V.VoteText>{room.completedVotes}명 투표 완료</V.VoteText>
+                                    <V.VoteGauge>
+                                        <V.VoteBar style={{ width: `${calculateVoteGauge(room.completedVotes, room.totalMembers)}%` }} />
+                                    </V.VoteGauge>
+                                </>
+                            )}
+                            {room.tripPlanType === "COURSE" && (
+                                <S.SpinnerContainer>
+                                    <S.Spinner />
+                                    <V.AItext>AI코스 입력 받는 중..</V.AItext>
+                                </S.SpinnerContainer>
+                            )}
                         </V.VoteBox>
                     </S.Box>
                 </V.VotingItem>

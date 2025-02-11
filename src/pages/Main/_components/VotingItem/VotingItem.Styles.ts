@@ -105,7 +105,7 @@ export const RemainingTime = styled.div`
     font-family: ${({ theme }) => theme.fontFamily.bold};
     color: ${({ theme }) => theme.colors.primary};
     text-align: right;
-    align-self: flex-start;
+    align-self: center;
 `;
 
 export const VoteBox = styled.div`

@@ -30,7 +30,7 @@ export const MonthGrid = styled.div`
   width: 100%;
 `;
 
-export const MonthItem = styled.div<{ $selected: boolean }>`
+export const MonthItem = styled.div<{ $selected: boolean; $disabled?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -38,10 +38,10 @@ export const MonthItem = styled.div<{ $selected: boolean }>`
   padding: 15px 25px;
   font-family: ${({ theme }) => theme.fontFamily.regular};
   font-size: 0.875rem;
-  color: #fff;
-  background-color: ${({ $selected }) => ($selected ? "rgba(79, 88, 242, 0.3)" : "#2e2e2e")};
+  color: ${({ $disabled }) => ($disabled ? "rgba(255, 255, 255, 0.5)" : "#fff")};
+  background-color: ${({ $selected, $disabled }) => 
+    $disabled ? "rgba(46, 46, 46, 0.5)" : $selected ? "rgba(79, 88, 242, 0.3)" : "#2e2e2e"};
   border-radius: 16px;
-  cursor: pointer;
+  cursor: ${({ $disabled }) => ($disabled ? "not-allowed" : "pointer")};
   border: ${({ $selected }) => ($selected ? "1.5px solid #3B46F1" : "1.5px solid #fff")};
 `;
-

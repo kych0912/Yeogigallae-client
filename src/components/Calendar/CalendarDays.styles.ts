@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const CalendarContainer = styled.div`
   width: 100%;
-  padding: 0.5rem;
+  padding: 0 0.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -37,7 +37,7 @@ export const WeekDays = styled.div`
 export const WeekDay = styled.div`
   width: 1.5rem;
   height: 1.5rem;
-  margin: 0.75rem;
+  margin: 0.7rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -47,7 +47,7 @@ export const Days = styled.div`
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   grid-row-gap: 3px;
-  margin: 1rem;
+  margin: 0.5rem 0 0.25rem;
 `;
 
 export const Day = styled.div<{

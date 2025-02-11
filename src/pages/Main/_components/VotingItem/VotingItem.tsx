@@ -26,13 +26,15 @@ const VotingItem: React.FC<VotingItemProps> = ({ rooms = [] }) => {
         <S.RowTravelList>
             {rooms.map((room) => (
                 <V.VotingItem key={room.roomName}>
-                    <S.Box>
-                        <S.TextBox>
+                    <V.Box>
+                        <S.Box>
                             <V.Title>{room.roomName}</V.Title>
+                            <V.RemainingTime>{remainingTimes[room.roomName] || "00:00:00"}</V.RemainingTime>
+                        </S.Box>
+                        <S.Box>
                             <S.Location>{room.location}</S.Location>
-                        </S.TextBox>
-                        <V.RemainingTime>{remainingTimes[room.roomName] || "00:00:00"}</V.RemainingTime>
-                    </S.Box>
+                        </S.Box>
+                    </V.Box>
                     <S.Box>
                         <V.ParticipantContainer>{renderParticipantProfiles(room.profileImageUrls)}</V.ParticipantContainer>
                         <V.VoteBox>

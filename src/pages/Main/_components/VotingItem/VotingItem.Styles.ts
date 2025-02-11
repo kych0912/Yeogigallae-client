@@ -27,6 +27,14 @@ export const FullVotingItem = styled.div`
     width: 100%;
 `;
 
+export const Box = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.375rem;
+`;
+
 export const EmptyBox = styled.div`
     width: 23.125rem;
     height: 9rem;
@@ -35,6 +43,13 @@ export const EmptyBox = styled.div`
     align-items: center;
     display: flex;
     justify-content: center;
+`;
+
+export const TextBox = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
 `;
 
 export const ParticipantContainer = styled.div`

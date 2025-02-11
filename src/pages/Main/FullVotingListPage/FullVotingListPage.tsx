@@ -3,6 +3,7 @@ import FullVotingItem from "../_components/VotingItem/FullVotingItem";
 import TostModal from "../_components/TostModal/TostModal";
 import { useOutletContext } from "react-router-dom";
 import { useGetVoting } from "../../../react-query/queries/main/Voting/queries";
+import { FullVotingCardSkeleton } from "../_components/CardSkeleton";
 
 type LayoutContextType = {
     isModalVisible: boolean;
@@ -28,6 +29,7 @@ export default function FullVotingListPage() {
     return (
         <S.Container>
             <FullVotingItem rooms={votingRooms ?? []} selectedFilter={selectedFilter} />
+            <FullVotingCardSkeleton />
 
             <TostModal isVisible={isModalVisible} onClose={handleCloseModal} onFilterChange={handleFilterChange} />
         </S.Container>

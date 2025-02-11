@@ -83,7 +83,6 @@ export const CustomIconButton = styled(IconButton)`
     border: ${({ theme }) => `0.063rem solid ${theme.colors.GrayText || "#6E6E6E"}`};
     cursor: pointer;
     transition: background-color 0.3s ease-in-out;
-
     img {
         width: 1.5rem;
         height: 1.5rem;

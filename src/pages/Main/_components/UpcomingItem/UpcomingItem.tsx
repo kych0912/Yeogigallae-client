@@ -2,6 +2,7 @@ import * as S from "../Main.Styles";
 import * as U from "./UpcomingItem.Styles";
 import Calender2 from "../../../../assets/icons/Calender2.svg";
 import { useNavigate } from "react-router-dom";
+import { UpcomingCardSkeleton } from "../CardSkeleton";
 
 interface Room {
     roomName: string;
@@ -24,6 +25,7 @@ export default function UpcomingItem({ rooms }: UpcomingItemProps) {
 
     return (
         <S.RowTravelList>
+            <UpcomingCardSkeleton />
             {rooms.map((room, index) => (
                 <U.TravelList onClick={handleNavigate} key={index}>
                     <U.ImageWrapper>

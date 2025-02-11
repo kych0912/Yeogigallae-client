@@ -70,10 +70,15 @@ const FullVotingItem: React.FC<FullVotingItemProps> = ({ rooms = [], selectedFil
                         <S.Box>
                             <V.ParticipantContainer>{renderParticipantProfiles(room.profileImageUrls)}</V.ParticipantContainer>
                             <V.VoteBox>
-                                <V.VoteText>{room.completedVotes}명 투표 완료</V.VoteText>
-                                <V.VoteGauge>
-                                    <V.VoteBar style={{ width: `${voteGauge}%` }} />
-                                </V.VoteGauge>
+                                {room.tripPlanType === "SCHEDULE" && (
+                                    <>
+                                        <V.VoteText>{room.completedVotes}명 투표 완료</V.VoteText>
+                                        <V.VoteGauge>
+                                            <V.VoteBar style={{ width: `${calculateVoteGauge(room.completedVotes, room.totalMembers)}%` }} />
+                                        </V.VoteGauge>
+                                    </>
+                                )}
+                                {room.tripPlanType === "COURSE" && <V.AItext>AI코스 입력 받는 중..</V.AItext>}
                             </V.VoteBox>
                         </S.Box>
                     </V.FullVotingItem>

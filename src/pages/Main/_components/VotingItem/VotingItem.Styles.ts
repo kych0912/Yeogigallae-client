@@ -138,3 +138,13 @@ export const VoteBar = styled.div`
     border-radius: 0.25rem;
     background: ${({ theme }) => theme.colors.primary};
 `;
+
+export const AItext = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-size: ${({ theme }) => theme.fontSize.medium};
+    font-family: ${({ theme }) => theme.fontFamily.semiBold};
+    color: ${({ theme }) => theme.colors.primary};
+    gap: 0.156rem;
+`;

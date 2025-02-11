@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Card } from "../../Share/_components/Style";
 
 export const ItemContainer = styled.div`
   display: flex;
@@ -35,4 +36,27 @@ export const BottomButtonWrapper = styled.div`
   & > button {
     width: 100%;
   }
+`;
+
+export const AddImage = styled.div`
+    width: 100%;
+    height: 100%;
+    border-radius: 1.5rem;
+    border: 1.5px solid #434343;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap:0.5rem;
+`;
+
+export const AddImageText = styled.div`
+    font-family:${({theme}) => theme.fontFamily.medium};
+    font-size:1rem;
+    color:#434343;
+`;
+
+export const AddImageCard = styled(Card.Image)`
+    width:170px;
+    width:100%;
 `;

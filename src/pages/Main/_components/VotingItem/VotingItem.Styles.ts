@@ -25,6 +25,7 @@ export const FullVotingItem = styled.div`
     padding: 1.5rem 1.25rem;
     height: auto;
     width: 100%;
+    gap: 1rem;
 `;
 
 export const Box = styled.div`

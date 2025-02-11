@@ -1,4 +1,4 @@
-import { Place } from "../../../hooks/useSearchLogic";
+import { KakaoPlaceDocument } from "../../../apis/searchAddress/types";
 
 // 장소 입력창창
 export interface SearchInputProps {
@@ -11,9 +11,9 @@ export interface SearchInputProps {
 
 // 장소 리스트
 export interface ResultListProps {
-  results: Place[];
-  selectedResult: Place | null;
-  handleSelectItem: (item: Place) => void;
+  results: KakaoPlaceDocument[];
+  coords: { zoneNo: string | undefined }[];
+  handleSelectItem: (item: KakaoPlaceDocument) => void;
 }
 
 // 장소 찾기 지도

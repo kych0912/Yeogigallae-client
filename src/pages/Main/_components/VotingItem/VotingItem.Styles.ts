@@ -15,6 +15,26 @@ export const VotingItem = styled.div`
     height: auto;
     flex-shrink: 0;
 `;
+export const FullVotingItem = styled.div`
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    background-color: ${({ theme }) => theme.colors.secondary || "#222222"};
+    border-radius: 1.25rem;
+    font-family: ${({ theme }) => theme.fontFamily.regular};
+    padding: 1.5rem 1.25rem;
+    height: auto;
+    width: 100%;
+    gap: 1rem;
+`;
+
+export const Box = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.375rem;
+`;
 
 export const EmptyBox = styled.div`
     width: 23.125rem;
@@ -24,6 +44,13 @@ export const EmptyBox = styled.div`
     align-items: center;
     display: flex;
     justify-content: center;
+`;
+
+export const TextBox = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
 `;
 
 export const ParticipantContainer = styled.div`
@@ -78,7 +105,7 @@ export const RemainingTime = styled.div`
     font-family: ${({ theme }) => theme.fontFamily.bold};
     color: ${({ theme }) => theme.colors.primary};
     text-align: right;
-    align-self: flex-start;
+    align-self: center;
 `;
 
 export const VoteBox = styled.div`
@@ -110,4 +137,14 @@ export const VoteBar = styled.div`
     height: 100%;
     border-radius: 0.25rem;
     background: ${({ theme }) => theme.colors.primary};
+`;
+
+export const AItext = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-size: ${({ theme }) => theme.fontSize.medium};
+    font-family: ${({ theme }) => theme.fontFamily.semiBold};
+    color: ${({ theme }) => theme.colors.primary};
+    gap: 0.156rem;
 `;

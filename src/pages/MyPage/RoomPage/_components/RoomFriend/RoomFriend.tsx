@@ -28,13 +28,14 @@ export default function RoomFriend({control}:{
                     value.map((friend)=>(  
                         <FriendListAvatar 
                             onClick={()=>{
-                                onChange(value.filter((f)=>f.id !== friend.id))
+                                onChange(value.filter((f)=>f.friendId !== friend.friendId))
                                 addFriend(friend)
                             }}
-                            key={friend.id} 
-                            name={friend.name} 
-                            src={friend.src} 
+                            key={friend.friendId} 
+                            name={friend.friendName} 
+                            src={friend.profileImageUrl} 
                             size={"60px"} 
+
                         />
                     ))
                 }

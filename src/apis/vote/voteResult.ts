@@ -13,7 +13,6 @@ export const getVoteResult = async ({
   type: "GOOD" | "BAD";
 }) => {
   if (import.meta.env.MODE === "development") {
-    console.log("🔥 [getVoteResult] 목데이터 사용:", DEFAULT_VoteResult);
     return {
       ...DEFAULT_VoteResult,
       userId,

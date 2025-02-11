@@ -3,12 +3,15 @@ import React from "react";
 import * as S from "./Styles";
 import BudgetCard from "../_components/BudgetCard";
 import BudgetInfoCard from "../_components/BudgetInfoCard";
+import { CardSkeleton, InfoCardSkeleton } from "../_components/CardSkeleton";
 
 const BudgetPage: React.FC = () => {
     return (
         <S.Container>
             <BudgetCard />
             <BudgetInfoCard />
+            <CardSkeleton />
+            <InfoCardSkeleton />
             <S.Text>각 분야별 평균적인 금액을 계산하여 생성된 예산입니다.</S.Text>
         </S.Container>
     );

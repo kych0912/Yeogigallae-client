@@ -18,6 +18,22 @@ export const Item = {
         font-size:0.875rem;
         color:#6E6E6E;
     `,
+    DeleteButton : styled.div`
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        width:1.25rem;
+        height:1.25rem;
+        border-radius:50%;
+        background-color:#6E6E6E;
+        color:white;
+        &::before {
+            content: "";
+            width: 10px;     
+            height: 1.75px;    
+            background-color:white;
+        }
+    `,
 }
 
 export const Accordion = {
@@ -46,16 +62,26 @@ export const Accordion = {
     Item: styled.div`
         display: flex;
         align-items: center;
-        justify-content: start;
+        justify-content: space-between;
         gap: 0.75rem;
         padding: 0 0.875rem;
         font-family:${({theme}) => theme.fontFamily.regular};
         font-size:0.875rem;
         color:#ffffff;
+        width:100%;
+        box-sizing: border-box;
+        position:relative;
+    `,
+    ProfileWrapper: styled.div`
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
     `,
     Avatar: styled.img`
         border-radius:50%;
         width:2.5rem;
+
         height:2.5rem;
     `,
 

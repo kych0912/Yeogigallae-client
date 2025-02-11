@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { ShareCourseData, TShareCourseContext } from "../ShareCorsePage";
 import { useOutletContext } from "react-router-dom";
 import { HeaderConfig } from "../../../../types/header/header";
-
+import { createPortal } from "react-dom";
 
 export default function List({
     onNext,
@@ -55,12 +55,14 @@ export default function List({
 
                 <AddPlace onClick={handleAddPlace}/>
             </S.ItemContainer>
-
+            {createPortal(
             <S.BottomButtonWrapper>
                 <Button variant="contained" size="large" onClick={()=>onNext(places)}>
                     {"장소 공유하기"}
-                </Button>
-            </S.BottomButtonWrapper>
+                    </Button>
+                </S.BottomButtonWrapper>
+            ,document.body)}
         </>
+
     )
 }

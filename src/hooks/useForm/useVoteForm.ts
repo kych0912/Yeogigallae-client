@@ -34,11 +34,13 @@ export const useVoteForm = (tripPlanType: "COURSE" | "SCHEDULE", roomId: number)
     }
   }, [roomId, tripPlanType, reset, storageKey]);
 
-
   useEffect(() => {
-    const formData = getValues();
-    localStorage.setItem(storageKey, JSON.stringify(formData));
-  }, [watch(), storageKey]); 
+    const subscription = watch((values) => {
+      localStorage.setItem(storageKey, JSON.stringify(values));
+    });
+
+    return () => subscription.unsubscribe(); 
+  }, [watch, storageKey]); 
 
   return { control, setValue, watch, getValues, reset };
 };

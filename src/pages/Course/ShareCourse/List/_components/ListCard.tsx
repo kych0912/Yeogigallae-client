@@ -10,10 +10,12 @@ import * as z from "zod";
 
 export default function ListCard({ 
     index,
-    control 
+    control,    
+    remove
 }: {
     index: number,
-    control: Control<z.infer<typeof FormDataSchema>>
+    control: Control<z.infer<typeof FormDataSchema>>,
+    remove: () => void
 }) {
     const { field: imageField } = useController({
         name: `places.${index}.image`,
@@ -28,6 +30,9 @@ export default function ListCard({
     return (
         <>
             <Card>
+                <button type="button" onClick={remove}>
+                    삭제
+                </button>
                 <M.AddImageCard onClick={() => {
                     modal.image.show({
                         onConfirm: (data) => {

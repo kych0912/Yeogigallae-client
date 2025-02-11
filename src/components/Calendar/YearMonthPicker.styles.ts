@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import "swiper/swiper-bundle.css";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -27,6 +29,7 @@ export const MonthGrid = styled.div`
   grid-template-columns: repeat(3, 1fr);
   gap: 0.625rem;
   margin-top: 0.625rem;
+  margin-bottom: 0.25rem;
   width: 100%;
 `;
 
@@ -44,4 +47,13 @@ export const MonthItem = styled.div<{ $selected: boolean; $disabled?: boolean }>
   border-radius: 16px;
   cursor: ${({ $disabled }) => ($disabled ? "not-allowed" : "pointer")};
   border: ${({ $selected }) => ($selected ? "1.5px solid #3B46F1" : "1.5px solid #fff")};
+`;
+
+export const StyledSwiper = styled(Swiper)`
+  width: 100%;
+`;
+
+export const StyledSwiperSlide = styled(SwiperSlide)`
+  cursor: pointer; 
+  pointerEvents: auto;
 `;

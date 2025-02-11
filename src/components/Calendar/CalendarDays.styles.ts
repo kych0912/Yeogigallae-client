@@ -67,11 +67,11 @@ export const Day = styled.div<{
   z-index: 10;
   border: none;
   background-color: ${({ $isSelected }) =>
-    $isSelected && "#3b46f1"};
+    $isSelected ? "#3b46f1" : "transparent"};
   color: ${({ $isSelected, $isCurrentMonth }) =>
     $isSelected ? "#fff" : $isCurrentMonth ? "#fff" : "#6e6e6e"};
   border-radius: ${({ $isStart, $isEnd }) =>
-    ($isStart || $isEnd) && "50%"}; /* 시작/끝 날짜 원형 */
+    $isStart || $isEnd ? "50%" : "0"}; 
   cursor: pointer;
 
   &:before {
@@ -82,22 +82,34 @@ export const Day = styled.div<{
     left: 0; 
     right: 0; 
     background-color: ${({ $isInRange }) =>
-      $isInRange && "rgba(59, 70, 241, 0.3)"};
+      $isInRange ? "rgba(59, 70, 241, 0.3)" : "transparent"};
     z-index: -1;
-
+    
     border-radius: ${({ $isStart, $isEnd }) =>
       $isStart ? "50px 0 0 50px" 
-      : $isEnd && "0 50px 50px 0"}; 
+      : $isEnd ? "0 50px 50px 0"
+      : "0"}; 
+
+    ${({ $isStart, $isEnd }) =>
+      $isStart
+        ? "clip-path: inset(0 0 0 0);"
+        : $isEnd
+        ? "clip-path: inset(0 0 0 0);"
+        : ""};
   }
 
   &:nth-child(7n + 1):before {
-    border-radius: ${({ $isStart }) =>
-      $isStart ? "50px 0 0 50px" : "50px 0 0 50px"}; 
+    border-radius: ${({ $isStart, $isInRange }) =>
+      $isStart || $isInRange ? "50px 0 0 50px" : "0"};
+    clip-path: ${({ $isEnd }) =>
+      $isEnd ? "inset(0 50px 0 0);" : "inset(0 0 0 0);"}; \
   }
 
   &:nth-child(7n):before {
-    border-radius: ${({ $isEnd }) =>
-      $isEnd ? "0 50px 50px 0" : "0 50px 50px 0"}; 
+    border-radius: ${({ $isEnd, $isInRange }) =>
+      $isEnd || $isInRange ? "0 50px 50px 0" : "0"};
+    clip-path: ${({ $isStart }) =>
+      $isStart ? "inset(0 0 0 50%);" : "inset(0 0 0 0);"}; 
   }
 
   &:after {
@@ -113,4 +125,5 @@ export const Day = styled.div<{
     z-index: -1;
   }
 `;
+
 

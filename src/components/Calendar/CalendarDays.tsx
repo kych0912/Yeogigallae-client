@@ -7,7 +7,7 @@ import Card from "../Card";
 export default function CalendarDays() {
   const { currentDate, startDate, endDate, setStartDate, setEndDate, setCurrentDate } = useCalendar();
   const year = currentDate.getFullYear();
-  const month = currentDate.getMonth() + 1;
+  const month = currentDate.getMonth();
   const daysInMonth = getDaysInMonth(year, month);
   const weekDays = getWeekDays();
 
@@ -32,17 +32,10 @@ export default function CalendarDays() {
       setEndDate(null);
     } else {
       if (targetDate > startDate) {
-        const maxSelectableDate = new Date(startDate);
-        maxSelectableDate.setDate(startDate.getDate() + 7);
-        if (targetDate > maxSelectableDate) return; 
-        setEndDate(targetDate);
-      } 
-      else {
-        const minSelectableDate = new Date(startDate);
-        minSelectableDate.setDate(startDate.getDate() - 7);
-        if (targetDate < minSelectableDate) return;
+        setEndDate(targetDate); 
+      } else {
         setEndDate(startDate);
-        setStartDate(targetDate);
+        setStartDate(targetDate); 
       }
     }
   };

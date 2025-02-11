@@ -3,7 +3,8 @@ import * as S from "./YearMonthPicker.styles";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
 import { FreeMode, Navigation } from "swiper/modules";
-import { useCalendar } from "./context/CalendarContext"; 
+import { useCalendar } from "./context/CalendarContext";
+import { Toast } from "./CompleteButton.styles";
 
 interface YearMonthPickerProps {
   onMonthSelect: (selected: boolean) => void;
@@ -11,20 +12,28 @@ interface YearMonthPickerProps {
 
 export default function YearMonthPicker({ onMonthSelect }: YearMonthPickerProps) {
   const { currentDate, setCurrentDate } = useCalendar();
-
-  // ✅ 최소 연도를 2025년부터 설정
   const baseYear = 2025;
   const [years] = useState<number[]>(Array.from({ length: 41 }, (_, i) => baseYear + i));
+  const [showToast, setShowToast] = useState(false);
 
+  const now = new Date();
   const currentYear = currentDate.getFullYear();
   const currentMonth = currentDate.getMonth() + 1;
   const yearDialRef = useRef<HTMLDivElement>(null);
 
   const handleYearChange = (year: number) => {
-    setCurrentDate(new Date(year, currentMonth - 1, 1)); 
+    setCurrentDate(new Date(year, currentMonth - 1, 1));
   };
 
   const handleMonthChange = (month: number) => {
+    if (
+      currentYear < now.getFullYear() || 
+      (currentYear === now.getFullYear() && month < now.getMonth() + 1)
+    ) {
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 2000);
+      return;
+    }
     setCurrentDate(new Date(currentYear, month - 1, 1));
     onMonthSelect(true);
   };
@@ -38,12 +47,10 @@ export default function YearMonthPicker({ onMonthSelect }: YearMonthPickerProps)
   useEffect(() => {
     const handleScrollStop = () => {
       if (!yearDialRef.current) return;
-
       const { scrollLeft, clientWidth } = yearDialRef.current;
       const centerPosition = scrollLeft + clientWidth / 2;
       const closestIndex = Math.round(centerPosition / 70);
       const newSelectedYear = years[closestIndex];
-
       if (newSelectedYear !== currentYear) {
         handleYearChange(newSelectedYear);
       }
@@ -96,6 +103,10 @@ export default function YearMonthPicker({ onMonthSelect }: YearMonthPickerProps)
             <S.MonthItem
               key={month}
               $selected={month === currentMonth}
+              $disabled={
+                currentYear < now.getFullYear() ||
+                (currentYear === now.getFullYear() && month < now.getMonth() + 1)
+              }
               onClick={() => handleMonthChange(month)}
             >
               {month}월
@@ -103,6 +114,9 @@ export default function YearMonthPicker({ onMonthSelect }: YearMonthPickerProps)
           ))}
         </S.MonthGrid>
       </S.Wrapper>
+      <>
+        {showToast && <Toast>이전 달은 선택할 수 없습니다!</Toast>}
+      </>
     </>
   );
 }

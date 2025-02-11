@@ -67,24 +67,23 @@ const MemberAvatar = styled.div<{ position: number, total: number }>`
       switch (position) {
         case 0:
           return `
-            left: 0;
-            top: 0;
+            left: 0px;
+            top: 16px;
           `;
         case 1:
           return `
-            left: 16px;
-            top: 0;
+            left: 0px;
+            top: 0px;
           `;
         case 2:
           return `
-            left: 0;
-            top: 16px;
+            left: 16px;
+            top: 0px;
           `;
         case 3:
-          return `
-            left: 16px;
-            top: 16px;
-          `;
+            return `
+                visibility: hidden;
+            `
         default:
           return '';
       }
@@ -100,19 +99,26 @@ const AvatarImage = styled.img`
 
 const ExtraCount = styled.div`
   position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 24px;
-  height: 24px;
+  top:16px;
+  left:16px;
+  width: 23px;
+  height: 23px;
   border-radius: 50%;
   background: #6E6E6E;
-  border: 1.88px solid #0a0a0a;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
+  align-items: end;
+  justify-content: end;
+  font-size: 0.5rem;
   color: white;
-  font-family:${({theme})=>theme.fontFamily.semiBold};
+  font-family:${({theme})=>theme.fontFamily.medium};
+`;
+
+const MemberCount = styled.div`
+  position: absolute;
+  top:9px;
+  left:9px;
+  font-size: 0.5rem;
+  color: white;
 `;
 
 
@@ -120,10 +126,14 @@ export default function ProfileGroup({ members = [] }: { members: Member[] }) {
   const displayMembers = members.slice(0, 4);
   const remainingCount = Math.max(0, members.length - 4);
 
-
-
   return (
     <Container>
+        {remainingCount > 0 && (
+          <ExtraCount>
+            <MemberCount>+{remainingCount}</MemberCount>
+          </ExtraCount>
+        )}
+
       {displayMembers.map((member, index) => (
         <MemberAvatar
           key={member.userId}
@@ -136,9 +146,6 @@ export default function ProfileGroup({ members = [] }: { members: Member[] }) {
           />
         </MemberAvatar>
       ))}
-        {remainingCount > 0 && (
-          <ExtraCount>+{remainingCount}</ExtraCount>
-        )}
     </Container>
   );
 };

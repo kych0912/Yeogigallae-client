@@ -1,35 +1,26 @@
-import { useState } from "react";
 import CalendarTabs from "./CalendarTabs";
 import CalendarDays from "./CalendarDays";
 import YearMonthPicker from "./YearMonthPicker";
-import CompleteButton from "./CompleteButton";
 import MonthNavigation from "./MonthNavigation";
 
 interface CalendarHeaderProps {
   activeTab: "date" | "flexible";
   setActiveTab: (tab: "date" | "flexible") => void;
+  isMonthSelected: boolean; 
+  setIsMonthSelected: (selected: boolean) => void;
 }
 
-export default function CalendarHeader({ activeTab, setActiveTab }: CalendarHeaderProps) {
-  const [isMonthSelected, setIsMonthSelected] = useState(false);
-
+export default function CalendarHeader({ activeTab, setActiveTab, setIsMonthSelected }: CalendarHeaderProps) {
   return (
     <>
       <CalendarTabs activeTab={activeTab} />
-      <MonthNavigation />
+      <MonthNavigation activeTab={activeTab} setActiveTab={setActiveTab} />
 
       {activeTab === "flexible" && <CalendarDays />}
 
       {activeTab !== "flexible" && (
-        <YearMonthPicker onMonthSelect={(selected) => setIsMonthSelected(selected)} />
+        <YearMonthPicker onMonthSelect={setIsMonthSelected} /> 
       )}
-
-      <CompleteButton
-        onComplete={(dates) => console.log("선택한 날짜:", dates)}
-        onTabChange={setActiveTab}
-        isMonthSelected={isMonthSelected}
-        activeTab={activeTab}
-      />
     </>
   );
 }

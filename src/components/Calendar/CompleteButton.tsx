@@ -36,7 +36,7 @@ export default function CompleteButton({
 
   const formatDate = (date: Date | null): string => {
     if (!date) return "";
-    return `${date.getFullYear()}-${String(date.getMonth()).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
   };
 
   const handleCompleteClick = () => {
@@ -76,5 +76,6 @@ export default function CompleteButton({
 
       {showToast && <S.Toast>{toastMessage}</S.Toast>}
     </S.Footer>
-  );
+  );  
 }
+

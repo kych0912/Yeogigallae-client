@@ -1,14 +1,13 @@
+import { useCalendar } from "./context/CalendarContext"; 
 import * as S from "./CalendarHeader.styles";
-import { MonthNavigationProps } from "./types/types"
 
-export default function MonthNavigation({
-  currentYear,
-  currentMonth,
-}: MonthNavigationProps) {
+export default function MonthNavigation() {
+  const { currentDate } = useCalendar();
+
   return (
     <S.MonthHeader>
       <S.CurrentMonth>
-        {`${currentYear}년 ${currentMonth}월`}
+        {`${currentDate.getFullYear()}년 ${currentDate.getMonth() + 1}월`}
       </S.CurrentMonth>
     </S.MonthHeader>
   );

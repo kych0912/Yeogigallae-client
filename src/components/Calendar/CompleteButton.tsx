@@ -8,21 +8,21 @@ export default function CompleteButton({
   onComplete,
   onTabChange,
   isMonthSelected,
+  activeTab,
 }: {
   onComplete: (date: { startDate: string; endDate: string }) => void;
   onTabChange: (tab: "date" | "flexible") => void;
   isMonthSelected: boolean;
+  activeTab: "date" | "flexible"; 
 }) {
-  const { startDate, endDate, mode } = useCalendar();
+  const { startDate, endDate } = useCalendar();
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
 
   useEffect(() => {
-    // ✅ "날짜 모드"일 경우: 월이 선택되면 버튼 활성화
-    // ✅ "유연한 선택 모드"일 경우: 날짜가 모두 선택되면 버튼 활성화
-    setIsButtonEnabled(mode === "date" ? isMonthSelected : !!(startDate && endDate));
-  }, [startDate, endDate, isMonthSelected, mode]);
+    setIsButtonEnabled(activeTab === "date" ? isMonthSelected : !!(startDate && endDate));
+  }, [startDate, endDate, isMonthSelected, activeTab]);
 
   const formatDate = (date: Date | null): string => {
     if (!date) return "";
@@ -30,7 +30,7 @@ export default function CompleteButton({
   };
 
   const handleCompleteClick = () => {
-    if (mode === "date") {
+    if (activeTab === "date") {
       onTabChange("flexible");
     } else {
       if (!startDate || !endDate) {
@@ -43,9 +43,17 @@ export default function CompleteButton({
 
   return (
     <S.Footer>
-      <Button size="large" onClick={handleCompleteClick} disabled={!isButtonEnabled}>
-        {mode === "flexible" ? "완료" : "다음으로"}
-      </Button>
+      {isButtonEnabled && activeTab === "date" && (
+        <Button size="large" onClick={handleCompleteClick}>
+          다음으로
+        </Button>
+      )}
+
+      {isButtonEnabled && activeTab === "flexible" && (
+        <Button size="large" onClick={handleCompleteClick}>
+          완료
+        </Button>
+      )}
 
       {showToast && <S.Toast>{toastMessage}</S.Toast>}
     </S.Footer>

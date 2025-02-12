@@ -4,12 +4,12 @@ import Calender2 from "../../../../assets/icons/Calender2.svg";
 import { useNavigate } from "react-router-dom";
 
 interface Room {
-    tripPlanId: number; // ✅ tripPlanId 추가
-    roomName: string; // ✅ roomName → tripPlanName 변경
-    location: string; // ✅ location → destination 변경
+    tripPlanId: number;
+    roomName: string;
+    location: string;
     startDate: string;
     endDate: string;
-    imageUrl: string; // ✅ imageUrl → thumbnailUrl 변경
+    imageUrl: string;
 }
 
 interface UpcomingItemProps {
@@ -28,14 +28,13 @@ export default function UpcomingItem({ rooms }: UpcomingItemProps) {
             {rooms.map((room) => (
                 <U.TravelList onClick={handleNavigate} key={room.tripPlanId}>
                     {" "}
-                    {/* ✅ key 변경 */}
                     <U.ImageWrapper>
-                        <S.Image src={room.imageUrl} alt={`${room.roomName} 이미지`} /> {/* ✅ 필드명 변경 */}
+                        <S.Image src={room.imageUrl} alt={`${room.roomName} 이미지`} />
                     </U.ImageWrapper>
                     <U.InfoWrapper>
                         <S.TextBox>
-                            <S.Title>{room.roomName}</S.Title> {/* ✅ 필드명 변경 */}
-                            <S.Location>{room.location}</S.Location> {/* ✅ 필드명 변경 */}
+                            <S.Title>{room.roomName}</S.Title>
+                            <S.Location>{room.location}</S.Location>
                         </S.TextBox>
                         <U.Date>
                             <img src={Calender2} alt="Calender2 Icon" />

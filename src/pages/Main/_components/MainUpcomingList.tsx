@@ -30,7 +30,7 @@ export default function MainUpcomingList() {
                         <img src={Upcoming} alt="Upcoming Icon" /> 예정된 여행
                     </>
                 }
-                rightContent={upcomingRooms.length}
+                rightContent={data?.totalCount || 0}
             ></MainSection>
             {/* 카드 부분 */}
             {isLoading ? <UpcomingCardSkeleton /> : upcomingRooms.length > 0 ? <UpcomingItem rooms={upcomingRooms} /> : <Empty />}

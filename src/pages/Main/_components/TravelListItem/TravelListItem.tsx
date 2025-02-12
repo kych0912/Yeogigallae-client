@@ -1,6 +1,8 @@
 import * as S from "../Main.Styles";
 import * as H from "./TravelListItem.Styles";
+
 interface Room {
+    tripPlanId: number;
     tripName: string;
     location: string;
     startDate: string;
@@ -17,8 +19,9 @@ export default function TravelListItem({ rooms }: TravelListItemProps) {
     return (
         <S.TravelList>
             {rooms.map((room) => (
-                <H.TravelListItem key={room.tripName}>
+                <H.TravelListItem key={room.tripPlanId}>
                     {" "}
+                    {/* tripPlanId를 key로 사용 */}
                     <H.ImageWrapper>
                         <H.Image src={room.imageUrl} alt={`${room.tripName} 이미지`} />
                     </H.ImageWrapper>

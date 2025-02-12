@@ -57,6 +57,10 @@ export const BaseButton = styled.button<ButtonProps>`
     outline: none;
     white-space: nowrap;
     font-family:${({theme}) => theme.fontFamily.medium}; 
+    ${({ disabled }) => disabled && css`
+        opacity: 0.5;
+        background-color: #454545;
+    `}
 `;
 
 

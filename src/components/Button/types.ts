@@ -4,6 +4,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
     size?: ButtonSize;
     color?: ButtonColor;
     variant?: ButtonVariant;
+    disabled?: boolean;
 }
 
 export type ButtonVariant = 'outline' | 'contained';

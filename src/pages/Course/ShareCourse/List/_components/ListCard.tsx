@@ -7,6 +7,7 @@ import AddImage from "./AddImage";
 import { Control, useController } from "react-hook-form";
 import { FormDataSchema } from "../index";
 import * as z from "zod";
+import DeleteTitle from "./DeleteTitle";
 
 export default function ListCard({ 
     index,
@@ -30,9 +31,10 @@ export default function ListCard({
     return (
         <>
             <Card>
-                <button type="button" onClick={remove}>
-                    삭제
-                </button>
+                <Card.Item>
+                    <DeleteTitle title={`장소 ${index + 1}`} remove={remove}/>
+                </Card.Item>
+
                 <M.AddImageCard onClick={() => {
                     modal.image.show({
                         onConfirm: (data) => {

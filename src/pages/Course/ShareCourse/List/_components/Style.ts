@@ -60,3 +60,32 @@ export const AddImageCard = styled(Card.Image)`
     width:170px;
     width:100%;
 `;
+
+export const Delete = {
+  Wrapper:styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    width: 100%;
+    gap:0.5rem;
+  `,
+  TitleWrapper:styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  `,
+  Text:styled.div`
+    font-family:${({theme}) => theme.fontFamily.semibold};
+    font-size:1.25rem;
+    color:white;
+  `,
+  Caption:styled.div`
+    font-family:${({theme}) => theme.fontFamily.regular};
+    font-size:0.75rem;
+    color:#6E6E6E;
+  `
+}
+
+

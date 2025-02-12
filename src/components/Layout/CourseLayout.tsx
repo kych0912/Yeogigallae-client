@@ -2,25 +2,20 @@ import Header from "../Header";
 import HomeIcon from "../../assets/icons/Home.svg?react";
 import BackIcon from "../../assets/icons/Back.svg?react";
 import { IconButton } from "../Button";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { useState } from "react";
 import HeaderCenterContent from "../Header/HeaderCenterContent";
-
-interface HeaderConfig {
-    title:string;
-    number?:number;
-}
+import { HeaderConfig } from "../../types/header/header";
 
 export default function Layout() {
-    const navigate = useNavigate();
     const [headerConfig, setHeaderConfig] = useState<HeaderConfig>({title:""});
-    const { title, number } = headerConfig;
+    const { title, number, leftFunction, rightFunction } = headerConfig;
 
     return (
         <>
             <Header
                 leftContent={
-                    <IconButton onClick={() => navigate(-1)}>
+                    <IconButton onClick={leftFunction}>
                         <BackIcon />
                     </IconButton>
                 }
@@ -28,7 +23,7 @@ export default function Layout() {
                     <HeaderCenterContent title={title} number={number} />
                 }
                 rightContent={
-                    <IconButton onClick={() => navigate("/")}>
+                    <IconButton onClick={rightFunction}>
                         <HomeIcon />
                     </IconButton>
                 }   

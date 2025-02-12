@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { KakaoPlaceDocument } from "../../../apis/searchAddress/types";
 import * as S from "./ResultList.styles";
 import ToggleIcon from "../../../assets/icons/ToggleIcon.svg?react";
@@ -22,13 +21,11 @@ export default function SearchListItem({
     handleSelectItem,
 }: SearchListItemProps) {
     const [isMapOpen, setIsMapOpen] = useState(false);
-    const navigate = useNavigate();
 
     return (
         <>
           <S.ResultWrapper onClick={() => {
             handleSelectItem(result)
-            navigate(-1);
           }}>
             <S.ResultItem
               $isFirst={index === 0}

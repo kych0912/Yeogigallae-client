@@ -2,60 +2,57 @@ import ListCard from "./_components/ListCard";
 import { Button } from "../../../../components/Button";
 import * as S from "./_components/Style";
 import AddPlace from "./_components/AddPlace";
-import { ShareCourseData } from "../ShareCorsePage";
+import { ShareCourseData, TShareCourseContext } from "../ShareCorsePage";
 import useSetHeader from "../../../../hooks/useSetHeader";
 import { createPortal } from "react-dom";
-import { useForm, useFieldArray } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { ShareCourseListSchema } from "../schema";
-import * as z from "zod";
+import { useState, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+import { useShareCourseForm } from "../../../../hooks/useShareForm";
+import { DefaultPlace } from "../../constants";
+import CourseSearchPage from "./_components/CourseSearchPage";
 
 export type FormData ={
     places: ShareCourseData
 }
 
-export const FormDataSchema = z.object({
-    places: ShareCourseListSchema
-})
-
-const DefaultPlace:ShareCourseData[number] = {
-    image: "",
-    place: {
-        placeId: 1,
-        placeName: "",
-        lat: 0,
-        lng: 0,
-    },
-    description: "",
-}
-
 export default function List({
-    onNext,
+    onNext, 
+    context,
 }: {
-    onNext:(data:ShareCourseData)=>void
+    onNext:(data:ShareCourseData)=>void,
+    context:TShareCourseContext
 }){
-    const {
-        handleSubmit, 
-        control, 
-        formState:{isValid},
-    } = useForm<FormData>({
-        resolver: zodResolver(FormDataSchema),
-        defaultValues:{
-            places: [DefaultPlace]
-        }
-    });
-
-    const {fields, append, remove} = useFieldArray({
-        control,
-        name: "places",
+    const navigate = useNavigate();
+    //useForm, useFieldArray 사용
+    //각 ListCard는 FieldArray에 속해있음
+    const { handleSubmit, control, setValue, isValid, fields, append, remove } = useShareCourseForm(context);
+    const [searchState, setSearchState] = useState({
+        isOpen: false,
+        selectedIndex: -1
     });
 
     const handleAddPlace = () => {
         append(DefaultPlace);
     };
 
+    //searchPage가 열려 있을 땐 상태변화만
+    //아닐경우 뒤로가기
+    const handleBack = useCallback(() => {
+        if (searchState.isOpen) {
+            setSearchState({
+                isOpen: false,
+                selectedIndex: -1
+            });
+        } else {
+            navigate(-1);
+        }
+    }, [searchState.isOpen, navigate]);   
+
+    //leftFunction에는 callback함수를 넣어야 함
+    //아닐 경우 콜스택에 계속 쌓임
     useSetHeader({
-        title:"장소 공유하기",
+        title: "장소 공유하기",
+        leftFunction: handleBack
     });
 
     const onSubmit = (data:FormData) => {
@@ -64,6 +61,28 @@ export default function List({
     }
 
     return (
+    <>
+    {
+        searchState.isOpen ? (
+            <CourseSearchPage
+                handleSelectItem={(place) => {
+                    console.log(place); 
+                    setValue(`places.${searchState.selectedIndex}.place`, {
+                        placeId: place.id,
+                        placeName: place.place_name,
+                        lat: place.x,
+                        lng: place.y,
+                    },{
+                        //setValue후 검증
+                        shouldValidate: true,
+                    });
+                    setSearchState({
+                        isOpen: false,
+                        selectedIndex: -1
+                    });
+                }}
+            />
+        ) : (
         <form id={"share-course-list"} onSubmit={handleSubmit(onSubmit)}> 
             <S.ItemContainer> 
                 {fields.map((field,index) => {
@@ -73,6 +92,12 @@ export default function List({
                             index={index}
                             control={control}
                             remove={() => remove(index)}
+                            onSearch={() => {
+                                setSearchState({
+                                    isOpen: true,
+                                    selectedIndex: index
+                                });
+                            }}
                         />
                     )
                 })}
@@ -92,5 +117,8 @@ export default function List({
                 </S.BottomButtonWrapper>
             ,document.body)}
         </form>
+        )
+    }
+    </>
     )
 }

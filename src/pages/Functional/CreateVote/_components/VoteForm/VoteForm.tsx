@@ -3,6 +3,7 @@ import { useVoteForm } from "../../../../../hooks/useForm/useVoteForm";
 import { Controller } from "react-hook-form";
 import ImagePlaceholder from "./ImagePlaceholder";
 import MessageInput from "./MessageInput";
+import SkeletonForm from "../../../Skeleton/SkeletonForm";
 import * as S from "../../../_components/Functional.styles";
 import CalendarIcon from "../../../../../assets/icons/Calender.svg?react";
 import Card from "../../../../../components/Card";
@@ -52,38 +53,49 @@ export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch, s
       <MessageInput control={control} tripPlanType={tripPlanType} roomId={roomId} />
       <S.StyledDivider />
 
-      <Card.Item label="투표 제한 시간">
-        <Controller
-          name="voteLimitTime"
-          control={control}
-          render={({ field }) => <VoteTimes value={field.value} onChange={field.onChange} />}
-        />
-      </Card.Item>
+        <Card.Item label="투표 제한 시간">
+          <Controller
+            name="voteLimitTime"
+            control={control}
+            render={({ field }) => <VoteTimes value={field.value} onChange={field.onChange} />}
+          />
+        </Card.Item>
+
       <S.StyledDivider />
 
-      <Card.Item label="장소">
-        <S.ClickableText onClick={onSearch}>{watch("location") || "장소를 입력하세요."}</S.ClickableText>
-      </Card.Item>
+        <Card.Item label="장소">
+          <SkeletonForm fullwidth>
+            <S.ClickableText onClick={onSearch}>{watch("location") || "장소를 입력하세요."}</S.ClickableText>
+          </SkeletonForm>
+        </Card.Item>
+
       <S.StyledDivider />
 
       {isSchedule && (
         <>
-          <Card.Item label="가격">
-            <PriceInput control={control} nights={nights} />
-          </Card.Item>
+            <Card.Item label="가격">
+              <SkeletonForm fullwidth>
+                <PriceInput control={control} nights={nights} />
+              </SkeletonForm>
+            </Card.Item>
 
           <S.StyledDivider />
         </>
       )}
 
-      <S.StyledCardItem>
-        <span className="text">
-          날짜 {startDate ? startDate : "미정"} ~ {endDate ? endDate : "미정"}
-        </span>
-        <S.IconWrapper onClick={onCalendar} className="icon">
-          <CalendarIcon />
-        </S.IconWrapper>
-      </S.StyledCardItem>
+        <S.StyledCardItem>
+          <SkeletonForm fullwidth>
+            <span className="text">
+              날짜
+              {startDate ? startDate : "미정"} ~ {endDate ? endDate : "미정"}
+            </span>
+          </SkeletonForm>
+          <S.IconWrapper onClick={onCalendar} className="icon">
+            <SkeletonForm>
+            <CalendarIcon />
+            </SkeletonForm>
+          </S.IconWrapper>
+        </S.StyledCardItem>
     </Card>
   );
 }

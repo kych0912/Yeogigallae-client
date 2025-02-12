@@ -32,8 +32,7 @@ export default function SkeletonForm({
   smallwidth,
   variant,
 }: SkeletonFormProps) {
-  const [loading, setLoading] = useState(globalLoadingState); // 초기 상태를 globalLoadingState에 맞춤
-
+  const [loading, setLoading] = useState(globalLoadingState); 
   useEffect(() => {
     if (!subscribers.includes(setLoading)) {
       subscribers.push(setLoading);
@@ -55,7 +54,7 @@ export default function SkeletonForm({
     } else {
       setTimeout(() => {
         setLoading(false);
-      }, 1000); 
+      }); 
     }
   }, [globalLoadingState]); 
 

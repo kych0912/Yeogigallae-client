@@ -113,33 +113,28 @@ export const Button = styled(BaseButton)`
     border-radius: 1rem;
     font-size: 1rem;
 `;
+
 export const RadioButton = styled.input.attrs({ type: "radio" })`
     height: 1.25rem;
     width: 1.25rem;
     margin-bottom: 1rem;
     appearance: none;
-    border: 2px solid ${({ theme }) => theme.colors.primary};
-    border-radius: 50%;
     background-color: white;
-    cursor: pointer;
+    border-radius: 50%;
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
 
     &:checked {
-        background-color: ${({ theme }) => theme.colors.primary}; /* 체크 시 배경 파란색 */
+        background-color: ${({ theme }) => theme.colors.primary};
     }
 
-    &:checked::after {
+    &:checked::before {
         content: "";
-        width: 0.6rem;
-        height: 0.6rem;
+        width: 50%;
+        height: 50%;
         background-color: white;
         border-radius: 50%;
-        position: absolute;
-        top: 55%;
-        left: 55%;
-        transform: translate(-50%, -50%);
     }
 `;

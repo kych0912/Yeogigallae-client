@@ -4,6 +4,7 @@ import UpcomingItem from "./UpcomingItem/UpcomingItem";
 import Upcoming from "../../../assets/icons/Upcoming.svg";
 import { useGetUpcoming } from "../../../react-query/queries/main/Upcoming/queries";
 import Empty from "./UpcomingItem/Empty";
+import { UpcomingCardSkeleton } from "./CardSkeleton";
 
 export default function MainUpcomingList() {
     const { data: upcomingRooms = [], isLoading, error } = useGetUpcoming();
@@ -28,14 +29,16 @@ export default function MainUpcomingList() {
                 }
                 rightContent={upcomingRooms.length}
             ></MainSection>
-
-            {/* 로딩 상태 처리 =>스켈레톤 ui 적용 예정*/}
-            {isLoading && <p>Loading...</p>}
-
-            {error && <p>Error loading upcoming rooms</p>}
-
             {/* 카드 부분 */}
-            {upcomingRooms.length > 0 ? <UpcomingItem rooms={upcomingRooms} /> : <Empty />}
+            {isLoading ? (
+                <>
+                    <UpcomingCardSkeleton />
+                </>
+            ) : upcomingRooms.length > 0 ? (
+                <UpcomingItem rooms={upcomingRooms} />
+            ) : (
+                <Empty />
+            )}
         </S.Container>
     );
 }

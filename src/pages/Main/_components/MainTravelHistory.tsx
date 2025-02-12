@@ -7,6 +7,7 @@ import History from "../../../assets/icons/History.png";
 import TravelListItem from "./TravelListItem/TravelListItem";
 import Empty from "./TravelListItem/Empty";
 import { useGetTravelList } from "../../../react-query/queries/main/TravelList/queries";
+import { HistoryCardSkeleton } from "./CardSkeleton";
 
 interface Room {
     tripName: string;
@@ -57,7 +58,15 @@ export default function MainTravelHistory() {
                 </S.selectBtn>
             </S.BtnBar>
             {/* 완료된 여행 리스트 */}
-            {filteredRooms.length > 0 ? <TravelListItem rooms={filteredRooms} /> : <Empty />}
+            {isLoading ? (
+                <>
+                    <HistoryCardSkeleton />\
+                </>
+            ) : filteredRooms.length > 0 ? (
+                <TravelListItem rooms={filteredRooms} />
+            ) : (
+                <Empty />
+            )}
         </S.HistoryContainer>
     );
 }

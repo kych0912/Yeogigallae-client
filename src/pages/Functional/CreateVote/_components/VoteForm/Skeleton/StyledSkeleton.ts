@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Skeleton from "../../../components/Skeleton";
+import Skeleton from "../../../../../../components/Skeleton";
 
 interface StyledSkeletonProps {
   smallwidth?: boolean;
@@ -31,20 +31,15 @@ const getHeight = (props: StyledSkeletonProps) => {
   return "1.75rem";
 };
 
-export const StyledSkeleton = styled(Skeleton).attrs<StyledSkeletonProps>((props) => ({
+export const StyledSkeleton = styled(Skeleton).withConfig({
+  shouldForwardProp: (prop) =>
+    !["smallwidth", "fullwidth", "fullcontent", "buttonwidth", "mediumwidth", "fullImage", "slidewidth"].includes(prop),
+}).attrs<StyledSkeletonProps>((props) => ({
   width: getWidth(props),
   height: getHeight(props),
 }))`
   display: block;
-  ${({ buttonwidth }) => buttonwidth && "border-radius: 50px;"}
+  ${({ buttonwidth }) => buttonwidth && "border-radius: 50px; oveflow-x: auto;"}
   ${({ fullImage }) => fullImage && "border-radius: 24px;"}
   ${({ slidewidth }) => slidewidth && "border-radius: 1rem;"}
-`;
-
-export const ParentContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  width: 100%;
 `;

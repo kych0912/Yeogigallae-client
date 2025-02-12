@@ -1,6 +1,6 @@
 import { useController, Control } from "react-hook-form";
 import * as S from "./Message.styles";
-import SkeletonForm from "../../../Skeleton/SkeletonForm";
+import SkeletonForm from "./Skeleton/SkeletonForm";
 
 interface MessageInputProps {
   control: Control<any>;

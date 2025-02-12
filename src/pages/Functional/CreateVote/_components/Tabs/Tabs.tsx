@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import * as S from "./Tabs.styles";
-import { setGlobalLoadingState } from "../../../Skeleton/SkeletonForm"; 
+import { setGlobalLoadingState } from "../VoteForm/Skeleton/SkeletonForm"; 
 
 interface TabsProps {
   activeTab: "SCHEDULE" | "COURSE";
@@ -29,7 +29,7 @@ export default function Tabs({ activeTab, onTabChange }: TabsProps) {
       setGlobalLoadingState(true);
 
       onTabChange(key);
-      
+
       setTimeout(() => {
         onTabChange(key);
         setIsLoading(false);

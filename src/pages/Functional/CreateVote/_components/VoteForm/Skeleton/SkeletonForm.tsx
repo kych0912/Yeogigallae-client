@@ -1,5 +1,5 @@
 import { ReactNode, useEffect, useState } from "react";
-import { StyledSkeleton, ParentContainer } from "./StyledSkeleton";
+import { StyledSkeleton } from "./StyledSkeleton";
 
 interface SkeletonFormProps {
   children: ReactNode;
@@ -59,7 +59,7 @@ export default function SkeletonForm({
   }, [globalLoadingState]); 
 
   return loading ? (
-    <ParentContainer>
+    <>
       <StyledSkeleton
         fullwidth={fullwidth}
         fullcontent={fullcontent}
@@ -70,7 +70,7 @@ export default function SkeletonForm({
         smallwidth={smallwidth}
         variant={variant}
       />
-    </ParentContainer>
+    </>
   ) : (
     children
   );

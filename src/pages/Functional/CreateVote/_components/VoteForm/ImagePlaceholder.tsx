@@ -4,7 +4,7 @@ import * as S from "./Image.styles";
 import DefaultImage from "../../../../../assets/icons/Default_image.svg";
 import modal from "../../../../../components/Modal"; 
 import Card from "../../../../../components/Card";
-import SkeletonForm from "../../../Skeleton/SkeletonForm";
+import SkeletonForm from "./Skeleton/SkeletonForm";
 
 interface ImagePlaceholderProps {
   control: Control<any>;

@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import * as S from "../../../_components/Functional.styles";
-import SkeletonForm from "../../../Skeleton/SkeletonForm";
+import SkeletonForm from "./Skeleton/SkeletonForm";
 
 interface VoteTimesProps {
   value: string;
@@ -29,22 +29,24 @@ export default function VoteTimes({ value, onChange }: VoteTimesProps) {
 
   return (
     <S.ButtonContainer ref={containerRef}>
-      {timeOptions.map((time) => (
-        <SkeletonForm buttonwidth>
-        <S.TimeButton
-          key={time}
-          $isActive={selectedTime === time}
-          onClick={() => {
-            const selectedKey = Object.keys(voteTimeMapping).find(
-              (key) => voteTimeMapping[key] === time
-            );
-            if (selectedKey) onChange(selectedKey);
-          }}
-        >
-          {time}
-        </S.TimeButton>
-        </SkeletonForm>
-      ))}
+      {timeOptions.map((time) => {
+        const selectedKey = Object.keys(voteTimeMapping).find(
+          (key) => voteTimeMapping[key] === time
+        );
+
+        return (
+          <SkeletonForm key={selectedKey || time} buttonwidth>
+            <S.TimeButton
+              $isActive={selectedTime === time}
+              onClick={() => {
+                if (selectedKey) onChange(selectedKey);
+              }}
+            >
+              {time}
+            </S.TimeButton>
+          </SkeletonForm>
+        );
+      })}
     </S.ButtonContainer>
   );
 }

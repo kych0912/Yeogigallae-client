@@ -3,7 +3,7 @@ import { useVoteForm } from "../../../../../hooks/useForm/useVoteForm";
 import { useVoteFormContext } from "../../../context/VoteFormContext";
 import { useState } from "react";
 import { Controller } from "react-hook-form";
-import SkeletonForm from "../../../Skeleton/SkeletonForm";
+import SkeletonForm from "../VoteForm/Skeleton/SkeletonForm";
 
 export default function SlideContainer() {
   const { roomId, setRoomId, tripPlanType } = useVoteFormContext();

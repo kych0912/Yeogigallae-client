@@ -1,5 +1,5 @@
 export const DEFAULT_Voting = {
-    totalCount: 2,
+    totalCount: 3,
     rooms: [
         {
             tripPlanId: 1,
@@ -11,6 +11,7 @@ export const DEFAULT_Voting = {
             profileImageUrls: ["Images.com", "Images.com", "Images.com", "Images.com"],
             createdAt: "2025-02-12T13:30:08.696Z",
             tripPlanType: "COURSE",
+            coordinates: { x: 129.0756, y: 35.1796 }, // 부산 좌표
         },
         {
             tripPlanId: 2,
@@ -22,6 +23,7 @@ export const DEFAULT_Voting = {
             profileImageUrls: ["Images.com", "Images.com", "Images.com", "Images.com", "Images.com"],
             createdAt: "2025-02-12T13:30:08.696Z",
             tripPlanType: "SCHEDULE",
+            coordinates: { x: 126.5312, y: 33.4996 }, // 제주도 좌표
         },
         {
             tripPlanId: 3,
@@ -33,6 +35,7 @@ export const DEFAULT_Voting = {
             profileImageUrls: ["Images.com", "Images.com", "Images.com", "Images.com", "Images.com"],
             createdAt: "2025-02-12T17:30:08.696Z",
             tripPlanType: "SCHEDULE",
+            coordinates: { x: 126.5312, y: 33.4996 }, // 제주도 좌표
         },
     ],
 };

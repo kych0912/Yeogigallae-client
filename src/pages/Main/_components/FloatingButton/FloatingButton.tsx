@@ -13,7 +13,7 @@ export default function FloatingMenu() {
     const closeMenu = () => setIsActive(false);
 
     const handleEditClick = () => {
-        navigate("/functional")
+        navigate("/functional");
     };
 
     const handleMyClick = () => {
@@ -29,13 +29,19 @@ export default function FloatingMenu() {
                 <img src={Floating} alt="Floating Icon" />
             </S.FloatingButtonStyled>
 
-            <S.SubButton $isActive={isActive} onClick={handleMyClick}>
-                <img src={usergroup} alt="usergroup Floating Icon" />
-            </S.SubButton>
+            <S.MenuItem>
+                <S.SubText $isActive={isActive}>여행 친구 관리</S.SubText>
+                <S.SubButton $isActive={isActive} onClick={handleMyClick}>
+                    <img src={usergroup} alt="trip_plan Floating Icon" />
+                </S.SubButton>
+            </S.MenuItem>
 
-            <S.SubButton $isActive={isActive} onClick={handleEditClick}>
-                <img src={trip_plan} alt="trip_plan Floating Icon" />
-            </S.SubButton>
+            <S.MenuItem>
+                <S.SubText $isActive={isActive}>여행 일정 생성</S.SubText>
+                <S.SubButton $isActive={isActive} onClick={handleEditClick}>
+                    <img src={trip_plan} alt="trip_plan Floating Icon" />
+                </S.SubButton>
+            </S.MenuItem>
         </S.FloatingContainer>
     );
 }

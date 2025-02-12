@@ -40,12 +40,14 @@ export default function Modal() {
         hideModal();
         break;
     }
+    setSelectedImage(null);
   };
 
   const handleCancel = () => {
     if(config.onCancel){
       config.onCancel();
     }
+    setSelectedImage(null);
     hideModal();
   }
 

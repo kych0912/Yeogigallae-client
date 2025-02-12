@@ -36,9 +36,6 @@ const FullVotingItem: React.FC<FullVotingItemProps> = ({ rooms = [], selectedFil
     return (
         <>
             {filteredRooms.map((room) => {
-                const totalParticipants = room.profileImageUrls.length;
-                const voteGauge = calculateVoteGauge(room.completedVotes, totalParticipants);
-
                 const tripPlanInfo = (() => {
                     switch (room.tripPlanType) {
                         case "COURSE":
@@ -58,20 +55,32 @@ const FullVotingItem: React.FC<FullVotingItemProps> = ({ rooms = [], selectedFil
                             <S.Icon2 src={tripPlanInfo.icon} alt={tripPlanInfo.text} />
                             {tripPlanInfo.text}
                         </S.Type>
-                        <S.Box>
-                            <S.TextBox>
+                        <V.Box>
+                            <S.Box>
                                 <V.Title>{room.roomName}</V.Title>
+                                <V.RemainingTime>{remainingTimes[room.roomName] || "00:00:00"}</V.RemainingTime>
+                            </S.Box>
+                            <S.Box>
                                 <S.Location>{room.location}</S.Location>
-                            </S.TextBox>
-                            <V.RemainingTime>{remainingTimes[room.roomName] || "00:00:00"}</V.RemainingTime>
-                        </S.Box>
+                            </S.Box>
+                        </V.Box>
                         <S.Box>
                             <V.ParticipantContainer>{renderParticipantProfiles(room.profileImageUrls)}</V.ParticipantContainer>
                             <V.VoteBox>
-                                <V.VoteText>{room.completedVotes}명 투표 완료</V.VoteText>
-                                <V.VoteGauge>
-                                    <V.VoteBar style={{ width: `${voteGauge}%` }} />
-                                </V.VoteGauge>
+                                {room.tripPlanType === "SCHEDULE" && (
+                                    <>
+                                        <V.VoteText>{room.completedVotes}명 투표 완료</V.VoteText>
+                                        <V.VoteGauge>
+                                            <V.VoteBar style={{ width: `${calculateVoteGauge(room.completedVotes, room.totalMembers)}%` }} />
+                                        </V.VoteGauge>
+                                    </>
+                                )}
+                                {room.tripPlanType === "COURSE" && (
+                                    <S.SpinnerContainer>
+                                        <S.Spinner />
+                                        <V.AItext>AI코스 입력 받는 중..</V.AItext>
+                                    </S.SpinnerContainer>
+                                )}
                             </V.VoteBox>
                         </S.Box>
                     </V.FullVotingItem>

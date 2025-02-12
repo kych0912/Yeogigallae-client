@@ -3,23 +3,24 @@ import { useVoteForm } from "../../../../../hooks/useForm/useVoteForm";
 import { Controller } from "react-hook-form";
 import ImagePlaceholder from "./ImagePlaceholder";
 import MessageInput from "./MessageInput";
-import SkeletonForm from "../../../Skeleton/SkeletonForm";
+import SkeletonForm from "./Skeleton/SkeletonForm";
 import * as S from "../../../_components/Functional.styles";
 import CalendarIcon from "../../../../../assets/icons/Calender.svg?react";
 import Card from "../../../../../components/Card";
 import VoteTimes from "./VoteTimes";
 import PriceInput from "./PriceInput";
+import { useSearch } from "../../../../SearchPage/context/SearchContext";
 
 interface VoteFormProps {
   tripPlanType: "COURSE" | "SCHEDULE";
   roomId: number;
   onCalendar: () => void;
   onSearch: () => void;
-  selectedPlace: string;
 }
 
-export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch, selectedPlace }: VoteFormProps) {
+export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch }: VoteFormProps) {
   const { control, watch, setValue } = useVoteForm(tripPlanType, roomId);
+  const { selectedPlace } = useSearch(); 
   const isSchedule = tripPlanType === "SCHEDULE";
 
   useEffect(() => {
@@ -43,7 +44,7 @@ export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch, s
 
   useEffect(() => {
     if (selectedPlace) {
-      setValue("location", selectedPlace);
+      setValue("location", selectedPlace.place_name);
     }
   }, [selectedPlace, setValue]);
 
@@ -65,7 +66,9 @@ export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch, s
 
         <Card.Item label="장소">
           <SkeletonForm fullwidth>
-            <S.ClickableText onClick={onSearch}>{watch("location") || "장소를 입력하세요."}</S.ClickableText>
+            <S.ClickableText onClick={onSearch}>
+              {selectedPlace ? selectedPlace.place_name : "장소를 입력하세요."} {/* ✅ 변경된 부분 */}
+            </S.ClickableText>
           </SkeletonForm>
         </Card.Item>
 

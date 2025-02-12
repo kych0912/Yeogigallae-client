@@ -1,6 +1,6 @@
 import { KakaoPlaceDocument } from "../../../apis/searchAddress/types";
 
-// 장소 입력창창
+// 장소 입력창
 export interface SearchInputProps {
   query: string;
   setQuery: React.Dispatch<React.SetStateAction<string>>;
@@ -20,7 +20,7 @@ export interface ResultListProps {
 export interface MapProps {
   center: { x: string; y: string };
   results: { x: string; y: string; place_name: string }[];
-  mapContainerId: string; // 동적으로 생성된 ID를 받을 수 있도록 수정
+  mapContainerId: string; 
 }
 
 // 페이지네이션

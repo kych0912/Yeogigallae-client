@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { TripInfoContext } from "../../context/tripInfo/TripInfoContext";
 import { useVoteContext } from "../../context/VoteResultContext";
 import Recommend from "../_components/Recommend/Recommend";
@@ -11,8 +11,7 @@ import ConfirmFailPage from "../../ConfirmPage/ConfirmFailPage/ConfirmFailPage";
 export default function VoteAgreePage() {
     const { state } = useVoteContext();
     const tripInfoContext = useContext(TripInfoContext);
-    const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
-
+    
     if (!tripInfoContext || tripInfoContext.isLoading) {
         return <p>Loading Trip Data...</p>;
     }
@@ -22,11 +21,14 @@ export default function VoteAgreePage() {
     }
 
     const { tripInfo } = tripInfoContext;
-    const userCount = tripInfo?.userCount ?? 0;
+    const userCount = tripInfo?.userCount ?? 0;  
     const isMaster = tripInfo?.masterId === state.voteResult.userId;
+    const isSuccess = useRef<boolean | null>(null);
 
     useEffect(() => {
-        setIsSuccess(state.voteResult.count > userCount / 2);
+        if (isSuccess.current !== null) return; 
+
+        isSuccess.current = state.voteResult.count > userCount / 2;
     }, [state.voteResult.count, userCount]);
 
     return (
@@ -35,15 +37,15 @@ export default function VoteAgreePage() {
                 <SuccessText />
             </S.Custom>
 
-            <VoteCard showConfirmMessage={false}/>
+            <VoteCard showConfirmMessage={false} isSuccess={isSuccess.current} />
 
             {isMaster && (
                 <S.CustomItem>
                     <Recommend />
                 </S.CustomItem>
-            )} 
+            )}
 
-            {isSuccess !== null && (isSuccess ? <ConfirmSuccessPage /> : <ConfirmFailPage />)}
+            {isSuccess.current !== null && (isSuccess.current ? <ConfirmSuccessPage /> : <ConfirmFailPage />)}
         </>
     );
 }

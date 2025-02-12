@@ -17,10 +17,12 @@ export default function VoteCard({
   onAgree,
   onDisagree,
   showConfirmMessage,
+  isSuccess,
 }: {
   onAgree?: () => void;
   onDisagree?: () => void;
   showConfirmMessage?: boolean;
+  isSuccess?: boolean | null;
 }) {
   const navigate = useNavigate();
   const { dispatch } = useVoteContext();
@@ -57,7 +59,6 @@ export default function VoteCard({
     return `${startMonth}~${endMonth}월`;
   };
 
-  // ✅ 로딩 중이면 Skeleton UI 표시
   if (loading) {
     return <VoteSkeleton />;
   }
@@ -108,7 +109,7 @@ export default function VoteCard({
       </Card.Item>
       <S.CustomSpacer />
 
-      {!showConfirmMessage && (
+      {!showConfirmMessage && isSuccess && (
         <S.TwoSelect>
           <Button size="large" onClick={() => handleVote("BAD")}>
             {"난 못 가.."}

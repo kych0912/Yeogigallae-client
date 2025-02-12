@@ -11,7 +11,8 @@ import { VotingCardSkeleton } from "./CardSkeleton";
 export default function MainVotingList() {
     const navigate = useNavigate();
 
-    const { data: votingRooms = [], isLoading, error } = useGetVoting();
+    const { data, isLoading, error } = useGetVoting();
+    const votingRooms = data?.rooms ?? [];
 
     // 로딩 상태에서 콘솔 로그
     if (isLoading) {
@@ -20,8 +21,11 @@ export default function MainVotingList() {
 
     // 에러 상태에서 콘솔 로그
     if (error) {
-        console.error("Error loading voting rooms:", error); // 에러 로그 출력
+        console.error("Error loading voting rooms:", error);
     }
+
+    console.log("votingRooms is array?", Array.isArray(votingRooms));
+    console.log("votingRooms:", JSON.stringify(votingRooms, null, 2));
 
     return (
         <S.Container>
@@ -40,15 +44,7 @@ export default function MainVotingList() {
             />
 
             {/*카드부분*/}
-            {isLoading ? (
-                <>
-                    <VotingCardSkeleton />
-                </>
-            ) : votingRooms.length > 0 ? (
-                <VotingItem rooms={votingRooms} />
-            ) : (
-                <Empty />
-            )}
+            {isLoading ? <VotingCardSkeleton /> : votingRooms.length > 0 ? <VotingItem rooms={votingRooms} /> : <Empty />}
         </S.Container>
     );
 }

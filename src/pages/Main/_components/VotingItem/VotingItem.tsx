@@ -6,6 +6,22 @@ import renderParticipantProfiles from "./renderParticipantProfiles";
 import useRemainingTimes from "./useRemainingTimes";
 
 interface Room {
+    tripPlanId: number;
+    roomName: string;
+    location: string;
+    totalMembers: number;
+    completedVotes: number;
+    profileImageUrls: string[];
+    createdAt: string;
+    tripPlanType: "COURSE" | "SCHEDULE" | "BUDGET";
+}
+
+interface VotingItemProps {
+    rooms: Room[];
+}
+
+interface Room {
+    tripPlanId: number;
     roomName: string;
     location: string;
     totalMembers: number;
@@ -21,15 +37,14 @@ interface VotingItemProps {
 
 const VotingItem: React.FC<VotingItemProps> = ({ rooms = [] }) => {
     const remainingTimes = useRemainingTimes(rooms);
-
     return (
         <S.RowTravelList>
             {rooms.map((room) => (
-                <V.VotingItem key={room.roomName}>
+                <V.VotingItem key={room.tripPlanId}>
                     <V.Box>
                         <S.Box>
                             <V.Title>{room.roomName}</V.Title>
-                            <V.RemainingTime>{remainingTimes[room.roomName] || "00:00:00"}</V.RemainingTime>
+                            <V.RemainingTime>{remainingTimes[room.tripPlanId] || "00:00:00"}</V.RemainingTime>
                         </S.Box>
                         <S.Box>
                             <S.Location>{room.location}</S.Location>

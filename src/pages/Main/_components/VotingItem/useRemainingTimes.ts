@@ -17,15 +17,15 @@ const formatTime = (milliseconds: number): string => {
     return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
 };
 
-const useRemainingTimes = (rooms: { roomName: string; createdAt: string }[]) => {
-    const [remainingTimes, setRemainingTimes] = useState<{ [key: string]: string }>(() => Object.fromEntries(rooms.map(({ roomName, createdAt }) => [roomName, formatTime(calculateRemainingTime(createdAt))])));
+const useRemainingTimes = (rooms: { tripPlanId: number; createdAt: string }[]) => {
+    const [remainingTimes, setRemainingTimes] = useState<{ [key: number]: string }>(() => Object.fromEntries(rooms.map(({ tripPlanId, createdAt }) => [tripPlanId, formatTime(calculateRemainingTime(createdAt))])));
 
     useEffect(() => {
         const updateRemainingTimes = () => {
             setRemainingTimes((prev) => {
                 const updatedTimes = { ...prev };
-                for (const { roomName, createdAt } of rooms) {
-                    updatedTimes[roomName] = formatTime(calculateRemainingTime(createdAt));
+                for (const { tripPlanId, createdAt } of rooms) {
+                    updatedTimes[tripPlanId] = formatTime(calculateRemainingTime(createdAt));
                 }
                 return updatedTimes;
             });

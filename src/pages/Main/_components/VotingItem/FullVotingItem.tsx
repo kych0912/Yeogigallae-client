@@ -8,7 +8,13 @@ import calculateVoteGauge from "./calculateVoteGauge";
 import renderParticipantProfiles from "./renderParticipantProfiles";
 import useRemainingTimes from "./useRemainingTimes";
 
+interface FullVotingItemProps {
+    rooms: Room[];
+    selectedFilter: string;
+}
+
 interface Room {
+    tripPlanId: number;
     roomName: string;
     location: string;
     totalMembers: number;
@@ -18,18 +24,8 @@ interface Room {
     tripPlanType: "COURSE" | "SCHEDULE" | "BUDGET";
 }
 
-interface FullVotingItemProps {
-    rooms: Room[];
-    selectedFilter: string;
-}
-
 const FullVotingItem: React.FC<FullVotingItemProps> = ({ rooms = [], selectedFilter }) => {
-    const remainingTimes = useRemainingTimes(
-        rooms.map((room) => ({
-            roomName: room.roomName,
-            createdAt: room.createdAt,
-        }))
-    );
+    const remainingTimes = useRemainingTimes(rooms);
 
     const filteredRooms = selectedFilter ? rooms.filter((room) => room.tripPlanType === selectedFilter) : rooms;
 
@@ -50,7 +46,7 @@ const FullVotingItem: React.FC<FullVotingItemProps> = ({ rooms = [], selectedFil
                 })();
 
                 return (
-                    <V.FullVotingItem key={room.roomName}>
+                    <V.FullVotingItem key={room.tripPlanId}>
                         <S.Type>
                             <S.Icon2 src={tripPlanInfo.icon} alt={tripPlanInfo.text} />
                             {tripPlanInfo.text}
@@ -58,7 +54,7 @@ const FullVotingItem: React.FC<FullVotingItemProps> = ({ rooms = [], selectedFil
                         <V.Box>
                             <S.Box>
                                 <V.Title>{room.roomName}</V.Title>
-                                <V.RemainingTime>{remainingTimes[room.roomName] || "00:00:00"}</V.RemainingTime>
+                                <V.RemainingTime>{remainingTimes?.[room.tripPlanId] || "00:00:00"}</V.RemainingTime>
                             </S.Box>
                             <S.Box>
                                 <S.Location>{room.location}</S.Location>

@@ -1,49 +1,53 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useVoteForm } from "../../../../../hooks/useForm/useVoteForm";
 import { Controller } from "react-hook-form";
 import ImagePlaceholder from "./ImagePlaceholder";
 import MessageInput from "./MessageInput";
+import SkeletonForm from "./Skeleton/SkeletonForm";
 import * as S from "../../../_components/Functional.styles";
 import CalendarIcon from "../../../../../assets/icons/Calender.svg?react";
 import Card from "../../../../../components/Card";
 import VoteTimes from "./VoteTimes";
-import { useMemo } from "react";
+import PriceInput from "./PriceInput";
+import { useSearch } from "../../../../SearchPage/context/SearchContext";
 
 interface VoteFormProps {
   tripPlanType: "COURSE" | "SCHEDULE";
   roomId: number;
   onCalendar: () => void;
   onSearch: () => void;
-  selectedPlace: string;
 }
 
-export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch, selectedPlace }: VoteFormProps) {
+export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch }: VoteFormProps) {
   const { control, watch, setValue } = useVoteForm(tripPlanType, roomId);
+  const { selectedPlace } = useSearch();
   const isSchedule = tripPlanType === "SCHEDULE";
+  const place = tripPlanType === "COURSE" ? selectedPlace : selectedPlace; 
+
+  useEffect(() => {
+    const storedStartDate = localStorage.getItem("voteForm_startDate");
+    const storedEndDate = localStorage.getItem("voteForm_endDate");
+
+    if (storedStartDate) setValue("startDate", storedStartDate);
+    if (storedEndDate) setValue("endDate", storedEndDate);
+  }, [setValue]);
+
   const startDate = watch("startDate");
   const endDate = watch("endDate");
 
-  // ✅ 날짜 포맷팅 함수 (yyyy-mm-dd 형식)
-  const formatDate = (date: string | null) => {
-    if (!date) return "미정";
-    const d = new Date(date);
-    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
-  };
-
-  // ✅ 기간 계산 (n박)
   const nights = useMemo(() => {
-    if (!startDate || !endDate) return "-";
+    if (!startDate || !endDate) return 1;
     const start = new Date(startDate);
     const end = new Date(endDate);
-    const diff = Math.max(0, (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24) - 1);
-    return diff || 1; // 최소 1박 보장
+    const diff = Math.max(1, (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24) - 1);
+    return diff;
   }, [startDate, endDate]);
 
   useEffect(() => {
-    if (selectedPlace) {
-      setValue("location", selectedPlace);
+    if (place) {
+      setValue("location", place?.place_name || "");
     }
-  }, [selectedPlace, setValue]);
+  }, [place, setValue]);
 
   return (
     <Card>
@@ -58,47 +62,46 @@ export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch, s
           render={({ field }) => <VoteTimes value={field.value} onChange={field.onChange} />}
         />
       </Card.Item>
+
       <S.StyledDivider />
 
       <Card.Item label="장소">
-        <S.ClickableText onClick={() => onSearch()}>
-          {watch("location") || "장소를 입력하세요."}
-        </S.ClickableText>
+        <Controller
+          name="location"
+          control={control}
+          render={({ field }) => (
+            <SkeletonForm fullwidth>
+              <S.ClickableText onClick={onSearch}>
+                {field.value || "장소를 입력하세요."}
+              </S.ClickableText>
+            </SkeletonForm>
+          )}
+        />
       </Card.Item>
+
       <S.StyledDivider />
 
       {isSchedule && (
         <>
           <Card.Item label="가격">
-            <Controller
-              name="scheduleDetails.price"
-              control={control}
-              render={({ field }) => (
-                <S.Input
-                  type="text"
-                  placeholder={`${nights}박 / 20만원`}
-                  value={field.value ? `${nights}박 / ${field.value}` : ""}
-                  onChange={(e) => field.onChange(e.target.value)}
-                />
-              )}
-            />
+            <SkeletonForm fullwidth>
+              <PriceInput control={control} nights={nights} />
+            </SkeletonForm>
           </Card.Item>
           <S.StyledDivider />
         </>
       )}
 
-      {/* ✅ 기간 (n박) */}
-      <Card.Item label="기간">
-        {nights}박 ({formatDate(startDate)} ~ {formatDate(endDate)})
-      </Card.Item>
-
       <S.StyledCardItem>
-        {/* ✅ 날짜 (yyyy.mm.dd 형식) */}
-        <span className="text">
-          날짜 {formatDate(startDate)} ~ {formatDate(endDate)}
-        </span>
+        <SkeletonForm fullwidth>
+          <span className="text">
+            날짜 {startDate ? startDate : "미정"} ~ {endDate ? endDate : "미정"}
+          </span>
+        </SkeletonForm>
         <S.IconWrapper onClick={onCalendar} className="icon">
-          <CalendarIcon />
+          <SkeletonForm>
+            <CalendarIcon />
+          </SkeletonForm>
         </S.IconWrapper>
       </S.StyledCardItem>
     </Card>

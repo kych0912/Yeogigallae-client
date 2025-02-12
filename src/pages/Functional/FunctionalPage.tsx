@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { useFunnel } from "../../hooks/useFunnel/useFunnel";
 import CreateCalendar from "./CreateCalendar/_components/CreateCalendar";
 import SearchPage from "../SearchPage";
@@ -7,6 +6,7 @@ import CommonContainer from "../../components/Layout/CommonContainer";
 import { useOutletContext } from "react-router-dom";
 import { VoteFormProvider } from "./context/VoteFormContext";
 import Modal from "../../components/Modal/core";
+import { SearchProvider } from "../SearchPage/context/SearchContext";
 
 export default function FunctionalFunnel() {
     const funnelOptions = {
@@ -16,7 +16,6 @@ export default function FunctionalFunnel() {
     };
 
     const [FunnelComponent, setStep, contextMap] = useFunnel(funnelOptions);
-    const navigate = useNavigate();
 
     const { setHeaderConfig } = useOutletContext<{ setHeaderConfig: (config: { title: string; number?: number }) => void }>();
     const handleStepChange = (step: "생성" | "캘린더" | "주소검색", context = {}) => {
@@ -30,6 +29,7 @@ export default function FunctionalFunnel() {
 
     return (
         <VoteFormProvider>
+            <SearchProvider>
             <CommonContainer>
                 <Modal />
 
@@ -43,15 +43,11 @@ export default function FunctionalFunnel() {
                     </FunnelComponent.Step>
 
                     <FunnelComponent.Step name="주소검색">
-                        <SearchPage
-                            handleSelectItem={(item) => {
-                                handleStepChange("생성", { ...contextMap["생성"], selectedPlace: item.place_name });
-                                navigate(-1);
-                            }}
-                        />
+                        <SearchPage />
                     </FunnelComponent.Step>
                 </FunnelComponent>
             </CommonContainer>
+            </SearchProvider>
         </VoteFormProvider>
     );
 }

@@ -6,23 +6,17 @@ import { useCalendar } from "./context/CalendarContext";
 
 interface CalendarProps {
   onComplete: (date: { startDate: string; endDate: string }) => void;
-  onMonthSelect: (selected: boolean) => void; // ✅ 추가
-  isMonthSelected: boolean; // ✅ 추가
 }
 
-export default function Calendar({
-  onComplete,
-  onMonthSelect,
-  isMonthSelected, // ✅ 추가
-}: CalendarProps) {
+export default function Calendar({ onComplete }: CalendarProps) {
   const { startDate, endDate } = useCalendar();
-  const [activeTab, setActiveTab] = useState<"date" | "flexible">("date");
+  const [activeTab, setActiveTab] = useState<"date" | "flexible">("date"); 
+  const [isMonthSelected, setIsMonthSelected] = useState(false); 
 
   const formatDate = (date: Date | null): string => {
     if (!date) return "";
     return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
   };
-  
 
   const handleComplete = () => {
     onComplete({ startDate: formatDate(startDate), endDate: formatDate(endDate) });
@@ -33,12 +27,14 @@ export default function Calendar({
       <CalendarHeader 
         activeTab={activeTab} 
         setActiveTab={setActiveTab} 
-        onMonthSelect={onMonthSelect} 
+        isMonthSelected={isMonthSelected} 
+        setIsMonthSelected={setIsMonthSelected} 
       />
       <CompleteButton 
         onComplete={handleComplete} 
-        onTabChange={setActiveTab} 
-        isMonthSelected={isMonthSelected}
+        onTabChange={setActiveTab}  
+        isMonthSelected={isMonthSelected} 
+        activeTab={activeTab} 
       />
     </S.StyledCard>
   );

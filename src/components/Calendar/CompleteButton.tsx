@@ -1,28 +1,38 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import * as S from "./CompleteButton.styles";
 import { Button } from "../Button";
 import { showToastWithMessage } from "./utils/Complete.utils";
 import { useCalendar } from "./context/CalendarContext";
+import { useFormContext } from "react-hook-form";
 
 export default function CompleteButton({
-  onComplete,
   onTabChange,
   isMonthSelected,
+  activeTab,
 }: {
   onComplete: (date: { startDate: string; endDate: string }) => void;
   onTabChange: (tab: "date" | "flexible") => void;
   isMonthSelected: boolean;
+  activeTab: "date" | "flexible";
 }) {
-  const { startDate, endDate, mode } = useCalendar();
+  const navigate = useNavigate();
+  const { startDate, endDate } = useCalendar();
+  let formContext;
+  try {
+    formContext = useFormContext();
+  } catch (error) {
+    formContext = null;
+  }
+
+  const { setValue } = formContext || {};
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
 
   useEffect(() => {
-    // ✅ "날짜 모드"일 경우: 월이 선택되면 버튼 활성화
-    // ✅ "유연한 선택 모드"일 경우: 날짜가 모두 선택되면 버튼 활성화
-    setIsButtonEnabled(mode === "date" ? isMonthSelected : !!(startDate && endDate));
-  }, [startDate, endDate, isMonthSelected, mode]);
+    setIsButtonEnabled(activeTab === "date" ? isMonthSelected : !!(startDate && endDate));
+  }, [startDate, endDate, isMonthSelected, activeTab]);
 
   const formatDate = (date: Date | null): string => {
     if (!date) return "";
@@ -30,24 +40,42 @@ export default function CompleteButton({
   };
 
   const handleCompleteClick = () => {
-    if (mode === "date") {
+    if (activeTab === "date") {
       onTabChange("flexible");
-    } else {
-      if (!startDate || !endDate) {
-        showToastWithMessage(setShowToast, setToastMessage, "날짜를 선택해주세요");
-        return;
-      }
-      onComplete({ startDate: formatDate(startDate), endDate: formatDate(endDate) });
+      return;
     }
+
+    if (!startDate || !endDate) {
+      showToastWithMessage(setShowToast, setToastMessage, "날짜를 선택해주세요");
+      return;
+    }
+
+    if (setValue) {
+      setValue("startDate", formatDate(startDate));
+      setValue("endDate", formatDate(endDate));
+    }
+
+    localStorage.setItem("voteForm_startDate", formatDate(startDate));
+    localStorage.setItem("voteForm_endDate", formatDate(endDate));
+    navigate(-1);
   };
 
   return (
     <S.Footer>
-      <Button size="large" onClick={handleCompleteClick} disabled={!isButtonEnabled}>
-        {mode === "flexible" ? "완료" : "다음으로"}
-      </Button>
+      {isButtonEnabled && activeTab === "date" && (
+        <Button size="large" onClick={handleCompleteClick}>
+          다음으로
+        </Button>
+      )}
+
+      {isButtonEnabled && activeTab === "flexible" && (
+        <Button size="large" onClick={handleCompleteClick}>
+          완료
+        </Button>
+      )}
 
       {showToast && <S.Toast>{toastMessage}</S.Toast>}
     </S.Footer>
-  );
+  );  
 }
+

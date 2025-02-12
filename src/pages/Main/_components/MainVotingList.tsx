@@ -24,9 +24,6 @@ export default function MainVotingList() {
         console.error("Error loading voting rooms:", error);
     }
 
-    console.log("votingRooms is array?", Array.isArray(votingRooms));
-    console.log("votingRooms:", JSON.stringify(votingRooms, null, 2));
-
     return (
         <S.Container>
             <MainSection

@@ -5,18 +5,20 @@ import NaverIcon from "../../../../../assets/icons/Naver.svg?react";
 import modal from "../../../../../components/Modal";
 import AddImage from "./AddImage";
 import { Control, useController } from "react-hook-form";
-import { FormDataSchema } from "../index";
+import { FormDataSchema } from "../../../constants";
 import * as z from "zod";
 import DeleteTitle from "./DeleteTitle";
 
 export default function ListCard({ 
     index,
     control,    
-    remove
+    remove,
+    onSearch,
 }: {
     index: number,
     control: Control<z.infer<typeof FormDataSchema>>,
-    remove: () => void
+    remove: () => void,
+    onSearch: () => void,
 }) {
     const { field: imageField } = useController({
         name: `places.${index}.image`,
@@ -25,6 +27,11 @@ export default function ListCard({
 
     const { field: descriptionField } = useController({
         name: `places.${index}.description`,
+        control,
+    });
+
+    const { field: placeField } = useController({
+        name: `places.${index}.place`,
         control,
     });
 
@@ -66,12 +73,19 @@ export default function ListCard({
                 </Card.Item>
 
                 <Card.Item>
-                    <S.TitleWrapper>
+                    <S.TitleWrapper onClick={onSearch}>
                         <S.Caption>{"장소"}</S.Caption>
-
-                        <S.NaverContent>
-                            <NaverIcon/>{"네이버 지도 URL을 첨부해주세요."}
-                        </S.NaverContent>
+                        {
+                            placeField.value.placeId ? (
+                                <S.NaverContent>
+                                    <NaverIcon/>{placeField.value.placeName}
+                                </S.NaverContent>
+                            ) : (
+                                <S.NaverContent>
+                                    <NaverIcon/>{"네이버 지도 URL을 첨부해주세요."}
+                                </S.NaverContent>
+                            )
+                        }
                     </S.TitleWrapper>
                 </Card.Item>
             </Card>

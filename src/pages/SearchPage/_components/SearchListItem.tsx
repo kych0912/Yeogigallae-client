@@ -1,11 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAddressToZip } from "../../../apis/searchAddress";
 import { KakaoPlaceDocument } from "../../../apis/searchAddress/types";
 import * as S from "./ResultList.styles";
 import ToggleIcon from "../../../assets/icons/ToggleIcon.svg?react";
 import MapComponent from "./SearchMap/SearchMap";
-import Skeleton from "../../../components/Skeleton"; 
 
 interface SearchListItemProps {
     result: KakaoPlaceDocument;
@@ -43,7 +41,10 @@ export default function SearchListItem({
 
                   {result.road_address_name || result.address_name}
                 </S.AddressName>
-                <S.MapButton onClick={() => setIsMapOpen(!isMapOpen)}>
+                <S.MapButton onClick={(e) => {
+                    e.stopPropagation();
+                    setIsMapOpen(!isMapOpen)
+                }}>
                   지도
                   <S.RotateIcon $isRotated={isMapOpen}>
                     <ToggleIcon />

@@ -77,13 +77,13 @@ export default function ListCard({
                         <S.Caption>{"장소"}</S.Caption>
                         {
                             placeField.value.placeId ? (
-                                <S.NaverContent>
-                                    <NaverIcon/>{placeField.value.placeName}
-                                </S.NaverContent>
+                                <S.PlaceContent>
+                                    {placeField.value.placeName}
+                                </S.PlaceContent>
                             ) : (
-                                <S.NaverContent>
-                                    <NaverIcon/>{"네이버 지도 URL을 첨부해주세요."}
-                                </S.NaverContent>
+                                <S.PlaceContent>
+                                    {"장소를 입력하세요."}
+                                </S.PlaceContent>
                             )
                         }
                     </S.TitleWrapper>

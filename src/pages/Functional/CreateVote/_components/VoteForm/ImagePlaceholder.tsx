@@ -4,6 +4,7 @@ import * as S from "./Image.styles";
 import DefaultImage from "../../../../../assets/icons/Default_image.svg";
 import modal from "../../../../../components/Modal"; 
 import Card from "../../../../../components/Card";
+import SkeletonForm from "../../../Skeleton/SkeletonForm";
 
 interface ImagePlaceholderProps {
   control: Control<any>;
@@ -40,25 +41,27 @@ export default function ImagePlaceholder({ control, tripPlanType, roomId }: Imag
 
   return (
     <>
-      <S.ImagePlaceholder
-        $imageUrl={image} 
-        onClick={() => {
-          modal.image.show({
-            onConfirm: (newImage: string) => {
-              handleImageChange(newImage); 
-            },
-            confirmText: "확인",
-            cancelText: "취소"
-          });
-        }}
-      >
-        {!image && (
-          <Card>
-            <S.Icon src={DefaultImage} alt="Default Icon" />
-            <S.Text>원하는 이미지를 첨부하세요.</S.Text>
-          </Card>
-        )}
-      </S.ImagePlaceholder>
+      <SkeletonForm fullImage variant="rectangular">
+        <S.ImagePlaceholder
+          $imageUrl={image} 
+          onClick={() => {
+            modal.image.show({
+              onConfirm: (newImage: string) => {
+                handleImageChange(newImage); 
+              },
+              confirmText: "확인",
+              cancelText: "취소"
+            });
+          }}
+        >
+          {!image && (
+            <Card>
+              <S.Icon src={DefaultImage} alt="Default Icon" />
+              <S.Text>원하는 이미지를 첨부하세요.</S.Text>
+            </Card>
+          )}
+        </S.ImagePlaceholder>
+      </SkeletonForm>
     </>
   );
 }

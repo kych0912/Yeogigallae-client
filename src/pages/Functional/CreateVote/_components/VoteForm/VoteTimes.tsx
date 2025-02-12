@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import * as S from "../../../_components/Functional.styles";
+import SkeletonForm from "../../../Skeleton/SkeletonForm";
 
 interface VoteTimesProps {
   value: string;
@@ -29,6 +30,7 @@ export default function VoteTimes({ value, onChange }: VoteTimesProps) {
   return (
     <S.ButtonContainer ref={containerRef}>
       {timeOptions.map((time) => (
+        <SkeletonForm buttonwidth>
         <S.TimeButton
           key={time}
           $isActive={selectedTime === time}
@@ -41,6 +43,7 @@ export default function VoteTimes({ value, onChange }: VoteTimesProps) {
         >
           {time}
         </S.TimeButton>
+        </SkeletonForm>
       ))}
     </S.ButtonContainer>
   );

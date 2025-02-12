@@ -13,7 +13,6 @@ export interface SearchInputProps {
 export interface ResultListProps {
   results: KakaoPlaceDocument[];
   coords: { zoneNo: string | undefined }[];
-  handleSelectItem: (item: KakaoPlaceDocument) => void;
 }
 
 // 장소 찾기 지도

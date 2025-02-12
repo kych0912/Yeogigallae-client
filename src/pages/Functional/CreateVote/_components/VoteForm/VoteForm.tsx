@@ -20,8 +20,9 @@ interface VoteFormProps {
 
 export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch }: VoteFormProps) {
   const { control, watch, setValue } = useVoteForm(tripPlanType, roomId);
-  const { selectedPlace } = useSearch(); 
+  const { selectedPlace } = useSearch();
   const isSchedule = tripPlanType === "SCHEDULE";
+  const place = tripPlanType === "COURSE" ? selectedPlace : selectedPlace; 
 
   useEffect(() => {
     const storedStartDate = localStorage.getItem("voteForm_startDate");
@@ -43,10 +44,10 @@ export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch }:
   }, [startDate, endDate]);
 
   useEffect(() => {
-    if (selectedPlace) {
-      setValue("location", selectedPlace.place_name);
+    if (place) {
+      setValue("location", place?.place_name || "");
     }
-  }, [selectedPlace, setValue]);
+  }, [place, setValue]);
 
   return (
     <Card>
@@ -54,51 +55,55 @@ export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch }:
       <MessageInput control={control} tripPlanType={tripPlanType} roomId={roomId} />
       <S.StyledDivider />
 
-        <Card.Item label="투표 제한 시간">
-          <Controller
-            name="voteLimitTime"
-            control={control}
-            render={({ field }) => <VoteTimes value={field.value} onChange={field.onChange} />}
-          />
-        </Card.Item>
+      <Card.Item label="투표 제한 시간">
+        <Controller
+          name="voteLimitTime"
+          control={control}
+          render={({ field }) => <VoteTimes value={field.value} onChange={field.onChange} />}
+        />
+      </Card.Item>
 
       <S.StyledDivider />
 
-        <Card.Item label="장소">
-          <SkeletonForm fullwidth>
-            <S.ClickableText onClick={onSearch}>
-              {selectedPlace ? selectedPlace.place_name : "장소를 입력하세요."} {/* ✅ 변경된 부분 */}
-            </S.ClickableText>
-          </SkeletonForm>
-        </Card.Item>
+      <Card.Item label="장소">
+        <Controller
+          name="location"
+          control={control}
+          render={({ field }) => (
+            <SkeletonForm fullwidth>
+              <S.ClickableText onClick={onSearch}>
+                {field.value || "장소를 입력하세요."}
+              </S.ClickableText>
+            </SkeletonForm>
+          )}
+        />
+      </Card.Item>
 
       <S.StyledDivider />
 
       {isSchedule && (
         <>
-            <Card.Item label="가격">
-              <SkeletonForm fullwidth>
-                <PriceInput control={control} nights={nights} />
-              </SkeletonForm>
-            </Card.Item>
-
+          <Card.Item label="가격">
+            <SkeletonForm fullwidth>
+              <PriceInput control={control} nights={nights} />
+            </SkeletonForm>
+          </Card.Item>
           <S.StyledDivider />
         </>
       )}
 
-        <S.StyledCardItem>
-          <SkeletonForm fullwidth>
-            <span className="text">
-              날짜
-              {startDate ? startDate : "미정"} ~ {endDate ? endDate : "미정"}
-            </span>
-          </SkeletonForm>
-          <S.IconWrapper onClick={onCalendar} className="icon">
-            <SkeletonForm>
+      <S.StyledCardItem>
+        <SkeletonForm fullwidth>
+          <span className="text">
+            날짜 {startDate ? startDate : "미정"} ~ {endDate ? endDate : "미정"}
+          </span>
+        </SkeletonForm>
+        <S.IconWrapper onClick={onCalendar} className="icon">
+          <SkeletonForm>
             <CalendarIcon />
-            </SkeletonForm>
-          </S.IconWrapper>
-        </S.StyledCardItem>
+          </SkeletonForm>
+        </S.IconWrapper>
+      </S.StyledCardItem>
     </Card>
   );
 }

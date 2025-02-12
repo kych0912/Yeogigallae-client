@@ -21,7 +21,6 @@ export default function TravelListItem({ rooms }: TravelListItemProps) {
             {rooms.map((room) => (
                 <H.TravelListItem key={room.tripPlanId}>
                     {" "}
-                    {/* tripPlanId를 key로 사용 */}
                     <H.ImageWrapper>
                         <H.Image src={room.imageUrl} alt={`${room.tripName} 이미지`} />
                     </H.ImageWrapper>

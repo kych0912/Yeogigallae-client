@@ -10,6 +10,7 @@ import { useGetTravelList } from "../../../react-query/queries/main/TravelList/q
 import { HistoryCardSkeleton } from "./CardSkeleton";
 
 interface Room {
+    tripPlanId: number; // tripPlanId 추가
     tripName: string;
     location: string;
     startDate: string;

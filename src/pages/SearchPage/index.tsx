@@ -17,18 +17,10 @@ export default function SearchPage() {
   const { data: placeData, isLoading, refetch } = placeQuery;
   const pageableCount = placeData?.meta.pageable_count ?? 0;
 
-  const coordData = !isLoading
-    ? coordQueries.map((coord) => ({
-        zoneNo: coord.data?.documents[0].road_address?.zone_no,
-      }))
-    : [];
-
-  useEffect(() => {
-    if (placeData) {
-      setResults(placeData.documents);
-      setTotalPages(Math.ceil(pageableCount / 5));
-    }
-  }, [placeData, pageableCount, setResults, setTotalPages]);
+  // coordQueries의 데이터를 가공하여 저장
+  const coordData = !isLoading ? coordQueries.map((coord) => ({
+    zoneNo: coord.data?.documents[0]?.road_address?.zone_no || undefined
+  })) : [];
 
   return (
     <>

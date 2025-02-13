@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { KakaoPlaceDocument } from "../../../apis/searchAddress/types";
 import * as S from "./ResultList.styles";
 import ToggleIcon from "../../../assets/icons/ToggleIcon.svg?react";
@@ -18,25 +17,24 @@ export default function SearchListItem({ result, index, results, zoneNo }: Searc
   const navigate = useNavigate();
   const { selectPlace, centerCoords } = useSearch();
 
-  return (
-    <>
-      <S.ResultWrapper
-        onClick={() => {
-          selectPlace(result); 
-          navigate(-1);
-        }}
-      >
-        <S.ResultItem $isFirst={index === 0} $isLast={index === results.length - 1}>
-          <S.ZipCode>{zoneNo || "우편번호 없음"}</S.ZipCode>
-          <S.PlaceName>{result.place_name}</S.PlaceName>
-          <S.InfoContainer>
-            <S.AddressName>{result.road_address_name || result.address_name}</S.AddressName>
-            <S.MapButton
-              onClick={(e) => {
-                e.stopPropagation();
-                setIsMapOpen(!isMapOpen);
-                selectPlace(result);
-              }}
+export default function SearchListItem({
+    result,
+    index,
+    results,
+    zoneNo,
+    handleSelectItem,
+}: SearchListItemProps) {
+    const [isMapOpen, setIsMapOpen] = useState(false);
+
+    return (
+        <>
+          <S.ResultWrapper onClick={() => {
+            handleSelectItem(result)
+          }}>
+            <S.ResultItem
+              $isFirst={index === 0}
+              $isLast={index === results.length - 1}
+
             >
               지도
               <S.RotateIcon $isRotated={isMapOpen}>

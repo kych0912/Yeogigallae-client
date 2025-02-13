@@ -51,7 +51,6 @@ export const ProgressCircle = styled.div<{ $active: boolean; $completed?: boolea
   align-items: center;
   transition: all 0.3s ease-in-out;
 
-  /* 시작점과 끝점 둘다 선택하면 파란색 추가 */
   ${(props) =>
     props.$isStartAndEnd &&
     `

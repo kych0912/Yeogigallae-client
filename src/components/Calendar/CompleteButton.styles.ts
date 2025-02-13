@@ -7,17 +7,14 @@ export const Footer = styled.div`
 `;
 
 export const Toast = styled.div`
-  position: absolute;
-  bottom: 1rem;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #434343; 
-  color: #fff; 
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  font-size: 14px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  background-color: none; 
+  color: #F1443B; 
+  font-size: 0.875rem;
   text-align: center;
-  z-index: 10;
 `;
 
 

@@ -1,4 +1,4 @@
-import { useSearch } from "../../../SearchPage/context/SearchContext";
+// import { useSearch } from "../../../SearchPage/context/SearchContext";
 import * as S from "../Main.Styles";
 import * as V from "./VotingItem.Styles";
 import Course from "../../../../assets/icons/course.svg";
@@ -31,7 +31,7 @@ interface Room {
 type TimerUnit = "THIRTY_MINUTES" | "SIXTY_MINUTES" | "FOUR_HOURS" | "SIX_HOURS";
 
 const FullVotingItem: React.FC<FullVotingItemProps> = ({ rooms = [], selectedFilter }) => {
-    const { centerCoords } = useSearch();
+    // const { centerCoords } = useSearch();
     const remainingTimes = useRemainingTimes(rooms); // 여기서는 rooms를 그대로 전달
 
     const filteredRooms = selectedFilter ? rooms.filter((room) => room.tripPlanType === selectedFilter) : rooms;
@@ -52,7 +52,7 @@ const FullVotingItem: React.FC<FullVotingItemProps> = ({ rooms = [], selectedFil
                     }
                 })();
 
-                const mapCenterCoords = centerCoords;
+                // const mapCenterCoords = centerCoords;
 
                 return (
                     <V.FullVotingItem key={room.tripPlanId}>
@@ -70,13 +70,16 @@ const FullVotingItem: React.FC<FullVotingItemProps> = ({ rooms = [], selectedFil
                             </S.Box>
                         </V.Box>
 
-                        {mapCenterCoords ? (
-                            <V.CustomMap>
-                                <MapComponent mapContainerId={`map-${room.tripPlanId}`} />
-                            </V.CustomMap>
-                        ) : (
-                            <S.Box>위치 정보 없음</S.Box>
-                        )}
+                        <V.CustomMap>
+                            <MapComponent
+                                mapContainerId={`map-${room.tripPlanId}`}
+                                center={{
+                                    x: "",
+                                    y: "",
+                                }}
+                                results={[]}
+                            />
+                        </V.CustomMap>
 
                         <S.Box>
                             <V.ParticipantContainer>{renderParticipantProfiles(room.profileImageUrls)}</V.ParticipantContainer>

@@ -13,7 +13,7 @@ type LayoutContextType = {
 };
 export default function FullVotingListPage() {
     const { data, isLoading, error } = useGetVoting();
-    const votingRooms = data?.rooms ?? []; // ✅ rooms 속성에 접근하도록 수정
+    const votingRooms = data?.rooms ?? [];
 
     // 로딩 상태에서 콘솔 로그
     if (isLoading) {
@@ -36,7 +36,7 @@ export default function FullVotingListPage() {
                     <FullVotingCardSkeleton />
                 </>
             ) : (
-                <FullVotingItem rooms={votingRooms} selectedFilter={selectedFilter} /> // ✅ rooms 배열만 전달
+                <FullVotingItem rooms={votingRooms} selectedFilter={selectedFilter} />
             )}
             <TostModal isVisible={isModalVisible} onClose={handleCloseModal} onFilterChange={handleFilterChange} />
         </S.Container>

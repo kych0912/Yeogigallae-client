@@ -13,21 +13,7 @@ interface Room {
     completedVotes: number;
     profileImageUrls: string[];
     createdAt: string;
-    tripPlanType: "COURSE" | "SCHEDULE" | "BUDGET";
-}
-
-interface VotingItemProps {
-    rooms: Room[];
-}
-
-interface Room {
-    tripPlanId: number;
-    roomName: string;
-    location: string;
-    totalMembers: number;
-    completedVotes: number;
-    profileImageUrls: string[];
-    createdAt: string;
+    timerUnit: "THIRTY_MINUTES" | "SIXTY_MINUTES" | "FOUR_HOURS" | "SIX_HOURS";
     tripPlanType: "COURSE" | "SCHEDULE" | "BUDGET";
 }
 
@@ -36,7 +22,8 @@ interface VotingItemProps {
 }
 
 const VotingItem: React.FC<VotingItemProps> = ({ rooms = [] }) => {
-    const remainingTimes = useRemainingTimes(rooms);
+    const remainingTimes = useRemainingTimes(rooms); // 남은 시간을 계산하여 반환받음
+
     return (
         <S.RowTravelList>
             {rooms.map((room) => (

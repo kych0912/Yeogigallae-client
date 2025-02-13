@@ -1,4 +1,4 @@
-import React from "react";
+import { useSearch } from "../../../SearchPage/context/SearchContext";
 import * as S from "../Main.Styles";
 import * as V from "./VotingItem.Styles";
 import Course from "../../../../assets/icons/course.svg";
@@ -22,12 +22,17 @@ interface Room {
     completedVotes: number;
     profileImageUrls: string[];
     createdAt: string;
+    timerUnit: TimerUnit; // 추가된 속성
     tripPlanType: "COURSE" | "SCHEDULE" | "BUDGET";
-    coordinates?: { x: number; y: number }; // 위치 좌표 추가
+    coordinates: { x: number; y: number };
+    remainingTime?: string; // 이 부분을 옵셔널로 추가
 }
 
+type TimerUnit = "THIRTY_MINUTES" | "SIXTY_MINUTES" | "FOUR_HOURS" | "SIX_HOURS";
+
 const FullVotingItem: React.FC<FullVotingItemProps> = ({ rooms = [], selectedFilter }) => {
-    const remainingTimes = useRemainingTimes(rooms);
+    const { centerCoords } = useSearch();
+    const remainingTimes = useRemainingTimes(rooms); // 여기서는 rooms를 그대로 전달
 
     const filteredRooms = selectedFilter ? rooms.filter((room) => room.tripPlanType === selectedFilter) : rooms;
 
@@ -47,6 +52,8 @@ const FullVotingItem: React.FC<FullVotingItemProps> = ({ rooms = [], selectedFil
                     }
                 })();
 
+                const mapCenterCoords = centerCoords;
+
                 return (
                     <V.FullVotingItem key={room.tripPlanId}>
                         <S.Type>
@@ -63,23 +70,9 @@ const FullVotingItem: React.FC<FullVotingItemProps> = ({ rooms = [], selectedFil
                             </S.Box>
                         </V.Box>
 
-                        {/* 지도 추가 */}
-                        {room.coordinates ? (
+                        {mapCenterCoords ? (
                             <V.CustomMap>
-                                <MapComponent
-                                    center={{
-                                        x: room.coordinates.x.toString(),
-                                        y: room.coordinates.y.toString(),
-                                    }}
-                                    results={[
-                                        {
-                                            x: room.coordinates.x.toString(),
-                                            y: room.coordinates.y.toString(),
-                                            place_name: room.location,
-                                        },
-                                    ]}
-                                    mapContainerId={`map-${room.tripPlanId}`}
-                                />
+                                <MapComponent mapContainerId={`map-${room.tripPlanId}`} />
                             </V.CustomMap>
                         ) : (
                             <S.Box>위치 정보 없음</S.Box>

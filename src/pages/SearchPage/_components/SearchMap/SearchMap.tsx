@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import * as S from "./SearchMap.style";
 import { useSearch } from "../../context/SearchContext";
+import Card from "../../../../components/Card";
 
 export default function MapSearch({ mapContainerId }: { mapContainerId: string }) {
     const { centerCoords, results } = useSearch();
@@ -45,17 +46,13 @@ export default function MapSearch({ mapContainerId }: { mapContainerId: string }
                 map,
                 image: markerImage,
             });
-
             markers.push(marker);
-
             const infowindow = new kakao.maps.InfoWindow({
                 content: `<div style="padding:5px; font-size:12px;">${result.place_name || "위치"}</div>`,
             });
-
             kakao.maps.event.addListener(marker, "mouseover", () => {
                 infowindow.open(map, marker);
             });
-
             kakao.maps.event.addListener(marker, "mouseout", () => {
                 infowindow.close();
             });
@@ -67,8 +64,8 @@ export default function MapSearch({ mapContainerId }: { mapContainerId: string }
     }, [centerCoords, results, mapContainerId]);
 
     return (
-        <div>
+        <Card>
             <S.Map id={mapContainerId} />
-        </div>
+        </Card>
     );
 }

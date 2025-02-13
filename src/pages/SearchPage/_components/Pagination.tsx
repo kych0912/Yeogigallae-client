@@ -1,20 +1,15 @@
 import * as S from "./Pagination.styles";
-import { PaginationProps } from "../types/types";
+import { useSearch } from "../context/SearchContext";
 
-export default function Pagination({
-  currentPage,
-  totalItems,
-  itemsPerPage,
-  onPageChange,
-}: PaginationProps) {
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
+export default function Pagination() {
+  const { currentPage, totalPages, setCurrentPage } = useSearch();
 
   const handlePrevious = () => {
-    if (currentPage > 1) onPageChange(currentPage - 1);
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
 
   const handleNext = () => {
-    if (currentPage < totalPages) onPageChange(currentPage + 1);
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
   };
 
   if (totalPages === 0) return null;
@@ -24,7 +19,7 @@ export default function Pagination({
       <S.ArrowButton onClick={handlePrevious} $disabled={currentPage === 1}>
         {"<"}
       </S.ArrowButton>
-      <S.PageIndicator $isActive={true}>{currentPage}</S.PageIndicator>
+      <S.PageIndicator $isActive>{currentPage}</S.PageIndicator>
       <S.Separator>/</S.Separator>
       <S.PageIndicator $isActive={false}>{totalPages}</S.PageIndicator>
       <S.ArrowButton onClick={handleNext} $disabled={currentPage === totalPages}>

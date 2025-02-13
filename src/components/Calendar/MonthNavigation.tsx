@@ -1,14 +1,24 @@
+import { useCalendar } from "./context/CalendarContext"; 
 import * as S from "./CalendarHeader.styles";
-import { MonthNavigationProps } from "./types/types"
 
-export default function MonthNavigation({
-  currentYear,
-  currentMonth,
-}: MonthNavigationProps) {
+interface MonthNavigationProps {
+  activeTab: "date" | "flexible";
+  setActiveTab: (tab: "date" | "flexible") => void;
+}
+
+export default function MonthNavigation({ activeTab, setActiveTab }: MonthNavigationProps) {
+  const { currentDate } = useCalendar();
+
+  const handleMonthClick = () => {
+    if (activeTab === "flexible") {
+      setActiveTab("date"); 
+    }
+  };
+
   return (
-    <S.MonthHeader>
+    <S.MonthHeader onClick={handleMonthClick} style={{ cursor: "pointer" }}>
       <S.CurrentMonth>
-        {`${currentYear}년 ${currentMonth}월`}
+        {`${currentDate.getFullYear()}년 ${currentDate.getMonth() + 1}월`}
       </S.CurrentMonth>
     </S.MonthHeader>
   );

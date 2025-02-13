@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const CalendarContainer = styled.div`
   width: 100%;
-  padding: 0.5rem;
+  padding: 0 0.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -37,7 +37,7 @@ export const WeekDays = styled.div`
 export const WeekDay = styled.div`
   width: 1.5rem;
   height: 1.5rem;
-  margin: 0.75rem;
+  margin: 0.7rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -47,7 +47,7 @@ export const Days = styled.div`
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   grid-row-gap: 3px;
-  margin: 1rem;
+  margin: 0.5rem 0 0.25rem;
 `;
 
 export const Day = styled.div<{
@@ -67,11 +67,11 @@ export const Day = styled.div<{
   z-index: 10;
   border: none;
   background-color: ${({ $isSelected }) =>
-    $isSelected && "#3b46f1"};
+    $isSelected ? "#3b46f1" : "transparent"};
   color: ${({ $isSelected, $isCurrentMonth }) =>
     $isSelected ? "#fff" : $isCurrentMonth ? "#fff" : "#6e6e6e"};
   border-radius: ${({ $isStart, $isEnd }) =>
-    ($isStart || $isEnd) && "50%"}; /* 시작/끝 날짜 원형 */
+    $isStart || $isEnd ? "50%" : "0"}; 
   cursor: pointer;
 
   &:before {
@@ -82,22 +82,34 @@ export const Day = styled.div<{
     left: 0; 
     right: 0; 
     background-color: ${({ $isInRange }) =>
-      $isInRange && "rgba(59, 70, 241, 0.3)"};
+      $isInRange ? "rgba(59, 70, 241, 0.3)" : "transparent"};
     z-index: -1;
-
+    
     border-radius: ${({ $isStart, $isEnd }) =>
       $isStart ? "50px 0 0 50px" 
-      : $isEnd && "0 50px 50px 0"}; 
+      : $isEnd ? "0 50px 50px 0"
+      : "0"}; 
+
+    ${({ $isStart, $isEnd }) =>
+      $isStart
+        ? "clip-path: inset(0 0 0 0);"
+        : $isEnd
+        ? "clip-path: inset(0 0 0 0);"
+        : ""};
   }
 
   &:nth-child(7n + 1):before {
-    border-radius: ${({ $isStart }) =>
-      $isStart ? "50px 0 0 50px" : "50px 0 0 50px"}; 
+    border-radius: ${({ $isStart, $isInRange }) =>
+      $isStart || $isInRange ? "50px 0 0 50px" : "0"};
+    clip-path: ${({ $isEnd }) =>
+      $isEnd ? "inset(0 50px 0 0);" : "inset(0 0 0 0);"}; \
   }
 
   &:nth-child(7n):before {
-    border-radius: ${({ $isEnd }) =>
-      $isEnd ? "0 50px 50px 0" : "0 50px 50px 0"}; 
+    border-radius: ${({ $isEnd, $isInRange }) =>
+      $isEnd || $isInRange ? "0 50px 50px 0" : "0"};
+    clip-path: ${({ $isStart }) =>
+      $isStart ? "inset(0 0 0 50%);" : "inset(0 0 0 0);"}; 
   }
 
   &:after {
@@ -113,4 +125,5 @@ export const Day = styled.div<{
     z-index: -1;
   }
 `;
+
 

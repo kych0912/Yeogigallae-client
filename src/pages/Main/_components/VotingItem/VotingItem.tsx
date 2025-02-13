@@ -17,6 +17,7 @@ interface Room {
     tripPlanType: "COURSE" | "SCHEDULE" | "BUDGET";
     roomId: string;
     masterId: string;
+    remainingTime: "THIRTY_MINUTES" | "SIXTY_MINUTES" | "FOUR_HOURS" | "SIX_HOURS";
 }
 
 interface VotingItemProps {

@@ -1,4 +1,3 @@
-import React from "react";
 import * as S from "../Main.Styles";
 import * as V from "./VotingItem.Styles";
 import Course from "../../../../assets/icons/course.svg";
@@ -28,6 +27,8 @@ interface Room {
     longitude?: number;
     roomId: string;
     masterId: string;
+
+    remainingTime: "THIRTY_MINUTES" | "SIXTY_MINUTES" | "FOUR_HOURS" | "SIX_HOURS";
 }
 
 const FullVotingItem: React.FC<FullVotingItemProps> = ({ rooms = [], selectedFilter }) => {

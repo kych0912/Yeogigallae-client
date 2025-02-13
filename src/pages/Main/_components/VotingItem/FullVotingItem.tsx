@@ -8,6 +8,7 @@ import calculateVoteGauge from "./calculateVoteGauge";
 import renderParticipantProfiles from "./renderParticipantProfiles";
 import useRemainingTimes from "./useRemainingTimes";
 import MapComponent from "../../../SearchPage/_components/SearchMap/SearchMap";
+import { useNavigate } from "react-router-dom";
 
 interface FullVotingItemProps {
     rooms: Room[];
@@ -25,10 +26,25 @@ interface Room {
     tripPlanType: "COURSE" | "SCHEDULE" | "BUDGET";
     latitude?: number;
     longitude?: number;
+    roomId: string;
+    masterId: string;
 }
 
 const FullVotingItem: React.FC<FullVotingItemProps> = ({ rooms = [], selectedFilter }) => {
     const remainingTimes = useRemainingTimes(rooms);
+    const navigate = useNavigate();
+
+    const handleClick = (tripPlanId: number, roomId: string, tripPlanType: "COURSE" | "SCHEDULE" | "BUDGET") => {
+        if (tripPlanType === "COURSE") {
+            // COURSE 타입일 때
+            navigate(`/course/${roomId}/${tripPlanId}`);
+        } else if (tripPlanType === "SCHEDULE") {
+            // SCHEDULE 타입일 때
+            navigate(`/vote/${tripPlanId}/${roomId}`);
+        } else {
+            // BUDGET 타입일 때
+        }
+    };
 
     const filteredRooms = selectedFilter ? rooms.filter((room) => room.tripPlanType === selectedFilter) : rooms;
 
@@ -49,7 +65,7 @@ const FullVotingItem: React.FC<FullVotingItemProps> = ({ rooms = [], selectedFil
                 })();
 
                 return (
-                    <V.FullVotingItem key={room.tripPlanId}>
+                    <V.FullVotingItem key={room.tripPlanId} onClick={() => handleClick(room.tripPlanId, room.roomId, room.tripPlanType)}>
                         <S.Type>
                             <S.Icon2 src={tripPlanInfo.icon} alt={tripPlanInfo.text} />
                             {tripPlanInfo.text}

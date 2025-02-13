@@ -23,10 +23,11 @@ export default function VoteAgreePage() {
     const { tripInfo } = tripInfoContext;
     const userCount = tripInfo?.userCount ?? 0;  
     const isMaster = tripInfo?.masterId === state.voteResult.userId;
-    const isSuccess = useRef<boolean | null>(null);
+    
+    const isSuccess = useRef<boolean | null>(false);
 
     useEffect(() => {
-        if (isSuccess.current !== null) return; 
+        if (isSuccess.current !== false) return; 
 
         isSuccess.current = state.voteResult.count > userCount / 2;
     }, [state.voteResult.count, userCount]);

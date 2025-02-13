@@ -32,7 +32,7 @@ export default function VoteCard({
   useEffect(() => {
     const delay = setTimeout(() => {
       setLoading(false);
-    }, 5000);
+    }, 500);
 
     return () => clearTimeout(delay);
   }, []);
@@ -109,7 +109,7 @@ export default function VoteCard({
       </Card.Item>
       <S.CustomSpacer />
 
-      {!showConfirmMessage && isSuccess && (
+      {!showConfirmMessage && isSuccess !== true &&  (
         <S.TwoSelect>
           <Button size="large" onClick={() => handleVote("BAD")}>
             {"난 못 가.."}

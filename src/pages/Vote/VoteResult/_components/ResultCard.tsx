@@ -28,7 +28,7 @@ export default function ResultCard({
   useEffect(() => {
     const delay = setTimeout(() => {
       setLoading(false);
-    }, 5000);
+    }, 500);
 
     return () => clearTimeout(delay);
   }, []);

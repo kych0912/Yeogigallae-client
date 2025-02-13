@@ -1,15 +1,12 @@
 import InfoToggle from "./_components/InfoToggle";
 import ChatInterface from "./_components/ChatInterface";
-import { useOutletContext } from "react-router-dom";
-import { HeaderConfig } from "../../../../types/header/header";
-import { useEffect } from "react";
+import useSetHeader from "../../../../hooks/useSetHeader";
 
 export default function Share({title}:{title:string}){
-    const {setHeaderConfig} = useOutletContext<{setHeaderConfig: (config: HeaderConfig) => void}>();
-
-    useEffect(()=>{
-        setHeaderConfig({title:title,number:4});
-    },[]);
+    useSetHeader({
+        title:title,
+        number:4
+    });
     return(
         <div>
             <InfoToggle />

@@ -9,6 +9,10 @@ import CalendarIcon from "../../../../../assets/icons/Calender.svg?react";
 import Card from "../../../../../components/Card";
 import VoteTimes from "./VoteTimes";
 import PriceInput from "./PriceInput";
+<<<<<<< HEAD
+=======
+import { useSearch } from "../../../context/SearchContext";
+>>>>>>> e68a22b80d5fa8a8c670bf4fb11a77cdb17924ad
 
 interface VoteFormProps {
     tripPlanType: "COURSE" | "SCHEDULE";
@@ -18,6 +22,7 @@ interface VoteFormProps {
 }
 
 export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch }: VoteFormProps) {
+<<<<<<< HEAD
     const { control, watch, setValue } = useVoteForm(tripPlanType, roomId);
     const isSchedule = tripPlanType === "SCHEDULE";
     // const place = tripPlanType === "COURSE" ? selectedPlace : selectedPlace;
@@ -29,6 +34,17 @@ export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch }:
         if (storedStartDate) setValue("startDate", storedStartDate);
         if (storedEndDate) setValue("endDate", storedEndDate);
     }, [setValue]);
+=======
+  const { control, watch, setValue } = useVoteForm(tripPlanType, roomId);
+  const { selectedPlace } = useSearch(); 
+  const isSchedule = tripPlanType === "SCHEDULE";
+
+  useEffect(() => {
+    if (selectedPlace) {
+      setValue("location", selectedPlace.place_name || "");
+    }
+  }, [selectedPlace, setValue]);
+>>>>>>> e68a22b80d5fa8a8c670bf4fb11a77cdb17924ad
 
     const startDate = watch("startDate");
     const endDate = watch("endDate");
@@ -41,6 +57,7 @@ export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch }:
         return diff;
     }, [startDate, endDate]);
 
+<<<<<<< HEAD
     // useEffect(() => {
     //     if (place) {
     //         setValue("location", place?.place_name || "");
@@ -52,6 +69,13 @@ export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch }:
             <ImagePlaceholder control={control} tripPlanType={tripPlanType} roomId={roomId} />
             <MessageInput control={control} tripPlanType={tripPlanType} roomId={roomId} />
             <S.StyledDivider />
+=======
+  return (
+    <Card>
+      <ImagePlaceholder control={control} tripPlanType={tripPlanType} roomId={roomId} />
+      <MessageInput control={control} tripPlanType={tripPlanType} roomId={roomId} />
+      <S.StyledDivider />
+>>>>>>> e68a22b80d5fa8a8c670bf4fb11a77cdb17924ad
 
             <Card.Item label="투표 제한 시간">
                 <Controller name="voteLimitTime" control={control} render={({ field }) => <VoteTimes value={field.value} onChange={field.onChange} />} />

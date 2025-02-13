@@ -5,6 +5,7 @@ import SearchListItem from "./SearchListItem";
 export default function ResultList({
   results,
   coords,
+  handleSelectItem
 }: ResultListProps) {
   return (
     <S.Results $isVisible={results.length > 0}>
@@ -16,6 +17,7 @@ export default function ResultList({
             zoneNo={coords[index].zoneNo}
             index={index}
             results={results}
+            handleSelectItem={handleSelectItem}
           />
         );
       })}

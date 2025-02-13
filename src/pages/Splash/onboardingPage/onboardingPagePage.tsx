@@ -13,6 +13,7 @@ const texts = [
     ["추천 코스를", "AI가 직접 짜줘요!"],
     ["짜여진 코스를 바탕으로", "AI가 예상 예산을 알려줘요!"],
 ];
+
 const Container = styled.div`
     display: flex;
     flex-direction: column;
@@ -25,9 +26,9 @@ const Container = styled.div`
     box-sizing: border-box;
 `;
 
-const Image = styled.img`
+const Image = styled.img<{ marginBottom?: string }>`
     width: 100%;
-    margin-bottom: 2.5rem;
+    margin-bottom: ${({ marginBottom }) => marginBottom}; // 기본 값은 2.5rem
 `;
 
 const ButtonContainer = styled.div`
@@ -69,6 +70,22 @@ const LButton = styled(BaseButton)`
     margin: 0 1.25rem;
 `;
 
+const PaginationContainer = styled.div`
+    display: flex;
+    gap: 0.5rem;
+    position: absolute;
+    top: 5%;
+`;
+
+const Dot = styled.div<{ active: boolean }>`
+    width: ${({ active }) => (active ? "20px" : "10px")};
+    height: 10px;
+    border-radius: 999px;
+    background: ${({ active }) => (active ? ({ theme }) => theme.colors.primary : ({ theme }) => theme.colors.GrayText)};
+    transition: width 0.3s ease-in-out;
+    align-self: center;
+`;
+
 const Onboarding = () => {
     const [page, setPage] = useState(0);
     const navigate = useNavigate();
@@ -81,9 +98,18 @@ const Onboarding = () => {
         navigate("/login");
     };
 
+    // 마진값 설정
+    const imageMarginBottom = page === 1 ? "2.5rem" : "0";
+
     return (
         <Container>
-            <Image src={images[page]} alt={`Page ${page + 1}`} />
+            <PaginationContainer>
+                {images.map((_, index) => (
+                    <Dot key={index} active={index === page} />
+                ))}
+            </PaginationContainer>
+
+            <Image src={images[page]} alt={`Page ${page + 1}`} marginBottom={imageMarginBottom} />
             <Text>
                 {texts[page].map((line, index) => (
                     <span key={index}>

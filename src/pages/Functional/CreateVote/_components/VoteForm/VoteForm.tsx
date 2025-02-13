@@ -9,7 +9,7 @@ import CalendarIcon from "../../../../../assets/icons/Calender.svg?react";
 import Card from "../../../../../components/Card";
 import VoteTimes from "./VoteTimes";
 import PriceInput from "./PriceInput";
-import { useSearch } from "../../../../SearchPage/context/SearchContext";
+import { useSearch } from "../../../context/SearchContext";
 
 interface VoteFormProps {
   tripPlanType: "COURSE" | "SCHEDULE";
@@ -20,17 +20,14 @@ interface VoteFormProps {
 
 export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch }: VoteFormProps) {
   const { control, watch, setValue } = useVoteForm(tripPlanType, roomId);
-  const { selectedPlace } = useSearch();
+  const { selectedPlace } = useSearch(); 
   const isSchedule = tripPlanType === "SCHEDULE";
-  const place = tripPlanType === "COURSE" ? selectedPlace : selectedPlace; 
 
   useEffect(() => {
-    const storedStartDate = localStorage.getItem("voteForm_startDate");
-    const storedEndDate = localStorage.getItem("voteForm_endDate");
-
-    if (storedStartDate) setValue("startDate", storedStartDate);
-    if (storedEndDate) setValue("endDate", storedEndDate);
-  }, [setValue]);
+    if (selectedPlace) {
+      setValue("location", selectedPlace.place_name || "");
+    }
+  }, [selectedPlace, setValue]);
 
   const startDate = watch("startDate");
   const endDate = watch("endDate");
@@ -42,12 +39,6 @@ export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch }:
     const diff = Math.max(1, (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24) - 1);
     return diff;
   }, [startDate, endDate]);
-
-  useEffect(() => {
-    if (place) {
-      setValue("location", place?.place_name || "");
-    }
-  }, [place, setValue]);
 
   return (
     <Card>

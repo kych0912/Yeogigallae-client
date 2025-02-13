@@ -83,7 +83,14 @@ const FullVotingItem: React.FC<FullVotingItemProps> = ({ rooms = [], selectedFil
                         {/* 지도 추가 */}
                         {room.latitude && room.longitude ? (
                             <V.CustomMap>
-                                <MapComponent mapContainerId={`map-${room.tripPlanId}`} />
+                                <MapComponent
+                                    mapContainerId={`map-${room.tripPlanId}`}
+                                    center={{
+                                        x: room.latitude.toString(),
+                                        y: room.longitude.toString(),
+                                    }}
+                                    results={[]}
+                                />
                             </V.CustomMap>
                         ) : (
                             <S.Box>위치 정보 없음</S.Box>

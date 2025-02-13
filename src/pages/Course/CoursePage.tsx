@@ -1,25 +1,22 @@
-import { useGetAllCourses } from "../../react-query/queries/queries";
-import { sampleData } from "./test";
 import SharedCoursePage from "./SharedCourse/SharedCoursePage";
 import ShareCorsePage from "./ShareCourse/ShareCorsePage";
 import CourseOverviewCardSkeleton from "./_components/CourseOverviewCardSkeleton";
+import { useGetCourseInfo } from "../../react-query/queries/course/queries";
+import { useParams } from "react-router-dom";
 
 export default function Page(){
+  const {tripId,roomId} = useParams();
+  const {data:courseInfo, isLoading:courseInfoLoading, isError:courseInfoError} = useGetCourseInfo(tripId ?? "1",roomId ?? "1");
 
-  // 전체 일정 경로 조회
-  const allCoursesQueries = useGetAllCourses(sampleData);
-
-  const isLoading = allCoursesQueries.some(query => query.isLoading);
-  const isError = allCoursesQueries.some(query => query.isError);
   const isEnd = false;
 
-  if(isLoading) return <CourseOverviewCardSkeleton/>;
-  if(isError) return <div style={{textAlign:"center",color:"white"}}>Error...</div>;
+  if(courseInfoLoading) return <CourseOverviewCardSkeleton/>;
+  if(courseInfoError || !courseInfo) return <div style={{textAlign:"center",color:"white"}}>Error...</div>;
 
   if(!isEnd) return(
     <>
-      <ShareCorsePage 
-        dayOnCourseQueries={allCoursesQueries[0].data}
+      <ShareCorsePage
+        courseInfo={{...courseInfo, roomId:roomId ?? "1", tripId:tripId ?? "1"}}
         title={"지구마블"}
       />
     </>
@@ -28,7 +25,6 @@ export default function Page(){
   return (
     <>
       <SharedCoursePage   
-        allCoursesQueries={allCoursesQueries}
         title={"지구마블"}
       />
     </>

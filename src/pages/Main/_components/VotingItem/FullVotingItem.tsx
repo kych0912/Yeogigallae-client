@@ -23,7 +23,8 @@ interface Room {
     profileImageUrls: string[];
     createdAt: string;
     tripPlanType: "COURSE" | "SCHEDULE" | "BUDGET";
-    coordinates?: { x: number; y: number }; // 위치 좌표 추가
+    latitude?: number;
+    longitude?: number;
 }
 
 const FullVotingItem: React.FC<FullVotingItemProps> = ({ rooms = [], selectedFilter }) => {
@@ -64,22 +65,9 @@ const FullVotingItem: React.FC<FullVotingItemProps> = ({ rooms = [], selectedFil
                         </V.Box>
 
                         {/* 지도 추가 */}
-                        {room.coordinates ? (
+                        {room.latitude && room.longitude ? (
                             <V.CustomMap>
-                                <MapComponent
-                                    center={{
-                                        x: room.coordinates.x.toString(),
-                                        y: room.coordinates.y.toString(),
-                                    }}
-                                    results={[
-                                        {
-                                            x: room.coordinates.x.toString(),
-                                            y: room.coordinates.y.toString(),
-                                            place_name: room.location,
-                                        },
-                                    ]}
-                                    mapContainerId={`map-${room.tripPlanId}`}
-                                />
+                                <MapComponent mapContainerId={`map-${room.tripPlanId}`} />
                             </V.CustomMap>
                         ) : (
                             <S.Box>위치 정보 없음</S.Box>

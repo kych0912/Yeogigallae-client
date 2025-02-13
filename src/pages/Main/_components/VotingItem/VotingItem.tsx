@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom"; // useNavigate import 추가
 import * as S from "../Main.Styles";
 import * as V from "./VotingItem.Styles";
 import calculateVoteGauge from "./calculateVoteGauge";
@@ -14,21 +15,8 @@ interface Room {
     profileImageUrls: string[];
     createdAt: string;
     tripPlanType: "COURSE" | "SCHEDULE" | "BUDGET";
-}
-
-interface VotingItemProps {
-    rooms: Room[];
-}
-
-interface Room {
-    tripPlanId: number;
-    roomName: string;
-    location: string;
-    totalMembers: number;
-    completedVotes: number;
-    profileImageUrls: string[];
-    createdAt: string;
-    tripPlanType: "COURSE" | "SCHEDULE" | "BUDGET";
+    roomId: string;
+    masterId: string;
 }
 
 interface VotingItemProps {
@@ -37,10 +25,24 @@ interface VotingItemProps {
 
 const VotingItem: React.FC<VotingItemProps> = ({ rooms = [] }) => {
     const remainingTimes = useRemainingTimes(rooms);
+    const navigate = useNavigate();
+
+    const handleClick = (tripPlanId: number, roomId: string, tripPlanType: "COURSE" | "SCHEDULE" | "BUDGET") => {
+        if (tripPlanType === "COURSE") {
+            // COURSE 타입일 때
+            navigate(`/course/${roomId}/${tripPlanId}`);
+        } else if (tripPlanType === "SCHEDULE") {
+            // SCHEDULE 타입일 때
+            navigate(`/vote/${tripPlanId}/${roomId}`);
+        } else {
+            // BUDGET 타입일 때
+        }
+    };
+
     return (
         <S.RowTravelList>
             {rooms.map((room) => (
-                <V.VotingItem key={room.tripPlanId}>
+                <V.VotingItem key={room.tripPlanId} onClick={() => handleClick(room.tripPlanId, room.roomId, room.tripPlanType)}>
                     <V.Box>
                         <S.Box>
                             <V.Title>{room.roomName}</V.Title>

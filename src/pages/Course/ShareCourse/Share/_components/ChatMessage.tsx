@@ -1,6 +1,8 @@
 import * as S from "./Style";
 import Card from "../../../../../components/Card";
 import Chain from "../../../../../assets/icons/Chain.svg?react"
+import { useLongPress } from "../../../../../Utils/useLongPress";
+import modal from "../../../../../components/Modal";
 
 interface ChatMessage{
   name:string;
@@ -13,8 +15,19 @@ interface ChatMessage{
 }
 
 export default function ChatMessage({name,avatar,image,content,place,link,isMine}:ChatMessage){
+  const longPressProps = useLongPress({
+    onLongPress:()=>{
+      modal.confirm.show({
+        message:"삭제하시겠습니까?",
+        onConfirm:()=>{
+          console.log("삭제");
+        }
+      })
+    }
+  });
+
   return (
-    <S.Chat.Wrapper>
+    <S.Chat.Wrapper {...longPressProps}>
       <S.Chat.Message $isMine={isMine}>
         {isMine ? (
           null

@@ -75,9 +75,9 @@ export default function ListCard({
                     <S.TitleWrapper onClick={onSearch}>
                         <S.Caption>{"장소"}</S.Caption>
                         {
-                            placeField.value.placeId ? (
+                            placeField.value.address ? (
                                 <S.PlaceContent>
-                                    {placeField.value.placeName}
+                                    {placeField.value.address}
                                 </S.PlaceContent>
                             ) : (
                                 <S.PlaceContent>

@@ -1,3 +1,5 @@
+import { TShareCoursePlace } from "./index";
+
 export type TCourseResult = {
     location: string;
     description: string;
@@ -21,4 +23,11 @@ export interface ICourseInfo {
     code: string;
     message: string;
     result: TCourseResult;
+}
+
+export interface ICoursePlaceResponse {
+    httpStatus: string;
+    code: string;
+    message: string;
+    result: TShareCoursePlace[];
 }

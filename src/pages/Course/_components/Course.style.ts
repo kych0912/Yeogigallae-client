@@ -55,12 +55,10 @@ export const TextArea = styled.textarea`
   }
 `
 
-export const NaverContent = styled(Content)`
-  line-height:2rem;
-  color:#03C75A;
-  display:flex;
-  align-items:center;
-  gap:0.625rem; 
+export const PlaceContent = styled.div`
+  font-family:${({theme})=>theme.fontFamily.medium};
+  font-size:${({theme})=>theme.fontSize.medium};
+  color:white;
 `
 
 export const Caption = styled.div`

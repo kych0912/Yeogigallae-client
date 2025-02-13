@@ -4,19 +4,17 @@ import { useFunnel } from "../../../hooks/useFunnel/useFunnel";
 import List from "./List";
 import Share from "./Share";
 import CommonContainer from "../../../components/Layout/CommonContainer";
+import Modal from "../../../components/Modal/core";
+import { ShareCourseListSchema } from "./schema";
+import * as z from "zod";
+import { DefaultPlace } from "../constants";
 
-export type ShareCourseData = {
-  image:string;
-  description:string;
-  place:string;
-}[]
+export type ShareCourseData = z.infer<typeof ShareCourseListSchema>;
 
 export type TShareCourseContext = {
-  //eslint-disable-next-line @typescript-eslint/no-empty-object-type
-  여행상세:{},
-  코스목록:ShareCourseData,
-  //eslint-disable-next-line @typescript-eslint/no-empty-object-type
-  공유:{},
+  여행상세: Record<string, never>,
+  코스목록?: ShareCourseData,
+  공유?: Record<string, never>,
 }
 
 export default function ShareCorsePage({dayOnCourseQueries,title}:{dayOnCourseQueries:Route | undefined | null,title:string})
@@ -29,11 +27,10 @@ export default function ShareCorsePage({dayOnCourseQueries,title}:{dayOnCourseQu
       },
       stepQueryKey:"step",
     });
-    
-    console.log(context);
 
     return (
     <CommonContainer>
+      <Modal />
       <Funnel>
         <Funnel.Step name="여행상세"> 
           <Detail 
@@ -45,7 +42,7 @@ export default function ShareCorsePage({dayOnCourseQueries,title}:{dayOnCourseQu
 
         <Funnel.Step name="코스목록"> 
           <List 
-            onNext={(data)=>setStep<"코스목록">("공유",data)}
+            onNext={()=>setStep<"코스목록">("공유",[DefaultPlace])}
             context={context}
           />
 
@@ -54,7 +51,6 @@ export default function ShareCorsePage({dayOnCourseQueries,title}:{dayOnCourseQu
         <Funnel.Step name="공유">
           <Share title={title} />
         </Funnel.Step>
-
       </Funnel>
     </CommonContainer>
     )

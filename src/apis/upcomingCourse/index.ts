@@ -1,13 +1,14 @@
 import axios from "axios";
-import { DEFAULT_Voting } from "./mocks";
+import { courseData } from "./mocks";
 
-export const getVoting = async () => {
+export const getCourse = async (roomId: unknown, aiCourseId: unknown) => {
     if (import.meta.env.MODE === "development") {
-        return DEFAULT_Voting;
+        return courseData;
     }
-    const response = await axios.get(`${import.meta.env.VITE_API_URL}/home/ongoing-vote-rooms`, {
+
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/ai-course/room/${roomId}/${aiCourseId}`, {
         withCredentials: true,
     });
 
-    return response.data.result.rooms;
+    return response.data.result;
 };

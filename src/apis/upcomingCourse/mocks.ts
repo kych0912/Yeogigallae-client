@@ -1,32 +1,34 @@
-export const DEFAULT_Voting = [
-    {
-        roomName: "친구들과의 여행",
-        location: "부산",
-        totalMembers: 4,
-        remainingTime: "00:45:32",
-        completedVotes: 3,
-        profileImageUrls: ["https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw"],
-        createdAt: "2025-02-10T00:30:08.696Z",
-        tripPlanType: "COURSE",
-    },
-    {
-        roomName: "가족 여행",
-        location: "제주도",
-        totalMembers: 6,
-        remainingTime: "01:15:10",
-        completedVotes: 2,
-        profileImageUrls: ["https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw"],
-        createdAt: "2025-02-9T20:30:08.696Z",
-        tripPlanType: "SCHEDULE",
-    },
-    {
-        roomName: "0 여행",
-        location: "제주도",
-        totalMembers: 6,
-        remainingTime: "01:15:10",
-        completedVotes: 2,
-        profileImageUrls: ["https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw"],
-        createdAt: "2025-02-10T02 :30:08.696Z",
-        tripPlanType: "SCHEDULE",
-    },
-];
+export // 사용 예시
+const courseData = {
+    result: [
+        {
+            roomName: "테스트 룸",
+            totalRoomMember: 4,
+            day: "2025-02-15",
+            places: [
+                {
+                    id: 1,
+                    placeName: "해운대 해수욕장",
+                    address: "부산 해운대구 해운대해변로 264",
+                    latitude: 35.1587,
+                    longitude: 129.1603,
+                    image: "https://example.com/image1.jpg",
+                    description: "부산의 대표적인 해변",
+                    userName: "사용자1",
+                    profileImage: "https://example.com/profile1.jpg",
+                },
+                {
+                    id: 2,
+                    placeName: "광안리 해수욕장",
+                    address: "부산 수영구 광안해변로 219",
+                    latitude: 35.1531,
+                    longitude: 129.1185,
+                    image: "https://example.com/image2.jpg",
+                    description: "야경이 아름다운 해변",
+                    userName: "사용자2",
+                    profileImage: "https://example.com/profile2.jpg",
+                },
+            ],
+        },
+    ],
+};

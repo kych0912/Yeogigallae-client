@@ -1,8 +1,8 @@
 import axios from "axios";
-import { courseInfoMock } from "./mocks";
+import { courseInfoMock, courseListMock } from "./mocks";
 import { ShareCourseSchema } from "../../pages/Course/ShareCourse/schema";
 import * as z from "zod";
-
+import { ICourseMessageResponse } from "./types";
 export type TShareCoursePlace = z.infer<typeof ShareCourseSchema>["place"];
 
 export const getCourseInfo = async (tripId:string,roomId:string) => {
@@ -12,6 +12,15 @@ export const getCourseInfo = async (tripId:string,roomId:string) => {
     }
 
     const response = await axios.get(`/api/vote/trip-info/tripId=${tripId}?roomId=${roomId}`);
+    return response.data;
+}
+
+export const getCourseList = async (tripId:string,roomId:string):Promise<ICourseMessageResponse> => {
+    if(import.meta.env.MODE === "development"){
+        await new Promise(resolve => setTimeout(resolve, 5000));
+        return courseListMock;
+    }
+    const response = await axios.get<ICourseMessageResponse>(`/api/rooms/${roomId}/places/${tripId}`);
     return response.data;
 }
 

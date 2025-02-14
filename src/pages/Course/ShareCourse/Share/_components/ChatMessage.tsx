@@ -3,24 +3,15 @@ import Card from "../../../../../components/Card";
 import Chain from "../../../../../assets/icons/Chain.svg?react"
 import { useLongPress } from "../../../../../Utils/useLongPress";
 import modal from "../../../../../components/Modal";
+import { ChatMessage as TChatMessage } from "./ChatInterface";
 
-interface ChatMessage{
-  name:string;
-  avatar:string;
-  image:string;
-  content:string;
-  place:string;
-  link:string;
-  isMine:boolean;
-}
-
-export default function ChatMessage({name,avatar,image,content,place,link,isMine}:ChatMessage){
+export default function ChatMessage({id,name,avatar,image,content,place,link,isMine}:TChatMessage){
   const longPressProps = useLongPress({
     onLongPress:()=>{
       modal.confirm.show({
         message:"삭제하시겠습니까?",
         onConfirm:()=>{
-          console.log("삭제");
+          console.log("삭제" + id);
         }
       })
     }

@@ -23,3 +23,28 @@ export const courseInfoMock = {
       "endDate": "2025-02-07"
     }
   }
+
+  export const courseListMock = {
+    httpStatus: "OK",
+    code: "VOTE_202",
+    message: "여행 정보 조회에 성공하였습니다.",
+    result: [{
+    id:"1",
+    name:"규리",
+    avatar:"https://picsum.photos/200/300",
+    image:"https://picsum.photos/200/300",
+    content:"안녕하세요 코스짜기 시작했습니다.",
+    place:"전북특별자치도 전주시 완산구 기린대로 99",
+    link:"https://picsum.photos/200/300",
+    isMine:true,
+    },{
+    id:"2",
+    name:"규리",
+    avatar:"https://picsum.photos/200/300",
+    image:"https://picsum.photos/200/300",
+    content:"안녕하세요 코스짜기 시작했습니다.",
+    place:"전북특별자치도 전주시 완산구 기린대로 99",
+    link:"https://picsum.photos/200/300",
+    isMine:false,
+    }]
+  }

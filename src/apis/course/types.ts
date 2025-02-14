@@ -1,3 +1,4 @@
+import { ChatMessage } from "../../pages/Course/ShareCourse/Share/_components/ChatInterface";
 import { TShareCoursePlace } from "./index";
 
 export type TCourseResult = {
@@ -31,3 +32,11 @@ export interface ICoursePlaceResponse {
     message: string;
     result: TShareCoursePlace[];
 }
+
+export interface ICourseMessageResponse {
+    httpStatus: string;
+    code: string;
+    message: string;
+    result: ChatMessage[];
+}
+

@@ -3,22 +3,32 @@ import * as S from "./Main.Styles";
 import MyBtn from "../../../assets/icons/MyBtn.svg";
 import Alarm from "../../../assets/icons/Alarm.svg";
 import { useGetUser } from "../../../react-query/queries/user/queries";
+import { useGetNotice } from "../../../react-query/queries/main/notice/queries";
 
 export default function MainTop() {
-    const { data: user, isLoading, error } = useGetUser();
-
-    // 로딩 상태일 때
-    if (isLoading) {
-        console.log("Loading user...");
-    }
-
-    // 에러 발생 시
-    if (error) {
-        console.error("Error loading user", error);
-    }
-
     const navigate = useNavigate();
-    const hasNotification = true; // 알람 존재 여부 상태 (테스트용)
+
+    // 사용자 정보 가져오기
+    const { data: user, isLoading: isUserLoading, error: userError } = useGetUser();
+
+    // 알림 정보 가져오기
+    const { data: notice, isLoading: isNoticeLoading, error: noticeError } = useGetNotice();
+
+    // 알람 존재 여부
+    const hasNotification = notice?.hasUnreadNotifications || false;
+
+    // 로딩 및 에러 처리
+    if (isUserLoading || isNoticeLoading) {
+        console.log("Loading user or notice...");
+    }
+
+    if (userError) {
+        console.error("Error loading user:", userError);
+    }
+
+    if (noticeError) {
+        console.error("Error loading notice:", noticeError);
+    }
 
     return (
         <S.TopContainer>

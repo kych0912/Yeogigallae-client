@@ -7,7 +7,10 @@ import Empty from "./UpcomingItem/Empty";
 import { UpcomingCardSkeleton } from "./CardSkeleton";
 
 export default function MainUpcomingList() {
-    const { data: upcomingRooms = [], isLoading, error } = useGetUpcoming();
+    const { data, isLoading, error } = useGetUpcoming();
+
+    // rooms 배열을 추출
+    const upcomingRooms = data?.rooms || [];
 
     // 로딩 상태에서 콘솔 로그
     if (isLoading) {
@@ -27,18 +30,10 @@ export default function MainUpcomingList() {
                         <img src={Upcoming} alt="Upcoming Icon" /> 예정된 여행
                     </>
                 }
-                rightContent={upcomingRooms.length}
+                rightContent={data?.totalCount || 0}
             ></MainSection>
             {/* 카드 부분 */}
-            {isLoading ? (
-                <>
-                    <UpcomingCardSkeleton />
-                </>
-            ) : upcomingRooms.length > 0 ? (
-                <UpcomingItem rooms={upcomingRooms} />
-            ) : (
-                <Empty />
-            )}
+            {isLoading ? <UpcomingCardSkeleton /> : upcomingRooms.length > 0 ? <UpcomingItem rooms={upcomingRooms} /> : <Empty />}
         </S.Container>
     );
 }

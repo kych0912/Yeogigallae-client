@@ -1,4 +1,4 @@
-import { Notice } from "./types";
+import { Notice, NoticeResponse } from "./types";
 import axios from "axios";
 import { NoticeMocks } from "./mocks";
 
@@ -7,7 +7,7 @@ export const getNotice = async (): Promise<Notice[]> => {
         return NoticeMocks;
     }
 
-    const response = await axios.get<Notice[]>("/api/notifications");
-    return response.data;
+    const response = await axios.get<NoticeResponse>("/api/notifications");
+    return response.data.result;
 };
 

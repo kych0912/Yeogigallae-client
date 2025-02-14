@@ -1,5 +1,4 @@
 import Detail from "./Detail";
-import { Route } from "../../../apis/map/types";
 import { useFunnel } from "../../../hooks/useFunnel/useFunnel";
 import List from "./List";
 import Share from "./Share";
@@ -8,22 +7,28 @@ import Modal from "../../../components/Modal/core";
 import { ShareCourseListSchema } from "./schema";
 import * as z from "zod";
 import { DefaultPlace } from "../constants";
+import { ICourseInfo } from "../../../apis/course/types";
 
 export type ShareCourseData = z.infer<typeof ShareCourseListSchema>;
 
+export type TTripInfo = ICourseInfo & {
+  roomId: string;
+  tripId: string;
+}
+
 export type TShareCourseContext = {
-  여행상세: Record<string, never>,
+  여행상세: TTripInfo,
   코스목록?: ShareCourseData,
   공유?: Record<string, never>,
 }
 
-export default function ShareCorsePage({dayOnCourseQueries,title}:{dayOnCourseQueries:Route | undefined | null,title:string})
+export default function ShareCorsePage({courseInfo}:{courseInfo:TTripInfo})
 {
     const [Funnel,setStep,context] = useFunnel<TShareCourseContext>({
       steps:["여행상세","코스목록","공유"],
       init:{
         step:"여행상세",
-        context:{},
+        context:courseInfo,
       },
       stepQueryKey:"step",
     });
@@ -34,9 +39,8 @@ export default function ShareCorsePage({dayOnCourseQueries,title}:{dayOnCourseQu
       <Funnel>
         <Funnel.Step name="여행상세"> 
           <Detail 
-            dailyRoutes={dayOnCourseQueries}
-            onNext={()=>setStep<"여행상세">("코스목록",{})}
-            title={title}
+            courseInfo={courseInfo}
+            onNext={()=>setStep<"여행상세">("코스목록",courseInfo)}
           />
         </Funnel.Step>
 
@@ -49,7 +53,7 @@ export default function ShareCorsePage({dayOnCourseQueries,title}:{dayOnCourseQu
         </Funnel.Step>
 
         <Funnel.Step name="공유">
-          <Share title={title} />
+          <Share context={context}/>
         </Funnel.Step>
       </Funnel>
     </CommonContainer>

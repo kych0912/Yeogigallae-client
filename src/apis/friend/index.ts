@@ -7,8 +7,13 @@ export const getFriends = async () => {
         return DEFAULT_MY_FRIEND;
     }
 
-    const response = await axios.get<Friend[]>(`${import.meta.env.VITE_API_URL}/friendship/friends`);
-    return response.data;
+    try{
+        const response = await axios.get<Friend[]>(`${import.meta.env.VITE_API_URL}/friendship/friends`);
+        return response.data;
+    }catch(error){
+        console.error("Friends API 호출 오류:", error);
+        return DEFAULT_MY_FRIEND;
+    }
 }
 
 export const deleteFriend = async (friendId:number) => {

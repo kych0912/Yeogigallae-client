@@ -36,7 +36,10 @@ export default function CalendarTabs({ activeTab }: { activeTab: "date" | "flexi
 
         <S.ButtonContainer>
           <S.ProgressCircleWrapper>
-            <S.ProgressCircle $active={activeTab === "flexible" || isStartAndEnd}>
+            <S.ProgressCircle
+              $active={activeTab === "flexible" || isStartAndEnd}
+              $isStartAndEnd={isStartAndEnd && activeTab === "flexible"}
+            >
               <S.CircleText $active={activeTab === "flexible" || isStartAndEnd}>
                 2
               </S.CircleText>

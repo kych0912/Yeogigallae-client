@@ -26,7 +26,7 @@ export default function SearchPage({
 
   // coordQueries의 데이터를 가공하여 저장
   const coordData = !isLoading ? coordQueries.map((coord) => ({
-    zoneNo: coord.data?.documents[0].road_address?.zone_no
+    zoneNo: coord.data?.documents[0]?.road_address?.zone_no || undefined
   })) : [];
 
   return (

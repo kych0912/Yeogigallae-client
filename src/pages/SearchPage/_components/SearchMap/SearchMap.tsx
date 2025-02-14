@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import * as S from "./SearchMap.style";
-import Card from "../../../../components/Card";
 import { MapProps } from "../../types/types";
 
 export default function MapSearch({ center, results, mapContainerId }: MapProps) {
@@ -25,20 +24,20 @@ export default function MapSearch({ center, results, mapContainerId }: MapProps)
 
     const markers: kakao.maps.Marker[] = [];
 
-    results.forEach((result, index) => {
+    results.forEach((result) => {
       const markerPosition = new kakao.maps.LatLng(Number(result.y), Number(result.x));
 
       const markerImageSrc =
         "data:image/svg+xml," +
         encodeURIComponent(`
-          <svg xmlns="http://www.w3.org/2000/svg" width="50" height="80" viewBox="0 0 30 35">
+          <svg xmlns="http://www.w3.org/2000/svg" width="35" height="60" viewBox="0 0 30 35">
             <path fill="#3b46f1" d="M15 0c8.3 0 15 6.7 15 15 0 12.5-15 20-15 20S0 27.5 0 15C0 6.7 6.7 0 15 0z"/>
-            <circle cx="15" cy="15" r="8" fill="white"/> 
-            <text x="15" y="19" text-anchor="middle" fill="#3b46f1" font-size="12px" font-weight="bold">${index + 1}</text>
+            <circle cx="15" cy="15" r="6" fill="white"/> 
+            <text x="15" y="19" text-anchor="middle" fill="#3b46f1" font-size="12px" font-weight="bold"></text>
           </svg>
         `);
 
-      const markerImageSize = new kakao.maps.Size(35, 50);
+      const markerImageSize = new kakao.maps.Size(28, 38);
       const markerImage = new kakao.maps.MarkerImage(markerImageSrc, markerImageSize);
 
       const marker = new kakao.maps.Marker({
@@ -63,13 +62,13 @@ export default function MapSearch({ center, results, mapContainerId }: MapProps)
     });
 
     return () => {
-      markers.forEach((marker) => marker.setMap(null)); // 마커 제거
+      markers.forEach((marker) => marker.setMap(null));
     };
   }, [center, results, mapContainerId]);
 
   return (
-    <Card>
+    <>
       <S.Map id={mapContainerId} />
-    </Card>
+    </>
   );
 }

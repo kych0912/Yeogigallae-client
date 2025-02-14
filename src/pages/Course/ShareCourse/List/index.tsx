@@ -10,6 +10,8 @@ import { useNavigate } from "react-router-dom";
 import { useShareCourseForm } from "../../../../hooks/useShareForm";
 import { DefaultPlace } from "../../constants";
 import CourseSearchPage from "./_components/CourseSearchPage";
+import { usePostCoursePlace } from "../../../../react-query/mutation/course/mutations";
+import ButtonLoading from "./_components/ButtonLoading";
 
 export type FormData ={
     places: ShareCourseData
@@ -19,13 +21,14 @@ export default function List({
     onNext, 
     context,
 }: {
-    onNext:(data:ShareCourseData)=>void,
+    onNext:()=>void,
     context:TShareCourseContext
 }){
     const navigate = useNavigate();
     //useForm, useFieldArray 사용
     //각 ListCard는 FieldArray에 속해있음
     const { handleSubmit, control, setValue, isValid, fields, append, remove } = useShareCourseForm(context);
+    const { mutate: postCoursePlace,isPending } = usePostCoursePlace();
     const [searchState, setSearchState] = useState({
         isOpen: false,
         selectedIndex: -1
@@ -56,8 +59,15 @@ export default function List({
     });
 
     const onSubmit = (data:FormData) => {
-        console.log(data.places);
-        onNext(data.places);
+        const place = data.places.map((place) => place.place);
+        postCoursePlace({place:place, roomId:context.여행상세.roomId}, {
+            onSuccess: () => {
+                onNext();
+            },
+            onError: (error) => {
+                console.error(error);
+            }
+        });
     }
 
     return (
@@ -66,9 +76,8 @@ export default function List({
         searchState.isOpen ? (
             <CourseSearchPage
                 handleSelectItem={(place) => {
-                    console.log(place); 
                     setValue(`places.${searchState.selectedIndex}.place`, {
-                        placeId: place.id,
+                        address: place.address_name,
                         placeName: place.place_name,
                         lat: place.x,
                         lng: place.y,
@@ -110,9 +119,13 @@ export default function List({
                     size="large"    
                     type="submit"
                     form={"share-course-list"}
-                    disabled={!isValid}
+                    disabled={!isValid || isPending}
                 >
-                    {"장소 공유하기"}
+                    {
+                        isPending ?
+                        <ButtonLoading/> :
+                        "장소 공유하기"
+                    }
                     </Button>
                 </S.BottomButtonWrapper>
             ,document.body)}

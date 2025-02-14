@@ -22,10 +22,10 @@ interface Room {
 export default function MainTravelHistory() {
     const { data, isLoading, error } = useGetTravelList();
 
-    // 로딩 상태에서 콘솔 로그
-    if (isLoading) {
-        console.log("Loading TravelHistory rooms...");
-    }
+    // // 로딩 상태에서 콘솔 로그
+    // if (isLoading) {
+    //     console.log("Loading TravelHistory rooms...");
+    // }
 
     // 에러 상태에서 콘솔 로그
     if (error) {

@@ -1,4 +1,3 @@
-// import { useSearch } from "../../../SearchPage/context/SearchContext";
 import * as S from "../Main.Styles";
 import * as V from "./VotingItem.Styles";
 import Course from "../../../../assets/icons/course.svg";
@@ -8,6 +7,7 @@ import calculateVoteGauge from "./calculateVoteGauge";
 import renderParticipantProfiles from "./renderParticipantProfiles";
 import useRemainingTimes from "./useRemainingTimes";
 import MapComponent from "../../../SearchPage/_components/SearchMap/SearchMap";
+import { useNavigate } from "react-router-dom";
 
 interface FullVotingItemProps {
     rooms: Room[];
@@ -16,23 +16,31 @@ interface FullVotingItemProps {
 
 interface Room {
     tripPlanId: number;
+    roomId: string;
     roomName: string;
     location: string;
     totalMembers: number;
     completedVotes: number;
     profileImageUrls: string[];
     createdAt: string;
-    timerUnit: TimerUnit; // 추가된 속성
     tripPlanType: "COURSE" | "SCHEDULE" | "BUDGET";
-    coordinates: { x: number; y: number };
-    remainingTime?: string; // 이 부분을 옵셔널로 추가
+    latitude?: number;
+    longitude?: number;
+    masterId: string;
+    remainingTime: "THIRTY_MINUTES" | "SIXTY_MINUTES" | "FOUR_HOURS" | "SIX_HOURS";
 }
 
-type TimerUnit = "THIRTY_MINUTES" | "SIXTY_MINUTES" | "FOUR_HOURS" | "SIX_HOURS";
-
 const FullVotingItem: React.FC<FullVotingItemProps> = ({ rooms = [], selectedFilter }) => {
-    // const { centerCoords } = useSearch();
-    const remainingTimes = useRemainingTimes(rooms); // 여기서는 rooms를 그대로 전달
+    const remainingTimes = useRemainingTimes(rooms);
+    const navigate = useNavigate();
+
+    const handleClick = (tripPlanId: number, roomId: string, tripPlanType: "COURSE" | "SCHEDULE" | "BUDGET") => {
+        if (tripPlanType === "COURSE") {
+            navigate(`/course/${roomId}/${tripPlanId}`);
+        } else if (tripPlanType === "SCHEDULE") {
+            navigate(`/vote/${tripPlanId}/${roomId}`);
+        }
+    };
 
     const filteredRooms = selectedFilter ? rooms.filter((room) => room.tripPlanType === selectedFilter) : rooms;
 
@@ -52,10 +60,8 @@ const FullVotingItem: React.FC<FullVotingItemProps> = ({ rooms = [], selectedFil
                     }
                 })();
 
-                // const mapCenterCoords = centerCoords;
-
                 return (
-                    <V.FullVotingItem key={room.tripPlanId}>
+                    <V.FullVotingItem key={room.tripPlanId} onClick={() => handleClick(room.tripPlanId, room.roomId, room.tripPlanType)}>
                         <S.Type>
                             <S.Icon2 src={tripPlanInfo.icon} alt={tripPlanInfo.text} />
                             {tripPlanInfo.text}
@@ -70,16 +76,27 @@ const FullVotingItem: React.FC<FullVotingItemProps> = ({ rooms = [], selectedFil
                             </S.Box>
                         </V.Box>
 
-                        <V.CustomMap>
-                            <MapComponent
-                                mapContainerId={`map-${room.tripPlanId}`}
-                                center={{
-                                    x: "",
-                                    y: "",
-                                }}
-                                results={[]}
-                            />
-                        </V.CustomMap>
+                        {room.latitude && room.longitude ? (
+                            <V.CustomMap>
+                                <MapComponent
+                                    center={{
+                                        x: room.longitude.toString(),
+                                        y: room.latitude.toString(),
+                                    }}
+                                    results={[
+                                        {
+                                            ...room,
+                                            x: room.longitude.toString(),
+                                            y: room.latitude.toString(),
+                                            place_name: room.roomName || "투표 장소",
+                                        },
+                                    ]}
+                                    mapContainerId={`map-${room.roomId}`}
+                                />
+                            </V.CustomMap>
+                        ) : (
+                            <S.Box>위치 정보 없음</S.Box>
+                        )}
 
                         <S.Box>
                             <V.ParticipantContainer>{renderParticipantProfiles(room.profileImageUrls)}</V.ParticipantContainer>

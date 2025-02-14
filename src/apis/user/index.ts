@@ -5,9 +5,14 @@ export const getUser = async () => {
     if (import.meta.env.MODE === "development") {
         return DEFAULT_User;
     }
-    const response = await axios.get(`${import.meta.env.VITE_API_URL}/user`, {
-        withCredentials: true,
-    });
+    try{    
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/user`, {
+            withCredentials: true,
+        });
 
-    return response.data.result;
+        return response.data.result;
+    }catch(error){
+        console.error("User API 호출 오류:", error);
+        return DEFAULT_User;
+    }
 };

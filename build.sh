@@ -1,7 +1,6 @@
 #!/bin/sh
 
-# 빌드
-cd Front-End                        
+# 빌드             
 npm run build                 
 
 # 이동

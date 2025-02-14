@@ -31,10 +31,10 @@ const VotingItem: React.FC<VotingItemProps> = ({ rooms = [] }) => {
     const handleClick = (tripPlanId: number, roomId: string, tripPlanType: "COURSE" | "SCHEDULE" | "BUDGET", masterId: string) => {
         if (tripPlanType === "COURSE") {
             // COURSE 타입일 때
-            navigate(`/course/${tripPlanId}/${roomId}/${masterId}`);
+            navigate(`/course/${roomId}/${tripPlanId}`);
         } else if (tripPlanType === "SCHEDULE") {
             // SCHEDULE 타입일 때
-            navigate(`/vote/${tripPlanId}/${roomId}`);
+            navigate(`/vote/${tripPlanId}/${roomId}/${masterId}`);
         } else {
             // BUDGET 타입일 때
         }

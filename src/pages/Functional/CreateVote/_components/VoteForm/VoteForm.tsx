@@ -12,10 +12,10 @@ import PriceInput from "./PriceInput";
 import { useSearch } from "../../../context/SearchContext";
 
 interface VoteFormProps {
-  tripPlanType: "COURSE" | "SCHEDULE";
-  roomId: number;
-  onCalendar: () => void;
-  onSearch: () => void;
+    tripPlanType: "COURSE" | "SCHEDULE";
+    roomId: number;
+    onCalendar: () => void;
+    onSearch: () => void;
 }
 
 export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch }: VoteFormProps) {
@@ -23,11 +23,11 @@ export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch }:
   const { selectedPlace } = useSearch();
   const isSchedule = tripPlanType === "SCHEDULE";
 
-  useEffect(() => {
-    if (selectedPlace) {
-      setValue("location", selectedPlace.place_name || "");
-    }
-  }, [selectedPlace, setValue]);
+    useEffect(() => {
+        if (selectedPlace) {
+            setValue("location", selectedPlace.place_name || "");
+        }
+    }, [selectedPlace, setValue]);
 
   const startDate = useMemo(() => watch("startDate") || "미정", [watch("startDate")]);
   const endDate = useMemo(() => watch("endDate") || "미정", [watch("endDate")]);
@@ -39,48 +39,42 @@ export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch }:
     return Math.max(1, (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24) - 1);
   }, [startDate, endDate]);
 
-  return (
-    <Card>
-      <ImagePlaceholder control={control} tripPlanType={tripPlanType} roomId={roomId} />
-      <MessageInput control={control} tripPlanType={tripPlanType} roomId={roomId} />
-      <S.StyledDivider />
+    return (
+        <Card>
+            <ImagePlaceholder control={control} tripPlanType={tripPlanType} roomId={roomId} />
+            <MessageInput control={control} tripPlanType={tripPlanType} roomId={roomId} />
+            <S.StyledDivider />
 
-      <Card.Item label="투표 제한 시간">
-        <Controller
-          name="voteLimitTime"
-          control={control}
-          render={({ field }) => <VoteTimes value={field.value} onChange={field.onChange} />}
-        />
-      </Card.Item>
+            <Card.Item label="투표 제한 시간">
+                <Controller name="voteLimitTime" control={control} render={({ field }) => <VoteTimes value={field.value} onChange={field.onChange} />} />
+            </Card.Item>
 
-      <S.StyledDivider />
+            <S.StyledDivider />
 
-      <Card.Item label="장소">
-        <Controller
-          name="location"
-          control={control}
-          render={({ field }) => (
-            <SkeletonForm fullwidth>
-              <S.ClickableText onClick={onSearch}>
-                {field.value || "장소를 입력하세요."}
-              </S.ClickableText>
-            </SkeletonForm>
-          )}
-        />
-      </Card.Item>
+            <Card.Item label="장소">
+                <Controller
+                    name="location"
+                    control={control}
+                    render={({ field }) => (
+                        <SkeletonForm fullwidth>
+                            <S.ClickableText onClick={onSearch}>{field.value || "장소를 입력하세요."}</S.ClickableText>
+                        </SkeletonForm>
+                    )}
+                />
+            </Card.Item>
 
-      <S.StyledDivider />
+            <S.StyledDivider />
 
-      {isSchedule && (
-        <>
-          <Card.Item label="가격">
-            <SkeletonForm fullwidth>
-              <PriceInput control={control} nights={nights} />
-            </SkeletonForm>
-          </Card.Item>
-          <S.StyledDivider />
-        </>
-      )}
+            {isSchedule && (
+                <>
+                    <Card.Item label="가격">
+                        <SkeletonForm fullwidth>
+                            <PriceInput control={control} nights={nights} />
+                        </SkeletonForm>
+                    </Card.Item>
+                    <S.StyledDivider />
+                </>
+            )}
 
       <S.StyledCardItem>
         <SkeletonForm fullwidth>

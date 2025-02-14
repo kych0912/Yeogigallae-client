@@ -7,21 +7,18 @@ import { Button } from "../../../../components/Button";
 export default function OverView({
     courseInfo,
     onNext,
-    title
 }: {
     courseInfo: ICourseInfo,
     onNext:()=>void,
-    title:string
-
 }){
 
     const {result} = courseInfo;
 
-    const { location,description,imageUrl,maxDays,masterName,userCount } = result;
+    const { location,description,imageUrl,maxDays,masterName,userCount, roomName } = result;
 
 
     useSetHeader({
-        title:title,
+        title:roomName,
         number:userCount
     });
     

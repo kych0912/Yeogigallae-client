@@ -17,7 +17,6 @@ export default function Page(){
     <>
       <ShareCorsePage
         courseInfo={{...courseInfo, roomId:roomId ?? "1", tripId:tripId ?? "1"}}
-        title={"지구마블"}
       />
     </>
   )

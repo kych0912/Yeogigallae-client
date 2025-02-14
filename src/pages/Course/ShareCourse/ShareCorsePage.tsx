@@ -22,7 +22,7 @@ export type TShareCourseContext = {
   공유?: Record<string, never>,
 }
 
-export default function ShareCorsePage({courseInfo,title}:{courseInfo:TTripInfo,title:string})
+export default function ShareCorsePage({courseInfo}:{courseInfo:TTripInfo})
 {
     const [Funnel,setStep,context] = useFunnel<TShareCourseContext>({
       steps:["여행상세","코스목록","공유"],
@@ -41,7 +41,6 @@ export default function ShareCorsePage({courseInfo,title}:{courseInfo:TTripInfo,
           <Detail 
             courseInfo={courseInfo}
             onNext={()=>setStep<"여행상세">("코스목록",courseInfo)}
-            title={title}
           />
         </Funnel.Step>
 
@@ -54,7 +53,7 @@ export default function ShareCorsePage({courseInfo,title}:{courseInfo:TTripInfo,
         </Funnel.Step>
 
         <Funnel.Step name="공유">
-          <Share title={title} />
+          <Share context={context}/>
         </Funnel.Step>
       </Funnel>
     </CommonContainer>

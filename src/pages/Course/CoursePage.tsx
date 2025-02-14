@@ -11,12 +11,17 @@ export default function Page(){
   const isEnd = false;
 
   if(courseInfoLoading) return <CourseOverviewCardSkeleton/>;
-  if(courseInfoError || !courseInfo) return <div style={{textAlign:"center",color:"white"}}>Error...</div>;
+  
+  //에러가 발생하거나
+  //courseInfo가 없거나
+  //roomId가 없거나
+  //tripId가 없거나
+  if(courseInfoError || !courseInfo || !roomId || !tripId) return <div style={{textAlign:"center",color:"white"}}>Error...</div>;
 
   if(!isEnd) return(
     <>
       <ShareCorsePage
-        courseInfo={{...courseInfo, roomId:roomId ?? "1", tripId:tripId ?? "1"}}
+        courseInfo={{...courseInfo, roomId:roomId, tripId:tripId}}
       />
     </>
   )

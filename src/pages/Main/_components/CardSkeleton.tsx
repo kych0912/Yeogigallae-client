@@ -37,6 +37,7 @@ export function FullVotingCardSkeleton() {
                     <Skeleton variant="text" width="50px" height="14px" />
                 </S.Box>
             </V.Box>
+            <Skeleton variant="rectangular" width="100%" height="9rem" />
             <S.Box>
                 <Skeleton variant="text" width="100px" height="24px" />
                 <Skeleton variant="text" width="140px" height="24px" />

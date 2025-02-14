@@ -11,9 +11,9 @@ type LayoutContextType = {
     selectedFilter: string;
     handleFilterChange: (filter: string) => void;
 };
-
 export default function FullVotingListPage() {
-    const { data: votingRooms = [], isLoading, error } = useGetVoting();
+    const { data, isLoading, error } = useGetVoting();
+    const votingRooms = data?.rooms ?? [];
 
     // 로딩 상태에서 콘솔 로그
     if (isLoading) {
@@ -26,6 +26,7 @@ export default function FullVotingListPage() {
     }
 
     const { isModalVisible, handleCloseModal, selectedFilter, handleFilterChange } = useOutletContext<LayoutContextType>();
+
     return (
         <S.Container>
             {isLoading ? (
@@ -35,7 +36,7 @@ export default function FullVotingListPage() {
                     <FullVotingCardSkeleton />
                 </>
             ) : (
-                <FullVotingItem rooms={votingRooms ?? []} selectedFilter={selectedFilter} />
+                <FullVotingItem rooms={votingRooms} selectedFilter={selectedFilter} />
             )}
             <TostModal isVisible={isModalVisible} onClose={handleCloseModal} onFilterChange={handleFilterChange} />
         </S.Container>

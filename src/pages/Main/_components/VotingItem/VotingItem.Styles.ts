@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { Map } from "../../../SearchPage/_components/SearchMap/SearchMap.style";
+
 //투표중 정렬을 위한 박스
 
 export const VotingItem = styled.div`
@@ -147,4 +149,7 @@ export const AItext = styled.div`
     font-family: ${({ theme }) => theme.fontFamily.semiBold};
     color: ${({ theme }) => theme.colors.primary};
     gap: 0.156rem;
+`;
+export const CustomMap = styled(Map)`
+    height: 9rem;
 `;

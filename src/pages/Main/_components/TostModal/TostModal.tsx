@@ -33,8 +33,8 @@ const TostModal: React.FC<{
     if (!isVisible && !isHiding) return null;
 
     return (
-        <S.Container>
-            <S.ModalContent className={isHiding ? "hidden" : ""}>
+        <S.Container onClick={handleClose}>
+            <S.ModalContent className={isHiding ? "hidden" : ""} onClick={(e) => e.stopPropagation()}>
                 <S.CloseButton onClick={handleClose}>
                     <img src={xBtn} alt="Close" />
                 </S.CloseButton>

@@ -1,32 +1,35 @@
-export const DEFAULT_Voting = [
-    {
-        roomName: "친구들과의 여행",
-        location: "부산",
-        totalMembers: 4,
-        remainingTime: "00:45:32",
-        completedVotes: 3,
-        profileImageUrls: ["https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw"],
-        createdAt: "2025-02-10T00:30:08.696Z",
-        tripPlanType: "COURSE",
-    },
-    {
-        roomName: "가족 여행",
-        location: "제주도",
-        totalMembers: 6,
-        remainingTime: "01:15:10",
-        completedVotes: 2,
-        profileImageUrls: ["https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw"],
-        createdAt: "2025-02-9T20:30:08.696Z",
-        tripPlanType: "SCHEDULE",
-    },
-    {
-        roomName: "0 여행",
-        location: "제주도",
-        totalMembers: 6,
-        remainingTime: "01:15:10",
-        completedVotes: 2,
-        profileImageUrls: ["https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw"],
-        createdAt: "2025-02-10T02 :30:08.696Z",
-        tripPlanType: "SCHEDULE",
-    },
-];
+export const DEFAULT_Voting = {
+    totalCount: 2,
+    rooms: [
+        {
+            tripPlanId: 1,
+            roomId: 1,
+            masterId: 1,
+            roomName: "친구들과의 여행",
+            location: "부산",
+            totalMembers: 4,
+            remainingTime: "SIXTY_MINUTES",
+            completedVotes: 3,
+            profileImageUrls: ["Images.com", "Images.com", "Images.com", "Images.com"],
+            createdAt: "2025-02-14T04:20:08.696Z",
+            tripPlanType: "COURSE",
+            latitude: 35.1796, // ✅ 부산 위도 수정
+            longitude: 129.0756, // ✅ 부산 경도 수정
+        },
+        {
+            tripPlanId: 2,
+            roomId: 2,
+            masterId: 2,
+            roomName: "가족 여행",
+            location: "제주도",
+            totalMembers: 5,
+            remainingTime: "THIRTY_MINUTES",
+            completedVotes: 2,
+            profileImageUrls: ["Images.com", "Images.com", "Images.com", "Images.com", "Images.com"],
+            createdAt: "2025-02-14T04:20:08.696Z",
+            tripPlanType: "SCHEDULE",
+            latitude: 33.4996, // ✅ 제주도 위도 수정
+            longitude: 126.5312, // ✅ 제주도 경도 수정
+        },
+    ],
+};

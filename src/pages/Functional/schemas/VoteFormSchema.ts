@@ -26,5 +26,5 @@ export const voteFormSchema = z.object({
 export type VoteFormBody = z.infer<typeof voteFormSchema>;
 
 export type VoteFormData = VoteFormBody & {
-  tripPlanType: "COURSE" | "SCHEDULE"; // path parameter
+  tripPlanType: "COURSE" | "SCHEDULE"; 
 };

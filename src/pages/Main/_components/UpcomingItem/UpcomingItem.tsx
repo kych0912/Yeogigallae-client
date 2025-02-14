@@ -4,6 +4,7 @@ import Calender2 from "../../../../assets/icons/Calender2.svg";
 import { useNavigate } from "react-router-dom";
 
 interface Room {
+    tripPlanId: number;
     roomName: string;
     location: string;
     startDate: string;
@@ -24,8 +25,9 @@ export default function UpcomingItem({ rooms }: UpcomingItemProps) {
 
     return (
         <S.RowTravelList>
-            {rooms.map((room, index) => (
-                <U.TravelList onClick={handleNavigate} key={index}>
+            {rooms.map((room) => (
+                <U.TravelList onClick={handleNavigate} key={room.tripPlanId}>
+                    {" "}
                     <U.ImageWrapper>
                         <S.Image src={room.imageUrl} alt={`${room.roomName} 이미지`} />
                     </U.ImageWrapper>

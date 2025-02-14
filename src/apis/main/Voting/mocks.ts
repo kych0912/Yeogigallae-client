@@ -13,8 +13,8 @@ export const DEFAULT_Voting = {
             profileImageUrls: ["Images.com", "Images.com", "Images.com", "Images.com"],
             createdAt: "2025-02-14T04:20:08.696Z",
             tripPlanType: "COURSE",
-            latitude: 123.3213,
-            longitude: 20.12121,
+            latitude: 35.1796, // ✅ 부산 위도 수정
+            longitude: 129.0756, // ✅ 부산 경도 수정
         },
         {
             tripPlanId: 2,
@@ -28,8 +28,8 @@ export const DEFAULT_Voting = {
             profileImageUrls: ["Images.com", "Images.com", "Images.com", "Images.com", "Images.com"],
             createdAt: "2025-02-14T04:20:08.696Z",
             tripPlanType: "SCHEDULE",
-            latitude: 123.3213,
-            longitude: 20.12121,
+            latitude: 33.4996, // ✅ 제주도 위도 수정
+            longitude: 126.5312, // ✅ 제주도 경도 수정
         },
     ],
 };

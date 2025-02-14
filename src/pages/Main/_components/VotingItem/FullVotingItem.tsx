@@ -76,23 +76,22 @@ const FullVotingItem: React.FC<FullVotingItemProps> = ({ rooms = [], selectedFil
                             </S.Box>
                         </V.Box>
 
-                        {/* 지도 추가 */}
                         {room.latitude && room.longitude ? (
                             <V.CustomMap>
                                 <MapComponent
                                     center={{
-                                        x: room.latitude.toString(),
-                                        y: room.longitude.toString(),
+                                        x: room.longitude.toString(),
+                                        y: room.latitude.toString(),
                                     }}
                                     results={[
                                         {
                                             ...room,
-                                            x: room.latitude.toString(),
-                                            y: room.longitude.toString(),
-                                            place_name: "",
+                                            x: room.longitude.toString(),
+                                            y: room.latitude.toString(),
+                                            place_name: room.roomName || "투표 장소",
                                         },
                                     ]}
-                                    mapContainerId={`map-${room.tripPlanId}`}
+                                    mapContainerId={`map-${room.roomId}`}
                                 />
                             </V.CustomMap>
                         ) : (

@@ -75,11 +75,11 @@ export const PaginationContainer = styled.div`
     top: 5%;
 `;
 
-export const Dot = styled.div<{ active: boolean }>`
-    width: ${({ active }) => (active ? "20px" : "10px")};
+export const Dot = styled.div<{ $active: boolean }>`
+    width: ${({ $active }) => ($active ? "20px" : "10px")};
     height: 10px;
     border-radius: 999px;
-    background: ${({ active }) => (active ? ({ theme }) => theme.colors.primary : ({ theme }) => theme.colors.GrayText)};
+    background: ${({ $active, theme }) => ($active ? theme.colors.primary : theme.colors.GrayText)};
     transition: width 0.3s ease-in-out;
     align-self: center;
 `;

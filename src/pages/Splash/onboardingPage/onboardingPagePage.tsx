@@ -28,7 +28,7 @@ const Onboarding = () => {
         <S.Container>
             <S.PaginationContainer>
                 {images.map((_, index) => (
-                    <S.Dot key={index} active={index === page} />
+                    <S.Dot key={index} $active={index === page} />
                 ))}
             </S.PaginationContainer>
 

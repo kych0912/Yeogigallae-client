@@ -12,6 +12,11 @@ export const getRooms = async () => {
         return DEFAULT_ROOMS;
     }
 
-    const response = await axios.get<Rooms>(`${import.meta.env.VITE_API_URL}/api/rooms`);
-    return response.data.rooms;
+    try{
+        const response = await axios.get<Rooms>(`${import.meta.env.VITE_API_URL}/api/rooms`);
+        return response.data.rooms;
+    }catch(error){
+        console.error("Rooms API 호출 오류:", error);
+        return DEFAULT_ROOMS;
+    }
 }

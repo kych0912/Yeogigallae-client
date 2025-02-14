@@ -1,7 +1,6 @@
 import Card from "../../../../../components/Card";
 import * as S from "../../../_components/Course.style";
 import * as M from "./Style";
-import NaverIcon from "../../../../../assets/icons/Naver.svg?react";
 import modal from "../../../../../components/Modal";
 import AddImage from "./AddImage";
 import { Control, useController } from "react-hook-form";
@@ -76,9 +75,9 @@ export default function ListCard({
                     <S.TitleWrapper onClick={onSearch}>
                         <S.Caption>{"장소"}</S.Caption>
                         {
-                            placeField.value.placeId ? (
+                            placeField.value.address ? (
                                 <S.PlaceContent>
-                                    {placeField.value.placeName}
+                                    {placeField.value.address}
                                 </S.PlaceContent>
                             ) : (
                                 <S.PlaceContent>

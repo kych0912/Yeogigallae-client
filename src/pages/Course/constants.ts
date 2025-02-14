@@ -6,7 +6,7 @@ import { z } from "zod";
 export const DefaultPlace:ShareCourseData[number] = {
     image: "",
     place: {
-        placeId: "",
+        address: "",
         placeName: "",
         lat: "",
         lng: "",

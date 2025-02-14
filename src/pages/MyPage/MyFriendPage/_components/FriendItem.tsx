@@ -4,7 +4,7 @@ import { Member } from "../../../../apis/room/types"
 import ProfileGroup from "./ProfileGroup"
 import * as S from "./Friend.style"
 import modal from "../../../../components/Modal"
-import { useDeleteFriend } from "../../../../react-query/queries/friend/queries"
+import { useDeleteFriend } from "../../../../react-query/mutation/friend/mutations"
 
 //접히는 컴포넌트용
 export function FriendItem({

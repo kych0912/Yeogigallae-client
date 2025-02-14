@@ -6,8 +6,11 @@ import { Outlet } from "react-router-dom";
 import { useState } from "react";
 import HeaderCenterContent from "../Header/HeaderCenterContent";
 import { HeaderConfig } from "../../types/header/header";
+import { useNavigate } from "react-router-dom";
+
 
 export default function Layout() {
+    const navigate = useNavigate();
     const [headerConfig, setHeaderConfig] = useState<HeaderConfig>({title:""});
     const { title, number, leftFunction, rightFunction } = headerConfig;
 
@@ -15,7 +18,7 @@ export default function Layout() {
         <>
             <Header
                 leftContent={
-                    <IconButton onClick={leftFunction}>
+                    <IconButton onClick={leftFunction ?? (() => navigate(-1))}>
                         <BackIcon />
                     </IconButton>
                 }
@@ -23,7 +26,7 @@ export default function Layout() {
                     <HeaderCenterContent title={title} number={number} />
                 }
                 rightContent={
-                    <IconButton onClick={rightFunction}>
+                    <IconButton onClick={rightFunction ?? (() => navigate("/"))}>
                         <HomeIcon />
                     </IconButton>
                 }   

@@ -3,19 +3,18 @@ import { useVoteForm } from "../../../../../hooks/useForm/useVoteForm";
 import { useVoteFormContext } from "../../../context/VoteFormContext";
 import { useState } from "react";
 import { Controller } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import SkeletonForm from "../VoteForm/Skeleton/SkeletonForm";
 
 export default function SlideContainer() {
   const { roomId, setRoomId, tripPlanType } = useVoteFormContext();
   const { control, reset } = useVoteForm(tripPlanType, roomId);
+  const navigate = useNavigate(); 
 
-  const [roomList, setRoomList] = useState<number[]>([roomId]);
+  const [roomList] = useState<number[]>([roomId]);
 
   const handleCreateNewRoom = () => {
-    const newRoomId = Math.max(...roomList) + 1;
-    setRoomList((prev) => [...prev, newRoomId]);
-    setRoomId(newRoomId);
-    reset(); 
+    navigate("/mypage/room"); 
   };
 
   return (
@@ -39,10 +38,10 @@ export default function SlideContainer() {
                     />
                   </svg>
                 </S.Slide>
-                </SkeletonForm>
-                <SkeletonForm smallwidth>
-                  <S.Label $active={true} $isCreateButton={true}>생성하기</S.Label>
-                </SkeletonForm>  
+              </SkeletonForm>
+              <SkeletonForm smallwidth>
+                <S.Label $active={true} $isCreateButton={true}>생성하기</S.Label>
+              </SkeletonForm>  
             </S.SlideContainer>
 
             {roomList.map((id) => (
@@ -60,7 +59,7 @@ export default function SlideContainer() {
                 </SkeletonForm>
                 <SkeletonForm smallwidth>
                   <S.Label $active={id === field.value}>
-                  {id.toString().length > 3 ? `${id.toString().slice(0, 2)}..` : id}
+                    {id.toString().length > 3 ? `${id.toString().slice(0, 2)}..` : id}
                   </S.Label>
                 </SkeletonForm>
               </S.SlideContainer>

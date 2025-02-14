@@ -30,7 +30,7 @@ export interface ICoursePlaceResponse {
     httpStatus: string;
     code: string;
     message: string;
-    result: TShareCoursePlace[];
+    result: (TShareCoursePlace&{id:string})[] ;
 }
 
 export interface ICourseMessageResponse {

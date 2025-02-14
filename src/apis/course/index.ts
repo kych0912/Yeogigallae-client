@@ -32,3 +32,13 @@ export const postCoursePlace = async (place:TShareCoursePlace[], roomId:string) 
     const response = await axios.post(`/api/rooms/${roomId}/places`,place);
     return response.data;
 }
+
+export const deleteCoursePlace = async (id:string, roomId:string) => {
+    if(import.meta.env.MODE === "development"){
+        await new Promise(resolve => setTimeout(resolve, 3000));
+        return courseInfoMock;
+    }
+    const response = await axios.delete(`/api/rooms/${roomId}/places/${id}`);
+    return response.data;
+}
+

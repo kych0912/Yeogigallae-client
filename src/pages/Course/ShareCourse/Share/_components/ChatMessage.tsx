@@ -4,18 +4,27 @@ import Chain from "../../../../../assets/icons/Chain.svg?react"
 import { useLongPress } from "../../../../../Utils/useLongPress";
 import modal from "../../../../../components/Modal";
 import { ChatMessage as TChatMessage } from "./ChatInterface";
+import { useDeleteCoursePlace } from "../../../../../react-query/mutation/course/mutations";
+import { useParams } from "react-router-dom";
 
-export default function ChatMessage({id,name,avatar,image,content,place,link,isMine}:TChatMessage){
+
+export default function ChatMessage({placeid,name,avatar,image,content,place,link,isMine}:TChatMessage){
+  const { roomId } = useParams();
+  const {mutate:deleteCoursePlace} = useDeleteCoursePlace();
+
   const longPressProps = useLongPress({
     onLongPress:()=>{
+      if(!roomId) return;
       modal.confirm.show({
         message:"삭제하시겠습니까?",
         onConfirm:()=>{
-          console.log("삭제" + id);
+          deleteCoursePlace({id:placeid,roomId:roomId});
         }
       })
     }
   });
+
+  if(!roomId) return null;
 
   return (
     <S.Chat.Wrapper {...longPressProps}>

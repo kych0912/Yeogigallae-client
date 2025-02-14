@@ -2,7 +2,7 @@ import * as S from "./Style";
 import ChatMessage from "./ChatMessage";
 
 export interface ChatMessage{
-    id:string;
+    placeid:string;
     name:string;
     avatar:string;
     image:string;

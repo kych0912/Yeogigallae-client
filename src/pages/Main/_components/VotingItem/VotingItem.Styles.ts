@@ -152,4 +152,6 @@ export const AItext = styled.div`
 `;
 export const CustomMap = styled(Map)`
     height: 9rem;
+    witdh: 100%;
+    padding: 0;
 `;

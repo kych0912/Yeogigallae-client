@@ -12,10 +12,10 @@ export default function MainUpcomingList() {
     // rooms 배열을 추출
     const upcomingRooms = data?.rooms || [];
 
-    // 로딩 상태에서 콘솔 로그
-    if (isLoading) {
-        console.log("Loading upcoming rooms...");
-    }
+    // // 로딩 상태에서 콘솔 로그
+    // if (isLoading) {
+    //     console.log("Loading upcoming rooms...");
+    // }
 
     // 에러 상태에서 콘솔 로그
     if (error) {

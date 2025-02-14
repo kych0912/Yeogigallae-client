@@ -16,6 +16,7 @@ interface FullVotingItemProps {
 
 interface Room {
     tripPlanId: number;
+    roomId: string;
     roomName: string;
     location: string;
     totalMembers: number;
@@ -25,9 +26,7 @@ interface Room {
     tripPlanType: "COURSE" | "SCHEDULE" | "BUDGET";
     latitude?: number;
     longitude?: number;
-    roomId: string;
     masterId: string;
-
     remainingTime: "THIRTY_MINUTES" | "SIXTY_MINUTES" | "FOUR_HOURS" | "SIX_HOURS";
 }
 
@@ -37,13 +36,9 @@ const FullVotingItem: React.FC<FullVotingItemProps> = ({ rooms = [], selectedFil
 
     const handleClick = (tripPlanId: number, roomId: string, tripPlanType: "COURSE" | "SCHEDULE" | "BUDGET") => {
         if (tripPlanType === "COURSE") {
-            // COURSE 타입일 때
             navigate(`/course/${roomId}/${tripPlanId}`);
         } else if (tripPlanType === "SCHEDULE") {
-            // SCHEDULE 타입일 때
             navigate(`/vote/${tripPlanId}/${roomId}`);
-        } else {
-            // BUDGET 타입일 때
         }
     };
 
@@ -81,16 +76,22 @@ const FullVotingItem: React.FC<FullVotingItemProps> = ({ rooms = [], selectedFil
                             </S.Box>
                         </V.Box>
 
-                        {/* 지도 추가 */}
                         {room.latitude && room.longitude ? (
                             <V.CustomMap>
                                 <MapComponent
-                                    mapContainerId={`map-${room.tripPlanId}`}
                                     center={{
-                                        x: room.latitude.toString(),
-                                        y: room.longitude.toString(),
+                                        x: room.longitude.toString(),
+                                        y: room.latitude.toString(),
                                     }}
-                                    results={[]}
+                                    results={[
+                                        {
+                                            ...room,
+                                            x: room.longitude.toString(),
+                                            y: room.latitude.toString(),
+                                            place_name: room.roomName || "투표 장소",
+                                        },
+                                    ]}
+                                    mapContainerId={`map-${room.roomId}`}
                                 />
                             </V.CustomMap>
                         ) : (

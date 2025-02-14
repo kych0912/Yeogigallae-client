@@ -28,10 +28,10 @@ const VotingItem: React.FC<VotingItemProps> = ({ rooms = [] }) => {
     const remainingTimes = useRemainingTimes(rooms);
     const navigate = useNavigate();
 
-    const handleClick = (tripPlanId: number, roomId: string, tripPlanType: "COURSE" | "SCHEDULE" | "BUDGET") => {
+    const handleClick = (tripPlanId: number, roomId: string, tripPlanType: "COURSE" | "SCHEDULE" | "BUDGET", masterId: string) => {
         if (tripPlanType === "COURSE") {
             // COURSE 타입일 때
-            navigate(`/course/${roomId}/${tripPlanId}`);
+            navigate(`/course/${tripPlanId}/${roomId}/${masterId}`);
         } else if (tripPlanType === "SCHEDULE") {
             // SCHEDULE 타입일 때
             navigate(`/vote/${tripPlanId}/${roomId}`);
@@ -43,7 +43,7 @@ const VotingItem: React.FC<VotingItemProps> = ({ rooms = [] }) => {
     return (
         <S.RowTravelList>
             {rooms.map((room) => (
-                <V.VotingItem key={room.tripPlanId} onClick={() => handleClick(room.tripPlanId, room.roomId, room.tripPlanType)}>
+                <V.VotingItem key={room.tripPlanId} onClick={() => handleClick(room.tripPlanId, room.roomId, room.tripPlanType, room.masterId)}>
                     <V.Box>
                         <S.Box>
                             <V.Title>{room.roomName}</V.Title>

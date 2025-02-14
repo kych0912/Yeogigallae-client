@@ -19,6 +19,7 @@ export default function Calendar({ onComplete }: CalendarProps) {
   };
 
   const handleComplete = () => {
+    if (!startDate || !endDate) return;
     onComplete({ startDate: formatDate(startDate), endDate: formatDate(endDate) });
   };
 
@@ -31,7 +32,7 @@ export default function Calendar({ onComplete }: CalendarProps) {
         setIsMonthSelected={setIsMonthSelected} 
       />
       <CompleteButton 
-        onComplete={handleComplete} 
+        onComplete={handleComplete}  
         onTabChange={setActiveTab}  
         isMonthSelected={isMonthSelected} 
         activeTab={activeTab} 

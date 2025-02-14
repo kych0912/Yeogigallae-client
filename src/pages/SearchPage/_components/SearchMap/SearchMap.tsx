@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import * as S from "./SearchMap.style";
-import Card from "../../../../components/Card";
 import { MapProps } from "../../types/types";
 
 export default function MapSearch({ center, results, mapContainerId }: MapProps) {
@@ -68,8 +67,8 @@ export default function MapSearch({ center, results, mapContainerId }: MapProps)
   }, [center, results, mapContainerId]);
 
   return (
-    <Card>
+    <>
       <S.Map id={mapContainerId} />
-    </Card>
+    </>
   );
 }

@@ -30,6 +30,7 @@ import UpComingCoursePage from "./pages/Course/UpComingCourse/UpComingCoursePage
 import withAuth from "./pages/Login/withAuth";
 import FullVotingListPage from "./pages/Main/FullVotingListPage/FullVotingListPage";
 import FullVotingListLayout from "./components/Layout/FullVotingListLayout";
+import OnboardingPage from "./pages/Splash/onboardingPage/onboardingPagePage";
 
 // const ProtectedMainPage = withAuth(MainPage, true);
 const ProtectedLoginPage = withAuth(LoginPage, false);
@@ -39,7 +40,7 @@ const queryClient = new QueryClient();
 
 const App: React.FC = () => {
     const token = import.meta.env.VITE_ACCESS_TOKEN as string;
-    const expirationDate = new Date('Sun, 08 Feb 2026 17:27:47 GMT');
+    const expirationDate = new Date("Sun, 08 Feb 2026 17:27:47 GMT");
     document.cookie = `accessToken=${token}; Path=/; Expires=${expirationDate.toUTCString()};`;
 
     return (
@@ -83,6 +84,7 @@ const App: React.FC = () => {
 
                         {/* Splash */}
                         <Route path="/splash" element={<SplashPage />} />
+                        <Route path="/onboarding" element={<OnboardingPage />} />
 
                         <Route element={<VoteLayout />}>
                             <Route path="/vote" element={<VotePage />} />
@@ -93,7 +95,7 @@ const App: React.FC = () => {
                         </Route>
 
                         <Route element={<CourseLayout />}>
-                            <Route path="/course" element={<CoursePage />} />
+                            <Route path="/course/:tripId/:roomId" element={<CoursePage />} />
                             <Route path="/course/upcoming" element={<UpComingCoursePage />} />
                         </Route>
                     </Routes>

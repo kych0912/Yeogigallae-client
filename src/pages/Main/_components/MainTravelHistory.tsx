@@ -10,6 +10,7 @@ import { useGetTravelList } from "../../../react-query/queries/main/TravelList/q
 import { HistoryCardSkeleton } from "./CardSkeleton";
 
 interface Room {
+    tripPlanId: number; // tripPlanId 추가
     tripName: string;
     location: string;
     startDate: string;
@@ -19,12 +20,12 @@ interface Room {
 }
 
 export default function MainTravelHistory() {
-    const { data: travellistRooms = [], isLoading, error } = useGetTravelList();
+    const { data, isLoading, error } = useGetTravelList();
 
-    // 로딩 상태에서 콘솔 로그
-    if (isLoading) {
-        console.log("Loading TravelHistory rooms...");
-    }
+    // // 로딩 상태에서 콘솔 로그
+    // if (isLoading) {
+    //     console.log("Loading TravelHistory rooms...");
+    // }
 
     // 에러 상태에서 콘솔 로그
     if (error) {
@@ -37,7 +38,8 @@ export default function MainTravelHistory() {
         setSelectedButton(buttonType);
     };
 
-    const filteredRooms: Room[] = travellistRooms.filter((room: Room) => (selectedButton === "domestic" ? room.tripType === "DOMESTIC" : room.tripType === "INTERNATIONAL"));
+    const trips = data?.trips || []; // trips 배열을 사용
+    const filteredRooms: Room[] = trips.filter((room: Room) => (selectedButton === "domestic" ? room.tripType === "DOMESTIC" : room.tripType === "INTERNATIONAL"));
 
     return (
         <S.HistoryContainer>
@@ -47,7 +49,7 @@ export default function MainTravelHistory() {
                         <img src={History} alt="History Icon" /> 완료된 여행
                     </>
                 }
-                rightContent={travellistRooms.length}
+                rightContent={data?.totalCount || 0}
             />
             <S.BtnBar>
                 <S.selectBtn selected={selectedButton === "domestic"} size="large" onClick={() => handleButtonClick("domestic")}>
@@ -58,15 +60,7 @@ export default function MainTravelHistory() {
                 </S.selectBtn>
             </S.BtnBar>
             {/* 완료된 여행 리스트 */}
-            {isLoading ? (
-                <>
-                    <HistoryCardSkeleton />\
-                </>
-            ) : filteredRooms.length > 0 ? (
-                <TravelListItem rooms={filteredRooms} />
-            ) : (
-                <Empty />
-            )}
+            {isLoading ? <HistoryCardSkeleton /> : filteredRooms.length > 0 ? <TravelListItem rooms={filteredRooms} /> : <Empty />}
         </S.HistoryContainer>
     );
 }

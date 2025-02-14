@@ -3,7 +3,7 @@ import {CompleteMessage} from "../../../_components/Course.style";
 import Down from "../../../../../assets/icons/Down.svg?react";
 import * as S from "./Style";
 
-export default function InfoToggle(){
+export default function InfoToggle({masterName, voteLimitTime}:{masterName:string,voteLimitTime:string}){
     return(
         <>
             <S.Toggle.Wrapper>
@@ -13,9 +13,9 @@ export default function InfoToggle(){
             </S.Toggle.Wrapper>
 
             <CompleteMessage style={{marginTop:'0.5rem'}}>   
-                규리님이 코스짜기를 시작했습니다. 
+                {masterName}님이 코스짜기를 시작했습니다. 
                 <br/>
-                6시간 이후 종료 됩니다.
+                {voteLimitTime} 이후 종료 됩니다.
             </CompleteMessage>
         </>
     )

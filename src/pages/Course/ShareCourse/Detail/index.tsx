@@ -1,32 +1,70 @@
-import { useEffect } from "react";
-import { Route } from "../../../../apis/map/types";
-import DetailCard from "./_components/DetailCard";
-import { useOutletContext } from "react-router-dom";
-import { HeaderConfig } from "../../../../types/header/header";
+import useSetHeader from "../../../../hooks/useSetHeader";
+import { ICourseInfo } from "../../../../apis/course/types";
+import { CompleteMessage } from "../../_components/Course.style";
+import Card from "../../../../components/Card";
+import { Button } from "../../../../components/Button";
 
 export default function OverView({
-    dailyRoutes,
+    courseInfo,
     onNext,
-    title
 }: {
-    dailyRoutes: Route | null | undefined,
+    courseInfo: ICourseInfo,
     onNext:()=>void,
-    title:string
-
 }){
-    const {setHeaderConfig} = useOutletContext<{setHeaderConfig: (config: HeaderConfig) => void}>();
 
-    useEffect(()=>{
-        setHeaderConfig({title:title,number:4});
-    },[]);
+    const {result} = courseInfo;
 
+    const { location,description,imageUrl,maxDays,masterName,userCount, roomName } = result;
+
+
+    useSetHeader({
+        title:roomName,
+        number:userCount
+    });
     
     return (
         <>
-            <DetailCard 
-                dailyRoutes={dailyRoutes}
-                onNext={onNext}
-            />
+            <Card>
+                <Card.Image>
+                    <img src={imageUrl} 
+                    alt="course" 
+                    style={{width:'100%', height:'100%',objectFit:'cover',borderRadius:'1.5rem'}}
+                    />
+                </Card.Image>
+
+                <Card.Title>
+                    {description}
+                </Card.Title>
+
+                <Card.Divider/> 
+
+                <Card.Item label="장소">
+                    {location}
+                </Card.Item>
+
+                <Card.Divider/>
+
+                <Card.Item label="기간">
+                    {`${maxDays}박 ${maxDays+1}일 / 날짜미정`}
+                </Card.Item>
+
+                <Button 
+                    style={{marginTop:'1.125rem'}} 
+                    size="large" 
+                    color="primary"
+                    onClick={onNext}
+                >
+                    {"원하는 장소 공유하기"}
+                </Button>
+
+            </Card>
+
+            <CompleteMessage>
+                {`${masterName}님이 코스짜기를 시작했습니다.`}
+                <br/>
+                {"6시간 이후 종료됩니다."}
+            </CompleteMessage>
         </>
-    )
+    );
 }
+

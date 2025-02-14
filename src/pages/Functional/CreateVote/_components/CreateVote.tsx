@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useVoteFormContext } from "../../context/VoteFormContext";
 import Tabs from "./Tabs/Tabs";
 import VoteForm from "./VoteForm/VoteForm";
@@ -18,8 +17,6 @@ export default function CreateVoteContent({
   const { getValues } = useVoteForm(tripPlanType, roomId);
   const voteMutation = useVoteFormMutation();
 
-  const [selectedPlace] = useState<string>(""); 
-
   return (
     <>
       <Tabs activeTab={tripPlanType} onTabChange={setTripPlanType} />
@@ -28,7 +25,6 @@ export default function CreateVoteContent({
           tripPlanType={tripPlanType}
           roomId={roomId}
           onSearch={onSearch}
-          selectedPlace={selectedPlace} 
           onCalendar={onCalendar}
         />
         <SlideContainer />

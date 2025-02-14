@@ -1,12 +1,6 @@
 #!/bin/sh
 
-cd ../ 
-
-# 초기화
-rm -rf output                       
-
-# 빌드
-cd Front-End                        
+# 빌드             
 npm run build                 
 
 # 이동

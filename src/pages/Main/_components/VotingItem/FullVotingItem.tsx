@@ -16,6 +16,7 @@ interface FullVotingItemProps {
 
 interface Room {
     tripPlanId: number;
+    roomId: string;
     roomName: string;
     location: string;
     totalMembers: number;
@@ -25,9 +26,7 @@ interface Room {
     tripPlanType: "COURSE" | "SCHEDULE" | "BUDGET";
     latitude?: number;
     longitude?: number;
-    roomId: string;
     masterId: string;
-
     remainingTime: "THIRTY_MINUTES" | "SIXTY_MINUTES" | "FOUR_HOURS" | "SIX_HOURS";
 }
 
@@ -37,13 +36,9 @@ const FullVotingItem: React.FC<FullVotingItemProps> = ({ rooms = [], selectedFil
 
     const handleClick = (tripPlanId: number, roomId: string, tripPlanType: "COURSE" | "SCHEDULE" | "BUDGET") => {
         if (tripPlanType === "COURSE") {
-            // COURSE 타입일 때
             navigate(`/course/${roomId}/${tripPlanId}`);
         } else if (tripPlanType === "SCHEDULE") {
-            // SCHEDULE 타입일 때
             navigate(`/vote/${tripPlanId}/${roomId}`);
-        } else {
-            // BUDGET 타입일 때
         }
     };
 
@@ -85,12 +80,19 @@ const FullVotingItem: React.FC<FullVotingItemProps> = ({ rooms = [], selectedFil
                         {room.latitude && room.longitude ? (
                             <V.CustomMap>
                                 <MapComponent
-                                    mapContainerId={`map-${room.tripPlanId}`}
                                     center={{
                                         x: room.latitude.toString(),
                                         y: room.longitude.toString(),
                                     }}
-                                    results={[]}
+                                    results={[
+                                        {
+                                            ...room,
+                                            x: room.latitude.toString(),
+                                            y: room.longitude.toString(),
+                                            place_name: "",
+                                        },
+                                    ]}
+                                    mapContainerId={`map-${room.tripPlanId}`}
                                 />
                             </V.CustomMap>
                         ) : (

@@ -7,7 +7,7 @@ export const getNotice = async (): Promise<Notice[]> => {
         return NoticeMocks;
     }
 
-    const response = await axios.get<Notice[]>("/api/notifications");
+    const response = await axios.get<Notice[]>(`${import.meta.env.VITE_API_URL}/api/notifications`);
     return response.data;
 };
 

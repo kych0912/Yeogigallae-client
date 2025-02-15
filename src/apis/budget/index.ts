@@ -1,6 +1,6 @@
 import axios from "axios";
-import { budgetCourseMock, budgetMock } from "./mocks";
-import { BudgetCourseResult, BudgetResponse } from "./types";
+import { budgetMock } from "./mocks";
+import { BudgetResponse } from "./types";
 
 /**
  * 공통 API 오류 처리 함수
@@ -11,19 +11,6 @@ import { BudgetCourseResult, BudgetResponse } from "./types";
 const handleApiError = (error: unknown, fallbackData: any) => {
     console.error("API 호출 오류:", error);
     return fallbackData;
-};
-
-export const postBudgetCourse = async (budgetData: BudgetCourseResult[]) => {
-    if (import.meta.env.MODE === "development") {
-        await new Promise(resolve => setTimeout(resolve, 3000));
-        return budgetCourseMock;
-    }
-
-    const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/budget-course`,
-        budgetData
-    );
-    return response.data;
 };
 
 export const getBudgetInfo = async (budgetId: number): Promise<BudgetResponse> => {

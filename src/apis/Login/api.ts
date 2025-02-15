@@ -4,7 +4,7 @@ const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 export const sendAuthCodeToServer = async (code: string) => {
     try {
-        const response = await axios.get(`${API_BASE_URL}/auth/login/kakao?code=${code}`, {
+        const response = await axios.get(`${API_BASE_URL}/api/auth/login/kakao?code=${code}`, {
             withCredentials: true,
         });
 

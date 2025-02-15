@@ -1,26 +1,38 @@
 import UpComingCourseCard from "./_components/UpComingCourseCard";
 import RecommendCard from "./_components/RecommendCard";
-import {sampleData} from "../../Course/test"
-import { useGetAllCourses } from "../../../react-query/queries/queries";
+import { useGetCourseInfo } from "../../../react-query/queries/upcomingCourse/queries";
 import { UpComingContainer } from "./_components/UpComingCourse.style";
 import { useOutletContext } from "react-router-dom";
 import { HeaderConfig } from "../../../types/header/header";
-import { useEffect } from "react";
 
 export default function UpComingCoursePage() {
-    const {setHeaderConfig} = useOutletContext<{setHeaderConfig: (config: HeaderConfig) => void}>();
-    const allCoursesQueries = useGetAllCourses(sampleData);
+    const { setHeaderConfig, roomId, aiCourseId } = useOutletContext<{
+        setHeaderConfig: (config: HeaderConfig) => void;
+        roomId: string;
+        aiCourseId: string;
+    }>();
 
-    useEffect(() => {
-        setHeaderConfig({title:"지구마블", number:4});
-    }, []);
+    const { data, isLoading, error } = useGetCourseInfo(roomId, aiCourseId);
 
-    if(allCoursesQueries[0].isLoading) return <div>Loading...</div>;
+    const courseData = data?.result?.[0];
+    console.log("roomId:", roomId, "aiCourseId:", aiCourseId);
+    console.log("Fetched data:", data);
+    console.log(courseData);
+
+    setHeaderConfig({ title: courseData.roomName, number: courseData.totalRoomMember });
+
+    if (isLoading) {
+        console.log("Loading full voting rooms...");
+    }
+
+    if (error || !courseData) {
+        console.error("Error loading full voting rooms:", error);
+    }
 
     return (
         <UpComingContainer>
-            <UpComingCourseCard dailyRoutes={allCoursesQueries[0].data}/>
-            <RecommendCard/>
-        </UpComingContainer >
+            <UpComingCourseCard dailyRoutes={courseData} />
+            <RecommendCard />
+        </UpComingContainer>
     );
 }

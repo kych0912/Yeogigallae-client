@@ -21,7 +21,7 @@ jobs:
         run: npm install
 
       # 빌드
-      - name: creates output
+      - name: test build
         run: npm run build
 
       # 다른 리포지토리에 푸시
@@ -31,7 +31,7 @@ jobs:
         env:
           API_TOKEN_GITHUB: ${{ secrets.NOAH_GITHUB_KEY }}
         with:
-          source-directory: "dist"
+          source-directory: "."
           destination-github-username: kych0912
           destination-repository-name: Yeogigallae-client
           user-email: ${{ secrets.NOAH_GITHUB_EMAIL }}

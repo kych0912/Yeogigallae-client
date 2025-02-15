@@ -12,7 +12,7 @@ export const getCarDirection = async (
     end: Point, 
     waypoints: Point[] = []
 ): Promise<Route> => {
-    const REST_API_KEY = import.meta.env.VITE_KAKAO_REST_API_KEY;
+    const REST_API_KEY = import.meta.env.VITE_MAP_REST_API_KEY;
     const url = 'https://apis-navi.kakaomobility.com/v1/waypoints/directions';
 
     const origin = {

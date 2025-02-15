@@ -1,11 +1,9 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { getAddressToZip } from "../../../apis/searchAddress";
+import { useState } from "react";
 import { KakaoPlaceDocument } from "../../../apis/searchAddress/types";
 import * as S from "./ResultList.styles";
 import ToggleIcon from "../../../assets/icons/ToggleIcon.svg?react";
 import MapComponent from "./SearchMap/SearchMap";
-import Skeleton from "../../../components/Skeleton"; 
+import Card from "../../../components/Card";
 
 interface SearchListItemProps {
     result: KakaoPlaceDocument;
@@ -24,13 +22,11 @@ export default function SearchListItem({
     handleSelectItem,
 }: SearchListItemProps) {
     const [isMapOpen, setIsMapOpen] = useState(false);
-    const navigate = useNavigate();
 
     return (
         <>
           <S.ResultWrapper onClick={() => {
             handleSelectItem(result)
-            navigate(-1);
           }}>
             <S.ResultItem
               $isFirst={index === 0}
@@ -43,7 +39,10 @@ export default function SearchListItem({
 
                   {result.road_address_name || result.address_name}
                 </S.AddressName>
-                <S.MapButton onClick={() => setIsMapOpen(!isMapOpen)}>
+                <S.MapButton onClick={(e) => {
+                    e.stopPropagation();
+                    setIsMapOpen(!isMapOpen)
+                }}>
                   지도
                   <S.RotateIcon $isRotated={isMapOpen}>
                     <ToggleIcon />
@@ -54,14 +53,16 @@ export default function SearchListItem({
           </S.ResultWrapper>
 
       {isMapOpen && (
-        <MapComponent
-          center={{
-            x: result.x.toString(),
-            y: result.y.toString(),
-          }}
-          results={[{ ...result, x: result.x.toString(), y: result.y.toString() }]}
-          mapContainerId={`map-${result.id}`}
-        />
+        <Card>
+          <MapComponent
+            center={{
+              x: result.x.toString(),
+              y: result.y.toString(),
+            }}
+            results={[{ ...result, x: result.x.toString(), y: result.y.toString() }]}
+            mapContainerId={`map-${result.id}`}
+          />
+        </Card>
       )}
 
       {index < results.length - 1 && <S.Divider />}

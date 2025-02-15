@@ -9,6 +9,7 @@ import { ButtonProps } from "./types";
  * @param disabled 버튼 비활성화 여부
  * @param color 버튼 색상
  * @param variant 버튼 스타일 종류
+ * @param disabled 버튼 비활성화 여부
  * @param rest html 속성들
  * @returns 
  */
@@ -18,6 +19,7 @@ function Button({
     size = 'medium', 
     color = 'primary',
     variant="contained",
+    disabled=false,
     ...rest
 }: PropsWithChildren<ButtonProps>) {
     return (
@@ -25,6 +27,7 @@ function Button({
             size={size}
             color={color}
             variant={variant}
+            disabled={disabled}
             {...rest}
         >
             {children}

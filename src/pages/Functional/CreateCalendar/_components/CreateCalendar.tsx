@@ -1,21 +1,25 @@
 import Calendar from "../../../../components/Calendar/Calendar";
-import { CalendarProvider } from "../../../../components/Calendar/context/CalendarContext";
-import { useState } from "react";
+import { CalendarProvider, useCalendar } from "../../../../components/Calendar/context/CalendarContext";
+import { useEffect } from "react";
 
 export default function CreateCalendar({
   onNext,
 }: {
   onNext: () => void;
 }) {
-  const [isMonthSelected, setIsMonthSelected] = useState(false);
-
   return (
     <CalendarProvider>
-      <Calendar 
-        onComplete={onNext} 
-        onMonthSelect={setIsMonthSelected}
-        isMonthSelected={isMonthSelected} 
-      />
+      <CalendarWrapper onNext={onNext} />
     </CalendarProvider>
   );
+}
+
+function CalendarWrapper({ onNext }: { onNext: () => void }) {
+  const { resetCalendar } = useCalendar();
+
+  useEffect(() => {
+    resetCalendar(); 
+  }, []);
+
+  return <Calendar onComplete={onNext} />;
 }

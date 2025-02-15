@@ -29,6 +29,11 @@ export const StyledCardTitle = styled(Card.Title)`
   margin: 0;
   font-family: ${({ theme }) => theme.fontFamily.Bold};
 
+  word-wrap: break-word;    
+  overflow-wrap: break-word; 
+  word-break: break-word;   
+  white-space: normal;  
+
   br {
     display: block; 
     height: 0;

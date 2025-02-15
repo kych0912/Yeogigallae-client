@@ -1,12 +1,13 @@
-import { CourseDay } from "../../../../apis/upcomingCourse/types";
+import { FirstDayCourse, CoursePlace } from "../../../../apis/upcomingCourse/types";
 import Card from "../../../../components/Card";
 import Map from "../../../../components/Map";
 import CourseTitle from "../../_components/CourseTitle";
 import CoursePlaces from "../../_components/CoursePlaces";
 import { RecommendCard, UpComingButton } from "./UpComingCourse.style";
+import { RouteDetail } from "../../../../apis/map/types";
 
 interface UpComingCourseCardProps {
-    dailyRoutes: CourseDay | null;
+    dailyRoutes: FirstDayCourse | null;
 }
 
 export default function UpComingCourseCard({ dailyRoutes }: UpComingCourseCardProps) {
@@ -18,17 +19,56 @@ export default function UpComingCourseCard({ dailyRoutes }: UpComingCourseCardPr
         );
     }
 
-    // ✅ `Map`이 기대하는 `RouteDetail`로 변환
-    const routeDetail = {
-        result_code: "SUCCESS",
-        result_msg: "코스 데이터",
-        summary: {
-            origin: dailyRoutes.places[0], // 첫 번째 장소를 출발지로 설정
-            waypoints: dailyRoutes.places.slice(1, -1), // 중간 경유지
-            destination: dailyRoutes.places[dailyRoutes.places.length - 1], // 마지막 장소를 목적지로 설정
-        },
-        sections: [], // 필요하면 sections 데이터 추가
+    // 🔹 CoursePlace[] → RouteDetail 변환 함수
+    const convertToRouteDetail = (places: CoursePlace[]): RouteDetail => {
+        if (places.length === 0) {
+            return {
+                result_code: 0,
+                result_msg: "No places available",
+                summary: {
+                    origin: { name: "", x: 0, y: 0 },
+                    destination: { name: "", x: 0, y: 0 },
+                    waypoints: [],
+                    priority: "default",
+                    bound: { min_x: 0, min_y: 0, max_x: 0, max_y: 0 },
+                    fare: { taxi: 0, toll: 0 },
+                    distance: 0,
+                    duration: 0,
+                },
+                sections: [],
+            };
+        }
+
+        return {
+            result_code: 200,
+            result_msg: "Success",
+            summary: {
+                origin: {
+                    name: places[0].placeName,
+                    x: places[0].longitude,
+                    y: places[0].latitude,
+                },
+                destination: {
+                    name: places[places.length - 1].placeName,
+                    x: places[places.length - 1].longitude,
+                    y: places[places.length - 1].latitude,
+                },
+                waypoints: places.slice(1, -1).map((place) => ({
+                    name: place.placeName,
+                    x: place.longitude,
+                    y: place.latitude,
+                })),
+                priority: "default",
+                bound: { min_x: 0, min_y: 0, max_x: 0, max_y: 0 },
+                fare: { taxi: 0, toll: 0 },
+                distance: 0,
+                duration: 0,
+            },
+            sections: [], // 필요한 경우 섹션 데이터를 추가 가능
+        };
     };
+
+    const routeDetail = convertToRouteDetail(dailyRoutes.places);
 
     return (
         <RecommendCard>
@@ -37,7 +77,6 @@ export default function UpComingCourseCard({ dailyRoutes }: UpComingCourseCardPr
             </UpComingButton>
 
             <Card.Image>
-                {/* ✅ `routeDetail`을 `Map`에 전달해서 타입 오류 해결 */}
                 <Map width="100%" height="100%" dailyRoutes={routeDetail} level={3} />
             </Card.Image>
 
@@ -46,8 +85,7 @@ export default function UpComingCourseCard({ dailyRoutes }: UpComingCourseCardPr
             </Card.Item>
 
             <Card.Item>
-                {/* ✅ `places`는 `CoursePlace[]`이므로 그대로 전달 */}
-                <CoursePlaces places={dailyRoutes.places} />
+                <CoursePlaces places={routeDetail} />
             </Card.Item>
         </RecommendCard>
     );

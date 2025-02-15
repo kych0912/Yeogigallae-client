@@ -1,17 +1,22 @@
 import axios from "axios";
 import { courseMock } from "./mocks";
-import { CourseResponse } from "./types";
+import { CourseResponse, FirstDayCourse } from "./types";
 
-export const getCourse = async (roomId: string, aiCourseId: string): Promise<CourseResponse> => {
+export const getCourse = async (roomId: string, aiCourseId: string): Promise<FirstDayCourse | null> => {
+    console.log("📌 [getCourse] 함수 실행됨 - roomId:", roomId, "aiCourseId:", aiCourseId);
+
     if (import.meta.env.MODE === "development") {
-        return courseMock;
+        console.log("📌 [getCourse] 개발 환경 - 목업 데이터 반환:", courseMock.result);
+        return courseMock.result || null;
     }
 
     try {
         const response = await axios.get<CourseResponse>(`${import.meta.env.VITE_API_URL}/api/ai-course/room/${roomId}/${aiCourseId}`, { withCredentials: true });
-        return response.data;
+
+        console.log("✅ [getCourse] API 응답 데이터:", response.data.result); // API 데이터 확인
+        return response.data.result || null;
     } catch (error) {
-        console.error("코스 정보 API 호출 오류:", error);
-        return courseMock;
+        console.error("❌ [getCourse] API 호출 오류:", error);
+        return courseMock.result || null;
     }
 };

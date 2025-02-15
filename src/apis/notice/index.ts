@@ -10,5 +10,4 @@ export const getNotice = async (): Promise<Notice[]> => {
         console.error("Notice API 호출 오류:", error);
         return NoticeMocks;
     }
-};
-
+}

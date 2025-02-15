@@ -13,8 +13,16 @@ export const postVote = async ({ tripId, type, voteRoomId }: { tripId: number; t
       voteRoomId,
     });
   }
-
-  const response = await axios.post(`${API_URL}/vote`, { tripId, type, voteRoomId });
-  
-  return VoteSchema.parse(response.data.result);
+  try{
+    const response = await axios.post(`${API_URL}/vote`, { tripId, type, voteRoomId });
+    return VoteSchema.parse(response.data.result);
+  }catch(error){
+    console.error("Vote API 호출 오류:", error);
+    return VoteSchema.parse({
+      ...DEFAULT_Vote,
+      tripId,
+      type,
+      voteRoomId,
+    });
+  }
 };

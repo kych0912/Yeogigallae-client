@@ -29,7 +29,7 @@ export const courseInfoMock = {
     code: "VOTE_202",
     message: "여행 정보 조회에 성공하였습니다.",
     result: [{
-    id:"1",
+    placeid:"1",
     name:"규리",
     avatar:"https://picsum.photos/200/300",
     image:"https://picsum.photos/200/300",
@@ -38,7 +38,7 @@ export const courseInfoMock = {
     link:"https://picsum.photos/200/300",
     isMine:true,
     },{
-    id:"2",
+    placeid:"2",
     name:"규리",
     avatar:"https://picsum.photos/200/300",
     image:"https://picsum.photos/200/300",

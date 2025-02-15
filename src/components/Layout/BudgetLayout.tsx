@@ -3,8 +3,8 @@ import HomeIcon from "../../assets/icons/Home.svg?react";
 import BackIcon from "../../assets/icons/Back.svg?react";
 import { IconButton } from "../Button";
 import { Outlet, useNavigate } from "react-router-dom";
-import { budgetPageData } from "../../pages/Budget/test";
 import HeaderCenterContent from "../Header/HeaderCenterContent";
+import { budgetPageDataMock } from "../../apis/budget/mocks";
 
 export default function Layout() {
     const navigate = useNavigate();
@@ -17,7 +17,7 @@ export default function Layout() {
                         <BackIcon />
                     </IconButton>
                 }
-                centerContent={<HeaderCenterContent title={budgetPageData.roomName} number={budgetPageData.peopleCount} />}
+                centerContent={<HeaderCenterContent title={"예산정하기"} number={budgetPageDataMock.result.userCount} />}
                 rightContent={
                     <IconButton onClick={() => navigate("/")}>
                         <HomeIcon />

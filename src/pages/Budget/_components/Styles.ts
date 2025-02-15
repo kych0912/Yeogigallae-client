@@ -83,7 +83,7 @@ export const BudgetIcon = styled.div`
     background-color: ${({ theme }) => theme.colors.disabled};
 `;
 
-export const icon = styled.img`
+export const Icon = styled.img`
     width: 1rem;
     height: 1rem;
 `;

@@ -1,7 +1,6 @@
-// 예산 선택화면, 예산 결정
 import * as S from "./Styles";
 import Card from "../../../components/Card";
-import { budgetPageData } from "../test";
+import { budgetPageDataMock } from "../../../apis/budget/mocks";
 import MoneyBag from "../../../assets/icons/MoneyBag.svg";
 import LinkIcon from "../../../assets/icons/LinkIcon.svg?react";
 
@@ -11,31 +10,41 @@ export default function BudgetCard() {
             console.log("클립보드에 복사되었습니다:", text);
         });
     };
+
     return (
         <S.BudgetCard>
             <S.Text>{"AI서포터가 추천하는 예산입니다."}</S.Text>
 
             <S.Title>
                 <S.Logo src={MoneyBag} alt="MoneyBag Logo" />
-                최소 {budgetPageData.priceRange.min}만원~ 최대{budgetPageData.priceRange.max}만원
+                최소 {budgetPageDataMock.result.price}  
                 <S.Logo src={MoneyBag} alt="MoneyBag Logo" />
             </S.Title>
+
             <Card.Divider />
             <S.Text>{"아래는 예산 측정 시 고려한 정보 입니다."}</S.Text>
+
             <Card.Image>
-                <img src="https://i.namu.wiki/i/uH7NzgRSXa3ilcIkybwnrfVRdHM3DQC6MnbNoKk1K3Grz-NIKd7KB4UiuTBLXihaxv1iRk8gw6ngUw6ITP6RVQ.webp" alt="placeholder" style={{ width: "100%", height: "100%", borderRadius: "1.5rem" }} />
+                <img
+                    src={budgetPageDataMock.result.imageUrl}
+                    alt="여행 대표 이미지"
+                    style={{ width: "100%", height: "100%", borderRadius: "1.5rem" }}
+                />
             </Card.Image>
 
             <S.CustomWrapper>
-                <Card.Item label="장소"> {budgetPageData.location} </Card.Item>
-                <S.IconWrapper onClick={() => handleCopyToClipboard(budgetPageData.location)}>
+                <Card.Item label="장소">
+                    {budgetPageDataMock.result.location} ({budgetPageDataMock.result.customLocation})
+                </Card.Item>
+                <S.IconWrapper onClick={() => handleCopyToClipboard(budgetPageDataMock.result.location)}>
                     <LinkIcon />
                 </S.IconWrapper>
             </S.CustomWrapper>
 
             <Card.Divider />
+
             <Card.Item label="기간">
-                {budgetPageData.period.nights}박/ {budgetPageData.period.startDate}~ {budgetPageData.period.endDate}
+                {budgetPageDataMock.result.startDate} ~ {budgetPageDataMock.result.endDate} ({budgetPageDataMock.result.minDays}일 ~ {budgetPageDataMock.result.maxDays}일)
             </Card.Item>
         </S.BudgetCard>
     );

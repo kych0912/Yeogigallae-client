@@ -1,13 +1,13 @@
-import { useEffect } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { useAuthStore } from "./useAuthStore";
-import { sendAuthCodeToServer } from "../../apis/Login/api";
+// import { useEffect } from "react";
+// import { useNavigate, useSearchParams } from "react-router-dom";
+// import { useAuthStore } from "./useAuthStore";
+// import { sendAuthCodeToServer } from "../../apis/Login/api";
 import * as S from "./LoginPage/Styles";
 
 export default function Kakao() {
-    const navigate = useNavigate();
-    const [searchParams] = useSearchParams();
-    const { setAccessToken, setRefreshToken } = useAuthStore();
+    // const navigate = useNavigate();
+    // const [searchParams] = useSearchParams();
+    // const { setAccessToken, setRefreshToken } = useAuthStore();
 
     // useEffect(() => {
     //     const code = searchParams.get("code");

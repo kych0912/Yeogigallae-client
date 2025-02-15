@@ -20,7 +20,9 @@ export default function Kakao() {
 
             try {
                 const response = await sendAuthCodeToServer(code);
-                const {success,email,nickname,profileImage} = response;
+                const { success,data } = response;
+                const { email, nickname, profileImage } = data;
+
                 if (success) {
                     setProfile(email,nickname,profileImage);
                     navigate("/");

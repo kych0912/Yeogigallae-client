@@ -24,6 +24,11 @@ jobs:
       - name: test build
         run: npm run build
 
+      - name: Clean unnecessary files
+        run: |
+          rm -rf node_modules
+          rm -rf dist
+
       # 다른 리포지토리에 푸시
       - name: Pushes to another repository
         id: push_directory

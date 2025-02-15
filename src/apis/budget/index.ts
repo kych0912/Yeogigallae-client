@@ -26,7 +26,7 @@ export const postBudgetCourse = async (budgetData: BudgetCourseResult[]) => {
     return response.data;
 };
 
-export const getBudgetInfo = async (budgetId: string): Promise<BudgetResponse> => {
+export const getBudgetInfo = async (budgetId: number): Promise<BudgetResponse> => {
     if (import.meta.env.MODE === "development") {
         await new Promise(resolve => setTimeout(resolve, 3000));
         return budgetMock;

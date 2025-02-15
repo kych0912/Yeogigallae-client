@@ -9,33 +9,33 @@ export default function Kakao() {
     const [searchParams] = useSearchParams();
     const { setAccessToken, setRefreshToken } = useAuthStore();
 
-    useEffect(() => {
-        const code = searchParams.get("code");
+    // useEffect(() => {
+    //     const code = searchParams.get("code");
 
-        const handleLogin = async () => {
-            if (!code) {
-                navigate("/login", { replace: true });
-                return;
-            }
+    //     const handleLogin = async () => {
+    //         if (!code) {
+    //             navigate("/login", { replace: true });
+    //             return;
+    //         }
 
-            try {
-                const response = await sendAuthCodeToServer(code);
+    //         try {
+    //             const response = await sendAuthCodeToServer(code);
 
-                if (response.accessToken && response.refreshToken) {
-                    setAccessToken(response.accessToken);
-                    setRefreshToken(response.refreshToken); // refreshToken 저장
-                    navigate("/");
-                } else {
-                    navigate("/login", { replace: true });
-                }
-            } catch (error) {
-                console.error("Login failed:", error);
-                navigate("/login", { replace: true });
-            }
-        };
+    //             if (response.accessToken && response.refreshToken) {
+    //                 setAccessToken(response.accessToken);
+    //                 setRefreshToken(response.refreshToken); // refreshToken 저장
+    //                 navigate("/");
+    //             } else {
+    //                 navigate("/login", { replace: true });
+    //             }
+    //         } catch (error) {
+    //             console.error("Login failed:", error);
+    //             navigate("/login", { replace: true });
+    //         }
+    //     };
 
-        handleLogin();
-    }, [searchParams, navigate, setAccessToken, setRefreshToken]);
+    //     handleLogin();
+    // }, [searchParams, navigate, setAccessToken, setRefreshToken]);
 
     return (
         <S.Container>

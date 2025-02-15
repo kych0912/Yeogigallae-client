@@ -6,7 +6,7 @@ export const getTravelList = async () => {
         return DEFAULT_Complete;
     }
     try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/home/completed-trip-plans`, {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/home/completed-trip-plans`, {
             withCredentials: true,
         });
         return response.data.result.rooms;

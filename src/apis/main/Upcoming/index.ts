@@ -6,7 +6,7 @@ export const getUpcoming = async () => {
         return DEFAULT_Upcoming;
     }
     try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/home/completed-vote-rooms`, {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api//home/completed-vote-rooms`, {
             withCredentials: true,
         });
         return response.data.result.rooms;

@@ -3,8 +3,13 @@ import { RoomFormValues, RoomResponse } from "./types";
 import { DEFAULT_ROOMS } from "./mocks";
 
 export const createRoom = async (data:RoomFormValues) => {
-    const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/room`,data);
-    return response.data;
+    try{
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/room`,data);
+        return response.data;
+    }catch(error){
+        console.error("Room API 호출 오류:", error);
+        return null;
+    }
 }
 
 export const getRooms = async () => {

@@ -1,45 +1,4 @@
-import { BudgetCourseResult } from "./types";
 import { BudgetResponse } from "./types";
-
-// budget-post
-export type BudgetCourseMock = {
-    httpStatus: string;
-    code: string;
-    message: string;
-    result: BudgetCourseResult[]; 
-};
-
-export const budgetCourseMock: BudgetCourseMock = {
-    httpStatus: "100 CONTINUE",
-    code: "string",
-    message: "좋은 여행",
-    result: [
-        {
-        id: 1,
-        aiCourseId: 1,
-        tripPlanId: 1,
-        roomId: 1,
-        },
-        {
-        id: 2,
-        aiCourseId: 2,
-        tripPlanId: 2,
-        roomId: 2,
-        },
-        {
-        id: 3,
-        aiCourseId: 3,
-        tripPlanId: 3,
-        roomId: 3,
-        },
-        {
-        id: 4,
-        aiCourseId: 4,
-        tripPlanId: 4,
-        roomId: 4,
-        },
-    ],
-};
 
 // budget-get
 export const budgetMock: BudgetResponse = {

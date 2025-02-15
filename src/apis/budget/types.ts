@@ -1,11 +1,3 @@
-// budget-post
-export type BudgetCourseResult = {
-  id: number;
-  aiCourseId: number;
-  tripPlanId: number;
-  roomId: number;
-};
-
 // budget-get
 export type Assignment = {
   placeName: string;

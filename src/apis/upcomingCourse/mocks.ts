@@ -1,5 +1,9 @@
-export // 사용 예시
-const courseData = {
+import { CourseResponse } from "./types";
+
+export const courseMock: CourseResponse = {
+    httpStatus: "100 CONTINUE",
+    code: "string",
+    message: "코스 정보 조회 성공",
     result: [
         {
             roomName: "테스트 룸",

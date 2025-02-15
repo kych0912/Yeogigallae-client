@@ -13,20 +13,19 @@ export default function UpComingCoursePage() {
     }>();
 
     const { data, isLoading, error } = useGetCourseInfo(roomId, aiCourseId);
+    const courseData = data?.result?.[0] ?? null;
 
-    const courseData = data?.result?.[0];
-    console.log("roomId:", roomId, "aiCourseId:", aiCourseId);
-    console.log("Fetched data:", data);
-    console.log(courseData);
-
-    setHeaderConfig({ title: courseData.roomName, number: courseData.totalRoomMember });
+    // 헤더 설정 (데이터가 있을 때만)
+    if (courseData) {
+        setHeaderConfig({ title: courseData.roomName, number: courseData.totalRoomMember });
+    }
 
     if (isLoading) {
-        console.log("Loading full voting rooms...");
+        return <UpComingContainer>Loading...</UpComingContainer>;
     }
 
     if (error || !courseData) {
-        console.error("Error loading full voting rooms:", error);
+        return <UpComingContainer>코스 정보를 불러오지 못했습니다.</UpComingContainer>;
     }
 
     return (

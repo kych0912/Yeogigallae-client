@@ -1,4 +1,4 @@
-import axios from "axios";
+import { api } from "../../Axios";
 import { DEFAULT_Voting } from "./mocks";
 
 export const getVoting = async () => {
@@ -7,9 +7,7 @@ export const getVoting = async () => {
     // }
 
     try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/home/ongoing-vote-rooms`, {
-            withCredentials: true,
-        });
+        const response = await api.get(`/api/home/ongoing-vote-rooms`);
         return response.data.result.rooms;
     } catch (error) {
         console.error("Voting API 호출 오류:", error);

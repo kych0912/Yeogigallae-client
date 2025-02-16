@@ -1,4 +1,4 @@
-import axios from "axios";
+import { api } from "../../Axios";
 import { DEFAULT_Upcoming } from "./mocks";
 
 export const getUpcoming = async () => {
@@ -6,9 +6,7 @@ export const getUpcoming = async () => {
     //     return DEFAULT_Upcoming;
     // }
     try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api//home/completed-vote-rooms`, {
-            withCredentials: true,
-        });
+        const response = await api.get(`/api//home/completed-vote-rooms`);
         return response.data.result.rooms;
     } catch (error) {
         console.error("Upcoming API 호출 오류:", error);

@@ -4,13 +4,7 @@ import * as S from "../Main.Styles";
 import * as V from "./VotingItem.Styles";
 import calculateVoteGauge from "./calculateVoteGauge";
 import renderParticipantProfiles from "./renderParticipantProfiles";
-import useRemainingTimes from "./useRemainingTimes";
-import { memo } from "react";
-
-interface RemainingTimeProps {
-    tripPlanId: number;
-    remainingTimes: { [key: number]: string };
-}
+import RemainingTimeDisplay from "./useRemainingTimes";
 
 interface Room {
     tripPlanId: number;
@@ -30,15 +24,10 @@ interface VotingItemProps {
     rooms: Room[];
 }
 
-// 타이머 부분만 메모이제이션
-const RemainingTimeDisplay: React.FC<RemainingTimeProps> = memo(({ tripPlanId, remainingTimes }) => {
-    return <span>{remainingTimes[tripPlanId] || "00:00:00"}</span>;
-});
-
 const VotingItem: React.FC<VotingItemProps> = ({ rooms = [] }) => {
-    const remainingTimes = useRemainingTimes(rooms);
     const navigate = useNavigate();
 
+    console.log("렌더링중");
     const handleClick = (tripPlanId: number, roomId: string, tripPlanType: "COURSE" | "SCHEDULE" | "BUDGET") => {
         if (tripPlanType === "COURSE") {
             // COURSE 타입일 때
@@ -58,11 +47,11 @@ const VotingItem: React.FC<VotingItemProps> = ({ rooms = [] }) => {
                     <V.Box>
                         <S.Box>
                             <V.Title>{room.roomName}</V.Title>
-                            {/* 타이머 부분만 리렌더링 */}
                             <V.RemainingTime>
-                                <RemainingTimeDisplay tripPlanId={room.tripPlanId} remainingTimes={remainingTimes} />
+                                <RemainingTimeDisplay createdAt={room.createdAt} remainingTime={room.remainingTime} />
                             </V.RemainingTime>
                         </S.Box>
+
                         <S.Box>
                             <S.Location>{room.location}</S.Location>
                         </S.Box>

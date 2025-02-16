@@ -2,15 +2,13 @@ import { useNavigate } from "react-router-dom";
 import * as S from "./Main.Styles";
 import MyBtn from "../../../assets/icons/MyBtn.svg";
 import Alarm from "../../../assets/icons/Alarm.svg";
-import { useGetUser } from "../../../react-query/queries/user/queries";
+import { useAuthStore } from "../../../pages/Login/useAuthStore";
 import { useGetNotice } from "../../../react-query/queries/main/notice/queries";
 
 export default function MainTop() {
     const navigate = useNavigate();
-
-    // 사용자 정보 가져오기
-    const { data: user, isLoading: isUserLoading, error: userError } = useGetUser();
-
+    const { nickname } = useAuthStore();
+    
     // 알림 정보 가져오기
     const { data: notice, isLoading: isNoticeLoading, error: noticeError } = useGetNotice();
 
@@ -18,12 +16,8 @@ export default function MainTop() {
     const hasNotification = notice?.hasUnreadNotifications || false;
 
     // 로딩 및 에러 처리
-    if (isUserLoading || isNoticeLoading) {
+    if ( isNoticeLoading) {
         console.log("Loading user or notice...");
-    }
-
-    if (userError) {
-        console.error("Error loading user:", userError);
     }
 
     if (noticeError) {
@@ -33,7 +27,7 @@ export default function MainTop() {
     return (
         <S.TopContainer>
             <S.Title>
-                {user?.username}님, 오늘은 <br /> 어디 가실래요?
+                {nickname}님, 오늘은 <br /> 어디 가실래요?
             </S.Title>
 
             <S.IconContainer>

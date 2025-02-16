@@ -24,7 +24,7 @@ export const StyledInput = styled.input`
   border: none;
   outline: none;
   background-color: transparent;
-  color: #6E6E6E; 
+  color: #fff; 
   font-size: 1rem;
   font-family: ${({ theme }) => theme.fontFamily.medium};
 

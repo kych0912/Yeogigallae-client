@@ -16,7 +16,7 @@ export const getTripInfo = async (tripId: number, roomId: number, masterId: numb
 
   try{
     const response = await axios.get(
-      `${API_URL}/vote/trip-info/tripId=${tripId}&roomId=${roomId}&masterId=${masterId}`
+      `${API_URL}/api/vote/trip-info/tripId=${tripId}&roomId=${roomId}&masterId=${masterId}`
     );
     return TripInfoSchema.parse(response.data.result);
   }catch(error){

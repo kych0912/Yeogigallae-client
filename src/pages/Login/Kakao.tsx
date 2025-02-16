@@ -7,7 +7,7 @@ import * as S from "./LoginPage/Styles";
 export default function Kakao() {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
-    const { setAccessToken, setRefreshToken } = useAuthStore();
+    const { setProfile } = useAuthStore();
 
     useEffect(() => {
         const code = searchParams.get("code");
@@ -20,10 +20,11 @@ export default function Kakao() {
 
             try {
                 const response = await sendAuthCodeToServer(code);
+                const { success,data } = response;
+                const { email, nickname, profileImage } = data;
 
-                if (response.accessToken && response.refreshToken) {
-                    setAccessToken(response.accessToken);
-                    setRefreshToken(response.refreshToken); // refreshToken 저장
+                if (success) {
+                    setProfile(email,nickname,profileImage);
                     navigate("/");
                 } else {
                     navigate("/login", { replace: true });
@@ -35,7 +36,7 @@ export default function Kakao() {
         };
 
         handleLogin();
-    }, [searchParams, navigate, setAccessToken, setRefreshToken]);
+    }, [searchParams, navigate,setProfile]);
 
     return (
         <S.Container>

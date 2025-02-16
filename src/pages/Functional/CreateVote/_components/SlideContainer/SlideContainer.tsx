@@ -1,17 +1,28 @@
 import * as S from "./Styles";
 import { useVoteForm } from "../../../../../hooks/useForm/useVoteForm";
 import { useVoteFormContext } from "../../../context/VoteFormContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Controller } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import SkeletonForm from "../VoteForm/Skeleton/SkeletonForm";
+import SkeletonForm, { setGlobalLoadingState } from "../VoteForm/Skeleton/SkeletonForm";
+import { useRoomListQuery } from "../../../../../react-query/queries/functional/roomListQuery";
 
 export default function SlideContainer() {
   const { roomId, setRoomId, tripPlanType } = useVoteFormContext();
   const { control, reset } = useVoteForm(tripPlanType, roomId);
   const navigate = useNavigate(); 
 
-  const [roomList] = useState<number[]>([roomId]);
+  const { data, isLoading, isError } = useRoomListQuery();
+  const rooms = data?.result.rooms || [];
+
+  const [roomList, setRoomList] = useState<number[]>([roomId]);
+
+  useEffect(() => {
+    setGlobalLoadingState(isLoading);  
+    if (!isLoading && !isError && rooms.length > 0) {
+      setRoomList(rooms.map(room => room.roomId));
+    }
+  }, [isLoading, isError, rooms]);
 
   const handleCreateNewRoom = () => {
     navigate("/mypage/room"); 
@@ -28,15 +39,7 @@ export default function SlideContainer() {
             <S.SlideContainer $isFirst={true}>
               <SkeletonForm slidewidth>
                 <S.Slide $isCreateButton={true} $active={false} onClick={handleCreateNewRoom}>
-                  <svg viewBox="0 0 24 24" fill="none">
-                    <path
-                      d="M12 5v14m7-7H5"
-                      stroke="#3b46f1"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                  <S.PlusIcon />
                 </S.Slide>
               </SkeletonForm>
               <SkeletonForm smallwidth>

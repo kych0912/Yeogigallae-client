@@ -19,7 +19,6 @@ export default function UpComingCourseCard({ dailyRoutes }: UpComingCourseCardPr
         );
     }
 
-    // 🔹 CoursePlace[] → RouteDetail 변환 함수
     const convertToRouteDetail = (places: CoursePlace[]): RouteDetail => {
         if (places.length === 0) {
             return {
@@ -64,7 +63,7 @@ export default function UpComingCourseCard({ dailyRoutes }: UpComingCourseCardPr
                 distance: 0,
                 duration: 0,
             },
-            sections: [], // 필요한 경우 섹션 데이터를 추가 가능
+            sections: [],
         };
     };
 

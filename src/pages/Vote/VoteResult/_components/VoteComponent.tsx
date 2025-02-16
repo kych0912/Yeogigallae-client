@@ -1,24 +1,43 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import * as S from "./VoteComponent.styles";
 import { useVoteContext } from "../../context/VoteResultContext";
 
-export default function VoteComponent({
-  step,
-}: {
+interface VoteComponentProps {
   step: "결과" | "찬성확인" | "반대확인";
-}) {
+  userId: number; // userId를 props로 받음
+}
+
+export default function VoteComponent({ step, userId }: VoteComponentProps) {
   const { state, dispatch } = useVoteContext();
   const { voteResult } = state;
 
+  const userVote = voteResult.find((vote) => vote.userId === userId);
+
+  // `GOOD`과 `BAD` 투표 개수 계산
+  const goodVotes = voteResult.filter((vote) => vote.type === "GOOD").length;
+  const badVotes = voteResult.filter((vote) => vote.type === "BAD").length;
+
+  // 기존 선택값 유지
   const [selected, setSelected] = useState<"GOOD" | "BAD" | null>(
-    step === "찬성확인" ? "GOOD" : step === "반대확인" ? "BAD" : null
+    userVote ? userVote.type : step === "찬성확인" ? "GOOD" : step === "반대확인" ? "BAD" : null
   );
 
   const handleVote = (type: "GOOD" | "BAD") => {
     setSelected(type);
+    dispatch({
+      type: "SET_VOTE_RESULT",
+      payload: voteResult.map((vote) =>
+        vote.userId === userId ? { ...vote, type } : vote
+      ),
+    });
     dispatch({ type: "SET_VOTE_TYPE", payload: type });
-    dispatch({ type: "SET_VOTE_RESULT", payload: { ...voteResult, type, count: voteResult.count + 1 } });
   };
+
+  useEffect(() => {
+    if (userVote) {
+      setSelected(userVote.type);
+    }
+  }, [userVote]);
 
   return (
     <S.CustomContainer>
@@ -29,9 +48,13 @@ export default function VoteComponent({
       >
         <S.TextWrapper>
           <S.Text>좋아</S.Text>
-          {selected === "GOOD" && <S.VoteMessage>{voteResult.userName}님의 투표</S.VoteMessage>}
+          {selected === "GOOD" && (
+            <S.VoteMessage>
+              {userVote ? `${userVote.userName}님의 투표` : "투표 완료"}
+            </S.VoteMessage>
+          )}
         </S.TextWrapper>
-        <S.VoteCounter>{voteResult.type === "GOOD" ? voteResult.count : voteResult.count}표</S.VoteCounter>
+        <S.VoteCounter>{goodVotes}표</S.VoteCounter>
       </S.VoteButton>
 
       <S.VoteButton
@@ -41,9 +64,13 @@ export default function VoteComponent({
       >
         <S.TextWrapper>
           <S.Text>나 못가...</S.Text>
-          {selected === "BAD" && <S.VoteMessage>{voteResult.userName}님의 투표</S.VoteMessage>}
+          {selected === "BAD" && (
+            <S.VoteMessage>
+              {userVote ? `${userVote.userName}님의 투표` : "투표 완료"}
+            </S.VoteMessage>
+          )}
         </S.TextWrapper>
-        <S.VoteCounter>{voteResult.type === "BAD" ? voteResult.count : voteResult.count}표</S.VoteCounter>
+        <S.VoteCounter>{badVotes}표</S.VoteCounter>
       </S.VoteButton>
     </S.CustomContainer>
   );

@@ -1,19 +1,23 @@
 import { useEffect } from "react";
-import { useVoteContext } from "../../context/VoteResultContext"; 
 import { useTripInfoContext } from "../../../../hooks/useTripInfo";
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext } from "react-router-dom"; 
+import { useVoteResultQuery } from "../../../../react-query/queries/vote/useVoteResultQuerie";
 import ResultCard from "./ResultCard";
 import * as S from "../../_components/Vote.styles";
+import { DEFAULT_TripInfo } from "../../../../apis/vote/mocks/tripInfoMocks"; 
+import { DEFAULT_VoteResult } from "../../../../apis/vote/mocks/voteResultMocks"; 
 
-export default function VoteResult({ 
-  onNext 
-}: {
-  onNext: () => void 
-}) {
-  const { state } = useVoteContext(); 
-  const { voteResult } = state;
-  const { tripInfo } = useTripInfoContext();
+export default function VoteResult({ tripId, onNext }: { tripId: number; onNext: () => void }) {
+  const { tripInfo: fetchedTripInfo } = useTripInfoContext(); 
   const { setHeaderConfig } = useOutletContext<{ setHeaderConfig: (config: { title: string; number?: number }) => void }>();
+
+  const { data: voteResult, isLoading, isError } = useVoteResultQuery(tripId);
+
+  // ✅ API 요청 실패 시, 목데이터 사용
+  const resolvedVoteResult = isError ? DEFAULT_VoteResult : voteResult;
+
+  // ✅ tripInfo가 없으면 목데이터 사용
+  const tripInfo = fetchedTripInfo?.result ?? DEFAULT_TripInfo.result;
 
   useEffect(() => {
     if (tripInfo) {
@@ -24,45 +28,28 @@ export default function VoteResult({
     }
   }, [tripInfo, setHeaderConfig]);
 
-  if (!voteResult) {
-    return <p>⏳ 로딩 중...</p>;
+  if (isLoading) {
+    return <p>⏳ 투표 결과 불러오는 중...</p>;
   }
 
-  const step = voteResult.type === "GOOD" ? "찬성확인" : "반대확인";
+  if (!resolvedVoteResult || !resolvedVoteResult.result.length) {
+    return <p>⚠️ 투표 결과를 불러올 수 없습니다.</p>;
+  }
 
-  const timeMapping: Record<string, number> = {
-    THIRTY_MINUTES: 30,
-    ONE_HOUR: 60,
-    TWO_HOURS: 120,
-    TWELVE_HOURS: 720,
-    ONE_DAY: 1440,
-    TWO_DAYS: 2880,
-  };
-
-  const voteLimitMinutes = timeMapping[tripInfo?.voteLimitTime || "TWO_DAYS"] || 2880;
-
-  const hours = Math.floor(voteLimitMinutes / 60);
-  const minutes = voteLimitMinutes % 60;
-  const formattedTime = hours > 0 
-    ? `${hours}시간 ${minutes > 0 ? `${minutes}분` : ""}`
-    : `${minutes}분`;
-
-  useEffect(() => {
-    if (voteLimitMinutes > 0) {
-      const timer = setTimeout(() => {
-        onNext();
-      }, voteLimitMinutes * 60 * 1000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [voteLimitMinutes, onNext]);
+  const currentUserId = resolvedVoteResult.result[2]?.userId ?? 0;
+  const userVote = resolvedVoteResult.result.find((vote) => vote.userId === currentUserId); 
+  const step = userVote?.type === "GOOD" ? "찬성확인" : "반대확인";
 
   return (
     <>
-      <ResultCard step={step} type={voteResult.type === "GOOD" ? "찬성" : "반대"} onNext={onNext} />
+      <ResultCard 
+        step={step} 
+        type={userVote?.type === "GOOD" ? "찬성" : "반대"} 
+        onNext={onNext} 
+        userId={currentUserId} 
+      />
       <S.Content>
         {tripInfo?.masterName || "정보 없음"}님이 여행 투표를 올렸습니다. <br />
-        {formattedTime} 후 종료됩니다.
       </S.Content>
     </>
   );

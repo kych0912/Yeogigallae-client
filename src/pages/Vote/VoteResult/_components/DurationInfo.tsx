@@ -1,9 +1,11 @@
+import { useTripInfoContext } from "../../../../hooks/useTripInfo";
 import Card from "../../../../components/Card";
 import * as S from "../../_components/Vote.styles";
-import { useTripInfoContext } from "../../../../hooks/useTripInfo";
+import { DEFAULT_TripInfo } from "../../../../apis/vote/mocks/tripInfoMocks"; 
 
 export default function DurationInfo() {
-  const { tripInfo } = useTripInfoContext();
+  const { tripInfo: fetchedTripInfo } = useTripInfoContext(); 
+  const tripInfo = fetchedTripInfo?.result ?? DEFAULT_TripInfo.result; 
 
   const formattedDuration =
     tripInfo?.startDate && tripInfo?.endDate

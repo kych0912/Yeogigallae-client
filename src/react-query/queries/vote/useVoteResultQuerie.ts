@@ -5,22 +5,14 @@ import { z } from "zod";
 
 type VoteResultData = z.infer<typeof VoteResultSchema>;
 
-export const useVoteResultQuery = ({
-  tripId,
-  userId,
-  type,
-}: {
-  tripId: number;
-  userId: number;
-  type: "GOOD" | "BAD";
-}) => {
+export const useVoteResultQuery = (tripId: number) => {
   return useQuery<VoteResultData, Error>({
-    queryKey: ["voteResult", tripId, userId, type],
+    queryKey: ["voteResult", tripId], 
     queryFn: async () => {
-      const data = await getVoteResult({ tripId, userId, type });
+      const data = await getVoteResult({ tripId });
 
       return VoteResultSchema.parse(data);
     },
-    enabled: !!tripId && !!userId && !!type,  
+    enabled: !!tripId,  
   });
 };

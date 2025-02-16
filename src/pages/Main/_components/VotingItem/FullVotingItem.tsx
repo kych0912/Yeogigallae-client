@@ -45,13 +45,13 @@ const FullVotingItem: React.FC<FullVotingItemProps> = ({ rooms = [], selectedFil
     const navigate = useNavigate();
 
     console.log("렌더링중");
-    const handleClick = (tripPlanId: number, roomId: string, tripPlanType: "COURSE" | "SCHEDULE" | "BUDGET", masterId: string) => {
+    const handleClick = (tripPlanId: number, roomId: string, tripPlanType: "COURSE" | "SCHEDULE" | "BUDGET") => {
         if (tripPlanType === "COURSE") {
             // COURSE 타입일 때
             navigate(`/course/${roomId}/${tripPlanId}`);
         } else if (tripPlanType === "SCHEDULE") {
             // SCHEDULE 타입일 때
-            navigate(`/vote/${tripPlanId}/${roomId}/${masterId}`);
+            navigate(`/vote/${tripPlanId}/${roomId}`);
         } else {
             // BUDGET 타입일 때
         }
@@ -76,7 +76,7 @@ const FullVotingItem: React.FC<FullVotingItemProps> = ({ rooms = [], selectedFil
                 })();
 
                 return (
-                    <V.FullVotingItem key={room.tripPlanId} onClick={() => handleClick(room.tripPlanId, room.roomId, room.tripPlanType, room.masterId)}>
+                    <V.FullVotingItem key={room.tripPlanId} onClick={() => handleClick(room.tripPlanId, room.roomId, room.tripPlanType)}>
                         <S.Type>
                             <S.Icon2 src={tripPlanInfo.icon} alt={tripPlanInfo.text} />
                             {tripPlanInfo.text}

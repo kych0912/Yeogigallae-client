@@ -19,9 +19,9 @@ interface VoteFormProps {
 }
 
 export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch }: VoteFormProps) {
-    const { control, watch, setValue } = useVoteForm(tripPlanType, roomId);
-    const { selectedPlace } = useSearch();
-    const isSchedule = tripPlanType === "SCHEDULE";
+  const { control, watch, setValue } = useVoteForm(tripPlanType, roomId);
+  const { selectedPlace } = useSearch();
+  const isSchedule = tripPlanType === "SCHEDULE";
 
     useEffect(() => {
         if (selectedPlace) {
@@ -29,16 +29,15 @@ export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch }:
         }
     }, [selectedPlace, setValue]);
 
-    const startDate = watch("startDate");
-    const endDate = watch("endDate");
+  const startDate = useMemo(() => watch("startDate") || "미정", [watch("startDate")]);
+  const endDate = useMemo(() => watch("endDate") || "미정", [watch("endDate")]);
 
-    const nights = useMemo(() => {
-        if (!startDate || !endDate) return 1;
-        const start = new Date(startDate);
-        const end = new Date(endDate);
-        const diff = Math.max(1, (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24) - 1);
-        return diff;
-    }, [startDate, endDate]);
+  const nights = useMemo(() => {
+    if (!startDate || !endDate || startDate === "미정" || endDate === "미정") return 0;
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    return Math.max(1, (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24) - 1);
+  }, [startDate, endDate]);
 
     return (
         <Card>
@@ -77,18 +76,18 @@ export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch }:
                 </>
             )}
 
-            <S.StyledCardItem>
-                <SkeletonForm fullwidth>
-                    <span className="text">
-                        날짜 {startDate ? startDate : "미정"} ~ {endDate ? endDate : "미정"}
-                    </span>
-                </SkeletonForm>
-                <S.IconWrapper onClick={onCalendar} className="icon">
-                    <SkeletonForm>
-                        <CalendarIcon />
-                    </SkeletonForm>
-                </S.IconWrapper>
-            </S.StyledCardItem>
-        </Card>
-    );
+      <S.StyledCardItem>
+        <SkeletonForm fullwidth>
+          <span className="text">
+            날짜 {startDate} ~ {endDate}
+          </span>
+        </SkeletonForm>
+        <S.IconWrapper onClick={onCalendar} className="icon">
+          <SkeletonForm>
+            <CalendarIcon />
+          </SkeletonForm>
+        </S.IconWrapper>
+      </S.StyledCardItem>
+    </Card>
+  );
 }

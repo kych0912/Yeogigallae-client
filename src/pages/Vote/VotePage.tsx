@@ -11,30 +11,30 @@ import { VoteProvider } from "./context/VoteResultContext";
 import { TripInfoProvider } from "./context/tripInfo/TripInfoProvider";
 
 export default function VotePage() {
-  const { tripId, roomId } = useParams<{ tripId?: string; roomId?: string }>(); // ✅ tripId와 roomId가 undefined일 수 있음
+  const { tripId, roomId } = useParams<{ tripId?: string; roomId?: string }>();
 
   if (!tripId || !roomId) {
     return <p>잘못된 접근입니다. (roomId 또는 tripId 없음)</p>;
   }
 
-  const parsedTripId = parseInt(tripId, 10); // ✅ undefined 방지
+  const parsedTripId = parseInt(tripId, 10);
   const parsedRoomId = parseInt(roomId, 10);
 
   return (
     <TripInfoProvider tripId={parsedTripId} roomId={parsedRoomId}>
       <VoteProvider>
-        <VoteProcess tripId={parsedTripId} />
+        <VoteProcess tripId={parsedTripId} roomId={parsedRoomId} />
       </VoteProvider>
     </TripInfoProvider>
   );
 }
 
-function VoteProcess({ tripId }: { tripId: number }) {
+function VoteProcess({ tripId, roomId }: { tripId: number; roomId: number }) {
   const [voteType, setVoteType] = useState<"GOOD" | "BAD" | null>(null);
 
   const funnelOptions = {
     steps: ["투표메인", "투표동의", "결과", "찬성확인", "반대확인"] as const,
-    init: { step: "투표메인", context: { tripId } }, // ✅ params의 tripId 사용
+    init: { step: "투표메인", context: { tripId, roomId } },
     stepQueryKey: "step",
   };
 
@@ -42,23 +42,23 @@ function VoteProcess({ tripId }: { tripId: number }) {
 
   useEffect(() => {
     if (voteType === "GOOD") {
-      setStep("찬성확인", { ...contextMap["결과"], tripId });
+      setStep("찬성확인", { ...contextMap["결과"], tripId, roomId });
     } else if (voteType === "BAD") {
-      setStep("반대확인", { ...contextMap["결과"], tripId });
+      setStep("반대확인", { ...contextMap["결과"], tripId, roomId });
     }
-  }, [voteType, tripId]);
+  }, [voteType, tripId, roomId]);
 
   return (
     <S.StyledCommonContainer>
       <FunnelComponent>
         <FunnelComponent.Step name="투표메인">
-          <TravelCard onNext={() => setStep("투표동의", { ...contextMap["투표메인"], tripId })} />
+          <TravelCard onNext={() => setStep("투표동의", { ...contextMap["투표메인"], tripId, roomId })} />
         </FunnelComponent.Step>
 
         <FunnelComponent.Step name="투표동의">
           <VoteCard
-            onAgree={() => setStep("결과", { ...contextMap["투표동의"], tripId, voteType: "GOOD" })}
-            onDisagree={() => setStep("결과", { ...contextMap["투표동의"], tripId, voteType: "BAD" })}
+            onAgree={() => setStep("결과", { ...contextMap["투표동의"], tripId, roomId, voteType: "GOOD" })}
+            onDisagree={() => setStep("결과", { ...contextMap["투표동의"], tripId, roomId, voteType: "BAD" })}
             showConfirmMessage={false}
           />
         </FunnelComponent.Step>
@@ -66,6 +66,7 @@ function VoteProcess({ tripId }: { tripId: number }) {
         <FunnelComponent.Step name="결과">
           <VoteResult
             tripId={tripId}
+            roomId={roomId}
             onNext={() => {
               setVoteType(contextMap["결과"]?.voteType === "GOOD" ? "GOOD" : "BAD");
             }}

@@ -11,7 +11,7 @@ export const DEFAULT_Voting = {
             remainingTime: "SIXTY_MINUTES",
             completedVotes: 3,
             profileImageUrls: ["Images.com", "Images.com", "Images.com", "Images.com"],
-            createdAt: "2025-02-14T04:20:08.696Z",
+            createdAt: "2025-02-17T00:20:08.696Z",
             tripPlanType: "COURSE",
             latitude: 35.1796, // ✅ 부산 위도 수정
             longitude: 129.0756, // ✅ 부산 경도 수정

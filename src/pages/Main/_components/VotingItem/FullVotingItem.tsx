@@ -8,6 +8,12 @@ import renderParticipantProfiles from "./renderParticipantProfiles";
 import useRemainingTimes from "./useRemainingTimes";
 import MapComponent from "../../../SearchPage/_components/SearchMap/SearchMap";
 import { useNavigate } from "react-router-dom";
+import { memo } from "react";
+
+interface RemainingTimeProps {
+    tripPlanId: number;
+    remainingTimes: { [key: number]: string };
+}
 
 interface FullVotingItemProps {
     rooms: Room[];
@@ -29,6 +35,11 @@ interface Room {
     masterId: string;
     remainingTime: "THIRTY_MINUTES" | "SIXTY_MINUTES" | "FOUR_HOURS" | "SIX_HOURS";
 }
+
+// 타이머 부분만 메모이제이션
+const RemainingTimeDisplay: React.FC<RemainingTimeProps> = memo(({ tripPlanId, remainingTimes }) => {
+    return <span>{remainingTimes[tripPlanId] || "00:00:00"}</span>;
+});
 
 const FullVotingItem: React.FC<FullVotingItemProps> = ({ rooms = [], selectedFilter }) => {
     const remainingTimes = useRemainingTimes(rooms);
@@ -73,7 +84,10 @@ const FullVotingItem: React.FC<FullVotingItemProps> = ({ rooms = [], selectedFil
                         <V.Box>
                             <S.Box>
                                 <V.Title>{room.roomName}</V.Title>
-                                <V.RemainingTime>{remainingTimes?.[room.tripPlanId] || "00:00:00"}</V.RemainingTime>
+                                {/* 타이머 부분만 리렌더링 */}
+                                <V.RemainingTime>
+                                    <RemainingTimeDisplay tripPlanId={room.tripPlanId} remainingTimes={remainingTimes} />
+                                </V.RemainingTime>
                             </S.Box>
                             <S.Box>
                                 <S.Location>{room.location}</S.Location>

@@ -2,7 +2,7 @@ import * as S from "./Style";
 import ChatMessage from "./ChatMessage";
 
 export interface TPlace {
-    id:number;
+    id:string;
     placeName:string;
     address:string;
     latitude:number;

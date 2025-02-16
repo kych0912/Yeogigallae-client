@@ -1,5 +1,7 @@
-import { ChatMessage } from "../../pages/Course/ShareCourse/Share/_components/ChatInterface";
+import { TPlace } from "../../pages/Course/ShareCourse/Share/_components/ChatInterface";
 import { TShareCoursePlace } from "./index";
+import { VoteLimitTimeMap } from "../../pages/Course/ShareCourse/Share/constants";
+export type TVoteLimitTime = keyof typeof VoteLimitTimeMap;
 
 export type TCourseResult = {
     location: string;
@@ -14,7 +16,7 @@ export type TCourseResult = {
     userCount: number;
     userName: string;
     masterName: string;
-    voteLimitTime: string;
+    voteLimitTime: TVoteLimitTime;
     startDate: string;
     endDate: string;
 }
@@ -38,7 +40,7 @@ export interface ICourseMessageResponse {
     code: string;
     message: string;
     result: {
-        places:ChatMessage[];
+        places:TPlace[];
     }
 }
 

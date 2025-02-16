@@ -1,3 +1,5 @@
+import { ICourseMessageResponse } from "./types"
+
 export const courseInfoMock = {
     "httpStatus": "OK",
     "code": "VOTE_202",
@@ -24,29 +26,31 @@ export const courseInfoMock = {
     }
   }
 
-  export const courseListMock = {
+  export const courseListMock:ICourseMessageResponse = {
     httpStatus: "OK",
     code: "VOTE_202",
     message: "여행 정보 조회에 성공하였습니다.",
     result: {
       places:[{
-        placeid:"1",
-        name:"규리",
-        avatar:"https://picsum.photos/200/300",
+        id:"1",
+        placeName:"규리",
+        address:"https://picsum.photos/200/300",
+        latitude:126.851299,
+        longitude:37.494442,
         image:"https://picsum.photos/200/300",
-        content:"안녕하세요 코스짜기 시작했습니다.",
-        place:"전북특별자치도 전주시 완산구 기린대로 99",
-        link:"https://picsum.photos/200/300",
-        isMine:true,
+        description:"안녕하세요 코스짜기 시작했습니다.",
+        userName:"규리",
+        profileImage:"https://picsum.photos/200/300",
         },{
-        placeid:"2",
-        name:"규리",
-        avatar:"https://picsum.photos/200/300",
+        id:"2",
+        placeName:"규리",
+        address:"https://picsum.photos/200/300",
+        latitude:126.851299,
+        longitude:37.494442,
         image:"https://picsum.photos/200/300",
-        content:"안녕하세요 코스짜기 시작했습니다.",
-        place:"전북특별자치도 전주시 완산구 기린대로 99",
-        link:"https://picsum.photos/200/300",
-        isMine:false,
+        description:"안녕하세요 코스짜기 시작했습니다.",
+        userName:"규리",
+        profileImage:"https://picsum.photos/200/300",
       }]
     }
   }

@@ -3,12 +3,13 @@ import Card from "../../../../../components/Card";
 import Chain from "../../../../../assets/icons/Chain.svg?react"
 import { useLongPress } from "../../../../../Utils/useLongPress";
 import modal from "../../../../../components/Modal";
-import { ChatMessage as TChatMessage } from "./ChatInterface";
 import { useDeleteCoursePlace } from "../../../../../react-query/mutation/course/mutations";
 import { useParams } from "react-router-dom";
+import { TPlace } from "./ChatInterface";
 
+const isMine = false;
 
-export default function ChatMessage({placeid,name,avatar,image,content,place,link,isMine}:TChatMessage){
+export default function ChatMessage({id,placeName,address,image,description,userName,profileImage}:TPlace){
   const { roomId } = useParams();
   const {mutate:deleteCoursePlace} = useDeleteCoursePlace();
 
@@ -18,7 +19,7 @@ export default function ChatMessage({placeid,name,avatar,image,content,place,lin
       modal.confirm.show({
         message:"삭제하시겠습니까?",
         onConfirm:()=>{
-          deleteCoursePlace({id:placeid,roomId:roomId});
+          deleteCoursePlace({id:id.toString(),roomId:roomId});
         }
       })
     }
@@ -33,8 +34,8 @@ export default function ChatMessage({placeid,name,avatar,image,content,place,lin
           null
         ) : (
           <S.Chat.Avatar 
-            src={avatar} 
-            alt={name} 
+            src={profileImage} 
+            alt={userName} 
           />
         )}
         
@@ -42,7 +43,7 @@ export default function ChatMessage({placeid,name,avatar,image,content,place,lin
           {isMine ? (
             null
           ) : (
-            <S.Chat.Author>{name}</S.Chat.Author>
+            <S.Chat.Author>{userName}</S.Chat.Author>
           )}
           
           <Card gap="0.625rem">
@@ -58,7 +59,7 @@ export default function ChatMessage({placeid,name,avatar,image,content,place,lin
             </S.Card.Image>
             
             <S.Card.Text>
-              {content}
+              {description}
             </S.Card.Text>
             
             <Card.Divider />
@@ -67,9 +68,9 @@ export default function ChatMessage({placeid,name,avatar,image,content,place,lin
               <S.Card.Label>장소</S.Card.Label>
               
               <S.Card.PlaceContainer>
-                <S.Card.Text>{place}</S.Card.Text>
+                <S.Card.Text>{placeName}</S.Card.Text>
                 <Chain onClick={()=>{
-                  window.open(link, '_blank');
+                  window.navigator.clipboard.writeText(address);
                 }}/>
               </S.Card.PlaceContainer>
             </S.Card.Section>

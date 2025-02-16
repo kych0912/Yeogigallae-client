@@ -12,10 +12,13 @@ import { DefaultPlace } from "../../constants";
 import CourseSearchPage from "./_components/CourseSearchPage";
 import { usePostCoursePlace } from "../../../../react-query/mutation/course/mutations";
 import ButtonLoading from "./_components/ButtonLoading";
-
+import { TShareCoursePlacesInfo } from "../../../../apis/course";
 export type FormData ={
     places: ShareCourseData
 }
+
+//임시 유저 아이디
+const userId = 1;
 
 export default function List({
     onNext, 
@@ -59,8 +62,18 @@ export default function List({
     });
 
     const onSubmit = (data:FormData) => {
-        const place = data.places.map((place) => place.place);
-        postCoursePlace({place:place, roomId:context.여행상세.roomId}, {
+        
+        const placeCardInfo:TShareCoursePlacesInfo[] = data.places.map((place) => ({
+            userId: userId.toString(),
+            imageUrl: place.imageUrl,
+            description: place.description,
+            address: place.place.address,
+            placeName: place.place.placeName,
+            latitude: place.place.latitude,
+            longitude: place.place.longitude
+        }));
+
+        postCoursePlace({placeCardInfo:placeCardInfo, roomId:context.여행상세.roomId}, {
             onSuccess: () => {
                 onNext();
             },
@@ -79,8 +92,8 @@ export default function List({
                     setValue(`places.${searchState.selectedIndex}.place`, {
                         address: place.address_name,
                         placeName: place.place_name,
-                        lat: place.x,
-                        lng: place.y,
+                        latitude: place.x,
+                        longitude: place.y,
                     },{
                         //setValue후 검증
                         shouldValidate: true,

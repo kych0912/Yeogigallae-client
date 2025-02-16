@@ -3,8 +3,19 @@ import { courseInfoMock, courseListMock } from "./mocks";
 import { ShareCourseSchema } from "../../pages/Course/ShareCourse/schema";
 import * as z from "zod";
 import { ICourseMessageResponse } from "./types";
+
+//장소 정보 타입
 export type TShareCoursePlace = z.infer<typeof ShareCourseSchema>["place"];
 
+//공유 코스 정보 타입 (description, imageUrl)
+export type TShareCourseInfo = Omit<z.infer<typeof ShareCourseSchema>,"place">;
+
+//공유 코스 장소 정보 타입 (description, imageUrl, place)
+export type TShareCoursePlacesInfo = (
+    TShareCourseInfo & 
+    TShareCoursePlace & {
+    userId:string;
+});
 
 export const getCourseInfo = async (tripId:string,roomId:string) => {
     try{
@@ -21,9 +32,9 @@ export const getCourseInfo = async (tripId:string,roomId:string) => {
 }
 
 // 공유된 코스 목록 조회
-export const getCourseList = async (tripId:string,roomId:string):Promise<ICourseMessageResponse> => {
+export const getCourseList = async (roomId:string):Promise<ICourseMessageResponse> => {
     try{    
-        const response = await axios.get<ICourseMessageResponse>(`${import.meta.env.VITE_API_URL}/api/room/${roomId}/places/${tripId}`,{
+        const response = await axios.get<ICourseMessageResponse>(`${import.meta.env.VITE_API_URL}/api/rooms/${roomId}/places`,{
             withCredentials:true,
         });
         return response.data;
@@ -34,9 +45,9 @@ export const getCourseList = async (tripId:string,roomId:string):Promise<ICourse
 }
 
 // 공유된 코스 장소 추가
-export const postCoursePlace = async (place:TShareCoursePlace[], roomId:string) => {
+export const postCoursePlace = async (placeCardInfo:TShareCoursePlacesInfo[], roomId:string) => {
     try{
-        const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/room/${roomId}/places`,place,{
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/rooms/${roomId}/places`,placeCardInfo,{
             withCredentials:true,
         });
         return response.data;

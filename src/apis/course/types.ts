@@ -37,6 +37,8 @@ export interface ICourseMessageResponse {
     httpStatus: string;
     code: string;
     message: string;
-    result: ChatMessage[];
+    result: {
+        places:ChatMessage[];
+    }
 }
 

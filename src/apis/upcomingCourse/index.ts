@@ -1,4 +1,4 @@
-import axios from "axios";
+import { api } from "../Axios";
 import { courseData } from "./mocks";
 
 export const getCourse = async (roomId: unknown, aiCourseId: unknown) => {
@@ -6,9 +6,7 @@ export const getCourse = async (roomId: unknown, aiCourseId: unknown) => {
         return courseData;
     }
 
-    const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/ai-course/room/${roomId}/${aiCourseId}`, {
-        withCredentials: true,
-    });
+    const response = await api.get(`/api/ai-course/room/${roomId}/${aiCourseId}`);
 
     return response.data.result;
 };

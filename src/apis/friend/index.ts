@@ -1,12 +1,10 @@
-import axios from "axios";
 import { DEFAULT_MY_FRIEND } from "./mocks";
 import { FriendResponse } from "./types";
+import { api } from "../Axios";
 
 export const getFriends = async () => {
     try{
-        const response = await axios.get<FriendResponse>(`${import.meta.env.VITE_API_URL}/api/friendship/friends`,{
-            withCredentials:true,
-        });
+        const response = await api.get<FriendResponse>(`/api/friendship/friends`);
         return response.data.result;
     }catch(error){
         console.error("Friends API 호출 오류:", error);
@@ -19,8 +17,6 @@ export const deleteFriend = async (friendId:number) => {
         return;
     }
     
-    const response = await axios.delete(`${import.meta.env.VITE_API_URL}/friendship/friends/${friendId}`,{
-        withCredentials:true,
-    });
+    const response = await api.delete(`/friendship/friends/${friendId}`);
     return response.data;
 }   

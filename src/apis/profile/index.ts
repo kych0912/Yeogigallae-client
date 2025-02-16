@@ -1,16 +1,12 @@
-import axios from "axios";
+import { api } from "../Axios";
 
 export const getProfile = async () => {
-    const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/auth/profile`,{
-        withCredentials:true,
-    });
+    const response = await api.get(`/api/auth/profile`);
     return response.data;
 }
 
 export const logout = async () => {
-    const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/logout`,{
-        withCredentials:true,
-    });
+    const response = await api.post(`/api/auth/logout`);
     return response.data;
 }
 

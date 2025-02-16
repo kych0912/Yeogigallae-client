@@ -1,12 +1,10 @@
 import { Notice, NoticeResponse } from "./types";
 import { NoticeMocks } from "./mocks";
-import axios from "axios";
+import { api } from "../Axios";
 
 export const getNotice = async (): Promise<Notice[]> => {
     try{
-        const response = await axios.get<NoticeResponse>(`${import.meta.env.VITE_API_URL}/api/notifications`,{
-            withCredentials:true,
-        });
+        const response = await api.get<NoticeResponse>(`/api/notifications`);
         return response.data.result;
     }catch(error){
         console.error("Notice API 호출 오류:", error);

@@ -1,7 +1,5 @@
-import axios from "axios";
+import { api } from "../Axios";
 import { DEFAULT_VoteResult } from "./mocks/voteResultMocks";
-
-const API_URL = import.meta.env.VITE_API_URL as string;
 
 export const getVoteResult = async ({
   tripId,
@@ -22,7 +20,7 @@ export const getVoteResult = async ({
   }
 
   try{
-    const response = await axios.get(`${API_URL}/api/vote/results/tripId=${tripId}`);
+    const response = await api.get(`/api/vote/results/tripId=${tripId}`);
     return response.data.result || response.data; 
   }catch(error){
     console.error("VoteResult API 호출 오류:", error);

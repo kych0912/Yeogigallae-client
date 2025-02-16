@@ -10,8 +10,8 @@ interface Room {
     startDate: string;
     endDate: string;
     imageUrl: string;
-    roomId: string;
-    aiCourseId: string;
+    roomId: number;
+    aiCourseId: number;
 }
 
 interface UpcomingItemProps {
@@ -21,14 +21,14 @@ interface UpcomingItemProps {
 export default function UpcomingItem({ rooms }: UpcomingItemProps) {
     const navigate = useNavigate();
 
-    const handleNavigate = (roomId: string, aiCourseId: string) => {
+    const handleClick = (roomId: number, aiCourseId: number) => {
         navigate(`/course/upcoming/${roomId}/${aiCourseId}`);
     };
 
     return (
         <S.RowTravelList>
             {rooms.map((room) => (
-                <U.TravelList onClick={() => handleNavigate(room.roomId, room.aiCourseId)} key={room.tripPlanId}>
+                <U.TravelList onClick={() => handleClick(room.aiCourseId, room.roomId)} key={room.tripPlanId}>
                     {" "}
                     <U.ImageWrapper>
                         <S.Image src={room.imageUrl} alt={`${room.roomName} 이미지`} />

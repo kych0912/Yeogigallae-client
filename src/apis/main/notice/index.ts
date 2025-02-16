@@ -6,6 +6,6 @@ export const getNotice = async () => {
         return NoticeMocks;
     }
 
-    const response = await axios.get("/home/notification-status");
+    const response = await axios.get("/api//home/notification-status");
     return response.data;
 };

@@ -10,7 +10,6 @@ const Box = styled.div`
     gap: 1rem;
     height: 100%;
     width: 100%;
-    padding: 1rem;
 `;
 
 //예산 카드 스켈레톤
@@ -19,10 +18,10 @@ export function CardSkeleton() {
         <Card>
             <Card.Item>
                 <Box>
-                    <Skeleton variant="text" width="180px" height="20px" />
+                    <Skeleton variant="text" width="150px" height="20px" />
                     <Skeleton variant="text" width="100%" height="40px" />
                     <Card.Divider />
-                    <Skeleton variant="text" width="180px" height="20px" />
+                    <Skeleton variant="text" width="200px" height="20px" />
                 </Box>
             </Card.Item>
             <Card.Image>

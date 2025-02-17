@@ -6,33 +6,37 @@ import { UpComingContainer } from "./_components/UpComingCourse.style";
 import { useOutletContext } from "react-router-dom";
 import { HeaderConfig } from "../../../types/header/header";
 import { useParams } from "react-router-dom";
-import { CourseResponse, FirstDayItinerary } from "../../../apis/upcomingCourse/types";
+import { FirstDayItinerary, FirstDayCourse } from "../../../apis/upcomingCourse/types";
 
 export default function UpComingCoursePage() {
     const { tripPlanId, aiCourseId } = useParams<{ tripPlanId: string; aiCourseId: string }>();
     const { setHeaderConfig } = useOutletContext<{ setHeaderConfig: (config: HeaderConfig) => void }>();
 
-    const { data, isLoading, error } = useGetCourseInfo(tripPlanId ?? "1", aiCourseId ?? "1");
+    // tripPlanId와 aiCourseId를 number로 변환하여 쿼리 훅에 전달
+    const { data, isLoading, error } = useGetCourseInfo(Number(tripPlanId), Number(aiCourseId));
 
-    const courseData: CourseResponse | null = data ?? null;
-    const firstDayItinerary: FirstDayItinerary | null = courseData?.result.dailyItineraries[0] ?? null;
+    // FirstDayCourse 타입을 courseData에 할당
+    const firstDayCourseData: FirstDayCourse | null = data ?? null;
+
+    // firstDayItinerary에 dailyItineraries 배열의 첫 번째 항목 할당 (있다면)
+    const firstDayItinerary: FirstDayItinerary | null = firstDayCourseData?.dailyItineraries[0] ?? null;
 
     useEffect(() => {
-        if (courseData) {
+        if (firstDayCourseData) {
             setHeaderConfig({
-                title: courseData.result.roomName,
-                number: courseData.result.totalRoomMember,
+                title: firstDayCourseData.roomName,
+                number: firstDayCourseData.totalRoomMember,
             });
         }
-    }, [courseData, setHeaderConfig]);
+    }, [firstDayCourseData, setHeaderConfig]);
 
     useEffect(() => {
         console.log("tripPlanId:", tripPlanId);
         console.log("aiCourseId:", aiCourseId);
         console.log("isLoading:", isLoading);
         console.log("error:", error);
-        console.log("courseData:", courseData);
-    }, [tripPlanId, aiCourseId, isLoading, error, courseData]);
+        console.log("firstDayCourseData:", firstDayCourseData);
+    }, [tripPlanId, aiCourseId, isLoading, error, firstDayCourseData]);
 
     if (isLoading) {
         console.log("로딩중");

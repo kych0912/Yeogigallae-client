@@ -74,11 +74,6 @@ const App: React.FC = () => {
                             <Route path="/notice" element={<NoticePage />} />
                         </Route>
 
-                        {/* Scheduling */}
-                        <Route path="/scheduling/budget-select" element={<BudgetSelectPage />} />
-                        <Route path="/scheduling/date-select" element={<DateSelectPage />} />
-                        <Route path="/scheduling/schedule" element={<SchedulePage />} />
-
                         {/* Splash */}
                         <Route path="/splash" element={<SplashPage />} />
                         <Route path="/onboarding" element={<OnboardingPage />} />

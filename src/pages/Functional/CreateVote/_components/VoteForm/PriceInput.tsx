@@ -1,8 +1,9 @@
-import { Controller } from "react-hook-form";
+import { useState } from "react";
 import * as S from "../../../_components/Functional.styles";
 
 interface PriceInputProps {
-  control: any;
+  value: string;
+  onChange: (value: string) => void;
   nights: number;
 }
 
@@ -13,43 +14,43 @@ const formatPrice = (price?: number) => {
   return subUnit === 0 ? `${mainUnit}만 원` : `${mainUnit}만 ${subUnit}원`;
 };
 
-export default function PriceInput({ control, nights }: PriceInputProps) {
+export default function PriceInput({ value, onChange, nights }: PriceInputProps) {
+  const [showToast, setShowToast] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let newValue = e.target.value.replace(/\D/g, "").slice(0, 7);
+    onChange(newValue);
+    setShowToast(false);
+  };
+
+  const handleBlur = () => {
+    if (!value) {
+      setShowToast(true);
+    } else {
+      let parsedValue = parseInt(value, 10) || 0;
+      onChange(`${nights}박 / ${formatPrice(parsedValue)}`);
+    }
+  };
+
   return (
-    <Controller
-      name="scheduleDetails.price"
-      control={control}
-      render={({ field }) => {
-        let priceValue = field.value ? field.value.replace(/\D/g, "") : "";
-        let priceNumber = priceValue ? parseInt(priceValue, 10) : 0;
-
-        if (priceNumber > 10000000 || priceValue.length > 8) {
-          priceNumber = 10000000;
-        }
-
-        return (
-          <S.Input
-            type="text"
-            placeholder={`${nights}박 / 20만원`}
-            value={field.value || ""}
-            onChange={(e) => {
-              let newValue = e.target.value.replace(/\D/g, "").slice(0, 7);
-              field.onChange(newValue);
-            }}
-            onBlur={() => {
-              if (field.value) {
-                let parsedValue = parseInt(field.value, 10) || 0;
-                field.onChange(`${nights}박 / ${formatPrice(parsedValue)}`);
-              }
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "Backspace") {
-                let newValue = field.value ? field.value.slice(0, -1) : "";
-                field.onChange(newValue);
-              }
-            }}
-          />
-        );
-      }}
-    />
+    <>
+      <S.Input
+        type="text"
+        placeholder={`${nights}박 / 20만원`}
+        value={value || ""}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            handleBlur();
+          }
+          if (e.key === "Backspace") {
+            onChange(value ? value.slice(0, -1) : "");
+          }
+        }}
+      />
+      {showToast && <S.StyledToast>가격을 입력해주세요! (최대 999만원)</S.StyledToast>}
+    </>
   );
 }

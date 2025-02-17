@@ -1,4 +1,3 @@
-// 방생성 리스트 없이 생성화면에서 처리할 때
 import * as S from "./Styles";
 import { useVoteForm } from "../../../../../hooks/useForm/useVoteForm";
 import { useVoteFormContext } from "../../../context/VoteFormContext";
@@ -16,12 +15,51 @@ export default function SlideContainer() {
   // 기존 상태 유지 (API 대신 직접 관리)
   const [roomList, setRoomList] = useState<number[]>([roomId]);
 
+
   // "생성하기" 버튼 클릭 시 새로운 ID 추가
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const handleCreateNewRoom = () => {
     const newRoomId = roomList.length > 0 ? Math.max(...roomList) + 1 : 1;
 
     if (!roomList.includes(newRoomId)) {
       setRoomList([...roomList, newRoomId]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
   };
 
@@ -33,7 +71,7 @@ export default function SlideContainer() {
         defaultValue={roomId}
         render={({ field }) => (
           <>
-            <S.SlideContainer $isFirst={true} $isLast={true}>
+            <S.SlideContainer $isFirst={true}>
               <SkeletonForm slidewidth>
                 <S.Slide $isCreateButton={true} $active={false} onClick={handleCreateNewRoom}>
                   <S.PlusIcon />

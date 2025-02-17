@@ -1,11 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { postCoursePlace, deleteCoursePlace } from "../../../apis/course";
+import { postCoursePlace, deleteCoursePlace, TShareCoursePlacesInfo } from "../../../apis/course";
 import { ICoursePlaceResponse } from "../../../apis/course/types";
-import { TShareCoursePlace } from "../../../apis/course";   
 
 export const usePostCoursePlace = () => {
-    return useMutation<ICoursePlaceResponse, Error, {place: TShareCoursePlace[], roomId: string}>({
-        mutationFn: ({place, roomId}) => postCoursePlace(place, roomId),
+    return useMutation<ICoursePlaceResponse, Error, {placeCardInfo: TShareCoursePlacesInfo[], roomId: string}>({
+        mutationFn: ({placeCardInfo, roomId}) => postCoursePlace(placeCardInfo, roomId),
     });
 }
 

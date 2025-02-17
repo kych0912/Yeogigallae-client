@@ -39,8 +39,8 @@ export const Box = styled.div`
 `;
 
 export const EmptyBox = styled.div`
-    width: 23.125rem;
     height: 9rem;
+    width: 100%;
     background-color: ${({ theme }) => theme.colors.secondary || "#222222"};
     border-radius: 1.25rem;
     align-items: center;

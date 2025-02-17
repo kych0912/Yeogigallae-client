@@ -1,4 +1,4 @@
-import axios from "axios";
+import { api } from "../../Axios";
 import { DEFAULT_Complete } from "./mocks";
 
 export const getTravelList = async () => {
@@ -6,9 +6,7 @@ export const getTravelList = async () => {
     //     return DEFAULT_Complete;
     // }
     try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/home/completed-trip-plans`, {
-            withCredentials: true,
-        });
+        const response = await api.get(`/api/home/completed-trip-plans`);
         return response.data.result.rooms;
     } catch (error) {
         console.error("TravelList API 호출 오류:", error);

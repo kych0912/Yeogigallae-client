@@ -18,3 +18,10 @@ export interface Room {
 export interface Rooms {
     rooms:Room[]
 }
+
+export interface RoomResponse {
+    code:number;
+    message:string; 
+    httpStatus:string;
+    result:Room[]
+}

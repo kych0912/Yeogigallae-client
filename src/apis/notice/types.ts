@@ -7,4 +7,11 @@ export interface Notice {
     type: NoticeType;
 };
 
+export interface NoticeResponse {
+    httpStatus: number;
+    message: string;
+    code: string;
+    result: Notice[];
+}
+
 

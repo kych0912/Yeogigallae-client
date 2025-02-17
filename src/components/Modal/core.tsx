@@ -4,6 +4,7 @@ import ConfirmModal from "./ConfirmModal";
 import { useState } from "react";
 import ImageModal from "./ImageModal";
 import * as S from "./Modal.styles";
+import { createPortal } from "react-dom";
 
 export default function Modal() {
   const { config, isOpen, hideModal } = useModalStore();
@@ -53,7 +54,8 @@ export default function Modal() {
 
 
   return(
-    <S.StyledContainer onClick={handleCancel}>
+    createPortal(
+      <S.StyledContainer onClick={handleCancel}>
 
       <S.ModalContent onClick={(e)=>e.stopPropagation()} gap="1.5rem">
         {renderModal()}
@@ -73,8 +75,9 @@ export default function Modal() {
           </Button>
         </S.ButtonGroup>
       </S.ModalContent>
-    </S.StyledContainer>
-  )
+    </S.StyledContainer>,
+    document.body
+  ))
 }
 
 

@@ -7,8 +7,9 @@ import CommonContainer from './CommonContainer';
 import HeaderCenterContent from "../Header/HeaderCenterContent";
 import { useState } from "react";
 import { HeaderConfig } from "../../types/header/header";
+import withAuth from "../../pages/Login/withAuth";
 
-export default function Layout() {
+function NoticeLayout() {
     const navigate = useNavigate();
     const [headerConfig, setHeaderConfig] = useState<HeaderConfig>({title:""});
     const { title } = headerConfig;
@@ -38,3 +39,5 @@ export default function Layout() {
         </>
     )
 }
+
+export default withAuth(NoticeLayout, true);

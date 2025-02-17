@@ -3,13 +3,9 @@ import { useFunnel } from "../../../hooks/useFunnel/useFunnel";
 import List from "./List";
 import Share from "./Share";
 import CommonContainer from "../../../components/Layout/CommonContainer";
-import Modal from "../../../components/Modal/core";
-import { ShareCourseListSchema } from "./schema";
-import * as z from "zod";
 import { DefaultPlace } from "../constants";
 import { ICourseInfo } from "../../../apis/course/types";
-
-export type ShareCourseData = z.infer<typeof ShareCourseListSchema>;
+import { ShareCourseData } from "./share.types";
 
 export type TTripInfo = ICourseInfo & {
   roomId: string;
@@ -35,7 +31,6 @@ export default function ShareCorsePage({courseInfo}:{courseInfo:TTripInfo})
 
     return (
     <CommonContainer>
-      <Modal />
       <Funnel>
         <Funnel.Step name="여행상세"> 
           <Detail 

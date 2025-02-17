@@ -19,7 +19,7 @@ export const useGetCourseInfo = (tripId:string,roomId:string) => {
 export const useGetCourseList = (tripId:string,roomId:string) => {
     return useQuery<ICourseMessageResponse>({
         queryKey:["course-list",tripId,roomId],
-        queryFn:() => getCourseList(tripId,roomId),
+        queryFn:() => getCourseList(roomId),
         enabled:!!tripId && !!roomId,
         retry:false,
         refetchOnWindowFocus:false,

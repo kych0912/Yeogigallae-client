@@ -2,7 +2,7 @@ import ListCard from "./_components/ListCard";
 import { Button } from "../../../../components/Button";
 import * as S from "./_components/Style";
 import AddPlace from "./_components/AddPlace";
-import { ShareCourseData, TShareCourseContext } from "../ShareCorsePage";
+import { TShareCourseContext } from "../ShareCorsePage";
 import useSetHeader from "../../../../hooks/useSetHeader";
 import { createPortal } from "react-dom";
 import { useState, useCallback } from "react";
@@ -12,10 +12,9 @@ import { DefaultPlace } from "../../constants";
 import CourseSearchPage from "./_components/CourseSearchPage";
 import { usePostCoursePlace } from "../../../../react-query/mutation/course/mutations";
 import ButtonLoading from "./_components/ButtonLoading";
-
-export type FormData ={
-    places: ShareCourseData
-}
+import { TShareCoursePlacesInfo } from "../../../../apis/course";
+import { TListFormData } from "../../../Course/ShareCourse/share.types";
+import { useAuthStore } from "../../../Login/useAuthStore";
 
 export default function List({
     onNext, 
@@ -25,6 +24,7 @@ export default function List({
     context:TShareCourseContext
 }){
     const navigate = useNavigate();
+    const {userId} = useAuthStore();
     //useForm, useFieldArray 사용
     //각 ListCard는 FieldArray에 속해있음
     const { handleSubmit, control, setValue, isValid, fields, append, remove } = useShareCourseForm(context);
@@ -58,9 +58,19 @@ export default function List({
         leftFunction: handleBack
     });
 
-    const onSubmit = (data:FormData) => {
-        const place = data.places.map((place) => place.place);
-        postCoursePlace({place:place, roomId:context.여행상세.roomId}, {
+    const onSubmit = (data:TListFormData) => {
+        
+        const placeCardInfo:TShareCoursePlacesInfo[] = data.places.map((place) => ({
+            userId: userId.toString(),
+            imageUrl: place.imageUrl,
+            description: place.description,
+            address: place.place.address,
+            placeName: place.place.placeName,
+            latitude: place.place.latitude,
+            longitude: place.place.longitude
+        }));
+
+        postCoursePlace({placeCardInfo:placeCardInfo, roomId:context.여행상세.roomId}, {
             onSuccess: () => {
                 onNext();
             },
@@ -79,8 +89,8 @@ export default function List({
                     setValue(`places.${searchState.selectedIndex}.place`, {
                         address: place.address_name,
                         placeName: place.place_name,
-                        lat: place.x,
-                        lng: place.y,
+                        latitude: place.x,
+                        longitude: place.y,
                     },{
                         //setValue후 검증
                         shouldValidate: true,

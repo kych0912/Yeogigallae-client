@@ -8,7 +8,7 @@ import { useGetNotice } from "../../../react-query/queries/main/notice/queries";
 export default function MainTop() {
     const navigate = useNavigate();
     const { nickname } = useAuthStore();
-    
+
     // 알림 정보 가져오기
     const { data: notice, isLoading: isNoticeLoading, error: noticeError } = useGetNotice();
 
@@ -16,8 +16,8 @@ export default function MainTop() {
     const hasNotification = notice?.hasUnreadNotifications || false;
 
     // 로딩 및 에러 처리
-    if ( isNoticeLoading) {
-        console.log("Loading user or notice...");
+    if (isNoticeLoading) {
+        // console.log("Loading user or notice...");
     }
 
     if (noticeError) {

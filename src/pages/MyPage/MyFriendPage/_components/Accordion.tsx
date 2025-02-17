@@ -35,7 +35,7 @@ export function AccordionItemWrapper({children}:{children:React.ReactNode}){
     return <S.Accordion.ItemWrapper>{children}</S.Accordion.ItemWrapper>
 }
 
-export function AccordionItem({children, index}: {children: React.ReactNode, index?: number}) {
+export function AccordionItem({children, index, onClick}: {children: React.ReactNode, index?: number, onClick?: ()=>void}) {
     const {isOpen} = useAccordionContext();
     
     return (
@@ -43,6 +43,7 @@ export function AccordionItem({children, index}: {children: React.ReactNode, ind
             style={{
                 display: index === 0 ? 'flex' : (isOpen ? 'flex' : 'none')
             }}
+            onClick={onClick}
         >
             {children}
         </S.Accordion.Item>

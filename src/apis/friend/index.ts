@@ -1,5 +1,5 @@
 import { DEFAULT_MY_FRIEND } from "./mocks";
-import { FriendResponse } from "./types";
+import { FriendResponse, InviteResponse } from "./types";
 import { api } from "../Axios";
 
 export const getFriends = async () => {
@@ -20,3 +20,10 @@ export const deleteFriend = async (friendId:number) => {
     const response = await api.delete(`/friendship/friends/${friendId}`);
     return response.data;
 }   
+
+export const createFriendUrl = async () => {
+    const response = await api.post<InviteResponse>(`/api/invite`);
+    return response.data.result.inviteUrl;
+}
+
+

@@ -58,7 +58,7 @@ const VoteTimes = forwardRef<HTMLDivElement, VoteTimesProps>(({ control }, ref) 
                         onClick={() => {
                           if (selectedKey) {
                             if (field.value === selectedKey) {
-                              field.onChange(""); // ✅ 이미 선택된 값이면 해제
+                              field.onChange(""); 
                             } else {
                               field.onChange(selectedKey);
                               setShowToast(false);

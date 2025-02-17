@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect } from "react";
 import { useVoteForm } from "../../../../../hooks/useForm/useVoteForm";
-import { Controller } from "react-hook-form";
+import { Controller, useWatch } from "react-hook-form";
 import ImagePlaceholder from "./ImagePlaceholder";
 import MessageInput from "./MessageInput";
 import SkeletonForm from "./Skeleton/SkeletonForm";
@@ -19,9 +19,20 @@ interface VoteFormProps {
 }
 
 export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch }: VoteFormProps) {
-  const { control, watch, setValue } = useVoteForm(tripPlanType, roomId);
+  const { control, setValue, getValues } = useVoteForm(tripPlanType, roomId);
   const { selectedPlace } = useSearch();
   const isSchedule = tripPlanType === "SCHEDULE";
+  const startDate = useWatch({ control, name: "startDate" }) || "미정";
+  const endDate = useWatch({ control, name: "endDate" }) || "미정";
+  const location = useWatch({ control, name: "location" }) || "";
+
+  // ✅ `nights` 값 계산 (유지됨)
+  const nights = (() => {
+    if (!startDate || !endDate || startDate === "미정" || endDate === "미정") return 0;
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    return Math.max(1, (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24) - 1);
+  })();
 
   useEffect(() => {
     if (selectedPlace) {
@@ -29,22 +40,10 @@ export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch }:
     }
   }, [selectedPlace, setValue]);
 
-  const [showToast, setShowToast] = useState({
-    voteLimitTime: false,
-    location: false,
-    price: false,
-    date: false,
-  });
-
-  const startDate = useMemo(() => watch("startDate") || "", [watch("startDate")]);
-  const endDate = useMemo(() => watch("endDate") || "", [watch("endDate")]);
-
-  const nights = useMemo(() => {
-    if (!startDate || !endDate) return 0;
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-    return Math.max(1, (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24) - 1);
-  }, [startDate, endDate]);
+  useEffect(() => {
+    const formData = getValues();
+    localStorage.setItem(`voteForm_${tripPlanType}_${roomId}`, JSON.stringify(formData));
+  }, [startDate, endDate, location]);
 
   return (
     <Card>
@@ -54,35 +53,21 @@ export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch }:
 
       <Card.Item label="투표 제한 시간">
         <Controller
-          name="voteLimitTime" control={control} render={({ field }) => (
-            <>
-              <VoteTimes {...field} control={control}/>
-              {showToast.voteLimitTime && <S.StyledToast>투표 제한 시간을 설정해주세요!</S.StyledToast>}
-            </>
-          )}
+          name="voteLimitTime"
+          control={control}
+          render={({ field }) => <VoteTimes {...field} control={control} />}
         />
       </Card.Item>
       <S.StyledDivider />
 
       <Card.Item label="장소">
         <Controller
-          name="location"control={control} render={({ field }) => (
-            <>
-              <SkeletonForm fullwidth>
-                <S.ClickableText
-                  onClick={onSearch}
-                  onBlur={() => {
-                    if (!field.value) {
-                      setShowToast((prev) => ({ ...prev, location: true }));
-                    }
-                  }}
-                  onChange={() => setShowToast((prev) => ({ ...prev, location: false }))}
-                >
-                  {field.value || "장소를 입력하세요."}
-                </S.ClickableText>
-              </SkeletonForm>
-              {showToast.location && <S.StyledToast>장소를 입력해주세요!</S.StyledToast>}
-            </>
+          name="location"
+          control={control}
+          render={({ field }) => (
+            <SkeletonForm fullwidth>
+              <S.ClickableText onClick={onSearch}>{field.value || "장소를 입력하세요."}</S.ClickableText>
+            </SkeletonForm>
           )}
         />
       </Card.Item>
@@ -91,36 +76,24 @@ export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch }:
       {isSchedule && (
         <Card.Item label="가격">
           <Controller
-            name="scheduleDetails.price" control={control} render={({ field }) => (
-              <>
-                <PriceInput value={field.value ?? ""} onChange={field.onChange} nights={nights} />
-                {showToast.price && <S.StyledToast>가격을 입력해주세요!</S.StyledToast>}
-              </>
-            )}
+            name="scheduleDetails.price"
+            control={control}
+            render={({ field }) => <PriceInput field={field} nights={nights} />}
           />
         </Card.Item>
       )}
 
+
       <S.StyledCardItem>
         <SkeletonForm fullwidth>
-          <span className="text">
-            날짜 {startDate || "미정"} ~ {endDate || "미정"}
-          </span>
+          <span className="text">날짜 {startDate} ~ {endDate}</span>
         </SkeletonForm>
-        <S.IconWrapper
-          onClick={onCalendar}
-          onBlur={() => {
-            if (!startDate || !endDate) {
-              setShowToast((prev) => ({ ...prev, date: true }));
-            }
-          }}
-        >
+        <S.IconWrapper onClick={onCalendar}>
           <SkeletonForm>
             <CalendarIcon />
           </SkeletonForm>
         </S.IconWrapper>
       </S.StyledCardItem>
-      {showToast.date && <S.StyledToast>날짜를 선택해주세요!</S.StyledToast>}
     </Card>
   );
 }

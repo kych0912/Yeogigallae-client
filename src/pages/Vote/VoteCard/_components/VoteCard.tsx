@@ -113,7 +113,7 @@ export default function VoteCard({
       </Card.Item>
       <S.CustomSpacer />
 
-      {!showConfirmMessage && isSuccess !== true && (
+      {!showConfirmMessage && isSuccess == null && (
         <S.TwoSelect>
           <Button 
             size="large" 

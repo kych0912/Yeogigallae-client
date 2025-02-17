@@ -4,7 +4,7 @@ import * as S from "../Main.Styles";
 import * as V from "./VotingItem.Styles";
 import calculateVoteGauge from "./calculateVoteGauge";
 import renderParticipantProfiles from "./renderParticipantProfiles";
-import useRemainingTimes from "./useRemainingTimes";
+import RemainingTimeDisplay from "./useRemainingTimes";
 
 interface Room {
     tripPlanId: number;
@@ -25,7 +25,6 @@ interface VotingItemProps {
 }
 
 const VotingItem: React.FC<VotingItemProps> = ({ rooms = [] }) => {
-    const remainingTimes = useRemainingTimes(rooms);
     const navigate = useNavigate();
 
     const handleClick = (tripPlanId: number, roomId: string, tripPlanType: "COURSE" | "SCHEDULE" | "BUDGET") => {
@@ -47,8 +46,11 @@ const VotingItem: React.FC<VotingItemProps> = ({ rooms = [] }) => {
                     <V.Box>
                         <S.Box>
                             <V.Title>{room.roomName}</V.Title>
-                            <V.RemainingTime>{remainingTimes[room.tripPlanId] || "00:00:00"}</V.RemainingTime>
+                            <V.RemainingTime>
+                                <RemainingTimeDisplay createdAt={room.createdAt} remainingTime={room.remainingTime} />
+                            </V.RemainingTime>
                         </S.Box>
+
                         <S.Box>
                             <S.Location>{room.location}</S.Location>
                         </S.Box>

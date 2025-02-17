@@ -1,5 +1,5 @@
 export const DEFAULT_Upcoming = {
-    totalCount: 0,
+    totalCount: 1,
     rooms: [
         {
             tripPlanId: 1,

@@ -21,10 +21,10 @@ export default function Kakao() {
             try {
                 const response = await sendAuthCodeToServer(code);
                 const { success,data } = response;
-                const { email, nickname, profileImage } = data;
+                const { userId,email, nickname, profileImage } = data;
 
                 if (success) {
-                    setProfile(email,nickname,profileImage);
+                    setProfile(userId,email,nickname,profileImage);
                     navigate("/");
                 } else {
                     navigate("/login", { replace: true });

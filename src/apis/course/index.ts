@@ -28,11 +28,9 @@ export const getCourseInfo = async (tripId:string,roomId:string) => {
 }
 
 // 공유된 코스 목록 조회
-export const getCourseList = async (roomId:string):Promise<ICourseMessageResponse> => {
+export const getCourseList = async (tripId:string):Promise<ICourseMessageResponse> => {
     try{    
-        const response = await api.get<ICourseMessageResponse>(`/api/rooms/${roomId}/places`,{
-            withCredentials:true,
-        });
+        const response = await api.get<ICourseMessageResponse>(`/api/trip-plans/${tripId}/places`);
         return response.data;
     }catch(error){
         console.error("CourseList API 호출 오류:", error);
@@ -41,11 +39,9 @@ export const getCourseList = async (roomId:string):Promise<ICourseMessageRespons
 }
 
 // 공유된 코스 장소 추가
-export const postCoursePlace = async (placeCardInfo:TShareCoursePlacesInfo[], roomId:string) => {
+export const postCoursePlace = async (placeCardInfo:TShareCoursePlacesInfo[], tripId:string) => {
     try{
-        const response = await api.post(`/api/rooms/${roomId}/places`,placeCardInfo,{
-            withCredentials:true,
-        });
+        const response = await api.post(`/api/trip-plans/${tripId}/places`,placeCardInfo);
         return response.data;
     }catch(error){
         console.error("CoursePlace API 호출 오류:", error);
@@ -53,11 +49,10 @@ export const postCoursePlace = async (placeCardInfo:TShareCoursePlacesInfo[], ro
     }
 }
 
-export const deleteCoursePlace = async (id:string, roomId:string) => {
+// 공유된 코스 장소 삭제
+export const deleteCoursePlace = async (id:string, tripId:string) => {
     try{
-        const response = await api.delete(`/api/rooms/${roomId}/places/${id}`,{
-            withCredentials:true,
-        });
+        const response = await api.delete(`/api/trip-plans/${tripId}/places/${id}`);
         return response.data;
     }catch(error){
         console.error("CoursePlace API 호출 오류:", error);

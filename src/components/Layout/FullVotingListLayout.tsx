@@ -5,8 +5,9 @@ import BackIcon from "../../assets/icons/Back.svg?react";
 import { IconButton } from "../Button";
 import { Outlet, useNavigate } from "react-router-dom";
 import HeaderCenterContent from "../Header/HeaderCenterContent";
+import withAuth from "../../pages/Login/withAuth";
 
-export default function Layout() {
+function FullVotingListLayout() {
     const navigate = useNavigate();
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [selectedFilter, setSelectedFilter] = useState<string>("");
@@ -45,3 +46,5 @@ export default function Layout() {
         </>
     );
 }
+
+export default withAuth(FullVotingListLayout, false);

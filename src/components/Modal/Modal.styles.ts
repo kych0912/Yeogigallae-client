@@ -13,7 +13,8 @@ export const StyledContainer = styled(CommonContainer)`
   position: fixed;
   top: 0;
   z-index: 2000;
-    animation: fadeIn 0.2s ease-in-out;
+  margin:0;
+  animation: fadeIn 0.2s ease-in-out;
 
   @keyframes fadeIn {
     from {

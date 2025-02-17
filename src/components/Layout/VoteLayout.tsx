@@ -5,13 +5,14 @@ import { IconButton } from "../Button";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import HeaderCenterContent from "../Header/HeaderCenterContent";
+import withAuth from "../../pages/Login/withAuth";
 
 interface HeaderConfig {
     title: string;
     number?: number;
 }
 
-export default function Layout() {
+function VoteLayout() {
     const navigate = useNavigate();
     const [headerConfig, setHeaderConfig] = useState<HeaderConfig>({ title: "", number: undefined });
     const { title, number } = headerConfig;
@@ -39,3 +40,5 @@ export default function Layout() {
         </>
     );
 }
+
+export default withAuth(VoteLayout, true);

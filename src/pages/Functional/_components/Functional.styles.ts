@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Card from "../../../components/Card";
+import { Toast } from "../../../components/Calendar/CompleteButton.styles";
 
 export const Container = styled.div`
   margin:0 1.25rem 1rem 1.25rem;
@@ -126,3 +127,9 @@ export const TimeButton = styled.button<{ $isActive: boolean }>`
   }
 `;
 
+export const StyledToast = styled(Toast)`
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 0.5rem;
+
+`;

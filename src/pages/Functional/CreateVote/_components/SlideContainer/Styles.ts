@@ -78,6 +78,17 @@ export const Label = styled.span<{ $active: boolean; $isCreateButton?: boolean }
   white-space: nowrap;
 `;
 
+export const StyledSVG = styled.svg`
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: #3b46f1;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 0.2s ease-in-out;
+`;
+
 export const PlusIcon = styled.div`
   position: relative;
   width: 24px;

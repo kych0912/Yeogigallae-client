@@ -1,7 +1,6 @@
 import { api } from "../Axios";
 import axiosError from "axios";
 import { AuthState } from "../../pages/Login/useAuthStore";
-import { DEFAULT_User } from "./mocks";
 
 export interface UserInfo{
     userId: string;

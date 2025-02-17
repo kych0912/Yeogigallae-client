@@ -21,7 +21,12 @@ const withAuth = (WrappedComponent: React.ComponentType, authOption: AuthOption)
                 //만약 전역 상태에 유저 정보가 없다면 유저 정보를 가져온다.
                 if(!isAuthenticated){
                     const user = await getUser();
-                    setProfile(user.email, user.nickname, user.profileImage);
+                    setProfile(
+                        user.userId,
+                        user.email,
+                        user.nickname,
+                        user.profileImage
+                    );
                 }
 
                 if (authOption === true && !isAuthenticated) {

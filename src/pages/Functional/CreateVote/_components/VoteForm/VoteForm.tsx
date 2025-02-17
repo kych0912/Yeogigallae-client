@@ -26,7 +26,6 @@ export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch }:
   const endDate = useWatch({ control, name: "endDate" }) || "미정";
   const location = useWatch({ control, name: "location" }) || "";
 
-  // ✅ `nights` 값 계산 (유지됨)
   const nights = (() => {
     if (!startDate || !endDate || startDate === "미정" || endDate === "미정") return 0;
     const start = new Date(startDate);
@@ -53,8 +52,7 @@ export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch }:
 
       <Card.Item label="투표 제한 시간">
         <Controller
-          name="voteLimitTime"
-          control={control}
+          name="voteLimitTime" control={control}
           render={({ field }) => <VoteTimes {...field} control={control} />}
         />
       </Card.Item>
@@ -62,8 +60,7 @@ export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch }:
 
       <Card.Item label="장소">
         <Controller
-          name="location"
-          control={control}
+          name="location" control={control}
           render={({ field }) => (
             <SkeletonForm fullwidth>
               <S.ClickableText onClick={onSearch}>{field.value || "장소를 입력하세요."}</S.ClickableText>
@@ -76,13 +73,11 @@ export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch }:
       {isSchedule && (
         <Card.Item label="가격">
           <Controller
-            name="scheduleDetails.price"
-            control={control}
+            name="scheduleDetails.price" control={control}
             render={({ field }) => <PriceInput field={field} nights={nights} />}
           />
         </Card.Item>
       )}
-
 
       <S.StyledCardItem>
         <SkeletonForm fullwidth>

@@ -133,3 +133,22 @@ export const StyledToast = styled(Toast)`
   margin-top: 0.5rem;
 
 `;
+
+export const InputWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.125rem; 
+  
+  input {
+    text-align: right;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    width: 5.2rem;
+  }
+
+  span {
+    font-size: 1rem;
+  }
+`;
+

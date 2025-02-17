@@ -1,47 +1,59 @@
+import { useState } from "react";
 import * as S from "../../../_components/Functional.styles";
 
 interface PriceInputProps {
-  field: any; // ✅ `Controller`에서 전달되는 전체 `field` 객체를 받음
+  field: any;
   nights: number;
 }
 
-// ✅ 가격을 "몇만 몇원" 형식으로 변환하는 함수
-const formatPrice = (price?: number) => {
-  if (!price || price === 0) return "20만원"; // 기본값 설정
-  const mainUnit = Math.floor(price / 10000);
-  const subUnit = price % 10000;
-  return subUnit === 0 ? `${mainUnit}만 원` : `${mainUnit}만 ${subUnit}원`;
+// ✅ 1000 단위마다 ,(콤마) 추가
+const formatWithCommas = (value: string) => {
+  return value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
+
+// ✅ 콤마 제거 후 숫자만 남기기
+const removeCommas = (value: string) => {
+  return value.replace(/,/g, "");
 };
 
 export default function PriceInput({ field, nights }: PriceInputProps) {
+  const [rawValue, setRawValue] = useState(() => formatWithCommas(field.value || ""));
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let newValue = e.target.value.replace(/\D/g, ""); // 숫자만 허용
-    field.onChange(newValue); // 원본 값 유지
+    let newValue = removeCommas(e.target.value).replace(/\D/g, "").slice(0, 7);
+    const formattedValue = formatWithCommas(newValue);
+
+    setRawValue(formattedValue);
+    field.onChange(newValue);
   };
 
-  const handleEnter = () => {
-    if (field.value.trim() !== "") {
-      let parsedValue = parseInt(field.value, 10) || 0;
-      field.onChange(`${formatPrice(parsedValue)}`); // ✅ `몇만 몇원` 형식 변환
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Backspace") {
+      let numericValue = removeCommas(rawValue);
+      if (numericValue.length === 1) {
+        setRawValue("");
+        field.onChange("");
+        e.preventDefault();
+      } else {
+        numericValue = numericValue.slice(0, -1);
+        setRawValue(formatWithCommas(numericValue));
+        field.onChange(numericValue);
+        e.preventDefault();
+      }
     }
   };
 
   return (
-    <S.Input
-      type="text"
-      placeholder={`${nights}박 / 가격 입력`}
-      value={field.value || ""}
-      onChange={handleChange}
-      onBlur={handleEnter} // ✅ 엔터 없이도 포맷 적용
-      onKeyDown={(e) => {
-        if (e.key === "Enter") {
-          e.preventDefault();
-          handleEnter(); // ✅ 엔터 입력 시 포맷 적용
-        }
-        if (e.key === "Backspace" && field.value.length === 1) {
-          field.onChange(""); // ✅ 백스페이스로 모두 지우면 완전 초기화
-        }
-      }}
-    />
+    <S.InputWrapper>
+      <span>{nights}박 / </span>
+        <S.Input
+          type="text"
+          placeholder="가격 입력"
+          value={rawValue}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+        />
+        <span>(원)</span>
+    </S.InputWrapper>
   );
 }

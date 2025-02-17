@@ -6,13 +6,18 @@ import { z } from "zod";
 type VoteResultData = z.infer<typeof VoteResultSchema>;
 
 export const useVoteResultQuery = (tripId: number) => {
+  console.log("🟢 useVoteResultQuery: tripId =", tripId); 
+
   return useQuery<VoteResultData, Error>({
     queryKey: ["voteResult", tripId], 
     queryFn: async () => {
       const data = await getVoteResult({ tripId });
 
+      console.log("🟢 useVoteResultQuery 응답 데이터:", data);
+
       return VoteResultSchema.parse(data);
     },
-    enabled: !!tripId,  
+    enabled: typeof tripId === "number" && tripId > 0,
   });
 };
+

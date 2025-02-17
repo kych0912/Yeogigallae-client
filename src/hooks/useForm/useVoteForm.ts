@@ -14,39 +14,41 @@ export const useVoteForm = (tripPlanType: "COURSE" | "SCHEDULE", roomId: number)
   const savedFormData = localStorage.getItem(storageKey);
   const parsedData = savedFormData ? JSON.parse(savedFormData) : null;
 
+  const defaultValues: VoteFormData = {
+    location: parsedData?.location || "",
+    startDate: parsedData?.startDate || formatToKST(startDate),
+    endDate: parsedData?.endDate || formatToKST(endDate),
+    tripType: parsedData?.tripType || "DOMESTIC",
+    voteLimitTime: parsedData?.voteLimitTime || "",
+    minDays: parsedData?.minDays || 1,
+    maxDays: parsedData?.maxDays || 7,
+    roomId,
+    imageUrl: parsedData?.imageUrl || "",
+    tripPlanType,
+    scheduleDetails:
+      tripPlanType === "SCHEDULE" ? parsedData?.scheduleDetails || { message: "", price: "" } : { message: "", price: "" }, 
+    courseDetails:
+      tripPlanType === "COURSE" ? parsedData?.courseDetails || { message: "" } : { message: "" },
+    latitude: tripPlanType === "SCHEDULE" ? parsedData?.latitude ?? 0 : undefined,
+    longitude: tripPlanType === "SCHEDULE" ? parsedData?.longitude ?? 0 : undefined,
+  };
+
   const {
     control,
     setValue,
     watch,
-    reset,
     getValues,
+    reset, 
     formState: { isValid },
   } = useForm<VoteFormData>({
     resolver: zodResolver(voteFormSchema),
     mode: "onChange",
-    defaultValues: {
-      location: "",
-      startDate: formatToKST(startDate),
-      endDate: formatToKST(endDate),
-      tripType: "DOMESTIC",
-      voteLimitTime: "",
-      minDays: 1,
-      maxDays: 7,
-      roomId,
-      imageUrl: "",
-      latitude: undefined, 
-      longitude: undefined, 
-      scheduleDetails: { message: "", price: "" },
-      courseDetails: { message: "" },
-      tripPlanType,
-    },
+    defaultValues,
   });
 
   useEffect(() => {
-    if (parsedData) {
-      reset(parsedData);
-    }
-  }, [roomId, tripPlanType, reset]);
+    reset(defaultValues);
+  }, [tripPlanType, reset]);
 
   useEffect(() => {
     const newStartDate = formatToKST(startDate);
@@ -60,16 +62,11 @@ export const useVoteForm = (tripPlanType: "COURSE" | "SCHEDULE", roomId: number)
     }
   }, [startDate, endDate, setValue, getValues]);
 
-  useEffect(() => {
-    const formData = getValues();
-    const storedData = {
-      ...formData,
-      latitude: parsedData?.latitude || 0,
-      longitude: parsedData?.longitude || 0,
-    };
-
-    localStorage.setItem(storageKey, JSON.stringify(storedData));
-  }, [getValues, storageKey]);
+  watch((values) => {
+    if (values.tripPlanType === tripPlanType) {
+      localStorage.setItem(storageKey, JSON.stringify(values));
+    }
+  });
 
   return { control, setValue, watch, getValues, reset, isValid };
 };

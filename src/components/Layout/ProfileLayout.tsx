@@ -6,8 +6,9 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { useState } from "react";
 import { HeaderConfig } from "../../types/header/header";
 import HeaderCenterContent from "../Header/HeaderCenterContent";
+import withAuth from "../../pages/Login/withAuth";
 
-export default function Layout() {
+function ProfileLayout() {
     const navigate = useNavigate();
     const [headerConfig, setHeaderConfig] = useState<HeaderConfig>({title:""});
     const { title } = headerConfig;
@@ -35,3 +36,5 @@ export default function Layout() {
         </>
     )
 }
+
+export default withAuth(ProfileLayout, true);

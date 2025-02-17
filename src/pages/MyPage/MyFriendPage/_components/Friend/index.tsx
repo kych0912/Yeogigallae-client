@@ -47,6 +47,13 @@ export default function Friend(){
                             const url = await handleGenerateInviteUrl();
                             if(url){
                                 navigator.clipboard.writeText(url);
+                                modal.confirm.show({
+                                    message:"링크를 복사했어요.",
+                                    isOneButton:true,
+                                    onConfirm:()=>{
+                                        console.log("링크를 복사했어요.");
+                                    }
+                                }); 
                             }
                         }
                     })

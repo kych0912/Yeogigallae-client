@@ -6,12 +6,10 @@ interface PriceInputProps {
   nights: number;
 }
 
-// ✅ 1000 단위마다 ,(콤마) 추가
 const formatWithCommas = (value: string) => {
   return value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
-// ✅ 콤마 제거 후 숫자만 남기기
 const removeCommas = (value: string) => {
   return value.replace(/,/g, "");
 };
@@ -53,7 +51,7 @@ export default function PriceInput({ field, nights }: PriceInputProps) {
           onChange={handleChange}
           onKeyDown={handleKeyDown}
         />
-        <span>(원)</span>
+        <span>원</span> 
     </S.InputWrapper>
   );
 }

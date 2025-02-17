@@ -79,6 +79,7 @@ export default function VoteForm({ tripPlanType, roomId, onCalendar, onSearch }:
         </Card.Item>
       )}
 
+
       <S.StyledCardItem>
         <SkeletonForm fullwidth>
           <span className="text">날짜 {startDate} ~ {endDate}</span>

@@ -39,9 +39,6 @@ const ProtectedKakao = withAuth(Kakao, false);
 const queryClient = new QueryClient();
 
 const App: React.FC = () => {
-    const token = import.meta.env.VITE_ACCESS_TOKEN as string;
-    const expirationDate = new Date("Sun, 08 Feb 2026 17:27:47 GMT");
-    document.cookie = `accessToken=${token}; Path=/; Expires=${expirationDate.toUTCString()};`;
 
     return (
         <QueryClientProvider client={queryClient}>
@@ -76,11 +73,6 @@ const App: React.FC = () => {
                         <Route element={<NoticeLayout />}>
                             <Route path="/notice" element={<NoticePage />} />
                         </Route>
-
-                        {/* Scheduling */}
-                        <Route path="/scheduling/budget-select" element={<BudgetSelectPage />} />
-                        <Route path="/scheduling/date-select" element={<DateSelectPage />} />
-                        <Route path="/scheduling/schedule" element={<SchedulePage />} />
 
                         {/* Splash */}
                         <Route path="/splash" element={<SplashPage />} />

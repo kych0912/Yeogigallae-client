@@ -5,13 +5,13 @@ import { IconButton } from "../Button";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import HeaderCenterContent from "../Header/HeaderCenterContent";
-
+import withAuth from "../../pages/Login/withAuth";
 interface HeaderConfig {
   title: string;
   number?: number;
 }
 
-export default function Layout() {
+function FunctionalLayout() {
   const navigate = useNavigate();
   const [headerConfig, setHeaderConfig] = useState<HeaderConfig>({ title: "생성하기" });
 
@@ -48,3 +48,5 @@ export default function Layout() {
     </>
   );
 }
+
+export default withAuth(FunctionalLayout, true);

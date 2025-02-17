@@ -1,17 +1,7 @@
 import * as S from "./Style";
 import ChatMessage from "./ChatMessage";
+import { TPlace } from "../../share.types";
 
-export interface TPlace {
-    id:string;
-    placeName:string;
-    address:string;
-    latitude:number;
-    longitude:number;
-    image:string;
-    description:string;
-    userName:string;
-    profileImage:string;
-}
 
 export default function ChatInterface({messages}:{messages:TPlace[]}){    
     return(

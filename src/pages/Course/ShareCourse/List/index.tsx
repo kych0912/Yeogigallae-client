@@ -2,7 +2,7 @@ import ListCard from "./_components/ListCard";
 import { Button } from "../../../../components/Button";
 import * as S from "./_components/Style";
 import AddPlace from "./_components/AddPlace";
-import { ShareCourseData, TShareCourseContext } from "../ShareCorsePage";
+import { TShareCourseContext } from "../ShareCorsePage";
 import useSetHeader from "../../../../hooks/useSetHeader";
 import { createPortal } from "react-dom";
 import { useState, useCallback } from "react";
@@ -13,9 +13,7 @@ import CourseSearchPage from "./_components/CourseSearchPage";
 import { usePostCoursePlace } from "../../../../react-query/mutation/course/mutations";
 import ButtonLoading from "./_components/ButtonLoading";
 import { TShareCoursePlacesInfo } from "../../../../apis/course";
-export type FormData ={
-    places: ShareCourseData
-}
+import { TListFormData } from "../../../Course/ShareCourse/share.types";
 
 //임시 유저 아이디
 const userId = 1;
@@ -61,7 +59,7 @@ export default function List({
         leftFunction: handleBack
     });
 
-    const onSubmit = (data:FormData) => {
+    const onSubmit = (data:TListFormData) => {
         
         const placeCardInfo:TShareCoursePlacesInfo[] = data.places.map((place) => ({
             userId: userId.toString(),

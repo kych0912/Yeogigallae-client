@@ -48,9 +48,9 @@ export const Emptylist = styled(Container)`
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
-    margin: 0 1.25rem;
+    width: 100%;
     box-sizing: border-box;
+    padding: 0 1.25rem;
 `;
 
 //메인 탑

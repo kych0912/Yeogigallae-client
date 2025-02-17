@@ -23,5 +23,5 @@ export interface RoomResponse {
     code:number;
     message:string; 
     httpStatus:string;
-    result:Room[]
+    result:Rooms
 }

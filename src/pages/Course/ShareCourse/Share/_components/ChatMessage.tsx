@@ -5,7 +5,7 @@ import { useLongPress } from "../../../../../Utils/useLongPress";
 import modal from "../../../../../components/Modal";
 import { useDeleteCoursePlace } from "../../../../../react-query/mutation/course/mutations";
 import { useParams } from "react-router-dom";
-import { TPlace } from "./ChatInterface";
+import { TPlace } from "../../../../Course/ShareCourse/share.types";
 
 const isMine = false;
 

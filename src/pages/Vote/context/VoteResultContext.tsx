@@ -1,55 +1,31 @@
 import { createContext, useContext, useReducer, ReactNode } from "react";
-import { VoteType } from "../../../types/voteTypes/voteTypes";
-import { VoteResultSchema } from "./voteResultSchema";
+import { z } from "zod";
+import { VoteResultSchema } from "./voteResultSchema"; 
 import { DEFAULT_VoteResult } from "../../../apis/vote/mocks/voteResultMocks";
 
+export type VoteResult = z.infer<typeof VoteResultSchema>["result"];
+
 interface VoteState {
-  voteType: VoteType;
-  voteResult: {
-    userId: number;
-    userName: string;
-    type: "GOOD" | "BAD";
-    count: number;
-  };
+  voteType: "GOOD" | "BAD" | null;
+  voteResult: VoteResult;
 }
 
 type VoteAction =
-  | { type: "SET_VOTE_TYPE"; payload: VoteType }
-  | { type: "SET_VOTE_RESULT"; payload: VoteState["voteResult"] }
-  | { type: "INCREMENT_VOTE" }
-  | { type: "DECREMENT_VOTE" };
+  | { type: "SET_VOTE_TYPE"; payload: "GOOD" | "BAD" }
+  | { type: "SET_VOTE_RESULT"; payload: VoteResult };
 
 const voteResultReducer = (state: VoteState, action: VoteAction): VoteState => {
   switch (action.type) {
     case "SET_VOTE_TYPE":
-      return { 
-        ...state, 
-        voteType: action.payload,
-        voteResult: { 
-          ...state.voteResult, 
-          type: action.payload 
-        }
-      };
+      return { ...state, voteType: action.payload };
 
     case "SET_VOTE_RESULT":
-      return { ...state, voteResult: action.payload };
-
-    case "INCREMENT_VOTE":
       return {
         ...state,
-        voteResult: {
-          ...state.voteResult,
-          count: state.voteResult.count + 1
-        }
-      };
-
-    case "DECREMENT_VOTE":
-      return {
-        ...state,
-        voteResult: {
-          ...state.voteResult,
-          count: Math.max(0, state.voteResult.count - 1)
-        }
+        voteResult: action.payload.map((vote) => ({
+          ...vote,
+          type: vote.type as "GOOD" | "BAD",
+        })),
       };
 
     default:
@@ -58,8 +34,8 @@ const voteResultReducer = (state: VoteState, action: VoteAction): VoteState => {
 };
 
 const initialVoteState: VoteState = {
-  voteType: "GOOD",
-  voteResult: VoteResultSchema.parse(DEFAULT_VoteResult).result, 
+  voteType: null,
+  voteResult: DEFAULT_VoteResult.result as VoteResult,
 };
 
 const VoteContext = createContext<{ state: VoteState; dispatch: React.Dispatch<VoteAction> } | null>(null);

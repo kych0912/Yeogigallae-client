@@ -6,12 +6,14 @@ export const VoteResultSchema = z.object({
   httpStatus: z.string(),
   code: z.string(),
   message: z.string(),
-  result: z.object({
-    userId: z.number(),
-    userName: z.string(),
-    type: VoteTypeSchema, 
-    count: z.number(),
-  }),
+  result: z.array( 
+    z.object({
+      userId: z.number(),
+      userName: z.string(),
+      type: VoteTypeSchema, 
+      count: z.number(),
+    })
+  ),
 });
 
 export type VoteResult = z.infer<typeof VoteResultSchema>;

@@ -8,6 +8,27 @@ import { RecommendCard, UpComingButton } from "./UpComingCourse.style";
 import { RouteDetail } from "../../../../apis/map/types";
 import { getCarDirection } from "../../../../apis/map";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const formatFirstDayData = (data: any) => {
+    if (data && data.dailyItineraries && data.dailyItineraries.length > 0) {
+        const firstDay = data.dailyItineraries[0];
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const formattedPlaces = firstDay.places.map((place: any) => ({
+            id: place.id,
+            placeName: place.placeName,
+            address: place.address,
+            latitude: place.latitude,
+            longitude: place.longitude,
+        }));
+
+        return {
+            day: "2025-02-15", // 원하는 날짜로 설정 => 백엔드에 요청.........................................
+            places: formattedPlaces,
+        };
+    }
+    return null;
+};
+
 interface UpComingCourseCardProps {
     dailyRoutes: FirstDayItinerary;
 }
@@ -15,11 +36,13 @@ interface UpComingCourseCardProps {
 export default function UpComingCourseCard({ dailyRoutes }: UpComingCourseCardProps) {
     const [routeDetail, setRouteDetail] = useState<RouteDetail | null>(null);
 
+    const formattedFirstDayData = formatFirstDayData(dailyRoutes);
+
     useEffect(() => {
         const fetchRouteDetail = async () => {
-            if (dailyRoutes.places.length === 0) return;
+            if (!formattedFirstDayData || formattedFirstDayData.places.length === 0) return;
 
-            const places = dailyRoutes.places;
+            const places = formattedFirstDayData.places;
             const start = {
                 name: places[0].placeName,
                 lat: places[0].latitude,
@@ -30,29 +53,23 @@ export default function UpComingCourseCard({ dailyRoutes }: UpComingCourseCardPr
                 lat: places[places.length - 1].latitude,
                 lng: places[places.length - 1].longitude,
             };
-            const waypoints = places.slice(1, places.length - 1).map((place) => ({
+            const waypoints = places.slice(1, places.length - 1).map((place: { placeName: string; latitude: number; longitude: number }) => ({
                 name: place.placeName,
                 lat: place.latitude,
                 lng: place.longitude,
             }));
 
-            console.log("Start:", start);
-            console.log("End:", end);
-            console.log("Waypoints:", waypoints);
-
             const route = await getCarDirection(start, end, waypoints);
-            console.log("Route Detail:", route);
             setRouteDetail(route.routes[0]);
         };
 
-        console.log("Daily Routes:", dailyRoutes);
         fetchRouteDetail();
-    }, [dailyRoutes]);
+    }, [formattedFirstDayData]);
 
-    if (!dailyRoutes) {
+    if (!formattedFirstDayData || formattedFirstDayData.places.length === 0) {
         return (
             <Card>
-                <Card.Title>{"코스가 존재하지 않습니다."}</Card.Title>
+                <Card.Title>{"여행 코스가 존재하지 않습니다."}</Card.Title>
             </Card>
         );
     }
@@ -60,13 +77,13 @@ export default function UpComingCourseCard({ dailyRoutes }: UpComingCourseCardPr
     return (
         <RecommendCard>
             <UpComingButton disabled={true} size="large" color="secondary">
-                {`${dailyRoutes.day} 코스 시작 예정`}
+                {`${formattedFirstDayData.day} 코스 시작 예정`}
             </UpComingButton>
 
             <Card.Image>{routeDetail && <Map width="100%" height="100%" dailyRoutes={routeDetail} level={3} />}</Card.Image>
 
             <Card.Item>
-                <CourseTitle caption="코스 AI 추천" content={`${dailyRoutes.places.length}명 참여`} />
+                <CourseTitle caption="코스 AI 추천" content={`${formattedFirstDayData.places.length}명 참여`} />
             </Card.Item>
 
             <Card.Item>{routeDetail && <CoursePlaces places={routeDetail} />}</Card.Item>

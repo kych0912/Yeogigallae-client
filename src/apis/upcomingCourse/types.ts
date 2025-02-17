@@ -20,10 +20,10 @@ export type CoursePlace = {
 export type FirstDayCourse = {
     roomName: string;
     totalRoomMember: number;
-    dailyItineraries: [FirstDayItinerary];
+    dailyItineraries: FirstDayItinerary[];
 };
 
 export type FirstDayItinerary = {
-    day: string;
+    day: string; // "1일차" 같은 형식
     places: CoursePlace[];
 };

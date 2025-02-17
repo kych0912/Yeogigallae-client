@@ -3,7 +3,7 @@ import { getCourse } from "../../../apis/upcomingCourse";
 import { FirstDayCourse } from "../../../apis/upcomingCourse/types";
 
 export const useGetCourseInfo = (tripPlanId: number, aiCourseId: number) => {
-    const query = useQuery<FirstDayCourse | null>({
+    return useQuery<FirstDayCourse | null>({
         queryKey: ["course", tripPlanId, aiCourseId],
         queryFn: () => getCourse(tripPlanId.toString(), aiCourseId.toString()),
         enabled: !!tripPlanId && !!aiCourseId,
@@ -12,5 +12,4 @@ export const useGetCourseInfo = (tripPlanId: number, aiCourseId: number) => {
         refetchOnMount: false,
         refetchOnReconnect: false,
     });
-    return query;
 };

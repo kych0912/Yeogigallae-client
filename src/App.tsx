@@ -8,9 +8,6 @@ import BudgetPage from "./pages/Budget/BudgetPage/BudgetPage";
 import MyProfilePage from "./pages/MyPage/MyProfilePage/MyProfilePage";
 import RoomPage from "./pages/MyPage/RoomPage/RoomPage";
 import NoticePage from "./pages/Notice/NoticePage/NoticePage";
-import BudgetSelectPage from "./pages/Scheduling/BudgetSelectPage/BudgetSelectPage";
-import DateSelectPage from "./pages/Scheduling/DateSelectPage/DateSelectPage";
-import SchedulePage from "./pages/Scheduling/SchedulePage/SchedulePage";
 import SplashPage from "./pages/Splash/SplashPage/SplashPage";
 import VotePage from "./pages/Vote/VotePage";
 import FunctionalPage from "./pages/Functional/FunctionalPage";
@@ -32,7 +29,7 @@ import FullVotingListPage from "./pages/Main/FullVotingListPage/FullVotingListPa
 import FullVotingListLayout from "./components/Layout/FullVotingListLayout";
 import OnboardingPage from "./pages/Splash/onboardingPage/onboardingPagePage";
 
-// const ProtectedMainPage = withAuth(MainPage, true);
+const ProtectedMainPage = withAuth(MainPage, true);
 const ProtectedLoginPage = withAuth(LoginPage, false);
 const ProtectedKakao = withAuth(Kakao, false);
 
@@ -48,7 +45,7 @@ const App: React.FC = () => {
                         {/* Main */}
                         {/*<Route path="/" element={<MainPage />} />*/}
                         {/* <Route path="/" element={<ProtectedMainPage />} /> */}
-                        <Route path="/" element={<MainPage />} />
+                        <Route path="/" element={<ProtectedMainPage />} />
                         <Route element={<FullVotingListLayout />}>
                             <Route path="/fulllist" element={<FullVotingListPage />} />
                         </Route>

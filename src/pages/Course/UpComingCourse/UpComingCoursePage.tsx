@@ -8,10 +8,10 @@ import { HeaderConfig } from "../../../types/header/header";
 import { useParams } from "react-router-dom";
 
 export default function UpComingCoursePage() {
-    const { roomId, aiCourseId } = useParams<{ roomId: string; aiCourseId: string }>();
+    const { tripPlanId, aiCourseId } = useParams<{ tripPlanId: string; aiCourseId: string }>();
     const { setHeaderConfig } = useOutletContext<{ setHeaderConfig: (config: HeaderConfig) => void }>();
 
-    const { data, isLoading, error } = useGetCourseInfo(roomId!, aiCourseId!);
+    const { data, isLoading, error } = useGetCourseInfo(tripPlanId ?? "1", aiCourseId ?? "1");
 
     const courseData = data ?? null;
 
@@ -24,12 +24,22 @@ export default function UpComingCoursePage() {
         }
     }, [courseData, setHeaderConfig]);
 
+    useEffect(() => {
+        console.log("tripPlanId:", tripPlanId);
+        console.log("aiCourseId:", aiCourseId);
+        console.log("isLoading:", isLoading);
+        console.log("error:", error);
+        console.log("courseData:", courseData);
+    }, [tripPlanId, aiCourseId, isLoading, error, courseData]);
+
     if (isLoading) {
         console.log("로딩중");
+        return <div>로딩중...</div>;
     }
 
     if (error || !courseData) {
         console.error("에러 발생");
+        return <div>코스 정보를 불러오지 못했습니다.</div>;
     }
 
     return (

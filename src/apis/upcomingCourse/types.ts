@@ -10,7 +10,6 @@ export type CoursePlace = {
     profileImage: string;
 };
 
-// 1일차 일정 타입
 export type FirstDayCourse = {
     roomName: string;
     totalRoomMember: number;
@@ -22,5 +21,5 @@ export type CourseResponse = {
     httpStatus: string;
     code: string;
     message: string;
-    result: FirstDayCourse; // 배열이 아니라 단일 객체로 변경
+    result: FirstDayCourse; // 배열이 아닌 단일 객체로 수정
 };

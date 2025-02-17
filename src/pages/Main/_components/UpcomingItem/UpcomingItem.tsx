@@ -21,14 +21,14 @@ interface UpcomingItemProps {
 export default function UpcomingItem({ rooms }: UpcomingItemProps) {
     const navigate = useNavigate();
 
-    const handleClick = (roomId: number, aiCourseId: number) => {
-        navigate(`/course/upcoming/${roomId}/${aiCourseId}`);
+    const handleClick = (tripPlanId: number, aiCourseId: number) => {
+        navigate(`/course/upcoming/${tripPlanId}/${aiCourseId}`);
     };
 
     return (
         <S.RowTravelList>
             {rooms.map((room) => (
-                <U.TravelList onClick={() => handleClick(room.aiCourseId, room.roomId)} key={room.tripPlanId}>
+                <U.TravelList onClick={() => handleClick(room.aiCourseId, room.tripPlanId)} key={room.tripPlanId}>
                     {" "}
                     <U.ImageWrapper>
                         <S.Image src={room.imageUrl} alt={`${room.roomName} 이미지`} />

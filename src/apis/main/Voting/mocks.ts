@@ -10,7 +10,7 @@ export const DEFAULT_Voting = {
             totalMembers: 4,
             remainingTime: "SIXTY_MINUTES",
             completedVotes: 3,
-            profileImageUrls: ["Images.com", "Images.com", "Images.com", "Images.com"],
+            profileImageUrls: ["https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "Images.com"],
             createdAt: "2025-02-17T02:20:08.696Z",
             tripPlanType: "COURSE",
             latitude: 35.1796, // ✅ 부산 위도 수정
@@ -25,7 +25,7 @@ export const DEFAULT_Voting = {
             totalMembers: 5,
             remainingTime: "THIRTY_MINUTES",
             completedVotes: 2,
-            profileImageUrls: ["Images.com", "Images.com", "Images.com", "Images.com", "Images.com"],
+            profileImageUrls: ["https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "Images.com"],
             createdAt: "2025-02-17T02:20:08.696Z",
             tripPlanType: "SCHEDULE",
             latitude: 33.4996, // ✅ 제주도 위도 수정

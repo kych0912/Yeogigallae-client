@@ -8,6 +8,7 @@ export const courseMock: CourseResponse = {
         roomName: "테스트 룸",
         totalRoomMember: 4,
         day: "2025-02-15",
+
         places: [
             {
                 id: 1,

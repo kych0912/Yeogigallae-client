@@ -1,25 +1,24 @@
-import { useQuery, UseQueryOptions } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { getTripInfo } from "../../../apis/vote/tripInfo";
-import { TripInfo } from "../../../pages/Vote/context/tripInfo/tripInfoSchema";
+import { TripInfoResponse } from "../../../pages/Vote/context/tripInfo/TripInfoContext";
 
-export const useTripInfoQuery = (tripId?: number, roomId?: number, masterId?: number) => {
-  const queryOptions: UseQueryOptions<TripInfo, Error> = {
-    queryKey: tripId !== undefined && roomId !== undefined && masterId !== undefined
-      ? ["tripInfo", tripId, roomId, masterId]
+export const useTripInfoQuery = (tripId?: number, roomId?: number) => {
+  return useQuery<TripInfoResponse, Error>({
+    queryKey: tripId !== undefined && roomId !== undefined
+      ? ["tripInfo", tripId, roomId]
       : ["tripInfo"],
 
-    queryFn: async () => {
-      if (tripId === undefined || roomId === undefined || masterId === undefined) {
+    queryFn: () => {
+      if (tripId === undefined || roomId === undefined) {
         throw new Error("Invalid trip info parameters");
       }
-      return await getTripInfo(tripId, roomId, masterId);
+      return getTripInfo(tripId, roomId); 
     },
 
-    enabled: tripId !== undefined && roomId !== undefined && masterId !== undefined,
-    staleTime: 60 * 1000,
-    gcTime: 5 * 60 * 1000,
-    retry: 1,
-  };
-
-  return useQuery(queryOptions);
+    enabled: tripId !== undefined && roomId !== undefined,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    refetchOnReconnect: false,
+    retry: false,
+  });
 };

@@ -4,27 +4,23 @@ import { useTripInfoContext } from "../../../../hooks/useTripInfo";
 import { Button } from "../../../../components/Button";
 import * as S from "../../_components/Vote.styles";
 import { useOutletContext } from "react-router-dom";
-import { VoteProvider } from "../../context/VoteResultContext";
 import SkeletonTravelCard from "./SkeletonTravelCard";
+import { DEFAULT_TripInfo } from "../../../../apis/vote/mocks/tripInfoMocks";
 
 export default function TravelCardWrapper({
   onNext,
 }: {
   onNext: () => void;
 }) {
-  return (
-    <VoteProvider>
-      <TravelCard onNext={onNext} />
-    </VoteProvider>
-  );
+  return <TravelCard onNext={onNext} />;
 }
 
 function TravelCard({
-  onNext
+  onNext,
 }: {
   onNext: () => void;
 }) {
-  const { tripInfo } = useTripInfoContext();
+  const { tripInfo: fetchedTripInfo } = useTripInfoContext();
   const { setHeaderConfig } = useOutletContext<{ setHeaderConfig: (config: { title: string; number?: number }) => void }>();
 
   const [loading, setLoading] = useState(true);
@@ -37,11 +33,13 @@ function TravelCard({
     return () => clearTimeout(delay);
   }, []);
 
+  const tripInfo = fetchedTripInfo ?? DEFAULT_TripInfo;
+
   useEffect(() => {
-    if (tripInfo) {
+    if (tripInfo.result) {
       setHeaderConfig({
-        title: tripInfo.roomName,
-        number: tripInfo.userCount,
+        title: tripInfo.result.roomName,
+        number: tripInfo.result.userCount,
       });
     }
   }, [tripInfo, setHeaderConfig]);
@@ -50,35 +48,33 @@ function TravelCard({
     return <SkeletonTravelCard />;
   }
 
-  if (!tripInfo) {
-    return <p>데이터를 불러올 수 없습니다.</p>;
-  }
-
   return (
     <Card>
       <Card.Image>
         <img
-          src={tripInfo.imageUrl || "https://via.placeholder.com/300"}
+          src={tripInfo.result.imageUrl || "https://via.placeholder.com/300"}
           alt="trip preview"
           style={{ width: "100%", height: "100%", borderRadius: "1.5rem", objectFit: "cover" }}
         />
       </Card.Image>
 
-      <S.StyledCardTitle>{tripInfo.description}</S.StyledCardTitle>
+      <S.StyledCardTitle>{tripInfo.result.description}</S.StyledCardTitle>
 
       <Card.Divider />
 
       <S.StyledItem>
-        <Card.Item label="장소">{tripInfo.customLocation || "정보 없음"}</Card.Item>
-        <Card.Item label="금액">{tripInfo.price || "가격 미정"}</Card.Item>
+        <Card.Item label="장소">{tripInfo.result.customLocation || "정보 없음"}</Card.Item>
+        <Card.Item label="금액">{tripInfo.result.price || "가격 미정"}</Card.Item>
         <Card.Item label="기간">
-          {tripInfo.startDate && tripInfo.endDate
-            ? `${calculateTripDuration(tripInfo.startDate, tripInfo.endDate)}일`
+          {tripInfo.result.startDate && tripInfo.result.endDate
+            ? `${calculateTripDuration(tripInfo.result.startDate, tripInfo.result.endDate)}일`
             : "기간 미정"}
         </Card.Item>
       </S.StyledItem>
 
-      <Button size="large" onClick={onNext}>{"투표하러 가기"}</Button>
+      <Button size="large" onClick={onNext}> 
+        {"투표하러 가기"}
+      </Button>
     </Card>
   );
 }
@@ -87,7 +83,7 @@ const calculateTripDuration = (startDate: string, endDate: string) => {
   const start = new Date(startDate);
   const end = new Date(endDate);
 
-  if (isNaN(start.getTime()) || isNaN(end.getTime())) return "기간 미정"; // 유효성 검사
+  if (isNaN(start.getTime()) || isNaN(end.getTime())) return "기간 미정";
 
   const difference = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)) + 1;
   return difference;

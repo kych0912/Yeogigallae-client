@@ -4,7 +4,6 @@ import { HeaderConfig } from "../../../types/header/header";
 import { useEffect } from "react";
 import Room from "./_components/Room";
 import Friend from "./_components/Friend";
-import Modal from "../../../components/Modal/core";
 
 export default function MyFriendPage() {
     const {setHeaderConfig} = useOutletContext<{setHeaderConfig: (config: HeaderConfig) => void}>();
@@ -15,7 +14,6 @@ export default function MyFriendPage() {
 
     return (
         <CommonContainer>
-            <Modal />
             <Room />
             <Friend />
         </CommonContainer>

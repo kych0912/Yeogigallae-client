@@ -1,15 +1,15 @@
-import { ShareCourseData } from "./ShareCourse/ShareCorsePage";
+import { ShareCourseData } from "./ShareCourse/share.types";
 import { ShareCourseListSchema } from "./ShareCourse/schema";
 import { z } from "zod";
 
 
 export const DefaultPlace:ShareCourseData[number] = {
-    image: "",
+    imageUrl: "",
     place: {
         address: "",
         placeName: "",
-        lat: "",
-        lng: "",
+        latitude: "",
+        longitude: "",
     },
     description: "",
 }

@@ -2,7 +2,7 @@ import { TShareCourseContext } from "../pages/Course/ShareCourse/ShareCorsePage"
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, useFieldArray } from "react-hook-form";
 import { DefaultPlace, FormDataSchema } from "../pages/Course/constants";
-import { FormData } from "../pages/Course/ShareCourse/List";
+import { TListFormData } from "../pages/Course/ShareCourse/share.types";
 
 export const useShareCourseForm = (context: TShareCourseContext) => {
     const {
@@ -10,7 +10,7 @@ export const useShareCourseForm = (context: TShareCourseContext) => {
       control,
       setValue,
       formState: { isValid, errors },
-    } = useForm<FormData>({
+    } = useForm<TListFormData>({
       resolver: zodResolver(FormDataSchema),
       mode: "onChange",
       defaultValues: {

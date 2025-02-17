@@ -29,7 +29,7 @@ import FullVotingListPage from "./pages/Main/FullVotingListPage/FullVotingListPa
 import FullVotingListLayout from "./components/Layout/FullVotingListLayout";
 import OnboardingPage from "./pages/Splash/onboardingPage/onboardingPagePage";
 
-const ProtectedMainPage = withAuth(MainPage, true);
+const ProtectedMainPage = withAuth(MainPage, true, true);
 const ProtectedLoginPage = withAuth(LoginPage, false);
 const ProtectedKakao = withAuth(Kakao, false);
 

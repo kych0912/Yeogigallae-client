@@ -1,6 +1,7 @@
 import { api } from "../Axios";
 import axiosError from "axios";
 import { AuthState } from "../../pages/Login/useAuthStore";
+import { DEFAULT_User } from "./mocks";
 
 export interface UserInfo{
     userId: string;
@@ -21,8 +22,8 @@ export const getUser = async () => {
         const response = await api.get<UserResponse>(`/api/auth/user`);
         return response.data.result;
     }catch(error){
-        if(axiosError.isAxiosError(error)){
-            console.error("User API 호출 오류:", error.response?.data);
+        if(axiosError.isAxiosError(error) ){   
+            console.log("error:", error);
         }
         console.error("AXIOS ERROR X User API 호출 오류:", error);
         throw error;

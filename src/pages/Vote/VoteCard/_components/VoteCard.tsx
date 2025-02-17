@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { useVoteContext } from "../../context/VoteResultContext";
 import { useTripInfoContext } from "../../../../hooks/useTripInfo";
 import { Button } from "../../../../components/Button";
@@ -9,9 +8,7 @@ import ConfirmMessage from "../../ConfirmPage/_components/ConfirmFailCard/Confir
 import * as S from "./../../_components/Vote.styles";
 import { VoteType } from "../../../../types/voteTypes/voteTypes";
 import VoteSkeleton from "./SkeletonVoteCard";
-
-const DEFAULT_IMAGE_URL =
-  "https://s3-alpha-sig.figma.com/img/19e3/d758/89fc76fe69058e9d77f8b9d8eb86b52a?Expires=1736726400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=UD7-M2Kzy6ZypAZp1TcmODXyjkhe9B7i2um316iL6yO4noUirY-KyX2rCFKo1-6AZrianWPaXaaoA5tbU2ZguoL1G-0azGwL1VNVD6Y46adpX5KaGUIZGHJqNscdNBi5t0M1tA5v5CKL4CIhG8OpEfNW3TeA57i3np-iISxtoG8zc8H61trwbw3WCS4p6xg5v5d9e~xE15oGCXJ7gG678mnNuJX8OpVdAFOTPhh7dXkbleZcv2sqQ3ES1T3qOez7awav5iTgkRWyUTWglT9tYTX40IJf7EBX-UD2ffpxovnI926qcAULaKaK-XOXxY9bag14~jRS3SdueUe4xKmjmg__";
+import { DEFAULT_TripInfo } from "../../../../apis/vote/mocks/tripInfoMocks";
 
 export default function VoteCard({
   onAgree,
@@ -24,9 +21,8 @@ export default function VoteCard({
   showConfirmMessage?: boolean;
   isSuccess?: boolean | null;
 }) {
-  const navigate = useNavigate();
-  const { dispatch } = useVoteContext();
-  const { tripInfo } = useTripInfoContext();
+  const { state, dispatch } = useVoteContext();
+  const { tripInfo: fetchedTripInfo } = useTripInfoContext();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -37,7 +33,18 @@ export default function VoteCard({
     return () => clearTimeout(delay);
   }, []);
 
+  const tripInfo = fetchedTripInfo?.result ?? DEFAULT_TripInfo.result;
+  const currentVoteType = state.voteType; 
+
+  console.log("현재 선택된 투표 타입:", currentVoteType);
+
   const handleVote = (type: VoteType) => {
+    if (currentVoteType === type) {
+      console.log("이미 선택한 타입입니다:", type);
+      return;
+    }
+
+    console.log(`투표 선택: ${type}`);
     dispatch({ type: "SET_VOTE_TYPE", payload: type });
 
     if (type === "GOOD") {
@@ -63,21 +70,18 @@ export default function VoteCard({
     return <VoteSkeleton />;
   }
 
-  if (!tripInfo) {
-    return <p>데이터를 불러올 수 없습니다.</p>;
-  }
-
   return (
     <Card>
       {showConfirmMessage && (
         <>
           <ConfirmMessage />
-          <Button size="large" onClick={() => navigate("/")}>{"확인"}</Button>
+          <Button size="large" onClick={() => console.log("확인 버튼 클릭")}>{"확인"}</Button>
         </>
       )}
+
       <Card.Image>
         <img
-          src={DEFAULT_IMAGE_URL}
+          src={tripInfo?.imageUrl}
           alt="Vote Image"
           style={{
             width: "100%",
@@ -90,31 +94,40 @@ export default function VoteCard({
 
       <S.CustomWrapper>
         <S.CustomCardItem label="장소">
-          <span>{tripInfo.customLocation || "정보 없음"}</span> <br />
-          <span>{tripInfo.location || "주소 정보 없음"}</span>
+          <span>{tripInfo?.customLocation || "정보 없음"}</span> <br />
+          <span>{tripInfo?.location || "주소 정보 없음"}</span>
         </S.CustomCardItem>
-        <S.IconWrapper onClick={() => handleCopyToClipboard(tripInfo.masterName)}>
+        <S.IconWrapper onClick={() => handleCopyToClipboard(tripInfo?.masterName)}>
           <LinkIcon />
         </S.IconWrapper>
       </S.CustomWrapper>
 
       <Card.Divider />
-      <Card.Item label="금액">{tripInfo.price || "가격 미정"}</Card.Item>
+      <Card.Item label="금액">{tripInfo?.price || "가격 미정"}</Card.Item>
 
       <Card.Divider />
       <Card.Item label="기간">
-        {tripInfo.startDate && tripInfo.endDate
-          ? `최소 ${tripInfo.minDays}박 ~ 최대 ${tripInfo.maxDays - 1}박 / ${formatTripMonths(tripInfo.startDate, tripInfo.endDate)}`
+        {tripInfo?.startDate && tripInfo?.endDate
+          ? `최소 ${tripInfo?.minDays}박 ~ 최대 ${tripInfo?.maxDays - 1}박 / ${formatTripMonths(tripInfo?.startDate, tripInfo?.endDate)}`
           : "기간 미정"}
       </Card.Item>
       <S.CustomSpacer />
 
-      {!showConfirmMessage && isSuccess !== true &&  (
+      {!showConfirmMessage && isSuccess !== true && (
         <S.TwoSelect>
-          <Button size="large" onClick={() => handleVote("BAD")}>
+          <Button 
+            size="large" 
+            onClick={() => handleVote("BAD")}
+            disabled={currentVoteType !== null && currentVoteType === "BAD"} 
+          >
             {"난 못 가.."}
           </Button>
-          <Button size="large" onClick={() => handleVote("GOOD")} style={{ backgroundColor: "#3b46fa" }}>
+          <Button 
+            size="large" 
+            onClick={() => handleVote("GOOD")} 
+            style={{ backgroundColor: "#3b46fa" }}
+            disabled={currentVoteType !== null && currentVoteType === "GOOD"} 
+          >
             {"좋아!"}
           </Button>
         </S.TwoSelect>

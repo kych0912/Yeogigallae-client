@@ -2,8 +2,13 @@ import UpwardTrend from "../../../../../assets/icons/UpwardTrend.svg?react";
 import {CompleteMessage} from "../../../_components/Course.style";
 import Down from "../../../../../assets/icons/Down.svg?react";
 import * as S from "./Style";
+import { VoteLimitTimeMap } from "../constants";
+import { TVoteLimitTime } from "../../../../../apis/course/types";
 
-export default function InfoToggle({masterName, voteLimitTime}:{masterName:string,voteLimitTime:string}){
+export default function InfoToggle({masterName, voteLimitTime}:{
+    masterName:string,
+    voteLimitTime:TVoteLimitTime
+}){
     return(
         <>
             <S.Toggle.Wrapper>
@@ -15,7 +20,7 @@ export default function InfoToggle({masterName, voteLimitTime}:{masterName:strin
             <CompleteMessage style={{marginTop:'0.5rem'}}>   
                 {masterName}님이 코스짜기를 시작했습니다. 
                 <br/>
-                {voteLimitTime} 이후 종료 됩니다.
+                {VoteLimitTimeMap[voteLimitTime]} 이후 종료 됩니다.
             </CompleteMessage>
         </>
     )

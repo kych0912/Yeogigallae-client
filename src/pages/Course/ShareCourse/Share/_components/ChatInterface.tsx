@@ -1,18 +1,9 @@
 import * as S from "./Style";
 import ChatMessage from "./ChatMessage";
+import { TPlace } from "../../share.types";
 
-export interface ChatMessage{
-    placeid:string;
-    name:string;
-    avatar:string;
-    image:string;
-    content:string;
-    place:string;
-    link:string;
-    isMine:boolean;
-}
 
-export default function ChatInterface({messages}:{messages:ChatMessage[]}){    
+export default function ChatInterface({messages}:{messages:TPlace[]}){    
     return(
         <S.Chat.Wrapper>
             {

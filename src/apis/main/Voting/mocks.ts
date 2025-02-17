@@ -1,5 +1,5 @@
 export const DEFAULT_Voting = {
-    totalCount: 2,
+    totalCount: 0,
     rooms: [
         {
             tripPlanId: 1,

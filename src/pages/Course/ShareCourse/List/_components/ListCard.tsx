@@ -20,7 +20,7 @@ export default function ListCard({
     onSearch: () => void,
 }) {
     const { field: imageField } = useController({
-        name: `places.${index}.image`,
+        name: `places.${index}.imageUrl`,
         control,
     });
 

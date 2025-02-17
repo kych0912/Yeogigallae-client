@@ -6,14 +6,15 @@ import usergroup from "../../../../assets/icons/usergroup.svg";
 import { useNavigate } from "react-router-dom";
 
 export default function FloatingMenu() {
-    const [isActive, setIsActive] = useState(false);
+    const [isVisible, setIsVisible] = useState(false);
     const navigate = useNavigate();
 
-    const toggleMenu = () => setIsActive(!isActive);
-    const closeMenu = () => setIsActive(false);
+    const toggleMenu = () => setIsVisible(!isVisible);
+    const closeMenu = () => setIsVisible(false);
 
     const handleEditClick = () => {
         navigate("/functional");
+        closeMenu();
     };
 
     const handleMyClick = () => {
@@ -22,23 +23,23 @@ export default function FloatingMenu() {
     };
 
     return (
-        <S.FloatingContainer $isActive={isActive}>
-            <S.Overlay $isActive={isActive} onClick={closeMenu} />
+        <S.FloatingContainer>
+            <S.Overlay $isVisible={isVisible} onClick={closeMenu} />
 
-            <S.FloatingButtonStyled $isMain $isActive={isActive} onClick={toggleMenu}>
+            <S.FloatingButtonStyled $isMain $isVisible={isVisible} onClick={toggleMenu}>
                 <img src={Floating} alt="Floating Icon" />
             </S.FloatingButtonStyled>
 
-            <S.MenuItem>
-                <S.SubText $isActive={isActive}>여행 친구 관리</S.SubText>
-                <S.SubButton $isActive={isActive} onClick={handleMyClick}>
+            <S.MenuItem $isVisible={isVisible}>
+                <S.SubText $isVisible={isVisible}>여행 친구 관리</S.SubText>
+                <S.SubButton $isVisible={isVisible} onClick={handleMyClick}>
                     <img src={usergroup} alt="trip_plan Floating Icon" />
                 </S.SubButton>
             </S.MenuItem>
 
-            <S.MenuItem>
-                <S.SubText $isActive={isActive}>여행 일정 생성</S.SubText>
-                <S.SubButton $isActive={isActive} onClick={handleEditClick}>
+            <S.MenuItem $isVisible={isVisible}>
+                <S.SubText $isVisible={isVisible}>여행 일정 생성</S.SubText>
+                <S.SubButton $isVisible={isVisible} onClick={handleEditClick}>
                     <img src={trip_plan} alt="trip_plan Floating Icon" />
                 </S.SubButton>
             </S.MenuItem>

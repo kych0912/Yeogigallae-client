@@ -30,6 +30,7 @@ class ModalService{
                 message:props.message,
                 onConfirm:props.onConfirm,
                 onCancel:props.onCancel,
+                isOneButton:props.isOneButton,
                 confirmText:props.confirmText,
                 cancelText:props.cancelText,
                 type:"confirm"

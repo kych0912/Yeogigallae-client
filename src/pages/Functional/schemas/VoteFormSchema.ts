@@ -12,13 +12,13 @@ export const voteFormSchema = z.object({
   imageUrl: z.string().url(),
   scheduleDetails: z
     .object({
-      message: z.string().optional(),
+      message: z.string().min(1),
       price: z.string().optional(),
     })
     .optional(),
   courseDetails: z
     .object({
-      message: z.string().optional(),
+      message: z.string().min(1),
     })
     .optional(),
 });

@@ -30,6 +30,8 @@ export const useVoteForm = (tripPlanType: "COURSE" | "SCHEDULE", roomId: number)
           maxDays: 7,
           roomId,
           imageUrl: "",
+          latitude: "",
+          longitude: "",
           scheduleDetails: { message: "", price: "" },
           courseDetails: { message: "" },
           tripPlanType,

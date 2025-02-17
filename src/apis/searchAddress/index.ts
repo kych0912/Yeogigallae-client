@@ -11,7 +11,7 @@ export const getSearchPlace = async (params: KakaoPlaceSearchParams) => {
     'https://dapi.kakao.com/v2/local/search/keyword.json',
 
     {
-      headers: { Authorization: `KakaoAK ${import.meta.env.VITE_KAKAO_REST_API_KEY}` },
+      headers: { Authorization: `KakaoAK ${import.meta.env.VITE_MAP_REST_API_KEY}` },
       params,
     }
   );
@@ -23,7 +23,7 @@ export const getAddressToZip = async (params: KakaoCoordToAddressParams) => {
     'https://dapi.kakao.com/v2/local/geo/coord2address.json',
     {
 
-      headers: { Authorization: `KakaoAK ${import.meta.env.VITE_KAKAO_REST_API_KEY}` },
+      headers: { Authorization: `KakaoAK ${import.meta.env.VITE_MAP_REST_API_KEY}` },
       params,
     }
   );

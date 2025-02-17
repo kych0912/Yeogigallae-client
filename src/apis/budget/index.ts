@@ -1,7 +1,6 @@
-import axios from "axios";
 import { budgetMock } from "./mocks";
 import { BudgetResponse } from "./types";
-
+import { api } from "../Axios";
 /**
  * 공통 API 오류 처리 함수
  * @param error 발생한 오류
@@ -19,7 +18,7 @@ export const getBudgetInfo = async (budgetId: number): Promise<BudgetResponse> =
         return budgetMock;
     }
 
-    return axios.get<BudgetResponse>(`${import.meta.env.VITE_API_URL}/api/budget/${budgetId}`)
+    return api.get<BudgetResponse>(`/api/budget/${budgetId}`)
         .then(response => response.data)
         .catch(error => handleApiError(error, budgetMock)); 
 };

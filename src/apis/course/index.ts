@@ -1,8 +1,8 @@
-import axios from "axios";
 import { courseInfoMock, courseListMock } from "./mocks";
 import { ShareCourseSchema } from "../../pages/Course/ShareCourse/schema";
 import * as z from "zod";
 import { ICourseMessageResponse } from "./types";
+import { api } from "../Axios";
 
 //장소 정보 타입
 export type TShareCoursePlace = z.infer<typeof ShareCourseSchema>["place"];
@@ -19,11 +19,7 @@ export type TShareCoursePlacesInfo = (
 
 export const getCourseInfo = async (tripId:string,roomId:string) => {
     try{
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/vote/trip-info?tripId=${tripId}&roomId=${roomId}`,
-            {
-                withCredentials:true,
-            }   
-        );
+        const response = await api.get(`/api/vote/trip-info?tripId=${tripId}&roomId=${roomId}`);
         return response.data;
     }catch(error){
         console.error("CourseInfo API 호출 오류:", error);
@@ -34,7 +30,7 @@ export const getCourseInfo = async (tripId:string,roomId:string) => {
 // 공유된 코스 목록 조회
 export const getCourseList = async (roomId:string):Promise<ICourseMessageResponse> => {
     try{    
-        const response = await axios.get<ICourseMessageResponse>(`${import.meta.env.VITE_API_URL}/api/rooms/${roomId}/places`,{
+        const response = await api.get<ICourseMessageResponse>(`/api/rooms/${roomId}/places`,{
             withCredentials:true,
         });
         return response.data;
@@ -47,7 +43,7 @@ export const getCourseList = async (roomId:string):Promise<ICourseMessageRespons
 // 공유된 코스 장소 추가
 export const postCoursePlace = async (placeCardInfo:TShareCoursePlacesInfo[], roomId:string) => {
     try{
-        const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/rooms/${roomId}/places`,placeCardInfo,{
+        const response = await api.post(`/api/rooms/${roomId}/places`,placeCardInfo,{
             withCredentials:true,
         });
         return response.data;
@@ -59,7 +55,7 @@ export const postCoursePlace = async (placeCardInfo:TShareCoursePlacesInfo[], ro
 
 export const deleteCoursePlace = async (id:string, roomId:string) => {
     try{
-        const response = await axios.delete(`${import.meta.env.VITE_API_URL}/api/rooms/${roomId}/places/${id}`,{
+        const response = await api.delete(`/api/rooms/${roomId}/places/${id}`,{
             withCredentials:true,
         });
         return response.data;

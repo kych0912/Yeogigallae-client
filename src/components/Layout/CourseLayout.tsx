@@ -7,9 +7,9 @@ import { useState } from "react";
 import HeaderCenterContent from "../Header/HeaderCenterContent";
 import { HeaderConfig } from "../../types/header/header";
 import { useNavigate } from "react-router-dom";
+import withAuth from "../../pages/Login/withAuth";
 
-
-export default function Layout() {
+function CourseLayout() {
     const navigate = useNavigate();
     const [headerConfig, setHeaderConfig] = useState<HeaderConfig>({title:""});
     const { title, number, leftFunction, rightFunction } = headerConfig;
@@ -37,3 +37,5 @@ export default function Layout() {
         </>
     );
 }
+
+export default withAuth(CourseLayout, true);

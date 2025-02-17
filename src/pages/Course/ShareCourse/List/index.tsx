@@ -14,9 +14,7 @@ import { usePostCoursePlace } from "../../../../react-query/mutation/course/muta
 import ButtonLoading from "./_components/ButtonLoading";
 import { TShareCoursePlacesInfo } from "../../../../apis/course";
 import { TListFormData } from "../../../Course/ShareCourse/share.types";
-
-//임시 유저 아이디
-const userId = 1;
+import { useAuthStore } from "../../../Login/useAuthStore";
 
 export default function List({
     onNext, 
@@ -26,6 +24,7 @@ export default function List({
     context:TShareCourseContext
 }){
     const navigate = useNavigate();
+    const {userId} = useAuthStore();
     //useForm, useFieldArray 사용
     //각 ListCard는 FieldArray에 속해있음
     const { handleSubmit, control, setValue, isValid, fields, append, remove } = useShareCourseForm(context);

@@ -27,7 +27,6 @@ interface VotingItemProps {
 const VotingItem: React.FC<VotingItemProps> = ({ rooms = [] }) => {
     const navigate = useNavigate();
 
-    console.log("렌더링중");
     const handleClick = (tripPlanId: number, roomId: string, tripPlanType: "COURSE" | "SCHEDULE" | "BUDGET") => {
         if (tripPlanType === "COURSE") {
             // COURSE 타입일 때

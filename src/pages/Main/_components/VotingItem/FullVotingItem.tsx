@@ -10,7 +10,7 @@ import MapComponent from "../../../SearchPage/_components/SearchMap/SearchMap";
 import { useNavigate } from "react-router-dom";
 
 // interface RemainingTimeProps {
-//     tripPlanId: number;ｚＺＸＸｚＸｘｚＸｚＸ？！ｄｊｓａ
+//     tripPlanId: number;
 //     remainingTimes: { [key: number]: string };
 // }
 
@@ -44,7 +44,6 @@ const FullVotingItem: React.FC<FullVotingItemProps> = ({ rooms = [], selectedFil
     // const remainingTimes = useRemainingTimes(rooms);
     const navigate = useNavigate();
 
-    console.log("렌더링중");
     const handleClick = (tripPlanId: number, roomId: string, tripPlanType: "COURSE" | "SCHEDULE" | "BUDGET") => {
         if (tripPlanType === "COURSE") {
             // COURSE 타입일 때

@@ -79,7 +79,7 @@ const App: React.FC = () => {
                         <Route path="/onboarding" element={<OnboardingPage />} />
 
                         <Route element={<VoteLayout />}>
-                            <Route path="/vote" element={<VotePage />} />
+                            <Route path="/vote/:tripId/:roomId" element={<VotePage />} />
                         </Route>
 
                         <Route element={<FunctionalLayout />}>

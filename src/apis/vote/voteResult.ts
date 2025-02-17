@@ -3,22 +3,11 @@ import { DEFAULT_VoteResult } from "./mocks/voteResultMocks";
 
 export const getVoteResult = async ({
   tripId,
-  userId,
-  type,
 }: {
   tripId: number;
   userId: number;
   type: "GOOD" | "BAD";
 }) => {
-  if (import.meta.env.MODE === "development") {
-    return {
-      ...DEFAULT_VoteResult,
-      userId,
-      type,
-      tripId,
-    };
-  }
-
   try{
     const response = await api.get(`/api/vote/results/tripId=${tripId}`);
     return response.data.result || response.data; 

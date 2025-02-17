@@ -28,7 +28,7 @@ export default function Share({context}:{context:TShareCourseContext}){
         <div>
             <InfoToggle masterName={masterName} voteLimitTime={voteLimitTime} />
 
-            <ChatInterface messages={data.result} />
+            <ChatInterface messages={data.result.places} />
         </div>
     )
 }

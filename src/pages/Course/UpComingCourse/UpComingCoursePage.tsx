@@ -6,6 +6,7 @@ import { UpComingContainer } from "./_components/UpComingCourse.style";
 import { useOutletContext } from "react-router-dom";
 import { HeaderConfig } from "../../../types/header/header";
 import { useParams } from "react-router-dom";
+import { CourseResponse, FirstDayItinerary } from "../../../apis/upcomingCourse/types";
 
 export default function UpComingCoursePage() {
     const { tripPlanId, aiCourseId } = useParams<{ tripPlanId: string; aiCourseId: string }>();
@@ -13,13 +14,14 @@ export default function UpComingCoursePage() {
 
     const { data, isLoading, error } = useGetCourseInfo(tripPlanId ?? "1", aiCourseId ?? "1");
 
-    const courseData = data ?? null;
+    const courseData: CourseResponse | null = data ?? null;
+    const firstDayItinerary: FirstDayItinerary | null = courseData?.result.dailyItineraries[0] ?? null;
 
     useEffect(() => {
         if (courseData) {
             setHeaderConfig({
-                title: courseData.roomName,
-                number: courseData.totalRoomMember,
+                title: courseData.result.roomName,
+                number: courseData.result.totalRoomMember,
             });
         }
     }, [courseData, setHeaderConfig]);
@@ -37,14 +39,14 @@ export default function UpComingCoursePage() {
         return <div>로딩중...</div>;
     }
 
-    if (error || !courseData) {
+    if (error || !firstDayItinerary) {
         console.error("에러 발생");
         return <div>코스 정보를 불러오지 못했습니다.</div>;
     }
 
     return (
         <UpComingContainer>
-            <UpComingCourseCard dailyRoutes={courseData} />
+            <UpComingCourseCard dailyRoutes={firstDayItinerary} />
             <RecommendCard />
         </UpComingContainer>
     );

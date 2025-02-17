@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FirstDayCourse } from "../../../../apis/upcomingCourse/types";
+import { FirstDayItinerary } from "../../../../apis/upcomingCourse/types";
 import Card from "../../../../components/Card";
 import Map from "../../../../components/Map";
 import CourseTitle from "../../_components/CourseTitle";
@@ -9,7 +9,7 @@ import { RouteDetail } from "../../../../apis/map/types";
 import { getCarDirection } from "../../../../apis/map";
 
 interface UpComingCourseCardProps {
-    dailyRoutes: FirstDayCourse;
+    dailyRoutes: FirstDayItinerary;
 }
 
 export default function UpComingCourseCard({ dailyRoutes }: UpComingCourseCardProps) {
@@ -17,6 +17,8 @@ export default function UpComingCourseCard({ dailyRoutes }: UpComingCourseCardPr
 
     useEffect(() => {
         const fetchRouteDetail = async () => {
+            if (dailyRoutes.places.length === 0) return;
+
             const places = dailyRoutes.places;
             const start = {
                 name: places[0].placeName,
@@ -64,7 +66,7 @@ export default function UpComingCourseCard({ dailyRoutes }: UpComingCourseCardPr
             <Card.Image>{routeDetail && <Map width="100%" height="100%" dailyRoutes={routeDetail} level={3} />}</Card.Image>
 
             <Card.Item>
-                <CourseTitle caption="코스 AI 추천" content={`${dailyRoutes.totalRoomMember}명 참여`} />
+                <CourseTitle caption="코스 AI 추천" content={`${dailyRoutes.places.length}명 참여`} />
             </Card.Item>
 
             <Card.Item>{routeDetail && <CoursePlaces places={routeDetail} />}</Card.Item>

@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { createContext, useContext, useState, ReactNode } from "react";
 
 interface CalendarContextProps {
   currentDate: Date;
@@ -14,52 +14,26 @@ interface CalendarContextProps {
 
 const CalendarContext = createContext<CalendarContextProps | undefined>(undefined);
 
-const formatDate = (date: Date | null): string | null => {
-  return date
-    ? `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`
-    : null;
+const parseDate = (dateString: string | null): Date | null => {
+  return dateString ? new Date(dateString) : null;
 };
 
 export function CalendarProvider({ children }: { children: ReactNode }) {
   const today = new Date();
   const [currentDate, setCurrentDate] = useState(today);
-  const [startDate, setStartDate] = useState<Date | null>(
-    localStorage.getItem("calendarStartDate") ? new Date(localStorage.getItem("calendarStartDate")!) : null
-  );
-  const [endDate, setEndDate] = useState<Date | null>(
-    localStorage.getItem("calendarEndDate") ? new Date(localStorage.getItem("calendarEndDate")!) : null
-  );
+  const [startDate, setStartDate] = useState<Date | null>(parseDate(localStorage.getItem("calendarStartDate")));
+  const [endDate, setEndDate] = useState<Date | null>(parseDate(localStorage.getItem("calendarEndDate")));
   const [mode, setMode] = useState<"date" | "flexible">("date");
 
-  useEffect(() => {
-    const handleStorageChange = () => {
-      const storedStartDate = localStorage.getItem("calendarStartDate");
-      const storedEndDate = localStorage.getItem("calendarEndDate");
+  const updateStartDate = (date: Date | null) => {
+    setStartDate(date);
+    date ? localStorage.setItem("calendarStartDate", date.toISOString()) : localStorage.removeItem("calendarStartDate");
+  };
 
-      if (formatDate(startDate) !== storedStartDate) {
-        setStartDate(storedStartDate ? new Date(storedStartDate) : null);
-      }
-      if (formatDate(endDate) !== storedEndDate) {
-        setEndDate(storedEndDate ? new Date(storedEndDate) : null);
-      }
-    };
-
-    window.addEventListener("storage", handleStorageChange);
-    return () => window.removeEventListener("storage", handleStorageChange);
-  }, [startDate, endDate]);
-
-  useEffect(() => {
-    const storedStartDate = localStorage.getItem("calendarStartDate");
-    const storedEndDate = localStorage.getItem("calendarEndDate");
-
-    if (startDate && endDate) {
-      if (storedStartDate !== formatDate(startDate) || storedEndDate !== formatDate(endDate)) {
-        localStorage.setItem("calendarStartDate", formatDate(startDate)!);
-        localStorage.setItem("calendarEndDate", formatDate(endDate)!);
-        window.dispatchEvent(new Event("storage"));
-      }
-    }
-  }, [startDate, endDate]);
+  const updateEndDate = (date: Date | null) => {
+    setEndDate(date);
+    date ? localStorage.setItem("calendarEndDate", date.toISOString()) : localStorage.removeItem("calendarEndDate");
+  };
 
   const resetCalendar = () => {
     setCurrentDate(today);
@@ -68,7 +42,6 @@ export function CalendarProvider({ children }: { children: ReactNode }) {
     setMode("date");
     localStorage.removeItem("calendarStartDate");
     localStorage.removeItem("calendarEndDate");
-    window.dispatchEvent(new Event("storage"));
   };
 
   return (
@@ -79,8 +52,8 @@ export function CalendarProvider({ children }: { children: ReactNode }) {
         endDate,
         mode,
         setCurrentDate,
-        setStartDate,
-        setEndDate,
+        setStartDate: updateStartDate,
+        setEndDate: updateEndDate,
         setMode,
         resetCalendar,
       }}

@@ -5,3 +5,10 @@ export type Friend = {
 }
 
 
+export interface FriendResponse {
+    code:number;
+    message:string;
+    httpStatus:string;
+    result:Friend[]
+}
+

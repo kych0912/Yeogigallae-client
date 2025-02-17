@@ -77,3 +77,40 @@ export const Label = styled.span<{ $active: boolean; $isCreateButton?: boolean }
   text-align: center;
   white-space: nowrap;
 `;
+
+export const PlusIcon = styled.div`
+  position: relative;
+  width: 24px;
+  height: 24px;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    background-color: #3b46f1;
+    transition: background-color 0.2s ease-in-out;
+  }
+
+  /* 세로 라인 */
+  &::before {
+    width: 2px;
+    height: 100%;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+  }
+
+  /* 가로 라인 */
+  &::after {
+    width: 100%;
+    height: 2px;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+  }
+
+  &:hover::before,
+  &:hover::after {
+    background-color: #2a36c0; /* 호버 시 색상 변경 */
+  }
+`;

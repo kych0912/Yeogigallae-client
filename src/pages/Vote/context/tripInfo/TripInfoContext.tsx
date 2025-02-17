@@ -1,12 +1,14 @@
 import { createContext } from "react";
-import { TripInfo } from "./tripInfoSchema";
+import { z } from "zod"; 
+import { TripInfoSchema } from "./tripInfoSchema";
 import { TripInfoProvider } from "./TripInfoProvider"; 
+
+export type TripInfoResponse = z.infer<typeof TripInfoSchema>;
 
 interface TripInfoContextType {
   tripId: number | null;
   roomId: number | null;
-  masterId: number | null;
-  tripInfo: TripInfo | null;
+  tripInfo: TripInfoResponse | null;  
   isLoading: boolean;
   error: Error | null;
 }

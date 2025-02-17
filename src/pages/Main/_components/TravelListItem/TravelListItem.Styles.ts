@@ -14,7 +14,7 @@ export const TravelListItem = styled.div`
 `;
 
 export const EmptyBox = styled.div`
-    width: 23.125rem;
+    width: 100%;
     height: 15.625rem;
     background-color: ${({ theme }) => theme.colors.secondary || "#222222"};
     border-radius: 1.25rem;

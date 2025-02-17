@@ -1,4 +1,4 @@
-import axios from "axios";
+import { api } from "../Axios";
 import { DEFAULT_User } from "./mocks";
 
 export const getUser = async () => {
@@ -6,9 +6,7 @@ export const getUser = async () => {
         return DEFAULT_User;
     }
     try{    
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/user`, {
-            withCredentials: true,
-        });
+        const response = await api.get(`/user`);
 
         return response.data.result;
     }catch(error){

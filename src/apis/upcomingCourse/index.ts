@@ -1,6 +1,6 @@
-import axios from "axios";
 import { courseMock } from "./mocks";
 import { CourseResponse, FirstDayCourse } from "./types";
+import { api } from "../Axios";
 
 export const getCourse = async (roomId: string, aiCourseId: string): Promise<FirstDayCourse | null> => {
     console.log("📌 [getCourse] 함수 실행됨 - roomId:", roomId, "aiCourseId:", aiCourseId);
@@ -11,7 +11,7 @@ export const getCourse = async (roomId: string, aiCourseId: string): Promise<Fir
     }
 
     try {
-        const response = await axios.get<CourseResponse>(`${import.meta.env.VITE_API_URL}/api/ai-course/room/${roomId}/${aiCourseId}`, { withCredentials: true });
+        const response = await api.get<CourseResponse>(`/api/ai-course/room/${roomId}/${aiCourseId}`);
 
         console.log("✅ [getCourse] API 응답 데이터:", response.data.result); // API 데이터 확인
         return response.data.result || null;

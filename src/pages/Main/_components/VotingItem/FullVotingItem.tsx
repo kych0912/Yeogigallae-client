@@ -5,9 +5,14 @@ import Budget from "../../../../assets/icons/budget.svg";
 import Schedule from "../../../../assets/icons/calendar3.svg";
 import calculateVoteGauge from "./calculateVoteGauge";
 import renderParticipantProfiles from "./renderParticipantProfiles";
-import useRemainingTimes from "./useRemainingTimes";
+import RemainingTimeDisplay from "./useRemainingTimes";
 import MapComponent from "../../../SearchPage/_components/SearchMap/SearchMap";
 import { useNavigate } from "react-router-dom";
+
+// interface RemainingTimeProps {
+//     tripPlanId: number;
+//     remainingTimes: { [key: number]: string };
+// }
 
 interface FullVotingItemProps {
     rooms: Room[];
@@ -30,17 +35,22 @@ interface Room {
     remainingTime: "THIRTY_MINUTES" | "SIXTY_MINUTES" | "FOUR_HOURS" | "SIX_HOURS";
 }
 
+// // 타이머 부분만 메모이제이션
+// const RemainingTimeDisplay: React.FC<RemainingTimeProps> = memo(({ tripPlanId, remainingTimes }) => {
+//     return <span>{remainingTimes[tripPlanId] || "00:00:00"}</span>;
+// });
+
 const FullVotingItem: React.FC<FullVotingItemProps> = ({ rooms = [], selectedFilter }) => {
-    const remainingTimes = useRemainingTimes(rooms);
+    // const remainingTimes = useRemainingTimes(rooms);
     const navigate = useNavigate();
 
-    const handleClick = (tripPlanId: number, roomId: string, tripPlanType: "COURSE" | "SCHEDULE" | "BUDGET", masterId: string) => {
+    const handleClick = (tripPlanId: number, roomId: string, tripPlanType: "COURSE" | "SCHEDULE" | "BUDGET") => {
         if (tripPlanType === "COURSE") {
             // COURSE 타입일 때
             navigate(`/course/${roomId}/${tripPlanId}`);
         } else if (tripPlanType === "SCHEDULE") {
             // SCHEDULE 타입일 때
-            navigate(`/vote/${tripPlanId}/${roomId}/${masterId}`);
+            navigate(`/vote/${tripPlanId}/${roomId}`);
         } else {
             // BUDGET 타입일 때
         }
@@ -65,7 +75,7 @@ const FullVotingItem: React.FC<FullVotingItemProps> = ({ rooms = [], selectedFil
                 })();
 
                 return (
-                    <V.FullVotingItem key={room.tripPlanId} onClick={() => handleClick(room.tripPlanId, room.roomId, room.tripPlanType, room.masterId)}>
+                    <V.FullVotingItem key={room.tripPlanId} onClick={() => handleClick(room.tripPlanId, room.roomId, room.tripPlanType)}>
                         <S.Type>
                             <S.Icon2 src={tripPlanInfo.icon} alt={tripPlanInfo.text} />
                             {tripPlanInfo.text}
@@ -73,8 +83,12 @@ const FullVotingItem: React.FC<FullVotingItemProps> = ({ rooms = [], selectedFil
                         <V.Box>
                             <S.Box>
                                 <V.Title>{room.roomName}</V.Title>
-                                <V.RemainingTime>{remainingTimes?.[room.tripPlanId] || "00:00:00"}</V.RemainingTime>
+                                {/* 🔥 개별 타이머 컴포넌트로 리렌더링 최소화 */}
+                                <V.RemainingTime>
+                                    <RemainingTimeDisplay createdAt={room.createdAt} remainingTime={room.remainingTime} />
+                                </V.RemainingTime>
                             </S.Box>
+
                             <S.Box>
                                 <S.Location>{room.location}</S.Location>
                             </S.Box>

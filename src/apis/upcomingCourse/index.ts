@@ -3,6 +3,10 @@ import { CourseResponse, FirstDayCourse } from "./types";
 import { api } from "../Axios";
 
 export const getCourse = async (tripPlanId: string, aiCourseId: string): Promise<FirstDayCourse> => {
+    if (import.meta.env.MODE === "development") {
+        console.log("✅ [getCourse] API 응답 데이터:", courseMock.result); // API 데이터 확인
+        return courseMock.result;
+    }
     try {
         const response = await api.get<CourseResponse>(`/api/aiCourse/tripPlan/${tripPlanId}/${aiCourseId}`);
 

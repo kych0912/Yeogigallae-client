@@ -17,6 +17,9 @@ export default function UpComingCoursePage() {
     const firstDayCourseData: FirstDayCourse | null = data ?? null;
     const firstDayItinerary: FirstDayItinerary | null = firstDayCourseData?.dailyItineraries[0] ?? null;
 
+    console.log("✅ [UpComingCoursePage] firstDayCourseData:", firstDayCourseData);
+    console.log("✅ [UpComingCoursePage] FirstDayItinerary:", firstDayItinerary);
+
     useEffect(() => {
         if (firstDayCourseData) {
             setHeaderConfig({

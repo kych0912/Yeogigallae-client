@@ -20,6 +20,7 @@ export type CoursePlace = {
 export type FirstDayCourse = {
     roomName: string;
     totalRoomMember: number;
+    startDate: string;
     dailyItineraries: FirstDayItinerary[];
 };
 

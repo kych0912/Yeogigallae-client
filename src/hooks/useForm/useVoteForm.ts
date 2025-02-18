@@ -6,39 +6,57 @@ import { useCalendar } from "../../components/Calendar/context/CalendarContext";
 
 export const useVoteForm = (tripPlanType: "COURSE" | "SCHEDULE", roomId: number) => {
   const storageKey = `voteForm_${tripPlanType}_${roomId}`;
-  const { startDate, endDate } = useCalendar();
+  const dateStorageKey = `voteForm_${tripPlanType}_${roomId}_dates`;
 
-  const formatToKST = (date: Date | null) =>
-    date ? date.toLocaleDateString("ko-KR").replace(/\. /g, "-").replace(".", "").trim() : "";
+  const { startDate: calendarStart, endDate: calendarEnd } = useCalendar();
 
-  const savedFormData = localStorage.getItem(storageKey);
-  const parsedData = savedFormData ? JSON.parse(savedFormData) : null;
+  const formatToKST = (date: Date | null): string => {
+    if (!date) return "";
+    return date.toLocaleDateString("ko-KR", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    }).replace(/\. /g, "-").replace(".", "").trim();
+  };
+
+  // ✅ 최신 날짜 데이터를 가져오는 함수
+  const getStoredDates = () => {
+    const savedDates = localStorage.getItem(dateStorageKey);
+    return savedDates ? JSON.parse(savedDates) : null;
+  };
+
+  // ✅ 최신 폼 데이터를 가져오는 함수
+  const getStoredData = () => {
+    const savedFormData = localStorage.getItem(storageKey);
+    return savedFormData ? JSON.parse(savedFormData) : null;
+  };
+
+  const storedData = getStoredData();
+  const storedDates = getStoredDates();
 
   const defaultValues: VoteFormData = {
-    location: parsedData?.location || "",
-    startDate: parsedData?.startDate || formatToKST(startDate),
-    endDate: parsedData?.endDate || formatToKST(endDate),
-    tripType: parsedData?.tripType || "DOMESTIC",
-    voteLimitTime: parsedData?.voteLimitTime || "",
-    minDays: parsedData?.minDays || 1,
-    maxDays: parsedData?.maxDays || 7,
+    location: storedData?.location || "",
+    startDate: storedDates?.startDate || formatToKST(calendarStart),
+    endDate: storedDates?.endDate || formatToKST(calendarEnd),
+    tripType: storedData?.tripType || "DOMESTIC",
+    voteLimitTime: storedData?.voteLimitTime || "",
+    minDays: storedData?.minDays || 1,
+    maxDays: storedData?.maxDays || 7,
     roomId,
-    imageUrl: parsedData?.imageUrl || "",
+    imageUrl: storedData?.imageUrl || "",
     tripPlanType,
-    scheduleDetails:
-      tripPlanType === "SCHEDULE" ? parsedData?.scheduleDetails || { message: "", price: "" } : { message: "", price: "" }, 
-    courseDetails:
-      tripPlanType === "COURSE" ? parsedData?.courseDetails || { message: "" } : { message: "" },
-    latitude: tripPlanType === "SCHEDULE" ? parsedData?.latitude ?? 0 : undefined,
-    longitude: tripPlanType === "SCHEDULE" ? parsedData?.longitude ?? 0 : undefined,
+    scheduleDetails: tripPlanType === "SCHEDULE" ? storedData?.scheduleDetails || { message: "", price: "" } : undefined,
+    courseDetails: tripPlanType === "COURSE" ? storedData?.courseDetails || { message: "" } : undefined,
   };
 
   const {
     control,
     setValue,
-    watch,
     getValues,
-    reset, 
+    reset,
+    watch,
+    handleSubmit,
+    trigger, 
     formState: { isValid },
   } = useForm<VoteFormData>({
     resolver: zodResolver(voteFormSchema),
@@ -47,26 +65,52 @@ export const useVoteForm = (tripPlanType: "COURSE" | "SCHEDULE", roomId: number)
   });
 
   useEffect(() => {
-    reset(defaultValues);
-  }, [tripPlanType, reset]);
+    const newStoredDates = getStoredDates();
+
+    setTimeout(() => {
+      reset({
+        ...defaultValues,
+        startDate: newStoredDates?.startDate || formatToKST(calendarStart),
+        endDate: newStoredDates?.endDate || formatToKST(calendarEnd),
+      });
+
+      // ✅ UI 즉시 반영
+      setValue("startDate", newStoredDates?.startDate || formatToKST(calendarStart));
+      setValue("endDate", newStoredDates?.endDate || formatToKST(calendarEnd));
+      trigger(["startDate", "endDate"]); // ✅ UI 업데이트 및 유효성 검증 실행
+    }, 0);
+  }, [tripPlanType]);
+
+  // ✅ 날짜 변경 시 즉시 반영 + 최신 `localStorage` 동기화
+  useEffect(() => {
+    const newStartDate = formatToKST(calendarStart);
+    const newEndDate = formatToKST(calendarEnd);
+    const storedDates = getStoredDates();
+
+    if (storedDates?.startDate !== newStartDate || storedDates?.endDate !== newEndDate) {
+      const updatedDates = { startDate: newStartDate, endDate: newEndDate };
+      
+      localStorage.setItem(dateStorageKey, JSON.stringify(updatedDates));
+
+      setTimeout(() => {
+        // ✅ `setValue()`와 `trigger()`를 사용하여 UI 즉시 반영
+        setValue("startDate", newStartDate);
+        setValue("endDate", newEndDate);
+        trigger(["startDate", "endDate"]);
+      }, 0);
+    }
+  }, [calendarStart, calendarEnd, tripPlanType, setValue, trigger]);
 
   useEffect(() => {
-    const newStartDate = formatToKST(startDate);
-    const newEndDate = formatToKST(endDate);
-
-    if (getValues("startDate") !== newStartDate) {
-      setValue("startDate", newStartDate);
-    }
-    if (getValues("endDate") !== newEndDate) {
-      setValue("endDate", newEndDate);
-    }
-  }, [startDate, endDate, setValue, getValues]);
-
-  watch((values) => {
-    if (values.tripPlanType === tripPlanType) {
+    const subscription = watch((values) => {
       localStorage.setItem(storageKey, JSON.stringify(values));
-    }
+    });
+    return () => subscription.unsubscribe();
+  }, [watch, storageKey]);
+
+  const onSubmit = handleSubmit((data) => {
+    console.log("✅ 유효한 데이터 제출:", data);
   });
 
-  return { control, setValue, watch, getValues, reset, isValid };
+  return { control, setValue, getValues, watch, reset, isValid, onSubmit };
 };

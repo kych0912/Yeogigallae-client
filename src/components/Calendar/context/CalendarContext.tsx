@@ -18,21 +18,38 @@ const parseDate = (dateString: string | null): Date | null => {
   return dateString ? new Date(dateString) : null;
 };
 
+// ✅ 한국 시간(KST)으로 변환하는 함수
+const formatToKST = (date: Date | null): string | null => {
+  if (!date) return null;
+  const offset = 9 * 60 * 60 * 1000; // UTC+9 (KST)
+  const kstDate = new Date(date.getTime() + offset);
+  return kstDate.toISOString().split("T")[0]; // YYYY-MM-DD 형식
+};
+
 export function CalendarProvider({ children }: { children: ReactNode }) {
   const today = new Date();
   const [currentDate, setCurrentDate] = useState(today);
-  const [startDate, setStartDate] = useState<Date | null>(parseDate(localStorage.getItem("calendarStartDate")));
-  const [endDate, setEndDate] = useState<Date | null>(parseDate(localStorage.getItem("calendarEndDate")));
+  const [startDate, setStartDateState] = useState<Date | null>(parseDate(localStorage.getItem("calendarStartDate")));
+  const [endDate, setEndDateState] = useState<Date | null>(parseDate(localStorage.getItem("calendarEndDate")));
   const [mode, setMode] = useState<"date" | "flexible">("date");
 
-  const updateStartDate = (date: Date | null) => {
-    setStartDate(date);
-    date ? localStorage.setItem("calendarStartDate", date.toISOString()) : localStorage.removeItem("calendarStartDate");
+  // ✅ setState 내부에서 localStorage 즉시 업데이트
+  const setStartDate = (date: Date | null) => {
+    setStartDateState(date);
+    if (date) {
+      localStorage.setItem("calendarStartDate", formatToKST(date)!);
+    } else {
+      localStorage.removeItem("calendarStartDate");
+    }
   };
 
-  const updateEndDate = (date: Date | null) => {
-    setEndDate(date);
-    date ? localStorage.setItem("calendarEndDate", date.toISOString()) : localStorage.removeItem("calendarEndDate");
+  const setEndDate = (date: Date | null) => {
+    setEndDateState(date);
+    if (date) {
+      localStorage.setItem("calendarEndDate", formatToKST(date)!);
+    } else {
+      localStorage.removeItem("calendarEndDate");
+    }
   };
 
   const resetCalendar = () => {
@@ -52,8 +69,8 @@ export function CalendarProvider({ children }: { children: ReactNode }) {
         endDate,
         mode,
         setCurrentDate,
-        setStartDate: updateStartDate,
-        setEndDate: updateEndDate,
+        setStartDate,
+        setEndDate,
         setMode,
         resetCalendar,
       }}

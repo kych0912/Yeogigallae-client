@@ -28,13 +28,11 @@ const VoteTimes = forwardRef<HTMLDivElement, VoteTimesProps>(({ control }, ref) 
   }, []);
 
   return (
-    <div ref={ref}> 
+    <div ref={ref}>
       <Controller
         name="voteLimitTime"
         control={control}
         render={({ field }) => {
-          const selectedTime = voteTimeMapping[field.value] || "";
-
           useEffect(() => {
             if (isInitialLoad) {
               setIsInitialLoad(false);
@@ -47,27 +45,17 @@ const VoteTimes = forwardRef<HTMLDivElement, VoteTimesProps>(({ control }, ref) 
             <>
               <S.ButtonContainer ref={containerRef}>
                 {timeOptions.map((time) => {
-                  const selectedKey = Object.keys(voteTimeMapping).find(
-                    (key) => voteTimeMapping[key] === time
+                  const key = Object.keys(voteTimeMapping).find(
+                    (k) => voteTimeMapping[k] === time
                   );
 
                   return (
-                    <SkeletonForm key={selectedKey || time} buttonwidth>
+                    <SkeletonForm key={key || time} buttonwidth>
                       <S.TimeButton
-                        $isActive={selectedTime === time}
+                        $isActive={field.value === key}
                         onClick={() => {
-                          if (selectedKey) {
-                            if (field.value === selectedKey) {
-                              field.onChange(""); 
-                            } else {
-                              field.onChange(selectedKey);
-                              setShowToast(false);
-                            }
-                          }
-                        }}
-                        onBlur={() => {
-                          if (!field.value) {
-                            setShowToast(true);
+                          if (key) {
+                            field.onChange(field.value === key ? "" : key);
                           }
                         }}
                       >

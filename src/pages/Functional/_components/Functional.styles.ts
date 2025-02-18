@@ -118,10 +118,6 @@ export const TimeButton = styled.button<{ $isActive: boolean }>`
   font-size: 1rem;
   font-family: ${({ theme }) => theme.fontFamily.medium};
 
-  &:hover {
-    background-color: #3b46f1;
-  }
-
   &:active {
     outline: none; 
   }

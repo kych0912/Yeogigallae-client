@@ -7,19 +7,14 @@ import VotingItem from "./VotingItem/VotingItem";
 import Empty from "./VotingItem/Empty";
 import { useGetVoting } from "../../../react-query/queries/main/Voting/queries";
 import { VotingCardSkeleton } from "./CardSkeleton";
+import { VotingRoom } from "../../../apis/main/Voting/types";
 
 export default function MainVotingList() {
     const navigate = useNavigate();
 
     const { data, isLoading, error } = useGetVoting();
-    const votingRooms = data?.rooms ?? [];
+    const votingRooms: VotingRoom[] = data?.rooms ?? [];
 
-    // // 로딩 상태에서 콘솔 로그
-    // if (isLoading) {
-    //     console.log("Loading voting rooms...");
-    // }
-
-    // 에러 상태에서 콘솔 로그
     if (error) {
         console.error("Error loading voting rooms:", error);
     }
@@ -40,10 +35,8 @@ export default function MainVotingList() {
                 }
             />
 
-            {/*카드부분*/}
             {isLoading ? <VotingCardSkeleton /> : votingRooms.length > 0 ? <VotingItem rooms={votingRooms} /> : <Empty />}
 
-            {/*투표 완료 섹션션*/}
             <MainSection
                 leftContent={
                     <>
@@ -53,7 +46,6 @@ export default function MainVotingList() {
                 rightContent={data?.totalCount || 0}
             />
 
-            {/*카드부분*/}
             {isLoading ? <VotingCardSkeleton /> : votingRooms.length > 0 ? <VotingItem rooms={votingRooms} /> : <Empty />}
         </S.Container>
     );

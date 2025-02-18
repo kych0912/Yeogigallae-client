@@ -8,16 +8,19 @@ import Empty from "./VotingItem/Empty";
 import { useGetVoting } from "../../../react-query/queries/main/Voting/queries";
 import { VotingCardSkeleton } from "./CardSkeleton";
 import { VotingRoom } from "../../../apis/main/Voting/types";
+import { isTimeExpired } from "./utils";
 
 export default function MainVotingList() {
     const navigate = useNavigate();
-
     const { data, isLoading, error } = useGetVoting();
     const votingRooms: VotingRoom[] = data?.rooms ?? [];
 
     if (error) {
         console.error("Error loading voting rooms:", error);
     }
+
+    const ongoingVoting = votingRooms.filter((room) => !isTimeExpired(room.createdAt, room.remainingTime));
+    const completedVoting = votingRooms.filter((room) => isTimeExpired(room.createdAt, room.remainingTime));
 
     return (
         <S.Container>
@@ -34,8 +37,7 @@ export default function MainVotingList() {
                     </S.HighlightedText>
                 }
             />
-
-            {isLoading ? <VotingCardSkeleton /> : votingRooms.length > 0 ? <VotingItem rooms={votingRooms} /> : <Empty />}
+            {isLoading ? <VotingCardSkeleton /> : ongoingVoting.length > 0 ? <VotingItem rooms={ongoingVoting} /> : <Empty />}
 
             <MainSection
                 leftContent={
@@ -43,10 +45,9 @@ export default function MainVotingList() {
                         <img src={Voting} alt="Voting Icon" /> 투표 완료
                     </>
                 }
-                rightContent={data?.totalCount || 0}
+                rightContent={completedVoting.length}
             />
-
-            {isLoading ? <VotingCardSkeleton /> : votingRooms.length > 0 ? <VotingItem rooms={votingRooms} /> : <Empty />}
+            {isLoading ? <VotingCardSkeleton /> : completedVoting.length > 0 ? <VotingItem rooms={completedVoting} isCompleted /> : <Empty />}
         </S.Container>
     );
 }

@@ -5,20 +5,31 @@ import * as V from "./VotingItem.Styles";
 import calculateVoteGauge from "./calculateVoteGauge";
 import renderParticipantProfiles from "./renderParticipantProfiles";
 import RemainingTimeDisplay from "./useRemainingTimes";
-import { VotingRoom } from "../../../../apis/main/Voting/types"; // ✅ 변경된 타입 사용
+import { VotingRoom } from "../../../../apis/main/Voting/types";
 
 interface VotingItemProps {
     rooms: VotingRoom[];
+    isCompleted?: boolean;
 }
 
-const VotingItem: React.FC<VotingItemProps> = ({ rooms = [] }) => {
+const VotingItem: React.FC<VotingItemProps> = ({ rooms = [], isCompleted = false }) => {
     const navigate = useNavigate();
 
     const handleClick = (tripPlanId: number, roomId: number, tripPlanType: "COURSE" | "SCHEDULE") => {
-        if (tripPlanType === "COURSE") {
-            navigate(`/course/${roomId}/${tripPlanId}`);
-        } else if (tripPlanType === "SCHEDULE") {
-            navigate(`/vote/${tripPlanId}/${roomId}`);
+        if (isCompleted) {
+            // 투표 완료일 경우
+            if (tripPlanType === "COURSE") {
+                navigate(`/course/${roomId}/${tripPlanId}?isEnd=true`);
+            } else if (tripPlanType === "SCHEDULE") {
+                navigate("/vote/-5"); //이거 페이지 주소 정확히 알아오기
+            }
+        } else {
+            // 투표 중일 경우 기존 로직 유지
+            if (tripPlanType === "COURSE") {
+                navigate(`/course/${roomId}/${tripPlanId}`);
+            } else if (tripPlanType === "SCHEDULE") {
+                navigate(`/vote/${tripPlanId}/${roomId}`);
+            }
         }
     };
 
@@ -29,11 +40,8 @@ const VotingItem: React.FC<VotingItemProps> = ({ rooms = [] }) => {
                     <V.Box>
                         <S.Box>
                             <V.Title>{room.roomName}</V.Title>
-                            <V.RemainingTime>
-                                <RemainingTimeDisplay createdAt={room.createdAt} remainingTime={room.remainingTime} />
-                            </V.RemainingTime>
+                            <V.RemainingTime>{!isCompleted ? <RemainingTimeDisplay createdAt={room.createdAt} remainingTime={room.remainingTime} /> : "00:00:00"}</V.RemainingTime>
                         </S.Box>
-
                         <S.Box>
                             <S.Location>{room.location}</S.Location>
                         </S.Box>
@@ -49,7 +57,7 @@ const VotingItem: React.FC<VotingItemProps> = ({ rooms = [] }) => {
                                     </V.VoteGauge>
                                 </>
                             )}
-                            {room.tripPlanType === "COURSE" && (
+                            {room.tripPlanType === "COURSE" && !isCompleted && (
                                 <S.SpinnerContainer>
                                     <S.Spinner />
                                     <V.AItext>AI코스 입력 받는 중..</V.AItext>

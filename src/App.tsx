@@ -28,7 +28,7 @@ import withAuth from "./pages/Login/withAuth";
 import FullVotingListPage from "./pages/Main/FullVotingListPage/FullVotingListPage";
 import FullVotingListLayout from "./components/Layout/FullVotingListLayout";
 import OnboardingPage from "./pages/Splash/onboardingPage/onboardingPagePage";
-
+import InvitePage from "./pages/MyPage/InvitePage/InvitePage";
 const ProtectedMainPage = withAuth(MainPage, true, true);
 const ProtectedLoginPage = withAuth(LoginPage, false);
 const ProtectedKakao = withAuth(Kakao, false);
@@ -63,6 +63,7 @@ const App: React.FC = () => {
                         <Route element={<ProfileLayout />}>
                             <Route path="/mypage/profile" element={<MyProfilePage />} />
                             <Route path="/mypage/friend" element={<MyFriendPage />} />
+                            <Route path="/invite" element={<InvitePage />} />
                             <Route path="/mypage/room" element={<RoomPage />} />
                         </Route>
 

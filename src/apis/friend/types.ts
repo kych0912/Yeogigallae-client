@@ -12,3 +12,12 @@ export interface FriendResponse {
     result:Friend[]
 }
 
+export interface InviteResponse {
+    code:number;
+    message:string;
+    httpStatus:string;
+    result:{
+        inviteUrl:string;
+    };
+}
+

@@ -40,9 +40,9 @@ export function FriendItem({
 //접히지 않는 컴포넌트용
 export function AddFriendItem({title, onClick}:{title:string, onClick:()=>void}){
     return(
-        <AccordionItem index={0}>
+        <AccordionItem index={0} onClick={onClick}>
             <S.Accordion.ProfileWrapper>
-                <M.AddCircle onClick={onClick}>
+                <M.AddCircle>
                     {"+"}
                 </M.AddCircle>
                 {title}

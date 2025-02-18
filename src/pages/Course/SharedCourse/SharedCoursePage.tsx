@@ -2,11 +2,15 @@ import 'swiper/swiper-bundle.css';
 import { Route } from "../../../apis/map/types";
 import { useFunnel } from "../../../hooks/useFunnel/useFunnel";
 import Detail from "./Detail";
-import { UseQueryResult } from "@tanstack/react-query";
 import Overview from "./Overview";
-import { useGetAllCourses } from "../../../react-query/queries/queries";
-import { sampleData } from "../test";
 import CourseOverviewCardSkeleton from "../_components/CourseOverviewCardSkeleton";
+import { ICourseInfo } from '../../../apis/course/types';
+import { useGetAiKaKaoCourseAndId } from '../../../react-query/queries/course/queries';
+
+export type TTripInfo = ICourseInfo & {
+  roomId: string | undefined;
+  tripId: string | undefined;
+}
 
 type TSharedCourseContext = {
   //eslint-disable-next-line @typescript-eslint/no-empty-object-type
@@ -15,43 +19,50 @@ type TSharedCourseContext = {
   코스목록:{},
 }
 
-export default function SharedCoursePage({title}:
-{title:string}){
+export default function SharedCoursePage({title,courseInfo}:
+{title:string,courseInfo:TTripInfo}){
+  const { tripId } = courseInfo;
+
+  //aiCourseAndId 조회
+  //courseId와 KaKao Route로 변환된 데이터 반환
+  const { data: aiCourseAndId, isLoading: aiCourseAndIdLoading, isError: aiCourseAndIdError } = useGetAiKaKaoCourseAndId(tripId ?? "");
+  
   // 전체 일정 경로 조회
-  const allCoursesQueries = useGetAllCourses(sampleData);
+  const allCoursesQueries = aiCourseAndId?.aiKaKaoCourse;
 
-  const isLoading = allCoursesQueries.some((query) => query.isLoading);
-  const isError = allCoursesQueries.some((query) => query.isError);
+  const isLoading = aiCourseAndIdLoading;
+  const isError = aiCourseAndIdError;
 
+  
   const [ Funnel, setStep ] = useFunnel<TSharedCourseContext>({
     steps:["코스개요","코스목록"],
     init:{
       step:"코스개요",
-
       context:{},
     },
     stepQueryKey:"step",
   });
 
   if(isLoading) return <CourseOverviewCardSkeleton/>;
-  if(isError) return <div>Error...</div>;
+  if(isError) return <div style={{color:"white"}}>Error...</div>;
 
-    return (
-    <>
-      <Funnel>
-        <Funnel.Step name="코스개요">
-          <Overview 
-            dailyRoutes={allCoursesQueries[0].data}
-            onNext={()=>setStep<"코스개요">("코스목록",{})}  
-            title={title}
-          />
-        </Funnel.Step>
-        <Funnel.Step name="코스목록">
-          <Detail 
-            allCoursesQueries={allCoursesQueries as UseQueryResult<Route, Error>[]}
-          />
-        </Funnel.Step>
-      </Funnel>
-    </>
-    )
+
+  return (
+  <>
+    <Funnel>
+      <Funnel.Step name="코스개요">
+        <Overview 
+          dailyRoutes={allCoursesQueries}
+          onNext={()=>setStep<"코스개요">("코스목록",{})}  
+          title={title}
+        />
+      </Funnel.Step>
+      <Funnel.Step name="코스목록">
+        <Detail 
+          allCoursesQueries={allCoursesQueries as Route[]}
+        />
+      </Funnel.Step>
+    </Funnel>
+  </>
+  )
 }

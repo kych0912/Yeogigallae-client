@@ -1,5 +1,5 @@
 import { Route } from "../../../../apis/map/types";
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext, useNavigate } from "react-router-dom";
 import { HeaderConfig } from "../../../../types/header/header";
 import { useEffect } from "react";
 import Card from "../../../../components/Card";
@@ -9,27 +9,43 @@ import { Button } from "../../../../components/Button";
 import * as S from "../../_components/Course.style";
 import CoursePlaces from "../../_components/CoursePlaces";
 import Map from "../../../../components/Map";
+import modal from "../../../../components/Modal";
 
 export default function Overview({
     dailyRoutes,
     onNext,
-    title
-}:{dailyRoutes:Route | null | undefined,onNext:()=>void,title:string}){
+    title,
+}:{dailyRoutes:Route[] | null | undefined,onNext:()=>void,title:string}){
     const {setHeaderConfig} = useOutletContext<{setHeaderConfig: (config: HeaderConfig) => void}>();
-
+    const navigate = useNavigate();
     useEffect(()=>{
         setHeaderConfig({title:title,number:4});
     },[]);
 
+    //유효한 코스 Route만 추출
+    const validDailyRoutes = dailyRoutes?.filter((route)=>{
+        return route.routes;
+    });
 
-    if(!dailyRoutes) return (
-        <Card>
-            <Card.Title>
-                {"코스가 존재하지 않습니다."}
-            </Card.Title>
-        </Card>
-    );
-    
+    if(!validDailyRoutes || validDailyRoutes.length === 0) {
+        modal.confirm.show({
+            message:"코스가 존재하지 않아요",
+            isOneButton:true,
+            onConfirm:()=>{
+                navigate(-1);
+            }
+        })
+        
+        return (
+        <CommonContainer>
+            <Card>
+                <Card.Title>
+                    {"코스가 존재하지 않습니다."}
+                </Card.Title>
+            </Card>
+        </CommonContainer>
+    );}
+
     return (
         <CommonContainer>
             <Card>
@@ -37,7 +53,7 @@ export default function Overview({
                     <Map 
                         width="100%" 
                         height="100%" 
-                        dailyRoutes={dailyRoutes.routes[0]}
+                        dailyRoutes={validDailyRoutes[0].routes[0]}
                         level={3}
                     />
                 </Card.Image>
@@ -45,12 +61,12 @@ export default function Overview({
                 <Card.Item>
                     <CourseTitle 
                         caption="코스 AI 추천"
-                        content="2박 일정으로 추천드립니다."
+                        content={`${validDailyRoutes.length}박 일정으로 추천드립니다.`}
                     />
                 </Card.Item>
 
                 <Card.Item>
-                    <CoursePlaces overview={true} places={dailyRoutes.routes[0]} />
+                    <CoursePlaces overview={true} places={validDailyRoutes[0].routes[0]} />
                 </Card.Item>
 
                 <Card.Item>
@@ -68,8 +84,6 @@ export default function Overview({
 
             <S.CompleteMessage>
                 {"AI 코스 생성이 완료되었습니다."}
-                <br/>
-                {"6시간 안에 코스에 대한 의견을 결정해주세요."}
             </S.CompleteMessage>
         </CommonContainer>
     );

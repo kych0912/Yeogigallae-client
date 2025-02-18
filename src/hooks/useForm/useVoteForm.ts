@@ -67,18 +67,14 @@ export const useVoteForm = (tripPlanType: "COURSE" | "SCHEDULE", roomId: number)
   useEffect(() => {
     const newStoredDates = getStoredDates();
 
-    setTimeout(() => {
       reset({
         ...defaultValues,
         startDate: newStoredDates?.startDate || formatToKST(calendarStart),
         endDate: newStoredDates?.endDate || formatToKST(calendarEnd),
       });
-
-      // ✅ UI 즉시 반영
       setValue("startDate", newStoredDates?.startDate || formatToKST(calendarStart));
       setValue("endDate", newStoredDates?.endDate || formatToKST(calendarEnd));
-      trigger(["startDate", "endDate"]); // ✅ UI 업데이트 및 유효성 검증 실행
-    }, 0);
+      trigger(["startDate", "endDate"]);
   }, [tripPlanType]);
 
   // ✅ 날짜 변경 시 즉시 반영 + 최신 `localStorage` 동기화
@@ -91,9 +87,8 @@ export const useVoteForm = (tripPlanType: "COURSE" | "SCHEDULE", roomId: number)
       const updatedDates = { startDate: newStartDate, endDate: newEndDate };
       
       localStorage.setItem(dateStorageKey, JSON.stringify(updatedDates));
-
+      
       setTimeout(() => {
-        // ✅ `setValue()`와 `trigger()`를 사용하여 UI 즉시 반영
         setValue("startDate", newStartDate);
         setValue("endDate", newEndDate);
         trigger(["startDate", "endDate"]);
@@ -109,7 +104,7 @@ export const useVoteForm = (tripPlanType: "COURSE" | "SCHEDULE", roomId: number)
   }, [watch, storageKey]);
 
   const onSubmit = handleSubmit((data) => {
-    console.log("✅ 유효한 데이터 제출:", data);
+    console.log(data);
   });
 
   return { control, setValue, getValues, watch, reset, isValid, onSubmit };

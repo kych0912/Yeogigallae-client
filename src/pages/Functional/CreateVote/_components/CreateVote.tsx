@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useVoteFormContext } from "../../context/VoteFormContext";
 import Tabs from "./Tabs/Tabs";
@@ -18,12 +19,13 @@ export default function CreateVoteContent({
   const { tripPlanType, setTripPlanType, roomId } = useVoteFormContext();
   const { getValues, isValid } = useVoteForm(tripPlanType, roomId);
   const voteMutation = useVoteFormMutation();
+  
+  const [hiddenRooms, setHiddenRooms] = useState<number[]>([]);
 
   const handleSubmit = () => {
     if (!isValid) return;
   
     const latestValues = getValues();
-  
     const sanitizeData = (value: any) => (value === "" || value === undefined ? null : value);
   
     const requestData = {
@@ -50,10 +52,10 @@ export default function CreateVoteContent({
   
     voteMutation.mutate(requestData, {
       onSuccess: (data) => {
-        
         const tripId = data?.result?.id; 
         const roomId = requestData.roomId; 
         if (tripId && roomId) {
+          setHiddenRooms((prev) => [...prev, roomId]);
           navigate(`/vote/${tripId}/${roomId}`);
         } 
       },
@@ -64,7 +66,7 @@ export default function CreateVoteContent({
     <>
       <Tabs activeTab={tripPlanType} onTabChange={setTripPlanType} />
       <VoteForm tripPlanType={tripPlanType} roomId={roomId} onSearch={onSearch} onCalendar={onCalendar} />
-      <SlideContainer />
+      <SlideContainer hiddenRooms={hiddenRooms }/>
       <Button
         size="large"
         style={{

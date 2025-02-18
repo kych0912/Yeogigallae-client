@@ -7,10 +7,14 @@ import { useNavigate } from "react-router-dom";
 import SkeletonForm, { setGlobalLoadingState } from "../VoteForm/Skeleton/SkeletonForm";
 import { useRoomListQuery } from "../../../../../react-query/queries/functional/roomListQuery";
 
-export default function SlideContainer() {
+interface SlideContainerProps {
+  hiddenRooms: number[];
+}
+
+export default function SlideContainer({ hiddenRooms }: SlideContainerProps) {
   const { roomId, setRoomId, tripPlanType } = useVoteFormContext();
   const { control, reset } = useVoteForm(tripPlanType, roomId);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const { data, isLoading, isError } = useRoomListQuery();
   const rooms = data?.result.rooms || [];
@@ -18,17 +22,21 @@ export default function SlideContainer() {
   const [roomList, setRoomList] = useState<{ roomId: number; roomName: string }[]>([]);
 
   useEffect(() => {
-    setGlobalLoadingState(isLoading);  
+    setGlobalLoadingState(isLoading);
     if (!isLoading && !isError && rooms.length > 0) {
-      setRoomList(rooms.map(room => ({
-        roomId: room.roomId,
-        roomName: room.roomName || `방 ${room.roomId}` 
-      })));
+      setRoomList(
+        rooms
+          .filter((room) => !hiddenRooms.includes(room.roomId)) 
+          .map((room) => ({
+            roomId: room.roomId,
+            roomName: room.roomName || `방 ${room.roomId}`,
+          }))
+      );
     }
-  }, [isLoading, isError, rooms]);
+  }, [isLoading, isError, rooms, hiddenRooms]);
 
   const handleCreateNewRoom = () => {
-    navigate("/mypage/room"); 
+    navigate("/mypage/room");
   };
 
   return (
@@ -46,8 +54,10 @@ export default function SlideContainer() {
                 </S.Slide>
               </SkeletonForm>
               <SkeletonForm smallwidth>
-                <S.Label $active={true} $isCreateButton={true}>생성하기</S.Label>
-              </SkeletonForm>  
+                <S.Label $active={true} $isCreateButton={true}>
+                  생성하기
+                </S.Label>
+              </SkeletonForm>
             </S.SlideContainer>
 
             {roomList.map(({ roomId: id, roomName }) => (
@@ -58,13 +68,13 @@ export default function SlideContainer() {
                     onClick={() => {
                       field.onChange(id);
                       setRoomId(id);
-                      reset(); 
+                      reset();
                     }}
                   />
                 </SkeletonForm>
                 <SkeletonForm smallwidth>
                   <S.Label $active={id === field.value}>
-                    {roomName.length > 6 ? `${roomName.slice(0, 5)}..` : roomName}
+                    {roomName.length > 5 ? `${roomName.slice(0, 3)}..` : roomName}
                   </S.Label>
                 </SkeletonForm>
               </S.SlideContainer>

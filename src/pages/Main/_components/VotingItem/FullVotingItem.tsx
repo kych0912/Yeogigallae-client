@@ -28,7 +28,6 @@ interface Room {
     tripPlanType: "COURSE" | "SCHEDULE" | "BUDGET";
     latitude?: number;
     longitude?: number;
-    masterId: string;
     remainingTime: "THIRTY_MINUTES" | "SIXTY_MINUTES" | "FOUR_HOURS" | "SIX_HOURS";
 }
 

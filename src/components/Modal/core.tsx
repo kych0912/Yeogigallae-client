@@ -60,10 +60,17 @@ export default function Modal() {
       <S.ModalContent onClick={(e)=>e.stopPropagation()} gap="1.5rem">
         {renderModal()}
         <S.ButtonGroup>
-
-          <Button style={{ background: "#434343" }} variant="contained" size="large" onClick={handleCancel}>
-            {config.cancelText || "취소"}
-          </Button>
+          {/* confirm 타입이고 isOneButton이 true가 아닐 때만 취소 버튼 표시 */}
+          {!(config.type === "confirm" && config.isOneButton) && (
+            <Button 
+              style={{ background: "#434343" }} 
+              variant="contained" 
+              size="large" 
+              onClick={handleCancel}
+            >
+              {config.cancelText || "취소"}
+            </Button>
+          )}
 
           <Button 
             color="primary" 

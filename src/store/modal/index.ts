@@ -8,6 +8,7 @@ interface BaseModalConfig {
 
 export interface ConfirmModalConfig extends BaseModalConfig {
   type: "confirm";
+  isOneButton?: boolean;
   message: string;
   onConfirm: () => void;
 }

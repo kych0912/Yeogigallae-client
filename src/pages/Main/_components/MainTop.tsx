@@ -12,12 +12,12 @@ export default function MainTop() {
     // 알림 정보 가져오기
     const { data: notice, isLoading: isNoticeLoading, error: noticeError } = useGetNotice();
 
-    // 알람 존재 여부
-    const hasNotification = notice?.hasUnreadNotifications || false;
+    // 알람 존재 여부 - 타입 안전하게 접근
+    const hasNotification = notice?.result.hasUnreadNotifications || false;
 
     // 로딩 및 에러 처리
     if (isNoticeLoading) {
-        // console.log("Loading user or notice...");
+        // 로딩 상태 처리 (콘솔 로그 등 필요 시 추가)
     }
 
     if (noticeError) {

@@ -15,12 +15,15 @@ export default function SlideContainer() {
   const { data, isLoading, isError } = useRoomListQuery();
   const rooms = data?.result.rooms || [];
 
-  const [roomList, setRoomList] = useState<number[]>([roomId]);
+  const [roomList, setRoomList] = useState<{ roomId: number; roomName: string }[]>([]);
 
   useEffect(() => {
     setGlobalLoadingState(isLoading);  
     if (!isLoading && !isError && rooms.length > 0) {
-      setRoomList(rooms.map(room => room.roomId));
+      setRoomList(rooms.map(room => ({
+        roomId: room.roomId,
+        roomName: room.roomName || `방 ${room.roomId}` 
+      })));
     }
   }, [isLoading, isError, rooms]);
 
@@ -47,7 +50,7 @@ export default function SlideContainer() {
               </SkeletonForm>  
             </S.SlideContainer>
 
-            {roomList.map((id) => (
+            {roomList.map(({ roomId: id, roomName }) => (
               <S.SlideContainer key={id}>
                 <SkeletonForm slidewidth>
                   <S.Slide
@@ -57,12 +60,11 @@ export default function SlideContainer() {
                       setRoomId(id);
                       reset(); 
                     }}
-                  >
-                  </S.Slide>
+                  />
                 </SkeletonForm>
                 <SkeletonForm smallwidth>
                   <S.Label $active={id === field.value}>
-                    {id.toString().length > 3 ? `${id.toString().slice(0, 2)}..` : id}
+                    {roomName.length > 6 ? `${roomName.slice(0, 5)}..` : roomName}
                   </S.Label>
                 </SkeletonForm>
               </S.SlideContainer>

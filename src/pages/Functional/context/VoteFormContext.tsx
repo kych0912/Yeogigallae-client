@@ -19,7 +19,7 @@ export const useVoteFormContext = () => {
 
 export const VoteFormProvider = ({ children }: { children: React.ReactNode }) => {
   const [tripPlanType, setTripPlanType] = useState<"COURSE" | "SCHEDULE">("SCHEDULE");
-  const [roomId, setRoomId] = useState<number>(22); 
+  const [roomId, setRoomId] = useState<number>(1); 
 
   return (
     <VoteFormContext.Provider value={{ tripPlanType, setTripPlanType, roomId, setRoomId }}>

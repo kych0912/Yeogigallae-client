@@ -4,8 +4,8 @@ export const voteFormSchema = z
   .object({
     location: z.string().min(1, { message: "위치를 입력해주세요." }),
 
-    latitude: z.number().optional().nullable(), 
-    longitude: z.number().optional().nullable(), 
+    latitude: z.number().optional().nullable(),
+    longitude: z.number().optional().nullable(),
 
     startDate: z
       .string()
@@ -21,34 +21,34 @@ export const voteFormSchema = z
 
     voteLimitTime: z.string().min(1, { message: "투표 마감 시간을 선택해주세요." }),
 
-    minDays: z.number().min(1, { message: "최소 여행 일수는 1일 이상이어야 합니다." }),
-    maxDays: z.number().min(1, { message: "최대 여행 일수는 1일 이상이어야 합니다." }),
-
     roomId: z.number().min(1, { message: "올바른 방 ID가 필요합니다." }),
 
     imageUrl: z.string().url({ message: "올바른 이미지 URL을 입력해주세요." }),
 
-    tripPlanType: z.enum(["COURSE", "SCHEDULE"], {
-      errorMap: () => ({ message: "여행 계획 유형을 선택해주세요." }),
-    }),
+    tripPlanType: z
+      .enum(["COURSE", "SCHEDULE"], {
+        errorMap: () => ({ message: "여행 계획 유형을 선택해주세요." }),
+      }),
 
     scheduleDetails: z
       .object({
-        message: z.string().min(1, { message: "일정 내용을 입력해주세요." }),
-        price: z.string().min(1, { message: "가격을 입력해주세요." }),
+        message: z.string().nullable().default(null), 
+        price: z.string().nullable().default(null),
       })
-      .optional(),
+      .nullable()
+      .default(null),
 
     courseDetails: z
       .object({
-        message: z.string().min(1, { message: "코스 내용을 입력해주세요." }),
+        message: z.string().nullable().default(null),
       })
-      .optional(),
+      .nullable()
+      .default(null), 
   })
   .refine(
     (data) => {
       if (data.tripPlanType === "SCHEDULE") {
-        return !!data.scheduleDetails;
+        return data.scheduleDetails !== null && Object.keys(data.scheduleDetails).length > 0;
       }
       return true;
     },
@@ -60,7 +60,7 @@ export const voteFormSchema = z
   .refine(
     (data) => {
       if (data.tripPlanType === "COURSE") {
-        return !!data.courseDetails;
+        return data.courseDetails !== null && Object.keys(data.courseDetails).length > 0;
       }
       return true;
     },

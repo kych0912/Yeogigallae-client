@@ -6,7 +6,6 @@ export const useGetFriends = () => {
         queryKey:['friends'],
         queryFn:getFriends,
         refetchOnWindowFocus:false, 
-        refetchOnMount:false,
         refetchOnReconnect:false,   
         retry:false,
     })

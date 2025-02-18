@@ -5,9 +5,21 @@ import { useGetFriends } from "../../../../../react-query/queries/friend/queries
 import { FriendItemSkeleton } from "../Skeleton";
 import { AccordionTitleSkeleton } from "../Skeleton";
 import modal from "../../../../../components/Modal";
+import { createFriendUrl } from "../../../../../apis/friend";
 
 export default function Friend(){
     const { data:friends, isLoading:isFriendsLoading } = useGetFriends();
+
+    const handleGenerateInviteUrl = async () => {
+        try{
+            const response = await createFriendUrl();
+            const url = response.replace("localhost:8080", "yeogi.my");
+            return url;
+        }catch(error){
+            console.error("초대 링크 생성 실패:", error);
+            return null;
+        }
+    }
 
 
     if (isFriendsLoading) {
@@ -31,8 +43,18 @@ export default function Friend(){
                 <AddFriendItem title={"새로운 여행 친구 초대하기"} onClick={()=>{
                     modal.confirm.show({
                         message:"링크를 복사하시겠습니까?",
-                        onConfirm:()=>{
-                            navigator.clipboard.writeText(window.location.href);
+                        onConfirm: async ()=>{
+                            const url = await handleGenerateInviteUrl();
+                            if(url){
+                                navigator.clipboard.writeText(url);
+                                modal.confirm.show({
+                                    message:"링크를 복사했어요.",
+                                    isOneButton:true,
+                                    onConfirm:()=>{
+                                        console.log("링크를 복사했어요.");
+                                    }
+                                }); 
+                            }
                         }
                     })
                 }} />

@@ -12,6 +12,7 @@ import { useEffect } from 'react';
 import { HeaderConfig } from '../../../types/header/header';
 import { useCreateRoom } from "../../../react-query/mutation/room/mutation";
 import { useNavigate } from 'react-router-dom';
+import modal from '../../../components/Modal';
 
 type RoomFormValues = z.infer<typeof roomSchema>;
 
@@ -35,8 +36,26 @@ export default function RoomPageContent() {
             roomName:data.roomName,
             userIds:friendIds
         }
-        createRoom(roomData);
-
+        createRoom(roomData,{
+            onSuccess:()=>{
+                modal.confirm.show({
+                    message:"방을 만들었어요.",
+                    isOneButton:true,
+                    onConfirm:()=>{
+                        navigate("/");
+                    }
+                });
+            },
+            onError:()=>{
+                modal.confirm.show({
+                    message:"에러가 발생해 방을 만들지 못했어요.",
+                    isOneButton:true,
+                    onConfirm:()=>{
+                        navigate("/");
+                    }
+                });
+            }
+        });
     };
 
 

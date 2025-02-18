@@ -15,7 +15,7 @@ export const createRoom = async (data:RoomFormValues) => {
 export const getRooms = async () => {
     try{
         const response = await api.get<RoomResponse>(`/api/room/list`);
-        return response.data.result;
+        return response.data.result.rooms;
     }catch(error){
         console.error("Rooms API 호출 오류:", error);
         return DEFAULT_ROOMS;

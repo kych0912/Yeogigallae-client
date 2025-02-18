@@ -3,9 +3,9 @@ import { DEFAULT_Upcoming } from "./mocks";
 import { UpcomingResult } from "./types"; // 타입 추가
 
 export const getUpcoming = async (): Promise<UpcomingResult> => {
-    if (import.meta.env.MODE === "development") {
-        return DEFAULT_Upcoming;
-    }
+    // if (import.meta.env.MODE === "development") {
+    //     return DEFAULT_Upcoming;
+    // }
     try {
         const response = await api.get<{ result: UpcomingResult }>(`/api/home/completed-vote-rooms`);
         return response.data.result;

@@ -6,7 +6,6 @@ export const useGetRooms = () => {
         queryKey:['rooms'],
         queryFn:getRooms,
         refetchOnWindowFocus:false, 
-        refetchOnMount:false,
         refetchOnReconnect:false,   
         retry:false,
     })

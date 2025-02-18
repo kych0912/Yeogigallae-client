@@ -7,7 +7,7 @@ import ShareSkeleton from "./_components/ShareSkeleton";
 
 export default function Share({context}:{context:TShareCourseContext}){
 
-    const {data, isLoading} = useGetCourseList(context.여행상세.tripId,context.여행상세.roomId);
+    const {data, isLoading} = useGetCourseList(context.여행상세.tripId);
 
     const { userCount, roomName, masterName,voteLimitTime } = context.여행상세.result;
 

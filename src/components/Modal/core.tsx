@@ -4,6 +4,7 @@ import ConfirmModal from "./ConfirmModal";
 import { useState } from "react";
 import ImageModal from "./ImageModal";
 import * as S from "./Modal.styles";
+import { createPortal } from "react-dom";
 
 export default function Modal() {
   const { config, isOpen, hideModal } = useModalStore();
@@ -53,15 +54,23 @@ export default function Modal() {
 
 
   return(
-    <S.StyledContainer onClick={handleCancel}>
+    createPortal(
+      <S.StyledContainer onClick={handleCancel}>
 
       <S.ModalContent onClick={(e)=>e.stopPropagation()} gap="1.5rem">
         {renderModal()}
         <S.ButtonGroup>
-
-          <Button style={{ background: "#434343" }} variant="contained" size="large" onClick={handleCancel}>
-            {config.cancelText || "취소"}
-          </Button>
+          {/* confirm 타입이고 isOneButton이 true가 아닐 때만 취소 버튼 표시 */}
+          {!(config.type === "confirm" && config.isOneButton) && (
+            <Button 
+              style={{ background: "#434343" }} 
+              variant="contained" 
+              size="large" 
+              onClick={handleCancel}
+            >
+              {config.cancelText || "취소"}
+            </Button>
+          )}
 
           <Button 
             color="primary" 
@@ -73,8 +82,9 @@ export default function Modal() {
           </Button>
         </S.ButtonGroup>
       </S.ModalContent>
-    </S.StyledContainer>
-  )
+    </S.StyledContainer>,
+    document.body
+  ))
 }
 
 

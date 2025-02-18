@@ -5,8 +5,9 @@ import { IconButton } from "../Button";
 import { Outlet, useNavigate } from "react-router-dom";
 import HeaderCenterContent from "../Header/HeaderCenterContent";
 import { budgetPageDataMock } from "../../apis/budget/mocks";
+import withAuth from "../../pages/Login/withAuth";
 
-export default function Layout() {
+function BudgetLayout() {
     const navigate = useNavigate();
 
     return (
@@ -30,3 +31,5 @@ export default function Layout() {
         </>
     );
 }
+
+export default withAuth(BudgetLayout, true);

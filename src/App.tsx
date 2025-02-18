@@ -8,9 +8,6 @@ import BudgetPage from "./pages/Budget/BudgetPage/BudgetPage";
 import MyProfilePage from "./pages/MyPage/MyProfilePage/MyProfilePage";
 import RoomPage from "./pages/MyPage/RoomPage/RoomPage";
 import NoticePage from "./pages/Notice/NoticePage/NoticePage";
-import BudgetSelectPage from "./pages/Scheduling/BudgetSelectPage/BudgetSelectPage";
-import DateSelectPage from "./pages/Scheduling/DateSelectPage/DateSelectPage";
-import SchedulePage from "./pages/Scheduling/SchedulePage/SchedulePage";
 import SplashPage from "./pages/Splash/SplashPage/SplashPage";
 import VotePage from "./pages/Vote/VotePage";
 import FunctionalPage from "./pages/Functional/FunctionalPage";
@@ -32,16 +29,13 @@ import FullVotingListPage from "./pages/Main/FullVotingListPage/FullVotingListPa
 import FullVotingListLayout from "./components/Layout/FullVotingListLayout";
 import OnboardingPage from "./pages/Splash/onboardingPage/onboardingPagePage";
 
-// const ProtectedMainPage = withAuth(MainPage, true);
+const ProtectedMainPage = withAuth(MainPage, true, true);
 const ProtectedLoginPage = withAuth(LoginPage, false);
 const ProtectedKakao = withAuth(Kakao, false);
 
 const queryClient = new QueryClient();
 
 const App: React.FC = () => {
-    const token = import.meta.env.VITE_ACCESS_TOKEN as string;
-    const expirationDate = new Date("Sun, 08 Feb 2026 17:27:47 GMT");
-    document.cookie = `accessToken=${token}; Path=/; Expires=${expirationDate.toUTCString()};`;
 
     return (
         <QueryClientProvider client={queryClient}>
@@ -51,7 +45,7 @@ const App: React.FC = () => {
                         {/* Main */}
                         {/*<Route path="/" element={<MainPage />} />*/}
                         {/* <Route path="/" element={<ProtectedMainPage />} /> */}
-                        <Route path="/" element={<MainPage />} />
+                        <Route path="/" element={<ProtectedMainPage />} />
                         <Route element={<FullVotingListLayout />}>
                             <Route path="/fulllist" element={<FullVotingListPage />} />
                         </Route>
@@ -76,11 +70,6 @@ const App: React.FC = () => {
                         <Route element={<NoticeLayout />}>
                             <Route path="/notice" element={<NoticePage />} />
                         </Route>
-
-                        {/* Scheduling */}
-                        <Route path="/scheduling/budget-select" element={<BudgetSelectPage />} />
-                        <Route path="/scheduling/date-select" element={<DateSelectPage />} />
-                        <Route path="/scheduling/schedule" element={<SchedulePage />} />
 
                         {/* Splash */}
                         <Route path="/splash" element={<SplashPage />} />

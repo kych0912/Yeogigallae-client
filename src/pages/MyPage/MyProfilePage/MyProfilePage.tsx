@@ -4,7 +4,6 @@ import CommonContainer from '../../../components/Layout/CommonContainer';
 import { useOutletContext } from 'react-router-dom';
 import { HeaderConfig } from '../../../types/header/header';
 import { useEffect } from 'react';
-import Modal from '../../../components/Modal/core';
 import { useAuthStore } from '../../Login/useAuthStore';
 export default function MyProfilePage() {
     const {setHeaderConfig} = useOutletContext<{setHeaderConfig: (config: HeaderConfig) => void}>();
@@ -15,7 +14,6 @@ export default function MyProfilePage() {
 
     return (
         <CommonContainer>
-            <Modal />
             <UserProfile avatar={profileImage} nickname={nickname} />
             <ServiceSetting />
         </CommonContainer>

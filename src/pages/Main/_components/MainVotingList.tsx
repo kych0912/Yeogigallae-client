@@ -42,6 +42,19 @@ export default function MainVotingList() {
 
             {/*카드부분*/}
             {isLoading ? <VotingCardSkeleton /> : votingRooms.length > 0 ? <VotingItem rooms={votingRooms} /> : <Empty />}
+
+            {/*투표 완료 섹션션*/}
+            <MainSection
+                leftContent={
+                    <>
+                        <img src={Voting} alt="Voting Icon" /> 투표 완료
+                    </>
+                }
+                rightContent={data?.totalCount || 0}
+            />
+
+            {/*카드부분*/}
+            {isLoading ? <VotingCardSkeleton /> : votingRooms.length > 0 ? <VotingItem rooms={votingRooms} /> : <Empty />}
         </S.Container>
     );
 }

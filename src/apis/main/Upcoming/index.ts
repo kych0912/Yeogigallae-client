@@ -6,7 +6,7 @@ export const getUpcoming = async () => {
     //     return DEFAULT_Upcoming;
     // }
     try {
-        const response = await api.get(`/api//home/completed-vote-rooms`);
+        const response = await api.get(`/api/home/completed-vote-rooms`);
         return response.data.result.rooms;
     } catch (error) {
         console.error("Upcoming API 호출 오류:", error);

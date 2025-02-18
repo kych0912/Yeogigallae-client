@@ -3,29 +3,25 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { voteFormSchema, VoteFormData } from "../../pages/Functional/schemas/VoteFormSchema";
 import { useCalendar } from "../../components/Calendar/context/CalendarContext";
+import { useSearch } from "../../pages/Functional/context/SearchContext"; 
 
 export const useVoteForm = (tripPlanType: "COURSE" | "SCHEDULE", roomId: number) => {
   const storageKey = `voteForm_${tripPlanType}_${roomId}`;
   const dateStorageKey = `voteForm_${tripPlanType}_${roomId}_dates`;
-
   const { startDate: calendarStart, endDate: calendarEnd } = useCalendar();
+  const { selectedPlace } = useSearch();
 
   const formatToKST = (date: Date | null): string => {
     if (!date) return "";
-    return date.toLocaleDateString("ko-KR", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-    }).replace(/\. /g, "-").replace(".", "").trim();
+    return date
+      .toLocaleDateString("ko-KR", { year: "numeric", month: "2-digit", day: "2-digit" }).replace(/\. /g, "-").replace(".", "").trim();
   };
 
-  // ✅ 최신 날짜 데이터를 가져오는 함수
   const getStoredDates = () => {
     const savedDates = localStorage.getItem(dateStorageKey);
     return savedDates ? JSON.parse(savedDates) : null;
   };
 
-  // ✅ 최신 폼 데이터를 가져오는 함수
   const getStoredData = () => {
     const savedFormData = localStorage.getItem(storageKey);
     return savedFormData ? JSON.parse(savedFormData) : null;
@@ -35,30 +31,27 @@ export const useVoteForm = (tripPlanType: "COURSE" | "SCHEDULE", roomId: number)
   const storedDates = getStoredDates();
 
   const defaultValues: VoteFormData = {
-    location: storedData?.location || "",
+    location: storedData?.location || null,
+    latitude: storedData?.latitude ?? null,
+    longitude: storedData?.longitude ?? null,
     startDate: storedDates?.startDate || formatToKST(calendarStart),
     endDate: storedDates?.endDate || formatToKST(calendarEnd),
     tripType: storedData?.tripType || "DOMESTIC",
-    voteLimitTime: storedData?.voteLimitTime || "",
-    minDays: storedData?.minDays || 1,
-    maxDays: storedData?.maxDays || 7,
+    voteLimitTime: storedData?.voteLimitTime || null,
     roomId,
-    imageUrl: storedData?.imageUrl || "",
+    imageUrl: storedData?.imageUrl || null,
     tripPlanType,
-    scheduleDetails: tripPlanType === "SCHEDULE" ? storedData?.scheduleDetails || { message: "", price: "" } : undefined,
-    courseDetails: tripPlanType === "COURSE" ? storedData?.courseDetails || { message: "" } : undefined,
-  };
+    scheduleDetails:
+      tripPlanType === "SCHEDULE"
+        ? storedData?.scheduleDetails || { message: null, price: null }
+        : null,
+    courseDetails:
+      tripPlanType === "COURSE"
+        ? storedData?.courseDetails || { message: null }
+        : null,
+  };  
 
-  const {
-    control,
-    setValue,
-    getValues,
-    reset,
-    watch,
-    handleSubmit,
-    trigger, 
-    formState: { isValid },
-  } = useForm<VoteFormData>({
+  const { control, setValue, getValues, reset, watch, handleSubmit, trigger, formState: { isValid }, } = useForm<VoteFormData>({
     resolver: zodResolver(voteFormSchema),
     mode: "onChange",
     defaultValues,
@@ -67,17 +60,16 @@ export const useVoteForm = (tripPlanType: "COURSE" | "SCHEDULE", roomId: number)
   useEffect(() => {
     const newStoredDates = getStoredDates();
 
-      reset({
-        ...defaultValues,
-        startDate: newStoredDates?.startDate || formatToKST(calendarStart),
-        endDate: newStoredDates?.endDate || formatToKST(calendarEnd),
-      });
-      setValue("startDate", newStoredDates?.startDate || formatToKST(calendarStart));
-      setValue("endDate", newStoredDates?.endDate || formatToKST(calendarEnd));
-      trigger(["startDate", "endDate"]);
-  }, [tripPlanType]);
+    reset({
+      ...defaultValues,
+      startDate: newStoredDates?.startDate || formatToKST(calendarStart),
+      endDate: newStoredDates?.endDate || formatToKST(calendarEnd),
+    });
+    setValue("startDate", newStoredDates?.startDate || formatToKST(calendarStart));
+    setValue("endDate", newStoredDates?.endDate || formatToKST(calendarEnd));
+    trigger(["startDate", "endDate"]);
+  }, [tripPlanType, roomId]);
 
-  // ✅ 날짜 변경 시 즉시 반영 + 최신 `localStorage` 동기화
   useEffect(() => {
     const newStartDate = formatToKST(calendarStart);
     const newEndDate = formatToKST(calendarEnd);
@@ -85,7 +77,7 @@ export const useVoteForm = (tripPlanType: "COURSE" | "SCHEDULE", roomId: number)
 
     if (storedDates?.startDate !== newStartDate || storedDates?.endDate !== newEndDate) {
       const updatedDates = { startDate: newStartDate, endDate: newEndDate };
-      
+
       localStorage.setItem(dateStorageKey, JSON.stringify(updatedDates));
       
       setTimeout(() => {
@@ -95,6 +87,15 @@ export const useVoteForm = (tripPlanType: "COURSE" | "SCHEDULE", roomId: number)
       }, 0);
     }
   }, [calendarStart, calendarEnd, tripPlanType, setValue, trigger]);
+
+  useEffect(() => {
+    if (selectedPlace) {
+      setValue("location", selectedPlace.place_name);
+      setValue("latitude", parseFloat(selectedPlace.y)); 
+      setValue("longitude", parseFloat(selectedPlace.x));
+      trigger(["location", "latitude", "longitude"]);
+    }
+  }, [selectedPlace, setValue, trigger]);
 
   useEffect(() => {
     const subscription = watch((values) => {
@@ -107,5 +108,5 @@ export const useVoteForm = (tripPlanType: "COURSE" | "SCHEDULE", roomId: number)
     console.log(data);
   });
 
-  return { control, setValue, getValues, watch, reset, isValid, onSubmit };
+  return { control, setValue, getValues, watch, reset,  isValid, onSubmit };
 };

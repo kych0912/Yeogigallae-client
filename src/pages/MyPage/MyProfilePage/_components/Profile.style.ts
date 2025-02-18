@@ -14,6 +14,7 @@ export const UserProfile = {
     width:5rem;
     height:5rem;
     border-radius:50%;
+    object-fit:cover;
   `,
   NameContainer: styled.div`
     display: flex;

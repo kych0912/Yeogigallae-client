@@ -1,6 +1,6 @@
-import { VotingResponse } from "./types";
+import { Voting } from "./types";
 
-export const DEFAULT_Voting: VotingResponse = {
+export const DEFAULT_Voting: Voting = {
     totalCount: 6,
     rooms: [
         {

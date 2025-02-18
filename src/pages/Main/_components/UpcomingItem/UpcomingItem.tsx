@@ -2,17 +2,7 @@ import * as S from "../Main.Styles";
 import * as U from "./UpcomingItem.Styles";
 import Calender2 from "../../../../assets/icons/Calender2.svg";
 import { useNavigate } from "react-router-dom";
-
-interface Room {
-    tripPlanId: number;
-    roomName: string;
-    location: string;
-    startDate: string;
-    endDate: string;
-    imageUrl: string;
-    roomId: number;
-    aiCourseId: number;
-}
+import { Room } from "../../../../apis/main/Upcoming/types";
 
 interface UpcomingItemProps {
     rooms: Room[];
@@ -29,7 +19,6 @@ export default function UpcomingItem({ rooms }: UpcomingItemProps) {
         <S.RowTravelList>
             {rooms.map((room) => (
                 <U.TravelList onClick={() => handleClick(room.aiCourseId, room.roomId)} key={room.tripPlanId}>
-                    {" "}
                     <U.ImageWrapper>
                         <S.Image src={room.imageUrl} alt={`${room.roomName} 이미지`} />
                     </U.ImageWrapper>

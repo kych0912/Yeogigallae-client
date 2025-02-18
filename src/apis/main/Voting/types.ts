@@ -14,7 +14,14 @@ export interface VotingRoom {
     longitude: number;
 }
 
-export interface VotingResponse {
+export interface Voting {
     totalCount: number;
     rooms: VotingRoom[];
+}
+
+export interface VotingResponse {
+    code: number;
+    message: string;
+    httpStatus: string;
+    result: Voting;
 }

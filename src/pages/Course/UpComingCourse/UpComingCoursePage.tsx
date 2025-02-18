@@ -25,7 +25,6 @@ export default function UpComingCoursePage() {
             setHeaderConfig({
                 title: firstDayCourseData.roomName,
                 number: 5,
-                // number: firstDayCourseData.totalRoomMember, //현재 0으로 나와서 임시로 5로 설정
             });
         }
     }, [firstDayCourseData, setHeaderConfig]);

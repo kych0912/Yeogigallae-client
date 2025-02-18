@@ -1,4 +1,4 @@
-import { courseInfoMock, courseListMock, sampleAiCourseResponse } from "./mocks";
+import { courseInfoMock, courseListMock } from "./mocks";
 import { ShareCourseSchema } from "../../pages/Course/ShareCourse/schema";
 import * as z from "zod";
 import { IAiCourseIdResponse, ICourseMessageResponse, IAiCourseResponse } from "./types";

@@ -67,83 +67,61 @@ export const courseInfoMock = {
         {
           day: "1",
           places: [
-            // {
-            //   id: 1,
-            //   placeName: "집",
-            //   address: "인천광역시",
-            //   latitude: 37.455306,
-            //   longitude: 126.718513,
-            //   image: "https://example.com/home.jpg",
-            //   description: "출발 장소",
-            //   userName: "사용자1",
-            //   profileImage: "https://example.com/profile1.jpg"
-            // },
-            // {
-            //   id: 2,
-            //   placeName: "로데오",
-            //   address: "인천광역시 부평구",
-            //   latitude: 37.443833,
-            //   longitude: 126.700731,
-            //   image: "https://example.com/rodeo.jpg",
-            //   description: "부평 로데오거리",
-            //   userName: "사용자1",
-            //   profileImage: "https://example.com/profile1.jpg"
-            // },
-            // {
-            //   id: 3,
-            //   placeName: "수봉공원",
-            //   address: "인천광역시 미추홀구",
-            //   latitude: 37.4597895,
-            //   longitude: 126.661385,
-            //   image: "https://example.com/subong.jpg",
-            //   description: "수봉공원 산책",
-            //   userName: "사용자1",
-            //   profileImage: "https://example.com/profile1.jpg"
-            // },
-            // {
-            //   id: 4,
-            //   placeName: "학교",
-            //   address: "인천광역시 미추홀구",
-            //   latitude: 37.450978,
-            //   longitude: 126.655127,
-            //   image: "https://example.com/school.jpg",
-            //   description: "인하대학교",
-            //   userName: "사용자1",
-            //   profileImage: "https://example.com/profile1.jpg"
-            // },
-            // {
-            //   id: 6,
-            //   placeName: "용현시장",
-            //   address: "인천광역시 미추홀구",
-            //   latitude: 37.4582361,
-            //   longitude: 126.6527648,
-            //   image: "https://example.com/market.jpg",
-            //   description: "전통시장",
-            //   userName: "사용자1",
-            //   profileImage: "https://example.com/profile1.jpg"
-            // },
-            // {
-            //   id: 7,
-            //   placeName: "차이나타운",
-            //   address: "인천광역시 중구",
-            //   latitude: 37.475589,
-            //   longitude: 126.6178849,
-            //   image: "https://example.com/chinatown.jpg",
-            //   description: "인천 차이나타운",
-            //   userName: "사용자1",
-            //   profileImage: "https://example.com/profile1.jpg"
-            // },
-            // {
-            //   id: 8,
-            //   placeName: "월미도",
-            //   address: "인천광역시 중구",
-            //   latitude: 37.4713635,
-            //   longitude: 126.5962858,
-            //   image: "https://example.com/wolmido.jpg",
-            //   description: "월미도 관광",
-            //   userName: "사용자1",
-            //   profileImage: "https://example.com/profile1.jpg"
-            // }
+            {
+              id: 1,
+              placeName: "집",
+              address: "인천광역시",
+              latitude: 37.455306,
+              longitude: 126.718513,
+              image: "https://example.com/home.jpg",
+              description: "출발 장소",
+              userName: "사용자1",
+              profileImage: "https://example.com/profile1.jpg"
+            },
+            {
+              id: 2,
+              placeName: "로데오",
+              address: "인천광역시 부평구",
+              latitude: 37.443833,
+              longitude: 126.700731,
+              image: "https://example.com/rodeo.jpg",
+              description: "부평 로데오거리",
+              userName: "사용자1",
+              profileImage: "https://example.com/profile1.jpg"
+            },
+            {
+              id: 3,
+              placeName: "수봉공원",
+              address: "인천광역시 미추홀구",
+              latitude: 37.4597895,
+              longitude: 126.661385,
+              image: "https://example.com/subong.jpg",
+              description: "수봉공원 산책",
+              userName: "사용자1",
+              profileImage: "https://example.com/profile1.jpg"
+            },
+            {
+              id: 4,
+              placeName: "학교",
+              address: "인천광역시 미추홀구",
+              latitude: 37.450978,
+              longitude: 126.655127,
+              image: "https://example.com/school.jpg",
+              description: "인하대학교",
+              userName: "사용자1",
+              profileImage: "https://example.com/profile1.jpg"
+            },
+            {
+              id: 6,
+              placeName: "용현시장",
+              address: "인천광역시 미추홀구",
+              latitude: 37.4582361,
+              longitude: 126.6527648,
+              image: "https://example.com/market.jpg",
+              description: "전통시장",
+              userName: "사용자1",
+              profileImage: "https://example.com/profile1.jpg"
+            },
           ]
         },
         {

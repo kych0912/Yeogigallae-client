@@ -2,17 +2,7 @@ import * as S from "../Main.Styles";
 import * as U from "./UpcomingItem.Styles";
 import Calender2 from "../../../../assets/icons/Calender2.svg";
 import { useNavigate } from "react-router-dom";
-
-interface Room {
-    tripPlanId: number;
-    roomName: string;
-    location: string;
-    startDate: string;
-    endDate: string;
-    imageUrl: string;
-    roomId: number;
-    aiCourseId: number;
-}
+import { Room } from "../../../../apis/main/Upcoming/types";
 
 interface UpcomingItemProps {
     rooms: Room[];
@@ -21,15 +11,20 @@ interface UpcomingItemProps {
 export default function UpcomingItem({ rooms }: UpcomingItemProps) {
     const navigate = useNavigate();
 
-    const handleClick = (tripPlanId: number, aiCourseId: number) => {
-        navigate(`/course/upcoming/${tripPlanId}/${aiCourseId}`);
+    const handleClick = (roomId: number, tripPlanId: number, aiCourseId: number | null) => {
+        if (aiCourseId) {
+            // aiCourseId가 존재하면, 이미 생성된 AI 코스를 렌더링
+            navigate(`/course/upcoming/${tripPlanId}/${aiCourseId}`);
+        } else {
+            // aiCourseId가 없으면, 클릭한 페이지로 이동
+            navigate(`/course/planId/${tripPlanId}/roomId/${roomId}?isEnd=true`);
+        }
     };
 
     return (
         <S.RowTravelList>
             {rooms.map((room) => (
-                <U.TravelList onClick={() => handleClick(room.aiCourseId, room.tripPlanId)} key={room.tripPlanId}>
-                    {" "}
+                <U.TravelList onClick={() => handleClick(room.roomId, room.aiCourseId, room.tripPlanId)} key={room.tripPlanId}>
                     <U.ImageWrapper>
                         <S.Image src={room.imageUrl} alt={`${room.roomName} 이미지`} />
                     </U.ImageWrapper>

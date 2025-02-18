@@ -1,5 +1,7 @@
-export const DEFAULT_Voting = {
-    totalCount: 0,
+import { Voting } from "./types";
+
+export const DEFAULT_Voting: Voting = {
+    totalCount: 6,
     rooms: [
         {
             tripPlanId: 1,
@@ -13,8 +15,8 @@ export const DEFAULT_Voting = {
             profileImageUrls: ["https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "Images.com"],
             createdAt: "2025-02-17T02:20:08.696Z",
             tripPlanType: "COURSE",
-            latitude: 35.1796, // ✅ 부산 위도 수정
-            longitude: 129.0756, // ✅ 부산 경도 수정
+            latitude: 35.1796,
+            longitude: 129.0756,
         },
         {
             tripPlanId: 2,
@@ -28,8 +30,38 @@ export const DEFAULT_Voting = {
             profileImageUrls: ["https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "Images.com"],
             createdAt: "2025-02-17T02:20:08.696Z",
             tripPlanType: "SCHEDULE",
-            latitude: 33.4996, // ✅ 제주도 위도 수정
-            longitude: 126.5312, // ✅ 제주도 경도 수정
+            latitude: 33.4996,
+            longitude: 126.5312,
+        },
+        {
+            tripPlanId: 3,
+            roomId: 3,
+            masterId: 3,
+            roomName: "커플 여행",
+            location: "서울",
+            totalMembers: 2,
+            remainingTime: "FOUR_HOURS",
+            completedVotes: 1,
+            profileImageUrls: ["Images.com", "Images.com"],
+            createdAt: "2025-02-18T16:20:08.696Z",
+            tripPlanType: "SCHEDULE",
+            latitude: 37.5665,
+            longitude: 126.978,
+        },
+        {
+            tripPlanId: 4,
+            roomId: 4,
+            masterId: 4,
+            roomName: "비즈니스 여행",
+            location: "대전",
+            totalMembers: 3,
+            remainingTime: "SIX_HOURS",
+            completedVotes: 2,
+            profileImageUrls: ["Images.com", "Images.com", "Images.com"],
+            createdAt: "2025-02-18T16:20:08.696Z",
+            tripPlanType: "SCHEDULE",
+            latitude: 36.3504,
+            longitude: 127.3845,
         },
     ],
 };

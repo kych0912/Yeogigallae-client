@@ -8,26 +8,11 @@ import TravelListItem from "./TravelListItem/TravelListItem";
 import Empty from "./TravelListItem/Empty";
 import { useGetTravelList } from "../../../react-query/queries/main/TravelList/queries";
 import { HistoryCardSkeleton } from "./CardSkeleton";
-
-interface Room {
-    tripPlanId: number; // tripPlanId 추가
-    tripName: string;
-    location: string;
-    startDate: string;
-    endDate: string;
-    tripType: "DOMESTIC" | "INTERNATIONAL";
-    imageUrl: string;
-}
+import { Room } from "../../../apis/main/TravelList/types";
 
 export default function MainTravelHistory() {
-    const { data, isLoading, error } = useGetTravelList();
+    const { data, isLoading, error } = useGetTravelList(); // data는 TravelListResult 타입
 
-    // // 로딩 상태에서 콘솔 로그
-    // if (isLoading) {
-    //     console.log("Loading TravelHistory rooms...");
-    // }
-
-    // 에러 상태에서 콘솔 로그
     if (error) {
         console.error("Error TravelHistory upcoming rooms:", error);
     }
@@ -38,8 +23,8 @@ export default function MainTravelHistory() {
         setSelectedButton(buttonType);
     };
 
-    const trips = data?.trips || []; // trips 배열을 사용
-    const filteredRooms: Room[] = trips.filter((room: Room) => (selectedButton === "domestic" ? room.tripType === "DOMESTIC" : room.tripType === "INTERNATIONAL"));
+    const trips = data?.trips || [];
+    const filteredRooms: Room[] = trips.filter((room) => (selectedButton == "domestic" ? room.tripType === "DOMESTIC" : room.tripType === "INTERNATIONAL")) as Room[];
 
     return (
         <S.HistoryContainer>

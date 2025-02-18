@@ -10,16 +10,19 @@ import * as S from "../../_components/Course.style";
 import CoursePlaces from "../../_components/CoursePlaces";
 import Map from "../../../../components/Map";
 import modal from "../../../../components/Modal";
+import { TTripInfo } from "../../ShareCourse/ShareCorsePage";
 
 export default function Overview({
+    courseInfo,
     dailyRoutes,
     onNext,
-    title,
-}:{dailyRoutes:Route[] | null | undefined,onNext:()=>void,title:string}){
+}:{dailyRoutes:Route[] | null | undefined,onNext:()=>void,courseInfo:TTripInfo}){
     const {setHeaderConfig} = useOutletContext<{setHeaderConfig: (config: HeaderConfig) => void}>();
+    const {result} = courseInfo;
+
     const navigate = useNavigate();
     useEffect(()=>{
-        setHeaderConfig({title:title,number:4});
+        setHeaderConfig({title:result.roomName,number:result.userCount});
     },[]);
 
     //유효한 코스 Route만 추출
@@ -32,6 +35,9 @@ export default function Overview({
             message:"코스가 존재하지 않아요",
             isOneButton:true,
             onConfirm:()=>{
+                navigate(-1);
+            },
+            onCancel:()=>{
                 navigate(-1);
             }
         })

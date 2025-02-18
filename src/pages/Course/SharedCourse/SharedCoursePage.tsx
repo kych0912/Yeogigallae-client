@@ -8,8 +8,8 @@ import { ICourseInfo } from '../../../apis/course/types';
 import { useGetAiKaKaoCourseAndId } from '../../../react-query/queries/course/queries';
 
 export type TTripInfo = ICourseInfo & {
-  roomId: string | undefined;
-  tripId: string | undefined;
+  roomId: string;
+  tripId: string;
 }
 
 type TSharedCourseContext = {
@@ -19,8 +19,7 @@ type TSharedCourseContext = {
   코스목록:{},
 }
 
-export default function SharedCoursePage({title,courseInfo}:
-{title:string,courseInfo:TTripInfo}){
+export default function SharedCoursePage({courseInfo}:{courseInfo:TTripInfo}){
   const { tripId } = courseInfo;
 
   //aiCourseAndId 조회
@@ -52,9 +51,9 @@ export default function SharedCoursePage({title,courseInfo}:
     <Funnel>
       <Funnel.Step name="코스개요">
         <Overview 
+          courseInfo={courseInfo}
           dailyRoutes={allCoursesQueries}
           onNext={()=>setStep<"코스개요">("코스목록",{})}  
-          title={title}
         />
       </Funnel.Step>
       <Funnel.Step name="코스목록">

@@ -13,7 +13,7 @@ type LayoutContextType = {
 };
 export default function FullVotingListPage() {
     const { data, isLoading, error } = useGetVoting();
-    const votingRooms = data?.rooms ?? [];
+    const votingRooms = data?.rooms.map((room) => ({ ...room, roomId: room.roomId.toString() })) ?? [];
 
     // // 로딩 상태에서 콘솔 로그
     // if (isLoading) {

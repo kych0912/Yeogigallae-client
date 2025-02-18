@@ -1,15 +1,13 @@
 import { api } from "../../Axios";
-import { NoticeMocks } from "./mocks";
+import { NoticeResult } from "./mocks";
+import { NoticeResponse } from "./types";
 
-export const getNotice = async () => {
-    // if (import.meta.env.MODE === "development") {
-    //     return NoticeMocks;
-    // }
+export const getNotice = async (): Promise<NoticeResponse> => {
     try {
-        const response = await api.get(`/api/home/notification-status`);
+        const response = await api.get<NoticeResponse>(`/api/home/notification-status`);
         return response.data;
     } catch (error) {
-        console.error("Notice  API 호출 오류:", error);
-        return NoticeMocks;
+        console.error("Notice API 호출 오류:", error);
+        return NoticeResult;
     }
 };

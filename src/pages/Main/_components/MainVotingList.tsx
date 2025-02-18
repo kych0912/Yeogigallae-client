@@ -7,22 +7,20 @@ import VotingItem from "./VotingItem/VotingItem";
 import Empty from "./VotingItem/Empty";
 import { useGetVoting } from "../../../react-query/queries/main/Voting/queries";
 import { VotingCardSkeleton } from "./CardSkeleton";
+import { VotingRoom } from "../../../apis/main/Voting/types";
+import { isTimeExpired } from "./utils";
 
 export default function MainVotingList() {
     const navigate = useNavigate();
-
     const { data, isLoading, error } = useGetVoting();
-    const votingRooms = data?.rooms ?? [];
+    const votingRooms: VotingRoom[] = data?.rooms ?? [];
 
-    // // 로딩 상태에서 콘솔 로그
-    // if (isLoading) {
-    //     console.log("Loading voting rooms...");
-    // }
-
-    // 에러 상태에서 콘솔 로그
     if (error) {
         console.error("Error loading voting rooms:", error);
     }
+
+    const ongoingVoting = votingRooms.filter((room) => !isTimeExpired(room.createdAt, room.remainingTime));
+    const completedVoting = votingRooms.filter((room) => isTimeExpired(room.createdAt, room.remainingTime));
 
     return (
         <S.Container>
@@ -39,9 +37,17 @@ export default function MainVotingList() {
                     </S.HighlightedText>
                 }
             />
+            {isLoading ? <VotingCardSkeleton /> : ongoingVoting.length > 0 ? <VotingItem rooms={ongoingVoting} /> : <Empty />}
 
-            {/*카드부분*/}
-            {isLoading ? <VotingCardSkeleton /> : votingRooms.length > 0 ? <VotingItem rooms={votingRooms} /> : <Empty />}
+            <MainSection
+                leftContent={
+                    <>
+                        <img src={Voting} alt="Voting Icon" /> 투표 완료
+                    </>
+                }
+                rightContent={completedVoting.length}
+            />
+            {isLoading ? <VotingCardSkeleton /> : completedVoting.length > 0 ? <VotingItem rooms={completedVoting} isCompleted /> : <Empty />}
         </S.Container>
     );
 }

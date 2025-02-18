@@ -1,13 +1,12 @@
 import * as S from "../Main.Styles";
 import * as H from "./TravelListItem.Styles";
 
-interface Room {
+export interface Room {
     tripPlanId: number;
-    tripName: string;
+    roomName: string;
     location: string;
     startDate: string;
     endDate: string;
-    tripType: "DOMESTIC" | "INTERNATIONAL";
     imageUrl: string;
 }
 
@@ -20,13 +19,12 @@ export default function TravelListItem({ rooms }: TravelListItemProps) {
         <S.TravelList>
             {rooms.map((room) => (
                 <H.TravelListItem key={room.tripPlanId}>
-                    {" "}
                     <H.ImageWrapper>
-                        <H.Image src={room.imageUrl} alt={`${room.tripName} 이미지`} />
+                        <H.Image src={room.imageUrl} alt={`${room.roomName} 이미지`} />
                     </H.ImageWrapper>
                     <H.InfoWrapper>
                         <S.TextBox>
-                            <S.Title>{room.tripName}</S.Title>
+                            <S.Title>{room.roomName}</S.Title> {/* roomName 사용 */}
                             <S.Location>{room.location}</S.Location>
                         </S.TextBox>
                         <S.Location>{`${room.startDate} - ${room.endDate}`}</S.Location>

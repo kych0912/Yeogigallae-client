@@ -39,7 +39,6 @@ export default function Page(){
   return (
     <>
       <SharedCoursePage   
-        title={"지구마블"}
         courseInfo={{...courseInfo, roomId:roomId, tripId:tripId}}
       />
     </>

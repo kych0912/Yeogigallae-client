@@ -76,11 +76,11 @@ const Map = ({
       const customOverlay = new kakao.maps.CustomOverlay({
         position: markerPosition,
         content: `
-        <div style="padding:5px; 
-          background:${theme.colors.primary};
-          color:white; border-radius:50%;">
-          1
-        </div>`,
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 35">
+            <path fill="#3b46f1" d="M15 0c8.3 0 15 6.7 15 15 0 12.5-15 20-15 20S0 27.5 0 15C0 6.7 6.7 0 15 0z"/>
+            <circle cx="15" cy="15" r="6" fill="white"/> 
+            <text x="15" y="19" text-anchor="middle" fill="#3b46f1" font-size="8px" font-weight="bold">${1}</text>
+          </svg>`,
         map: map
       });
 
@@ -104,11 +104,11 @@ const Map = ({
       const customOverlay = new kakao.maps.CustomOverlay({
         position: markerPosition,
         content: `
-        <div style="padding:5px; 
-          background:${theme.colors.primary};
-          color:white; border-radius:50%;">
-          ${index+1}
-        </div>`,
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 35">
+            <path fill="#3b46f1" d="M15 0c8.3 0 15 6.7 15 15 0 12.5-15 20-15 20S0 27.5 0 15C0 6.7 6.7 0 15 0z"/>
+            <circle cx="15" cy="15" r="6" fill="white"/> 
+            <text x="15" y="19" text-anchor="middle" fill="#3b46f1" font-size="8px" font-weight="bold">${index+1}</text>
+          </svg>`,
         map: map
       });
       

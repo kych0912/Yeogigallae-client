@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FirstDayItinerary } from "../../../../apis/upcomingCourse/types";
 import Card from "../../../../components/Card";
 import Map from "../../../../components/Map";
@@ -30,9 +30,15 @@ interface UpComingCourseCardProps {
 }
 
 export default function UpComingCourseCard({ dailyRoutes }: UpComingCourseCardProps) {
-    const [routeDetail] = useState<RouteDetail | null>(null);
-
     const formattedFirstDayData = formatFirstDayData(dailyRoutes);
+    const [routeDetail, setRouteDetail] = useState<RouteDetail | null>(null);
+
+    useEffect(() => {
+        if (formattedFirstDayData) {
+            setRouteDetail(formattedFirstDayData);
+        }
+    }, [formattedFirstDayData]);
+
     console.log("✅ [UpComingCourseCard] formattedFirstDayData:", formattedFirstDayData);
     console.log("✅ [UpComingCourseCard] routeDetail:", routeDetail);
 

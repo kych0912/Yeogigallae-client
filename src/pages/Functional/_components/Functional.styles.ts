@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Card from "../../../components/Card";
+import { Toast } from "../../../components/Calendar/CompleteButton.styles";
 
 export const Container = styled.div`
   margin:0 1.25rem 1rem 1.25rem;
@@ -117,12 +118,33 @@ export const TimeButton = styled.button<{ $isActive: boolean }>`
   font-size: 1rem;
   font-family: ${({ theme }) => theme.fontFamily.medium};
 
-  &:hover {
-    background-color: #3b46f1;
-  }
-
   &:active {
     outline: none; 
+  }
+`;
+
+export const StyledToast = styled(Toast)`
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 0.5rem;
+
+`;
+
+export const InputWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.125rem; 
+  
+  input {
+    text-align: right;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    width: 5.2rem;
+  }
+
+  span {
+    font-size: 1rem;
   }
 `;
 

@@ -100,12 +100,7 @@ export const TwoSelect = styled.div`
   button {
     font-family: ${({ theme }) => theme.fontFamily.medium};
     color: #fff;
-    background-color: #434343;
     transition: background-color 0.3s ease;
-
-    &:hover, &:focus, &:active {
-      background-color: #3b46f1; 
-    }
   }
 `;
 

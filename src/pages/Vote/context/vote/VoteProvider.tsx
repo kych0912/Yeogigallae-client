@@ -1,16 +1,22 @@
 import { ReactNode } from "react";
 import { VoteContext } from "./VoteContext";
-import {useVoteResultMutation} from "../../../../react-query/mutation/vote/useVoteMutation";
+import { usePostVoteResultMutation } from "../../../../react-query/mutation/vote/useVoteMutation";
+import { VoteData } from "./VoteDataType";
 
 interface VoteProviderProps {
   children: ReactNode;
 }
 
 export const VoteProvider = ({ children }: VoteProviderProps) => {
-  const { mutate: voteMutation } = useVoteResultMutation(); // useMutation 가져오기
+  const { mutate: voteMutation } = usePostVoteResultMutation();
+
+  const handleVoteMutation = (voteData: VoteData, roomId: number) => {
+    const { tripId, voteRoomId } = voteData;
+    voteMutation({ tripId, voteRoomId, roomId });
+  };
 
   return (
-    <VoteContext.Provider value={{ voteMutation }}>
+    <VoteContext.Provider value={{ voteMutation: handleVoteMutation }}>
       {children}
     </VoteContext.Provider>
   );

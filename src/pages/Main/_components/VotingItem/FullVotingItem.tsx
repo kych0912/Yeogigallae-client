@@ -9,7 +9,6 @@ import RemainingTimeDisplay from "./useRemainingTimes";
 import MapComponent from "../../../SearchPage/_components/SearchMap/SearchMap";
 import { useNavigate } from "react-router-dom";
 import { isTimeExpired } from "../utils";
-import Empty from "./Empty";
 
 interface FullVotingItemProps {
     rooms: Room[];
@@ -45,14 +44,17 @@ const FullVotingItem: React.FC<FullVotingItemProps> = ({ rooms = [], selectedFil
     };
 
     // ✅ "투표 완료된 항목" 제거하고 필터 적용
-    const filteredRooms = rooms
-        .filter((room) => !isTimeExpired(room.createdAt, room.remainingTime)) // ✅ 종료된 항목 제거
-        .filter((room) => (selectedFilter ? room.tripPlanType === selectedFilter : true)); // ✅ 필터 적용
+    const filteredRooms = rooms.filter((room) => !isTimeExpired(room.createdAt, room.remainingTime)).filter((room) => (selectedFilter ? room.tripPlanType === selectedFilter : true));
 
     return (
         <>
             {filteredRooms.length === 0 ? (
-                <Empty />
+                <V.EmptyBox>
+                    <S.Text>
+                        여행 투표와 AI 코스 생성을 통해
+                        <br />더 이상 여행을 미루지마세요!
+                    </S.Text>
+                </V.EmptyBox>
             ) : (
                 filteredRooms.map((room) => {
                     const tripPlanInfo = (() => {

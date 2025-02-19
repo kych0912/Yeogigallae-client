@@ -18,7 +18,7 @@ export default function ServiceSetting() {
             </S.ServiceSetting.Setting>
             <S.ServiceSetting.Setting onClick={()=>{
                 modal.confirm.show({
-                    message:"회원 탈퇴 하시겠습니까?",
+                    message:"여기갈래 서비스를 탈퇴하시겠습니까?",
                     onConfirm:()=>{
                         deleteAccount();
                     }

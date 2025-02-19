@@ -24,17 +24,17 @@ export default function MessageInput({ control, tripPlanType, roomId }: MessageI
   const [showToast, setShowToast] = useState(false);
 
   useEffect(() => {
-    if (field.value.length > 0) {
+    if (field.value && field.value.length > 0) {
       setShowToast(false);
     }
-  }, [field.value]);
+  }, [field.value]);  
 
   return (
     <>
       <SkeletonForm fullcontent>
         <S.MessageInput
           placeholder={"친구에게 전달할\n메시지를 작성하세요."}
-          value={field.value}
+          value={field.value ?? ""}
           maxLength={25} 
           onChange={(e) => {
             const newValue = e.target.value.slice(0, 25);

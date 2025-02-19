@@ -1,14 +1,13 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigationType } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useFunnel } from "../../hooks/useFunnel/useFunnel";
-import ConfirmSuccessPage from "./ConfirmPage/ConfirmSuccessPage/ConfirmSuccessPage";
 import ConfirmFailPage from "./ConfirmPage/ConfirmFailPage/ConfirmFailPage";
+import ConfirmSuccessPage from "./ConfirmPage/ConfirmSuccessPage/ConfirmSuccessPage";
 import * as S from "./_components/Vote.styles";
 import TravelCard from "./Travel/_components/TravelCard";
 import VoteCard from "./VoteCard/_components/VoteCard";
 import VoteResult from "./VoteResult/_components/VoteResult";
-import { VoteProvider } from "./context/VoteResultContext";
-import { TripInfoProvider } from "./context/tripInfo/TripInfoProvider";
+import { TripInfoProvider } from "./context/tripInfo/TripInfoProvider"; 
 
 export default function VotePage() {
   const { tripId, roomId } = useParams<{ tripId?: string; roomId?: string }>();
@@ -22,15 +21,14 @@ export default function VotePage() {
 
   return (
     <TripInfoProvider tripId={parsedTripId} roomId={parsedRoomId}>
-      <VoteProvider>
-        <VoteProcess tripId={parsedTripId} roomId={parsedRoomId} />
-      </VoteProvider>
+      <VoteProcess tripId={parsedTripId} roomId={parsedRoomId} />
     </TripInfoProvider>
   );
 }
 
 function VoteProcess({ tripId, roomId }: { tripId: number; roomId: number }) {
-  const [voteType, setVoteType] = useState<"GOOD" | "BAD" | null>(null);
+  const [voteType, setVoteType] = useState<"찬성" | "반대" | null>(null);
+  const navigationType = useNavigationType(); 
 
   const funnelOptions = {
     steps: ["투표메인", "투표동의", "결과", "찬성확인", "반대확인"] as const,
@@ -41,9 +39,15 @@ function VoteProcess({ tripId, roomId }: { tripId: number; roomId: number }) {
   const [FunnelComponent, setStep, contextMap] = useFunnel(funnelOptions);
 
   useEffect(() => {
-    if (voteType === "GOOD") {
+    if (navigationType === "POP") {
+      setVoteType(null);
+    }
+  }, [navigationType]);
+
+  useEffect(() => {
+    if (voteType === "찬성") {
       setStep("찬성확인", { ...contextMap["결과"], tripId, roomId });
-    } else if (voteType === "BAD") {
+    } else if (voteType === "반대") {
       setStep("반대확인", { ...contextMap["결과"], tripId, roomId });
     }
   }, [voteType, tripId, roomId]);
@@ -57,25 +61,24 @@ function VoteProcess({ tripId, roomId }: { tripId: number; roomId: number }) {
 
         <FunnelComponent.Step name="투표동의">
           <VoteCard
-            onAgree={() => setStep("결과", { ...contextMap["투표동의"], tripId, roomId, voteType: "GOOD" })}
-            onDisagree={() => setStep("결과", { ...contextMap["투표동의"], tripId, roomId, voteType: "BAD" })}
+            isConfirm
+            onAgree={() => setStep("결과", { ...contextMap["투표동의"], tripId, roomId, voteType: "찬성" })}
+            onDisagree={() => setStep("결과", { ...contextMap["투표동의"], tripId, roomId, voteType: "반대" })}
             showConfirmMessage={false}
           />
         </FunnelComponent.Step>
 
         <FunnelComponent.Step name="결과">
           <VoteResult
-            tripId={tripId}
-            roomId={roomId}
             onNext={() => {
-              setVoteType(contextMap["결과"]?.voteType === "GOOD" ? "GOOD" : "BAD");
+              setVoteType(contextMap["결과"]?.voteType === "찬성" ? "찬성" : "반대");
             }}
           />
         </FunnelComponent.Step>
 
         <FunnelComponent.Step name="찬성확인">
           <ConfirmSuccessPage />
-        </FunnelComponent.Step>
+        </FunnelComponent.Step> 
 
         <FunnelComponent.Step name="반대확인">
           <ConfirmFailPage />

@@ -1,8 +1,10 @@
 import { createContext } from "react";
-import { VoteData } from "./VoteSchema";
+import { VoteData } from "./VoteDataType";
 
-export interface VoteContextType {
-  voteMutation: (voteData: VoteData) => void;
+interface VoteContextProps {
+  voteMutation: (voteData: VoteData, roomId: number) => void;
 }
 
-export const VoteContext = createContext<VoteContextType | null>(null);
+export const VoteContext = createContext<VoteContextProps>({
+  voteMutation: () => {},
+});

@@ -10,3 +10,10 @@ export const logout = async () => {
     return response.data;
 }
 
+export const deleteAccount = async () => {
+    const response = await api.delete(`/api/auth/delete`);
+    return response.data;
+}
+
+
+

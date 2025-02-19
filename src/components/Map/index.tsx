@@ -67,8 +67,30 @@ const Map = ({
 
     const bounds = new kakao.maps.LatLngBounds();
     
-    // 출발지, 경유지, 도착지 마커 표시
     const { origin, destination, waypoints } = routeData.summary;
+    
+    // waypoints가 없는 경우
+    if (waypoints.length === 0) {
+      const markerPosition = new kakao.maps.LatLng(origin.y, origin.x);
+      
+      const customOverlay = new kakao.maps.CustomOverlay({
+        position: markerPosition,
+        content: `
+        <div style="padding:5px; 
+          background:${theme.colors.primary};
+          color:white; border-radius:50%;">
+          1
+        </div>`,
+        map: map
+      });
+
+      markerRef.current.push(customOverlay);
+      bounds.extend(markerPosition);
+      map.setCenter(markerPosition);
+      return;
+    }
+
+    // waypoints가 있는 경우의 기존 로직
     const allPoints = [
       origin,
       ...waypoints,

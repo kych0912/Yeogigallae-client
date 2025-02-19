@@ -1,22 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
 import { getVoteResult } from "../../../apis/vote/voteResult";
-import { VoteResultSchema } from "../../../pages/Vote/context/vote/VoteResultSchema";
-import { z } from "zod";
-
-type VoteResultData = z.infer<typeof VoteResultSchema>;
+import { VoteResultType } from "../../../pages/Vote/context/vote/VoteResultTypes";
 
 export const useVoteResultQuery = (tripId: number) => {
-  return useQuery<VoteResultData, Error>({
+  return useQuery<VoteResultType, Error>({
     queryKey: ["voteResult", tripId],
     queryFn: async () => {
-      const data = await getVoteResult(tripId); 
+      const data = await getVoteResult(tripId);
       console.log(data);
-      return VoteResultSchema.parse(data);
+      return data;
     },
-    enabled: tripId !== undefined,
-    refetchOnWindowFocus: false,               
-    refetchOnMount: false,                     
-    refetchOnReconnect: false,              
-    retry: false,           
+    enabled: tripId !== undefined && tripId !== null,
+
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    refetchOnReconnect: false,
+    retry: false,
   });
 };

@@ -1,9 +1,16 @@
-import axios from "axios";
-import { VoteSchema, VoteData } from "../../pages/Vote/context/vote/VoteSchema";
+import { api } from "../../apis/Axios";
 
-export const postVoteResult = async (data: VoteData) => {
-  const parsedData = VoteSchema.parse(data);
+type PostVoteResultParams = {
+  tripId: number;
+  roomId: number;
+  voteRoomId: number;
+};
 
-  const response = await axios.post("/api/vote/trip-result", parsedData);
+export const postVoteResult = async ({ tripId, roomId, voteRoomId }: PostVoteResultParams) => {
+  const response = await api.post("/api/vote/trip-result", {
+    tripId,
+    roomId,
+    voteRoomId,
+  });
   return response.data;
 };

@@ -8,10 +8,8 @@ export const postVote = async (voteData: VoteData) => {
     }
 
     const response = await api.post(`/api/vote`, voteData);
-    console.log(response.data);
     return response.data; 
   } catch (error) {
-    console.error(error);
     throw error; 
   }
 };

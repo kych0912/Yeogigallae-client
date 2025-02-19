@@ -70,7 +70,7 @@ export default function List({
             longitude: place.place.longitude
         }));
 
-        postCoursePlace({placeCardInfo:placeCardInfo, roomId:context.여행상세.roomId}, {
+        postCoursePlace({placeCardInfo:placeCardInfo, tripId:context.여행상세.tripId}, {
             onSuccess: () => {
                 onNext();
             },

@@ -1,4 +1,3 @@
-// UpComingCourseCard.tsx
 import { useState } from "react";
 import { FirstDayItinerary } from "../../../../apis/upcomingCourse/types";
 import Card from "../../../../components/Card";
@@ -23,8 +22,6 @@ const formatFirstDayData = (data: FirstDayItinerary | null): Place[][] | null =>
         coordinates: { lat: place.latitude, lng: place.longitude },
     }));
 
-    if (places.length < 2) return null;
-
     return [places];
 };
 
@@ -33,10 +30,11 @@ interface UpComingCourseCardProps {
 }
 
 export default function UpComingCourseCard({ dailyRoutes }: UpComingCourseCardProps) {
-    const [routeDetail, setRouteDetail] = useState<RouteDetail | null>(null);
+    const [routeDetail] = useState<RouteDetail | null>(null);
 
     const formattedFirstDayData = formatFirstDayData(dailyRoutes);
     console.log("✅ [UpComingCourseCard] formattedFirstDayData:", formattedFirstDayData);
+    console.log("✅ [UpComingCourseCard] routeDetail:", routeDetail);
 
     if (!formattedFirstDayData) {
         return (

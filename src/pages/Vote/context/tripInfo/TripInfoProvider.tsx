@@ -8,19 +8,21 @@ interface TripInfoProviderProps {
 }
 
 export const TripInfoProvider = ({ children, tripId, roomId }: TripInfoProviderProps) => {
-  const { data, isLoading, error } = useTripInfoQuery(tripId, roomId);
+  const { data: tripInfo, isLoading, error } = useTripInfoQuery(tripId, roomId);
 
-  if (isLoading) return <p>Loading Trip Data...</p>;
-  if (error) return <p>Error loading trip data</p>;
+  if (isLoading) return <p>🔄 여행 정보를 불러오는 중...</p>;
+  if (error) return <p>❌ 여행 정보를 불러오는 데 실패했습니다.</p>;
 
   return (
-    <TripInfoContext.Provider value={{ 
-      tripId, 
-      roomId, 
-      tripInfo: data ?? null,  
-      isLoading, 
-      error 
-    }}>
+    <TripInfoContext.Provider
+      value={{
+        tripId,
+        roomId,
+        tripInfo: tripInfo ?? null,
+        isLoading,
+        error,
+      }}
+    >
       {children}
     </TripInfoContext.Provider>
   );

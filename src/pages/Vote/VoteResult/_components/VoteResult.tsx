@@ -1,33 +1,52 @@
 import { useEffect, useState } from "react";
 import { useTripInfoContext } from "../../../../hooks/useTripInfo";
-import { useOutletContext } from "react-router-dom"; 
+import { useOutletContext, useParams } from "react-router-dom";
 import { useVoteResultQuery } from "../../../../react-query/queries/vote/useVoteResultQuerie";
-import { useVoteResultMutation } from "../../../../react-query/mutation/vote/useVoteMutation";
+import { usePostVoteResultMutation } from "../../../../react-query/mutation/vote/useVoteMutation";
 import ResultCard from "./ResultCard";
 import * as S from "../../_components/Vote.styles";
-import { DEFAULT_TripInfo } from "../../../../apis/vote/mocks/tripInfoMocks"; 
-import { DEFAULT_VoteResult } from "../../../../apis/vote/mocks/voteResultMocks"; 
-import { VoteData } from "../../context/vote/VoteSchema";
+import { VoteResultType } from "../../context/vote/VoteResultTypes";
 
-export default function VoteResult({ tripId, roomId, onNext }: { tripId: number; roomId: number; onNext: () => void }) {
-  const { tripInfo: fetchedTripInfo } = useTripInfoContext(); 
-  const { setHeaderConfig } = useOutletContext<{ setHeaderConfig: (config: { title: string; number?: number }) => void }>();
-  const { data: voteResult, isLoading, isError } = useVoteResultQuery(tripId);
-  const { mutate: postVoteResult } = useVoteResultMutation();
+export default function VoteResult({
+  onNext,
+}: {
+  onNext: () => void;
+}) {
+  const { tripId, roomId } = useParams<{ tripId: string; roomId: string }>();
+  const parsedTripId = tripId ? parseInt(tripId, 10) : 0;
+  const parsedRoomId = roomId ? parseInt(roomId, 10) : 0;
 
-  const [voteLimitMinutes, setVoteLimitMinutes] = useState<number>(2880);
-  const [shouldHideResults] = useState<boolean>(false);
-  const [hasPosted, setHasPosted] = useState<boolean>(false);
+  const { tripInfo, isLoading: tripLoading } = useTripInfoContext();
+  const { setHeaderConfig } = useOutletContext<{
+    setHeaderConfig: (config: { title: string; number?: number }) => void;
+  }>();
 
-  const resolvedVoteResult = voteResult ?? DEFAULT_VoteResult;
-  const tripInfo = fetchedTripInfo?.result ?? DEFAULT_TripInfo.result;
+  const { data: voteResult, isFetching, refetch } = useVoteResultQuery(parsedTripId);
+  const { mutate: postVoteResult } = usePostVoteResultMutation();
+  const [formattedTime, setFormattedTime] = useState<string>(""); 
+  const [networkSyncing] = useState<boolean>(false);
+
+  const resolvedVoteResult: VoteResultType = voteResult ?? {
+    httpStatus: "",
+    code: "",
+    message: "",
+    result: [],
+  };
 
   useEffect(() => {
-    setHeaderConfig({
-      title: tripInfo.roomName,
-      number: tripInfo.userCount,
-    });
-  }, [tripInfo, setHeaderConfig]);
+    if (tripInfo) {
+      setHeaderConfig({
+        title: tripInfo.roomName.length > 6 ? `${tripInfo.roomName.slice(0, 4)}...` : tripInfo.roomName,
+        number: tripInfo.userCount,
+      });
+
+      postVoteResult({
+        tripId: parsedTripId,
+        roomId: parsedRoomId,
+        voteRoomId: parsedRoomId,
+      });
+    }
+  }, [tripInfo, parsedTripId, postVoteResult, setHeaderConfig]);
 
   useEffect(() => {
     const timeMapping: Record<string, number> = {
@@ -38,49 +57,49 @@ export default function VoteResult({ tripId, roomId, onNext }: { tripId: number;
       SIX_HOURS: 360,
       TWO_DAYS: 2880,
     };
-    setVoteLimitMinutes(timeMapping[tripInfo.voteLimitTime] || 2880);
-  }, [tripInfo]);
+
+    if (tripInfo?.voteLimitTime) {
+      const limitMinutes = timeMapping[tripInfo.voteLimitTime] || 2880;
+      setFormattedTime(
+        limitMinutes >= 60
+          ? `${Math.floor(limitMinutes / 60)}시간 이후 종료됩니다.`
+          : `${limitMinutes}분 이후 종료됩니다.`
+      );
+    }
+  }, [tripInfo?.voteLimitTime]);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (!hasPosted) {
-        const voteData: VoteData = {
-          tripId,
-          voteRoomId: roomId,
-          type: "END",
-        };
-  
-        postVoteResult(voteData);
-        setHasPosted(true);
-      }
-    }, voteLimitMinutes * 60 * 1000);
-    
-    return () => clearTimeout(timer);
-  }, [voteLimitMinutes, hasPosted, tripId, roomId, postVoteResult]);
-  
+    refetch(); 
+  }, [tripId]); 
 
-  if (isLoading) return <p>⏳ 투표 결과 불러오는 중...</p>;
-  if (isError || !resolvedVoteResult?.result.length) return <p>⚠️ 투표 결과를 불러올 수 없습니다.</p>;
-  if (shouldHideResults) return null;
+  useEffect(() => {
+    const handleVoteUpdate = () => {
+      refetch();
+    };
 
-  const currentUserId = resolvedVoteResult.result[2]?.userId ?? 0;
-  const userVote = resolvedVoteResult.result.find((vote) => vote.userId === currentUserId); 
-  const step = userVote?.type === "GOOD" ? "찬성확인" : "반대확인";
+    window.addEventListener("voteUpdated", handleVoteUpdate);
+    return () => window.removeEventListener("voteUpdated", handleVoteUpdate);
+  }, [refetch]);
 
-  const hours = Math.floor(voteLimitMinutes / 60);
-  const minutes = voteLimitMinutes % 60;
-  const formattedTime = hours > 0 ? `${hours}시간 ${minutes > 0 ? `${minutes}분` : ""} 후 투표가 종료됩니다.` : `${minutes}분 후 투표가 종료됩니다.`;
+  const goodCount = resolvedVoteResult.result.filter((vote) => vote.type === "GOOD").reduce((acc, cur) => acc + (cur.count || 0), 0);
+  const badCount = resolvedVoteResult.result.filter((vote) => vote.type === "BAD").reduce((acc, cur) => acc + (cur.count || 0), 0);
+
+  const step = goodCount > badCount ? "찬성확인" : "반대확인";
+  const type = goodCount > badCount ? "찬성" : "반대";
+
+  if (tripLoading || isFetching || networkSyncing)
+    return <p>네트워크 연결 확인 중... 데이터 동기화 중입니다.</p>;
 
   return (
     <>
-      <ResultCard 
-        step={step} 
-        type={userVote?.type === "GOOD" ? "찬성" : "반대"} 
-        onNext={onNext} 
-        userId={currentUserId} 
+      <ResultCard
+        step={step}
+        type={type}
+        onNext={onNext}
+        voteResult={voteResult ?? { httpStatus: "", code: "", message: "", result: [] }}
       />
       <S.Content>
-        {tripInfo?.masterName || "정보 없음"}님이 여행 투표를 올렸습니다. <br />
+        {tripInfo?.masterName || "관리자"}님이 여행 투표를 올렸습니다. <br />
         {formattedTime}
       </S.Content>
     </>

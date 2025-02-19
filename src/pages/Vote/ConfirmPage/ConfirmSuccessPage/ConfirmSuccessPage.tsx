@@ -1,60 +1,73 @@
-// import { useContext, useEffect, useRef } from "react";
-// import { TripInfoContext } from "../../context/tripInfo/TripInfoContext";
-// import { useVoteContext } from "../../context/VoteResultContext";
-// import Recommend from "../_components/Recommend/Recommend";
-// import SuccessText from "../_components/SuccessText";
-// import VoteCard from "../../VoteCard/_components/VoteCard";
-// import * as S from "../../_components/Vote.styles";
-// import ConfirmSuccessPage from "../../ConfirmPage/ConfirmSuccessPage/ConfirmSuccessPage";
-// import ConfirmFailPage from "../../ConfirmPage/ConfirmFailPage/ConfirmFailPage";
+import { useContext, useMemo, useState } from "react";
+import { useParams } from "react-router-dom";
+import { TripInfoContext } from "../../context/tripInfo/TripInfoContext";
+import Recommend from "../_components/Recommend/Recommend";
+import SuccessText from "../_components/SuccessText";
+import VoteCard from "../../VoteCard/_components/VoteCard";
+import * as S from "../../_components/Vote.styles";
+import ConfirmSuccessPage from "../../ConfirmPage/ConfirmSuccessPage/ConfirmSuccessPage";
+import ConfirmFailPage from "../../ConfirmPage/ConfirmFailPage/ConfirmFailPage";
+import { useVoteResultQuery } from "../../../../react-query/queries/vote/useVoteResultQuerie";
+import { VoteResultItemType } from "../../context/vote/VoteResultTypes";
 
-// export default function VoteAgreePage() {
-//     const { state } = useVoteContext();
-//     const tripInfoContext = useContext(TripInfoContext);
-    
-//     if (!tripInfoContext || tripInfoContext.isLoading) {
-//         return <p>Loading Trip Data...</p>;
-//     }
+export default function VoteAgreePage() {
+    const { tripId } = useParams<{ tripId: string }>();
+    const parsedTripId = tripId ? parseInt(tripId, 10) : null;
+    const tripInfoContext = useContext(TripInfoContext);
+    const [isConfirm, setIsConfirm] = useState<boolean | null>(null);
 
-//     if (tripInfoContext.error) {
-//         return <p>Error loading trip data</p>;
-//     }
+    const { data: voteResultData } = useVoteResultQuery(parsedTripId ?? 0);
+    const voteResults: VoteResultItemType[] = voteResultData?.result ?? [];
 
-//     const { tripInfo } = tripInfoContext;
-//     const userCount = tripInfo?.userCount ?? 0;  
-//     const isMaster = tripInfo?.masterId === state.voteResult.userId;
-    
-//     const isSuccess = useRef<boolean | null>(false);
+    if (!tripInfoContext || tripInfoContext.isLoading) {
+        return <p>여행 정보를 불러오는 중입니다...</p>;
+    }
 
-//     useEffect(() => {
-//         if (isSuccess.current !== false) return; 
+    if (tripInfoContext.error) {
+        return <p>여행 정보를 불러오는 데 실패했습니다.</p>;
+    }
 
-//         isSuccess.current = state.voteResult.count > userCount / 2;
-//     }, [state.voteResult.count, userCount]);
+    const { tripInfo } = tripInfoContext;
+    const currentUserId = tripInfo?.masterId;
+    const isMaster = tripInfo?.masterId === currentUserId;
 
-//     return (
-//         <>
-//             <S.Custom>
-//                 <SuccessText />
-//             </S.Custom>
+    const calculatedConfirm = useMemo(() => {
+        if (voteResults.length === 0) return null;
 
-//             <VoteCard showConfirmMessage={false} isSuccess={isSuccess.current} />
+        const goodVotes = voteResults.reduce<number>((acc, vote) => {
+        return vote.type === "GOOD" ? acc + (vote.count ?? 0) : acc;
+        }, 0);
 
-//             {isMaster && (
-//                 <S.CustomItem>
-//                     <Recommend />
-//                 </S.CustomItem>
-//             )}
+        const badVotes = voteResults.reduce<number>((acc, vote) => {
+        return vote.type === "BAD" ? acc + (vote.count ?? 0) : acc;
+        }, 0);
 
-//             {isSuccess.current !== null && (isSuccess.current ? <ConfirmSuccessPage /> : <ConfirmFailPage />)}
-//         </>
-//     );
-// }
+        return goodVotes > badVotes;
+    }, [voteResults]);
 
-export default function ConfirmSuccessPage() {
+    useState(() => setIsConfirm(calculatedConfirm));
+
     return (
-        <div>
-            <h1>투표 성공</h1>
-        </div>
+        <>
+        <S.Custom>
+            <SuccessText />
+        </S.Custom>
+
+        <VoteCard showConfirmMessage={false} isConfirm={!!isConfirm} />
+
+        {isMaster && (
+            <S.CustomItem>
+            <Recommend />
+            </S.CustomItem>
+        )}
+
+        {isConfirm === null ? (
+            <p></p>
+        ) : isConfirm ? (
+            <ConfirmSuccessPage />
+        ) : (
+            <ConfirmFailPage />
+        )}
+        </>
     );
 }

@@ -8,7 +8,7 @@ export const MessageInput = styled.textarea`
   color: #ffffff;
   font-weight: bold;
   font-size: 1.5rem;
-  margin-bottom: 1.25rem;
+  margin: 1.375rem 0 1.25rem;
   resize: none;
   text-align: center;
   white-space: pre-line;

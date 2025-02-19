@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Swiper as SwiperType } from "swiper/types";
 import { Route } from "../../../../apis/map/types";
-import { UseQueryResult } from "@tanstack/react-query";
 import CourseDayButton from "../Detail/_components/CourseDayButton";
 import CourseDetailCarouse from "../Detail/_components/CourseDetailCarousel";
 import useSetHeader from "../../../../hooks/useSetHeader";
@@ -9,7 +8,7 @@ import useSetHeader from "../../../../hooks/useSetHeader";
 export default function DetailPage({
   allCoursesQueries
 }: {
-  allCoursesQueries: UseQueryResult<Route, Error>[]
+  allCoursesQueries: Route[]
 }) {
   const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -24,16 +23,21 @@ export default function DetailPage({
     }
   };
 
+  //유효한 코스 Route만 추출
+  const validDailyRoutes = allCoursesQueries?.filter((route)=>{
+    return route.routes;
+  });
+
     return (
     <>
       <CourseDayButton 
-        allCoursesQueries={allCoursesQueries}
+        allCoursesQueries={validDailyRoutes}
         handleSlideChange={handleSlideChange}
         activeIndex={activeIndex}
       />
 
       <CourseDetailCarouse
-        allCoursesQueries={allCoursesQueries}
+        allCoursesQueries={validDailyRoutes}
         setSwiperInstance={setSwiperInstance}
         setActiveIndex={setActiveIndex}
       />

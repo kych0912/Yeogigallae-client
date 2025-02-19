@@ -1,10 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { postCoursePlace, deleteCoursePlace, TShareCoursePlacesInfo } from "../../../apis/course";
+import { postCoursePlace, deleteCoursePlace, TShareCoursePlacesInfo, generateAiCourse } from "../../../apis/course";
 import { ICoursePlaceResponse } from "../../../apis/course/types";
+import { IAiCourseIdResponse } from "../../../apis/course/types";
 
 export const usePostCoursePlace = () => {
-    return useMutation<ICoursePlaceResponse, Error, {placeCardInfo: TShareCoursePlacesInfo[], roomId: string}>({
-        mutationFn: ({placeCardInfo, roomId}) => postCoursePlace(placeCardInfo, roomId),
+    return useMutation<ICoursePlaceResponse, Error, {placeCardInfo: TShareCoursePlacesInfo[], tripId: string}>({
+        mutationFn: ({placeCardInfo, tripId}) => postCoursePlace(placeCardInfo, tripId),
     });
 }
 
@@ -13,10 +14,10 @@ export const useDeleteCoursePlace = () => {
     return useMutation<
         ICoursePlaceResponse, 
         Error, 
-        {id: string, roomId: string}, 
+        {id: string, tripId: string}, 
         {previousCourseList: ICoursePlaceResponse | undefined}
     >({
-        mutationFn: ({id, roomId}) => deleteCoursePlace(id, roomId),
+        mutationFn: ({id, tripId}) => deleteCoursePlace(id, tripId),
         onMutate: async ({id}) => {
             await queryClient.cancelQueries({queryKey:['course-list']});
             const previousCourseList = queryClient.getQueryData<ICoursePlaceResponse>(['course-list']);
@@ -36,3 +37,8 @@ export const useDeleteCoursePlace = () => {
 }
 
 
+export const useGenerateAiCourse = () => {
+    return useMutation<IAiCourseIdResponse, Error, {tripId:string}>({
+        mutationFn: ({tripId}) => generateAiCourse(tripId),
+    });
+}

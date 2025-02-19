@@ -1,9 +1,8 @@
-import { UseQueryResult } from "@tanstack/react-query";
 import { Route } from "../../../../../apis/map/types";
 import * as S from "./Style";
 
 interface ICourseDayButtonProps{
-    allCoursesQueries:UseQueryResult<Route, Error>[],
+    allCoursesQueries:Route[],
     handleSlideChange:(index:number)=>void,
     activeIndex:number
 }

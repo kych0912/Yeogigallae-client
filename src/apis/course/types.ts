@@ -44,3 +44,46 @@ export interface ICourseMessageResponse {
     }
 }
 
+export type TAiCoursePlace = {
+    id:number;
+    placeName:string;
+    address:string;
+    latitude:number;
+    longitude:number;
+    image:string;
+    description:string;
+    userName:string;
+    profileImage:string;
+}
+
+export type TAiCourseDailyItinerary = {
+    day:string;
+    places:TAiCoursePlace[] | [];
+}
+
+export type TAiCourse = {
+    roomName:string;
+    totalRoomMember:number;
+    startDate:string;
+    dailyItineraries:TAiCourseDailyItinerary[];
+}
+
+export interface IAiCourseResponse {
+    httpStatus: string;
+    code: string;
+    message: string;
+    result: TAiCourse;
+}
+
+export type TAiCourseId = {
+    aiCourseId:string;
+}
+
+export interface IAiCourseIdResponse {
+    httpStatus: string;
+    code: string;
+    message: string;
+    result: TAiCourseId[];
+}
+
+

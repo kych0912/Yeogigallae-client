@@ -4,7 +4,6 @@ import { SwiperSlide } from "swiper/react";
 import { DetailCardWrapper } from "../../../_components/Course.style";
 import CourseDetailCard from "./CourseDetailCard";
 import { Route } from "../../../../../apis/map/types";
-import { UseQueryResult } from "@tanstack/react-query";
 import { Swiper } from "swiper";
 
 export default function CourseDetailCarousel({
@@ -12,7 +11,7 @@ export default function CourseDetailCarousel({
     setSwiperInstance,
     setActiveIndex
 }:{
-    allCoursesQueries:UseQueryResult<Route, Error>[],
+    allCoursesQueries:Route[],
     setSwiperInstance:(swiper:Swiper)=>void,
     setActiveIndex:(index:number)=>void
 }){
@@ -39,9 +38,10 @@ export default function CourseDetailCarousel({
           allCoursesQueries.map((query,index)=>(
             <SwiperSlide style={{alignItems:'start',padding:'0'}} key={index}>
               <DetailCardWrapper>
-                {query.data && (
+                {query && (
                   <CourseDetailCard
-                    dailyRoutes={query.data}
+                    allCoursesQueries={allCoursesQueries}
+                    dailyRoutes={query}
                   />
                 )}
               </DetailCardWrapper>

@@ -1,9 +1,9 @@
 import { createContext } from "react";
 import { z } from "zod"; 
 import { TripInfoSchema } from "./tripInfoSchema";
-import { TripInfoProvider } from "./TripInfoProvider"; 
+import { TripInfoProvider } from "./TripInfoProvider";
 
-export type TripInfoResponse = z.infer<typeof TripInfoSchema>;
+export type TripInfoResponse = z.infer<typeof TripInfoSchema>["result"];
 
 interface TripInfoContextType {
   tripId: number | null;

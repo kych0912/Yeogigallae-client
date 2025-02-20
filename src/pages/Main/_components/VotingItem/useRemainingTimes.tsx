@@ -13,7 +13,7 @@ const TIMER_UNITS: { [key: string]: number } = {
 };
 
 const calculateRemainingTime = (createdAt: string, countdownTime: number): number => {
-    const createdTime = new Date(createdAt).getTime() - 9 * 60 * 60 * 1000; // UTC+9 보정
+    const createdTime = new Date(createdAt).getTime()
     const now = Date.now();
     return Math.max(countdownTime - (now - createdTime), 0);
 };

@@ -56,7 +56,7 @@ const App: React.FC = () => {
 
                         {/* Budget */}
                         <Route element={<BudgetLayout />}>
-                            <Route path="/budget" element={<BudgetPage />} />
+                            <Route path="/budget/:aiCourseId" element={<BudgetPage />} />
                         </Route>
 
                         {/* MyPage */}
@@ -86,7 +86,7 @@ const App: React.FC = () => {
 
                         <Route element={<CourseLayout />}>
                             <Route path="/course/:tripId/:roomId" element={<CoursePage />} />
-                            <Route path="/course/upcoming/:roomId/:aiCourseId" element={<UpComingCoursePage />} />
+                            <Route path="/course/upcoming/:tripPlanId/:aiCourseId" element={<UpComingCoursePage />} />
                         </Route>
                     </Routes>
                 </Router>

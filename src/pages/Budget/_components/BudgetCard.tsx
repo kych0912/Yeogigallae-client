@@ -3,12 +3,25 @@ import Card from "../../../components/Card";
 import { budgetPageDataMock } from "../../../apis/budget/mocks";
 import MoneyBag from "../../../assets/icons/MoneyBag.svg";
 import LinkIcon from "../../../assets/icons/LinkIcon.svg?react";
+import { BudgetInfo } from "../../../apis/budget/types";
 
-export default function BudgetCard() {
+interface BudgetCardProps {
+    budgetInfo: BudgetInfo | undefined;
+}
+
+export default function BudgetCard({ budgetInfo }: BudgetCardProps) {
     const handleCopyToClipboard = (text: string) => {
         navigator.clipboard.writeText(text).then(() => {
             console.log("클립보드에 복사되었습니다:", text);
         });
+    };
+
+    const sumPrice = budgetInfo?.dailyAssignments.reduce((acc, day) => {
+        return acc + day.assignments.reduce((sum, assignment) => sum + assignment.recommendedAmount, 0);
+    }, 0);
+
+    const convertPrice = (price: number) => {
+        return price.toLocaleString();
     };
 
     return (
@@ -17,7 +30,7 @@ export default function BudgetCard() {
 
             <S.Title>
                 <S.Logo src={MoneyBag} alt="MoneyBag Logo" />
-                최소 {budgetPageDataMock.result.price}  
+                {convertPrice(Number(sumPrice)) + " 원"}  
                 <S.Logo src={MoneyBag} alt="MoneyBag Logo" />
             </S.Title>
 
@@ -32,19 +45,19 @@ export default function BudgetCard() {
                 />
             </Card.Image>
 
-            <S.CustomWrapper>
+            {/* <S.CustomWrapper>
                 <Card.Item label="장소">
-                    {budgetPageDataMock.result.location} ({budgetPageDataMock.result.customLocation})
+                    {budgetInfo?.location} ({budgetInfo?.customLocation})
                 </Card.Item>
-                <S.IconWrapper onClick={() => handleCopyToClipboard(budgetPageDataMock.result.location)}>
+                <S.IconWrapper onClick={() => handleCopyToClipboard(budgetInfo?.location)}>
                     <LinkIcon />
                 </S.IconWrapper>
-            </S.CustomWrapper>
+            </S.CustomWrapper> */}
 
             <Card.Divider />
 
             <Card.Item label="기간">
-                {budgetPageDataMock.result.startDate} ~ {budgetPageDataMock.result.endDate} ({budgetPageDataMock.result.minDays}일 ~ {budgetPageDataMock.result.maxDays}일)
+                {budgetInfo?.startDate} ~ {budgetInfo?.endDate}
             </Card.Item>
         </S.BudgetCard>
     );

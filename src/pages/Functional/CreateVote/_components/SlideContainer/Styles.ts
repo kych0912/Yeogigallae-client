@@ -23,7 +23,7 @@ export const CustomCard = styled(Card)`
 export const Slide = styled.button<{ $active: boolean; $isCreateButton?: boolean }>`
   width: 2.688rem;
   height: 2.5rem;
-  background-color: ${(props) => (props.$isCreateButton ? "transparent" : "#fff")};
+  background-color: ${(props) => (props.$isCreateButton ? "transparent" : "transparent")};
   color: color: ${(props) =>
     props.$isCreateButton
       ? "#bbb" 
@@ -42,10 +42,8 @@ export const Slide = styled.button<{ $active: boolean; $isCreateButton?: boolean
   justify-content: center;
   align-items: center;
   transition: all 0.3s ease;
-
-  &:hover {
-    background-color: ${(props) => (props.$isCreateButton ? "transparent" : "#f5f5f5")};
-  }
+  overflow: hidden;
+  padding: 0;
 `;
 
 export const Text = styled.span`
@@ -122,6 +120,13 @@ export const PlusIcon = styled.div`
 
   &:hover::before,
   &:hover::after {
-    background-color: #2a36c0; /* 호버 시 색상 변경 */
+    background-color: #2a36c0; 
   }
+`;
+
+export const DefaultImage = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  border-radius: inherit;    
 `;

@@ -15,7 +15,6 @@ export default function VoteResult({
   const { tripId, roomId } = useParams<{ tripId: string; roomId: string }>();
   const parsedTripId = tripId ? parseInt(tripId, 10) : 0;
   const parsedRoomId = roomId ? parseInt(roomId, 10) : 0;
-
   const { tripInfo, isLoading: tripLoading } = useTripInfoContext();
   const { setHeaderConfig } = useOutletContext<{
     setHeaderConfig: (config: { title: string; number?: number }) => void;

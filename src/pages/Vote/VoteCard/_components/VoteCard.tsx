@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import { useTripInfoContext } from "../../../../hooks/useTripInfo";
 import { Button } from "../../../../components/Button";
 import Card from "../../../../components/Card";
@@ -21,6 +21,8 @@ export default function VoteCard({
   isConfirm: boolean;
 }) {
   const { tripInfo } = useTripInfoContext();
+  const { setHeaderConfig } = useOutletContext<{
+setHeaderConfig: (config: { title: string; number?: number }) => void; }>();
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -28,6 +30,15 @@ export default function VoteCard({
     const delay = setTimeout(() => setLoading(false), 500);
     return () => clearTimeout(delay);
   }, []);
+
+  useEffect(() => {
+    if (tripInfo) {
+      setHeaderConfig({
+        title: tripInfo.roomName.length > 6 ? `${tripInfo.roomName.slice(0, 4)}...` : tripInfo.roomName,
+        number: tripInfo.userCount,
+      });
+    }
+  }, [tripInfo, setHeaderConfig]);
 
   const handleCopyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text).then(() => {
@@ -42,7 +53,7 @@ export default function VoteCard({
   };
 
   if (loading) return <VoteSkeleton />;
-  if (!tripInfo) return <p>⚠️ 여행 정보가 존재하지 않습니다.</p>;
+  if (!tripInfo) return <p>여행 정보가 존재하지 않습니다.</p>;
 
   return (
     <Card>
@@ -56,22 +67,12 @@ export default function VoteCard({
       )}
 
       <Card.Image>
-        <img
-          src={tripInfo.imageUrl}
-          alt="Vote Image"
-          style={{
-            width: "100%",
-            height: "100%",
-            borderRadius: "1.5rem",
-            objectFit: "cover",
-          }}
-        />
+        <img src={tripInfo.imageUrl} alt="Vote Image" style={{ width: "100%", height: "100%", borderRadius: "1.5rem", objectFit: "cover", }} />
       </Card.Image>
 
       <S.CustomWrapper>
         <S.CustomCardItem label="장소">
-          <span>{tripInfo.customLocation || "위치정보"}</span> <br />
-          <span>{tripInfo.location || "주소 정보 없음"}</span>
+          <span>{tripInfo.customLocation || "위치정보"}</span> <br /> <span>{tripInfo.location || "주소 정보 없음"}</span>
         </S.CustomCardItem>
         <S.IconWrapper onClick={() => handleCopyToClipboard(tripInfo.masterName)}>
           <LinkIcon />
@@ -83,19 +84,12 @@ export default function VoteCard({
 
       <Card.Divider />
       <Card.Item label="기간">
-        {tripInfo.startDate && tripInfo.endDate
-          ? `${formatTripMonths(
-              tripInfo.startDate,
-              tripInfo.endDate
-            )}`
-          : "기간 미정"}
+        {tripInfo.startDate && tripInfo.endDate ? `${formatTripMonths( tripInfo.startDate, tripInfo.endDate )}` : "기간 미정"}
       </Card.Item>
 
       <S.CustomSpacer />
 
-      {isConfirm ==  true && (
-        <VoteButtons onAgree={onAgree} onDisagree={onDisagree} />
-      )}
+      {isConfirm ==  true && ( <VoteButtons onAgree={onAgree} onDisagree={onDisagree} /> )}
     </Card>
   );
 }  

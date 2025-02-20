@@ -1,21 +1,20 @@
 import UpComingCourseCard from "./_components/UpComingCourseCard";
 import RecommendCard from "./_components/RecommendCard";
-import { useGetCourseInfo } from "../../../react-query/queries/upcomingCourse/queries";
 import { UpComingContainer } from "./_components/UpComingCourse.style";
 import { useOutletContext } from "react-router-dom";
 import { HeaderConfig } from "../../../types/header/header";
 import { useParams } from "react-router-dom";
 import Card from "../../../components/Card/Card";
 import { useEffect } from "react";
+import { useGetAiKaKaoCourseAndId } from "../../../react-query/queries/course/queries";
 
 export default function UpComingCoursePage() {
-    const { tripPlanId, aiCourseId } = useParams<{ tripPlanId: string; aiCourseId: string }>();
+    const { tripPlanId } = useParams<{ tripPlanId: string; aiCourseId: string }>();
     const { setHeaderConfig } = useOutletContext<{ setHeaderConfig: (config: HeaderConfig) => void }>();
 
-    const { data, isLoading, error } = useGetCourseInfo(Number(tripPlanId), Number(aiCourseId));
-
-    const CoursePlacesData = data?.dailyItineraries;
-    const firstDayCourseData = data;
+    const { data, isLoading, error } = useGetAiKaKaoCourseAndId(tripPlanId);
+    const CoursePlacesData = data?.aiKaKaoCourse;
+    const firstDayCourseData = data?.aiCourse.result;
 
     useEffect(() => {
         if (firstDayCourseData) {
@@ -44,7 +43,7 @@ export default function UpComingCoursePage() {
 
     return (
         <UpComingContainer>
-            {firstDayCourseData && <UpComingCourseCard firstDayItinerary={CoursePlacesData} startDate={firstDayCourseData.startDate} />}
+            {<UpComingCourseCard firstDayItinerary={CoursePlacesData} startDate={firstDayCourseData?.startDate} />}
 
             <RecommendCard />
         </UpComingContainer>

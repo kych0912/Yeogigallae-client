@@ -4,20 +4,23 @@ import Card from "../../../components/Card";
 import closeBtn from "../../../assets/icons/closeBtn.svg";
 import openBtn from "../../../assets/icons/openBtn.svg";
 import { getBudgetType } from "./getBudgetType";
-import { BudgetDay } from "../../../apis/budget/types";
 
+import { BudgetInfo } from "../../../apis/budget/types";
+    
 interface BudgetInfoCardProps {
-    budgetDay: BudgetDay[] | undefined;
+    budgetInfo: BudgetInfo | undefined;
 }
 
-export default function BudgetInfoCard({ budgetDay }: BudgetInfoCardProps) {
+export default function BudgetInfoCard({ budgetInfo }: BudgetInfoCardProps) {
     const [openDays, setOpenDays] = useState<{ [key: string]: boolean }>({});
 
     const toggleDay = (day: string) => {
         setOpenDays((prev) => ({ ...prev, [day]: !prev[day] }));
     };
 
-    if (!budgetDay) return null;
+    if (!budgetInfo) return null;
+
+    const { dailyAssignments } = budgetInfo;
 
     return (
         <S.BudgetInfoCard>
@@ -27,7 +30,7 @@ export default function BudgetInfoCard({ budgetDay }: BudgetInfoCardProps) {
                 예산을 만들었어요!
             </Card.Title>
             {
-                budgetDay?.map((dayData) => (
+                dailyAssignments?.map((dayData) => (
                     <Card.Item key={dayData.day}>
                         <S.DayHeader onClick={() => toggleDay(dayData.day)}>
                             <S.Day>{dayData.day}</S.Day>

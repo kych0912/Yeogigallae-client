@@ -3,7 +3,7 @@ import { DEFAULT_Complete } from "./mocks";
 import { TravelListResult } from "./types";
 
 export const getTravelList = async () => {
-    try{
+    try {
         const response = await api.get<{ result: TravelListResult }>(`/api/home/completed-trip-plans`);
         return response.data.result; // Ensure the correct result is returned
     } catch (error) {

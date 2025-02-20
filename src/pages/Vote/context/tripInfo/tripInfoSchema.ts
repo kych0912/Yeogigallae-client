@@ -7,7 +7,7 @@ const TripInfoItemSchema = z.object({
   description: z.string(),
   imageUrl: z.string().url(),
   customLocation: z.string().nullable(),  
-  price: z.string(),              
+  price: z.string().nullable(),              
   minDays: z.number().nullable(),        
   maxDays: z.number().nullable(),     
   month: z.number(),

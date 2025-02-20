@@ -6,7 +6,10 @@ import Overview from "./Overview";
 import CourseOverviewCardSkeleton from "../_components/CourseOverviewCardSkeleton";
 import { ICourseInfo } from '../../../apis/course/types';
 import { useGetAiKaKaoCourseAndId } from '../../../react-query/queries/course/queries';
-
+import Card from '../../../components/Card';
+import CommonContainer from '../../../components/Layout/CommonContainer';
+import modal from '../../../components/Modal';
+import { useNavigate } from 'react-router-dom';
 export type TTripInfo = ICourseInfo & {
   roomId: string;
   tripId: string;
@@ -21,7 +24,7 @@ type TSharedCourseContext = {
 
 export default function SharedCoursePage({courseInfo}:{courseInfo:TTripInfo}){
   const { tripId } = courseInfo;
-
+  const navigate = useNavigate();
   //aiCourseAndId 조회
   //courseId와 KaKao Route로 변환된 데이터 반환
   const { data: aiCourseAndId, isLoading: aiCourseAndIdLoading, isError: aiCourseAndIdError } = useGetAiKaKaoCourseAndId(tripId ?? "");
@@ -43,8 +46,27 @@ export default function SharedCoursePage({courseInfo}:{courseInfo:TTripInfo}){
   });
 
   if(isLoading) return <CourseOverviewCardSkeleton/>;
-  if(isError) return <div style={{color:"white"}}>Error...</div>;
-
+  if(isError){ 
+    modal.confirm.show({
+      message:"코스가 존재하지 않아요",
+      isOneButton:true,
+      onConfirm:()=>{
+          navigate(-1);
+      },
+      onCancel:()=>{
+          navigate(-1);
+      }
+  })
+  
+  return (
+    <CommonContainer>
+        <Card>
+            <Card.Title>
+                {"에러가 발생했어요요"}
+            </Card.Title>
+        </Card>
+    </CommonContainer>
+  )}
 
   return (
   <>

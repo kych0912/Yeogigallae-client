@@ -52,12 +52,16 @@ export default function CreateVoteContent({
   
     voteMutation.mutate(requestData, {
       onSuccess: (data) => {
-        const tripId = data?.result?.id; 
-        const roomId = requestData.roomId; 
+        const tripId = data?.result?.id;
+        const roomId = requestData.roomId;
         if (tripId && roomId) {
           setHiddenRooms((prev) => [...prev, roomId]);
-          navigate(`/vote/${tripId}/${roomId}`);
-        } 
+          if (tripPlanType === "COURSE") {
+            navigate(`/course/${tripId}/${roomId}`);
+          } else {
+            navigate(`/vote/${tripId}/${roomId}`);
+          }
+        }
       },
     });
   };

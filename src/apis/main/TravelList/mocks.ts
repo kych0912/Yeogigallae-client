@@ -8,7 +8,7 @@ export const DEFAULT_Complete = {
             startDate: "205-01-05",
             endDate: "01-12",
             tripType: "DOMESTIC",
-            imageUrl: "https://yeogigallae.s3.ap-southeast-2.amazonaws.com/uploads/building_image6.jpg",
+            imageUrl: "https://yeogigallae.s3.ap-southeast-2.amazonaws.com/uploads/building_image4.jpg",
         },
         {
             tripPlanId: 2,

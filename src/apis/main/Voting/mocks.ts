@@ -1,4 +1,5 @@
 import { Voting } from "./types";
+import Profile from "../../../assets/icons/Profile.svg";
 
 export const DEFAULT_Voting: Voting = {
     totalCount: 6,
@@ -12,7 +13,7 @@ export const DEFAULT_Voting: Voting = {
             totalMembers: 4,
             remainingTime: "SIXTY_MINUTES",
             completedVotes: 3,
-            profileImageUrls: ["https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw"],
+            profileImageUrls: [Profile, Profile, Profile, Profile],
             createdAt: "2025-02-20T:20:08.696Z",
             tripPlanType: "COURSE",
             latitude: 35.1796,
@@ -27,7 +28,7 @@ export const DEFAULT_Voting: Voting = {
             totalMembers: 5,
             remainingTime: "THIRTY_MINUTES",
             completedVotes: 2,
-            profileImageUrls: ["https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw"],
+            profileImageUrls: [Profile, Profile, Profile, Profile, Profile],
             createdAt: "2025-02-17T02:20:08.696Z",
             tripPlanType: "SCHEDULE",
             latitude: 33.4996,
@@ -42,7 +43,7 @@ export const DEFAULT_Voting: Voting = {
             totalMembers: 2,
             remainingTime: "FOUR_HOURS",
             completedVotes: 1,
-            profileImageUrls: ["https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw"],
+            profileImageUrls: [Profile, Profile],
             createdAt: "2025-02-18T16:20:08.696Z",
             tripPlanType: "SCHEDULE",
             latitude: 37.5665,
@@ -57,7 +58,7 @@ export const DEFAULT_Voting: Voting = {
             totalMembers: 3,
             remainingTime: "SIX_HOURS",
             completedVotes: 2,
-            profileImageUrls: ["https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw", "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w240-h480-rw"],
+            profileImageUrls: [Profile, Profile, Profile],
             createdAt: "2025-02-18T16:20:08.696Z",
             tripPlanType: "SCHEDULE",
             latitude: 36.3504,

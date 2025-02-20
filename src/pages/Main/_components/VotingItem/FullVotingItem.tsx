@@ -35,7 +35,7 @@ const FullVotingItem: React.FC<FullVotingItemProps> = ({ rooms = [], selectedFil
 
     const handleClick = (tripPlanId: number, roomId: string, tripPlanType: "COURSE" | "SCHEDULE" | "BUDGET") => {
         if (tripPlanType === "COURSE") {
-            navigate(`/course/${roomId}/${tripPlanId}`);
+            navigate(`/course/${tripPlanId}/${roomId}`);
         } else if (tripPlanType === "SCHEDULE") {
             navigate(`/vote/${tripPlanId}/${roomId}`);
         } else {

@@ -18,16 +18,15 @@ export default function UpcomingItem({ rooms }: UpcomingItemProps) {
                 navigate(`/course/upcoming/${tripPlanId}/${aiCourseId}`);
             } else {
                 // aiCourseId가 없을 때
-                navigate(`/course/planId/${tripPlanId}/${roomId}?isEnd=true`);
+                navigate(`/course/${tripPlanId}/${roomId}?isEnd=true`);
             }
         } else if (tripPlanType === "SCHEDULE") {
             navigate(`/vote/${tripPlanId}/${roomId}?step=찬성확인`);
         } else {
+            console.log("else");
             // BUDGET 타입일 때 (추가 로직 필요)
         }
     };
-    //라우터, 플로팅버튼 하나
-    //예정된 여행인지 아닌지
     return (
         <S.RowTravelList>
             {rooms.map((room) => (

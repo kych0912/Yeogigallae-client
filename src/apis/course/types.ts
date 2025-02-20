@@ -79,6 +79,12 @@ export type TAiCourseId = {
     aiCourseId:string;
 }
 
+export type TAiCourseIdAndPlanId = {
+    id:string;
+    tripId:string;
+    roomId:string;
+}
+
 export interface IAiCourseIdResponse {
     httpStatus: string;
     code: string;
@@ -86,4 +92,9 @@ export interface IAiCourseIdResponse {
     result: TAiCourseId[];
 }
 
-
+export interface IAiCourseIdAndPlanIdResponse {
+    httpStatus: string;
+    code: string;
+    message: string;
+    result: TAiCourseIdAndPlanId;
+}

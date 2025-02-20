@@ -125,8 +125,9 @@ const MemberCount = styled.div`
 
 
 export default function ProfileGroup({ members = [] }: { members: Member[] }) {
-  const displayMembers = members.slice(0, 4);
-  const remainingCount = Math.max(0, members.length - 4);
+  const validateMembers = members.filter((member) => member.profileImage !== null);
+  const displayMembers = validateMembers.slice(0, 4);
+  const remainingCount = Math.max(0, validateMembers.length - 4);
 
   return (
     <Container>

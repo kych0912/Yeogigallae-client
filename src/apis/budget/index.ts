@@ -25,7 +25,7 @@ export const getBudgetInfo = async (budgetId:string):Promise<BudgetResponse["res
 
 export const generateBudget = async (aiCourseId:string) => {
     const response = await api.post(`/api/budget/aiCourse/${aiCourseId}`);
-    return response.data;
+    return response.data.result.id;
 }
 
 export const getBudgetInfoAndId = async (aiCourseId:string):Promise<{budgetId:string, budgetInfo:BudgetResponse["result"]}> => {

@@ -69,8 +69,8 @@ const Map = ({
     
     const { origin, destination, waypoints } = routeData.summary;
     
-    // waypoints가 없는 경우
-    if (waypoints.length === 0) {
+    // waypoints가 없고 origin, destination이 같을 경우
+    if (waypoints.length === 0 && origin.x === destination.x && origin.y === destination.y) {
       const markerPosition = new kakao.maps.LatLng(origin.y, origin.x);
       
       const customOverlay = new kakao.maps.CustomOverlay({

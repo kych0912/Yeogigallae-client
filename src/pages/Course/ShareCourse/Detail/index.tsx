@@ -14,7 +14,7 @@ export default function OverView({
 
     const {result} = courseInfo;
 
-    const { location,description,imageUrl,maxDays,masterName,userCount, roomName } = result;
+    const { location,description,imageUrl,startDate,endDate,masterName,userCount, roomName } = result;
 
 
     useSetHeader({
@@ -45,7 +45,7 @@ export default function OverView({
                 <Card.Divider/>
 
                 <Card.Item label="기간">
-                    {`${maxDays}박 ${maxDays+1}일 / 날짜미정`}
+                    {`${startDate} ~ ${endDate}`}
                 </Card.Item>
 
                 <Button 

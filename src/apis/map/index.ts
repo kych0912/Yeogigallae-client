@@ -17,20 +17,20 @@ export const getCarDirection = async (
 
     const origin = {
         name: start.name,
-        x: start.lng,
-        y: start.lat
+        x: start.lat,
+        y: start.lng
     };
 
     const destination = {
         name: end.name,
-        x: end.lng,
-        y: end.lat
+        x: end.lat,
+        y: end.lng
     };
     
     const waypointsParam = waypoints.map(point => ({
         name: point.name,
-        x: point.lng,
-        y: point.lat
+        x: point.lat,
+        y: point.lng
     }));
 
     const headers = {

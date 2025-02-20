@@ -7,6 +7,7 @@ export type Room = {
     startDate: string;
     endDate: string;
     imageUrl: string;
+    tripPlanType: "COURSE" | "SCHEDULE" | "BUDGET";
 };
 
 export type UpcomingResult = {

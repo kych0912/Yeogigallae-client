@@ -11,20 +11,27 @@ interface UpcomingItemProps {
 export default function UpcomingItem({ rooms }: UpcomingItemProps) {
     const navigate = useNavigate();
 
-    const handleClick = (roomId: number, tripPlanId: number, aiCourseId: number | null) => {
-        if (aiCourseId) {
-            // aiCourseId가 존재하면, 이미 생성된 AI 코스를 렌더링
-            navigate(`/course/upcoming/${tripPlanId}/${aiCourseId}`);
+    const handleClick = (roomId: number, tripPlanId: number, aiCourseId: number | null, tripPlanType: "COURSE" | "SCHEDULE" | "BUDGET") => {
+        if (tripPlanType === "COURSE") {
+            if (aiCourseId) {
+                // aiCourseId가 존재하면, 이미 생성된 AI 코스를 렌더링
+                navigate(`/course/upcoming/${tripPlanId}/${aiCourseId}`);
+            } else {
+                // aiCourseId가 없을 때
+                navigate(`/course/planId/${tripPlanId}/${roomId}?isEnd=true`);
+            }
+        } else if (tripPlanType === "SCHEDULE") {
+            navigate(`/vote/${tripPlanId}/${roomId}?step=찬성확인`);
         } else {
-            // aiCourseId가 없으면, 클릭한 페이지로 이동
-            navigate(`/course/planId/${tripPlanId}/roomId/${roomId}?isEnd=true`);
+            // BUDGET 타입일 때 (추가 로직 필요)
         }
     };
-
+    //라우터, 플로팅버튼 하나
+    //예정된 여행인지 아닌지
     return (
         <S.RowTravelList>
             {rooms.map((room) => (
-                <U.TravelList onClick={() => handleClick(room.roomId, room.tripPlanId, room.aiCourseId)} key={room.tripPlanId}>
+                <U.TravelList onClick={() => handleClick(room.roomId, room.tripPlanId, room.aiCourseId, room.tripPlanType)} key={room.tripPlanId}>
                     <U.ImageWrapper>
                         <S.Image src={room.imageUrl} alt={`${room.roomName} 이미지`} />
                     </U.ImageWrapper>

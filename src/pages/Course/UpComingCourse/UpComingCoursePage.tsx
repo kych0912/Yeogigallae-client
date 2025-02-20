@@ -1,5 +1,6 @@
 import UpComingCourseCard from "./_components/UpComingCourseCard";
 import RecommendCard from "./_components/RecommendCard";
+import RecommendCard2 from "./_components/RecommendCard2";
 import { UpComingContainer } from "./_components/UpComingCourse.style";
 import { useOutletContext } from "react-router-dom";
 import { HeaderConfig } from "../../../types/header/header";
@@ -37,6 +38,7 @@ export default function UpComingCoursePage() {
         return (
             <Card>
                 <Card.Title>여행 코스가 존재하지 않습니다.</Card.Title>
+                <RecommendCard2 />
             </Card>
         );
     }

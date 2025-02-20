@@ -15,9 +15,9 @@ export default defineConfig({
         name: "여기갈래 | 투표 기반 AI 여행 일정 생성 서비스",
         icons: [
           {
-            src: "Yeogi.svg",
+            src: "icon.png",
             sizes: "64x64",
-            type: "image/x-icon"
+            type: "image/png"
           },
           {
             src: "icon192.png",

@@ -14,17 +14,35 @@ export default function VoteComponent({ step, tripId, userId }: VoteComponentPro
 
   const resultArray = voteResult?.result ?? [];
 
-  const goodVotes = resultArray.filter((vote) => vote.type === "GOOD").length;
-  const badVotes = resultArray.filter((vote) => vote.type === "BAD").length;
+  const goodVotes = resultArray
+    .filter((vote) => vote.type === "GOOD")
+    .reduce((acc, vote) => acc + vote.count, 0);
+
+  const badVotes = resultArray
+    .filter((vote) => vote.type === "BAD")
+    .reduce((acc, vote) => acc + vote.count, 0);
+
   const userVote = resultArray.find((vote) => vote.userId === defaultUserId);
 
   const [selected, setSelected] = useState<"GOOD" | "BAD" | null>(
-    userVote ? (userVote.type as "GOOD" | "BAD") : step === "찬성확인" ? "GOOD" : step === "반대확인" ? "BAD" : null
+    userVote
+      ? (userVote.type as "GOOD" | "BAD")
+      : step === "찬성확인"
+      ? "GOOD"
+      : step === "반대확인"
+      ? "BAD"
+      : null
   );
 
   useEffect(() => {
     if (!userVote) {
-      setSelected(step === "찬성확인" ? "GOOD" : step === "반대확인" ? "BAD" : null);
+      setSelected(
+        step === "찬성확인"
+          ? "GOOD"
+          : step === "반대확인"
+          ? "BAD"
+          : null
+      );
     }
   }, [userVote, step]);
 
@@ -43,9 +61,15 @@ export default function VoteComponent({ step, tripId, userId }: VoteComponentPro
       >
         <S.TextWrapper>
           <S.Text>좋아</S.Text>
-          {selected === "GOOD" && <S.VoteMessage>{userVote?.userName || "여행자"} 님의 투표</S.VoteMessage>}
+          {selected === "GOOD" && (
+            <S.VoteMessage>
+              {userVote?.userName || "여행자"} 님의 투표
+            </S.VoteMessage>
+          )}
         </S.TextWrapper>
-        <S.VoteCounter>{goodVotes}표</S.VoteCounter>
+        <S.VoteCounter>
+          {goodVotes}표
+        </S.VoteCounter>
       </S.VoteButton>
 
       <S.VoteButton
@@ -55,9 +79,15 @@ export default function VoteComponent({ step, tripId, userId }: VoteComponentPro
       >
         <S.TextWrapper>
           <S.Text>나 못가...</S.Text>
-          {selected === "BAD" && <S.VoteMessage>{userVote?.userName || "여행자"}님의 투표</S.VoteMessage>}
+          {selected === "BAD" && (
+            <S.VoteMessage>
+              {userVote?.userName || "여행자"} 님의 투표
+            </S.VoteMessage>
+          )}
         </S.TextWrapper>
-        <S.VoteCounter>{badVotes}표</S.VoteCounter>
+        <S.VoteCounter>
+          {badVotes}표
+        </S.VoteCounter>
       </S.VoteButton>
     </S.CustomContainer>
   );

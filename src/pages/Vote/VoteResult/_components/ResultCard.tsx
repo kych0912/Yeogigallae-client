@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useTripInfoContext } from "../../../../hooks/useTripInfo";
 import * as S from "../../_components/Vote.styles";
 import { Button } from "../../../../components/Button";
@@ -22,13 +23,13 @@ type ResultCardProps = {
 export default function ResultCard({
   step,
   type,
-  onNext,
   voteResult,
 }: ResultCardProps) {
   const { tripInfo } = useTripInfoContext();
   const { tripId } = useParams<{ tripId: string }>();
   const [loading, setLoading] = useState(true);
-  const [isButtonEnabled, setIsButtonEnabled] = useState(false);
+  const [isButtonEnabled, setIsButtonEnabled] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const delay = setTimeout(() => setLoading(false), 500); 
@@ -36,8 +37,8 @@ export default function ResultCard({
   }, []);
 
   const handleAutoNavigation = () => {
-    setIsButtonEnabled(true);
-    onNext();
+    setIsButtonEnabled(false);
+    navigate("/")
   };
 
   if (loading) return <ResultSkeleton />;
@@ -77,7 +78,7 @@ export default function ResultCard({
         <S.IconWrapper
           onClick={() =>
             navigator.clipboard.writeText(
-              tripInfo.customLocation || "정보 없음"
+              tripInfo.customLocation || "위치 정보"
             )
           }
         >
@@ -86,12 +87,12 @@ export default function ResultCard({
       </S.CustomWrapper>
 
       <Card.Divider />
-      <Card.Item label="금액">{tripInfo.price || "가격 미정"}</Card.Item>
+      <Card.Item label="금액">{tripInfo.price ? `${Number(tripInfo.price).toLocaleString()}원` : "가격 미정"}</Card.Item>
 
       <Button
         size="large"
         style={{
-          backgroundColor: isButtonEnabled ? "#3b46f1" : "#434343",
+          backgroundColor: isButtonEnabled ? "#434343" : "#434343",
           color: "white",
           marginTop: "0.75rem",
           fontFamily: theme.fontFamily.medium,

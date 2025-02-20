@@ -70,7 +70,7 @@ export default function VoteCard({
 
       <S.CustomWrapper>
         <S.CustomCardItem label="장소">
-          <span>{tripInfo.customLocation || "정보 없음"}</span> <br />
+          <span>{tripInfo.customLocation || "위치정보"}</span> <br />
           <span>{tripInfo.location || "주소 정보 없음"}</span>
         </S.CustomCardItem>
         <S.IconWrapper onClick={() => handleCopyToClipboard(tripInfo.masterName)}>
@@ -79,12 +79,12 @@ export default function VoteCard({
       </S.CustomWrapper>
 
       <Card.Divider />
-      <Card.Item label="금액">{tripInfo.price || "가격 미정"}</Card.Item>
+      <Card.Item label="금액">{tripInfo.price ? `${Number(tripInfo.price).toLocaleString()}원` : "가격 미정"}</Card.Item>
 
       <Card.Divider />
       <Card.Item label="기간">
         {tripInfo.startDate && tripInfo.endDate
-          ? `최소 ${tripInfo.minDays ?? 1}박 ~ 최대 ${(tripInfo.maxDays ?? 7) - 1}박 / ${formatTripMonths(
+          ? `${formatTripMonths(
               tripInfo.startDate,
               tripInfo.endDate
             )}`

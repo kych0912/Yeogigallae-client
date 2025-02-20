@@ -57,13 +57,12 @@ function TravelCard({
         />
       </Card.Image>
 
-      <S.StyledCardTitle>{truncateDescription(tripInfo.description || "설명 없음")}</S.StyledCardTitle>
-
+      <S.StyledCardTitle>{truncateDescription(tripInfo.description || "나랑 여행가자")}</S.StyledCardTitle>
       <Card.Divider />
 
       <S.StyledItem>
-        <Card.Item label="장소">{tripInfo.customLocation || "정보 없음"}</Card.Item>
-        <Card.Item label="금액">{tripInfo.price || "가격 미정"}원</Card.Item>
+        <Card.Item label="장소">{tripInfo.customLocation || "도시"}</Card.Item>
+        <Card.Item label="금액">{tripInfo.price ? `${Number(tripInfo.price).toLocaleString()}` : "가격 미정"}</Card.Item>
         <Card.Item label="기간">
           {tripInfo.startDate && tripInfo.endDate
             ? `${calculateTripDuration(tripInfo.startDate, tripInfo.endDate)}일`

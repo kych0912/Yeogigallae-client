@@ -1,7 +1,7 @@
 import { courseInfoMock, courseListMock } from "./mocks";
 import { ShareCourseSchema } from "../../pages/Course/ShareCourse/schema";
 import * as z from "zod";
-import { IAiCourseIdResponse, ICourseMessageResponse, IAiCourseResponse } from "./types";
+import { IAiCourseIdResponse, ICourseMessageResponse, IAiCourseResponse, IAiCourseIdAndPlanIdResponse } from "./types";
 import { api } from "../Axios";
 import { Route } from "../map/types";
 import { AiCourseToKaKaoCourse } from "../../Utils/AiCourseToKaKaoCourse";
@@ -63,16 +63,12 @@ export const deleteCoursePlace = async (id:string, tripId:string) => {
 }
 
 export const getAiCourseId = async (tripId:string):Promise<IAiCourseIdResponse["result"]> => {
-    try{
-        const response = await api.get<IAiCourseIdResponse>(`/api/aiCourse/tripPlan/${tripId}/ids`);
-        return response.data.result;
-    }catch(error){
-        console.error("AiCourseId API 호출 오류:", error);
-        return [];
-    }
+    
+    const response = await api.get<IAiCourseIdResponse>(`/api/aiCourse/tripPlan/${tripId}/ids`);
+    return response.data.result;
 }
 
-export const generateAiCourse = async (tripId:string) => {
+export const generateAiCourse = async (tripId:string):Promise<IAiCourseIdAndPlanIdResponse["result"]> => {
     const response = await api.post(`/api/aiCourse/tripPlan/${tripId}`);
     return response.data.result;
 }
@@ -103,7 +99,9 @@ export const getAiKaKaoCourseAndId = async (tripId:string):Promise<{aiCourseId:s
         return { aiCourseId, aiKaKaoCourse };
     }
 
-    const aiCourseId = await generateAiCourse(tripId);
+    const IAiCourseIdAndPlanIdResponse = await generateAiCourse(tripId);
+    const aiCourseId = IAiCourseIdAndPlanIdResponse.id;
+
     const aiCourse = await getAiCourse(tripId, aiCourseId);
 
     const aiKaKaoCourse = await AiCourseToKaKaoCourse(aiCourse);

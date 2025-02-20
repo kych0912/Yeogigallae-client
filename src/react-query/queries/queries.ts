@@ -21,6 +21,7 @@ export const useGetAllCourses = (dailyPlaces: Place[][]) => {
 
                 return getCarDirection(start, end, waypoints);
             },
+            enabled: !!places && places.length > 1,
         })),
     });
 };

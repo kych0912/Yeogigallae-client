@@ -5,7 +5,7 @@ export interface RoomFormValues {
 
 export interface Member {
     userId: number;
-    profileImage: string;
+    profileImage: string | null;
 }
 
 export interface Room {

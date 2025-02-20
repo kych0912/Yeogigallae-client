@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import { Member } from "../../../../apis/room/types";
+import defaultProfile from "../../../../assets/icons/Profile.svg";
+
 const Container = styled.div`
   position: relative;
   height: 40px;
@@ -141,7 +143,7 @@ export default function ProfileGroup({ members = [] }: { members: Member[] }) {
           total={displayMembers.length}
         >
           <AvatarImage
-            src={member.profileImage}
+            src={member.profileImage ?? defaultProfile}
             alt={`Member ${member.userId}`}
           />
         </MemberAvatar>

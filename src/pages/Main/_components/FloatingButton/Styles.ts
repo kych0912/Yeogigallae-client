@@ -24,7 +24,7 @@ const slideDown = keyframes`
 `;
 
 export const FloatingContainer = styled.div`
-    position: absolute;
+    position: fixed;
     bottom: 1.875rem;
     right: 1.875rem;
     display: flex;

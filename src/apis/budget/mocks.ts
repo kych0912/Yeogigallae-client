@@ -5,83 +5,90 @@ export const budgetMock: BudgetResponse = {
     httpStatus: "100 CONTINUE",
     code: "string",
     message: "string",
-    result: [
+    result: 
         {
-            day: "2025-07-15",
-            assignments: [
+            location: "경기도 부천시 역곡동 45-18",
+            imageUrl: "https://yeogigallae.s3.ap-southeast-2.amazonaws.com/uploads/building_image3.jpg",
+            startDate: "2025-07-15",
+            endDate: "2025-07-17",
+            dailyAssignments: [
                 {
-                    placeName: "차이나타운, 용현시장, 평화시장",
-                    budgetType: "FOOD",
-                    recommendedAmount: 120000, 
+                    day: "1일차",
+                    assignments: [  
+                        {
+                            placeName: "차이나타운, 용현시장, 평화시장",
+                            budgetType: "FOOD",
+                            recommendedAmount: 120000, 
+                        },
+                        {
+                            placeName: "월미도, 롯데월드타워",
+                            budgetType: "ACTIVITY",
+                            recommendedAmount: 30000,
+                        },
+                        {
+                            placeName: "로데오, 더 현대",
+                            budgetType: "SHOPPING",
+                            recommendedAmount: 30000,
+                        },
+                        {
+                            placeName: "6인승 차 렌트",
+                            budgetType: "TRANSPORTATION",
+                            recommendedAmount: 60000,
+                        },
+                    ],
                 },
                 {
-                    placeName: "월미도, 롯데월드타워",
-                    budgetType: "ACTIVITY",
-                    recommendedAmount: 30000,
+                    day: "2일차",
+                    assignments: [
+                        {
+                            placeName: "차이나타운, 용현시장, 평화시장",
+                            budgetType: "FOOD",
+                            recommendedAmount: 120000,
+                        },
+                        {
+                            placeName: "월미도, 롯데월드타워",
+                            budgetType: "ACTIVITY",
+                            recommendedAmount: 30000,
+                        },
+                        {
+                            placeName: "로데오, 더 현대",
+                            budgetType: "SHOPPING",
+                            recommendedAmount: 30000,
+                        },
+                        {
+                            placeName: "6인승 차 렌트",
+                            budgetType: "TRANSPORTATION",
+                            recommendedAmount: 60000,
+                        },
+                    ],
                 },
                 {
-                    placeName: "로데오, 더 현대",
-                    budgetType: "SHOPPING",
-                    recommendedAmount: 30000,
-                },
-                {
-                    placeName: "6인승 차 렌트",
-                    budgetType: "TRANSPORTATION",
-                    recommendedAmount: 60000,
-                },
-            ],
+                    day: "3일차차",
+                    assignments: [
+                        {
+                            placeName: "차이나타운, 용현시장, 평화시장",
+                            budgetType: "FOOD",
+                            recommendedAmount: 120000,
+                        },
+                        {
+                            placeName: "월미도, 롯데월드타워",
+                            budgetType: "ACTIVITY",
+                            recommendedAmount: 30000,
+                        },
+                        {
+                            placeName: "로데오, 더 현대",
+                            budgetType: "SHOPPING",
+                            recommendedAmount: 30000,
+                        },
+                        {
+                            placeName: "6인승 차 렌트",
+                            budgetType: "TRANSPORTATION",
+                            recommendedAmount: 60000,
+                        },
+                    ],
+                }
+            ]
         },
-        {
-            day: "2025-07-16",
-            assignments: [
-                {
-                    placeName: "차이나타운, 용현시장, 평화시장",
-                    budgetType: "FOOD",
-                    recommendedAmount: 120000,
-                },
-                {
-                    placeName: "월미도, 롯데월드타워",
-                    budgetType: "ACTIVITY",
-                    recommendedAmount: 30000,
-                },
-                {
-                    placeName: "로데오, 더 현대",
-                    budgetType: "SHOPPING",
-                    recommendedAmount: 30000,
-                },
-                {
-                    placeName: "6인승 차 렌트",
-                    budgetType: "TRANSPORTATION",
-                    recommendedAmount: 60000,
-                },
-            ],
-        },
-        {
-            day: "2025-07-17",
-            assignments: [
-                {
-                    placeName: "차이나타운, 용현시장, 평화시장",
-                    budgetType: "FOOD",
-                    recommendedAmount: 120000,
-                },
-                {
-                    placeName: "월미도, 롯데월드타워",
-                    budgetType: "ACTIVITY",
-                    recommendedAmount: 30000,
-                },
-                {
-                    placeName: "로데오, 더 현대",
-                    budgetType: "SHOPPING",
-                    recommendedAmount: 30000,
-                },
-                {
-                    placeName: "6인승 차 렌트",
-                    budgetType: "TRANSPORTATION",
-                    recommendedAmount: 60000,
-                },
-            ],
-        },
-    ],
 };
 
 export const budgetPageDataMock = {

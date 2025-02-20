@@ -9,11 +9,13 @@ import FloatingButton from "../_components/FloatingButton/FloatingButton";
 export default function MainPage() {
     return (
         <S.Container>
-            <MainTop></MainTop>
-            <MainVotingList></MainVotingList>
-            <MainUpcomingList></MainUpcomingList>
-            <MainTravelHistory></MainTravelHistory>
-            <FloatingButton></FloatingButton>
+            <MainTop />
+            <MainVotingList />
+            <MainUpcomingList />
+            <MainTravelHistory />
+            <S.FloatingContainer>
+                <FloatingButton />
+            </S.FloatingContainer>
         </S.Container>
     );
 }

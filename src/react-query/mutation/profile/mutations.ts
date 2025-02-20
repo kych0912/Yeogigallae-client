@@ -17,7 +17,7 @@ export const useDeleteAccount = () => {
     return useMutation({
         mutationFn: deleteAccount,
         onSuccess: () => {
-            navigate("/");
+            navigate("/onboarding");
         },
     });
 };

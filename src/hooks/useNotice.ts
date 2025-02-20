@@ -36,10 +36,17 @@ export function useNotice() {
             );
         }
     };
+
+    const hasNotification = (notices: Notice[]) => {
+        const readNoticeIds = JSON.parse(localStorage.getItem('readNoticeIds') || '[]');
+        return notices.some(notice => !readNoticeIds.includes(notice.id));
+    }
+
     return {
         noticeWithRead,
         handleNoticeClick,
-        setNoticesInitial
+        setNoticesInitial,
+        hasNotification
     };
 
 }

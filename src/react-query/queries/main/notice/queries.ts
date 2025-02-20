@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getNotice } from "../../../../apis/main/notice/index";
+import { getNotice } from "../../../../apis/notice";
 
 export const useGetNotice = () => {
     return useQuery({

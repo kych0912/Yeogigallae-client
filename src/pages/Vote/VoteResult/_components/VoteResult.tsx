@@ -23,8 +23,9 @@ export default function VoteResult({
 
   const { data: voteResult, isFetching, refetch } = useVoteResultQuery(parsedTripId);
   const { mutate: postVoteResult } = usePostVoteResultMutation();
-  const [formattedTime, setFormattedTime] = useState<string>(""); 
+  const [formattedTime, setFormattedTime] = useState<string>("");
   const [networkSyncing] = useState<boolean>(false);
+  const [voteRoomId, setVoteRoomId] = useState<number | null>(null);
 
   const resolvedVoteResult: VoteResultType = voteResult ?? {
     httpStatus: "",
@@ -40,13 +41,26 @@ export default function VoteResult({
         number: tripInfo.userCount,
       });
 
-      postVoteResult({
-        tripId: parsedTripId,
-        roomId: parsedRoomId,
-        voteRoomId: parsedRoomId,
-      });
+      postVoteResult(
+        {
+          tripId: parsedTripId,
+          roomId: parsedRoomId,
+          voteRoomId: voteRoomId ?? 1, 
+        },
+        {
+          onSuccess: (data) => {
+            console.log( data);
+            if (data.voteRoomId) {
+              setVoteRoomId(data.voteRoomId); 
+            }
+          },
+          onError: (error) => {
+            console.error(error);
+          },
+        }
+      );
     }
-  }, [tripInfo, parsedTripId, postVoteResult, setHeaderConfig]);
+  }, [tripInfo, parsedTripId, parsedRoomId, voteRoomId, postVoteResult, setHeaderConfig]);
 
   useEffect(() => {
     const timeMapping: Record<string, number> = {
@@ -69,8 +83,8 @@ export default function VoteResult({
   }, [tripInfo?.voteLimitTime]);
 
   useEffect(() => {
-    refetch(); 
-  }, [tripId]); 
+    refetch();
+  }, [tripId]);
 
   useEffect(() => {
     const handleVoteUpdate = () => {
@@ -81,8 +95,13 @@ export default function VoteResult({
     return () => window.removeEventListener("voteUpdated", handleVoteUpdate);
   }, [refetch]);
 
-  const goodCount = resolvedVoteResult.result.filter((vote) => vote.type === "GOOD").reduce((acc, cur) => acc + (cur.count || 0), 0);
-  const badCount = resolvedVoteResult.result.filter((vote) => vote.type === "BAD").reduce((acc, cur) => acc + (cur.count || 0), 0);
+  const goodCount = resolvedVoteResult.result
+    .filter((vote) => vote.type === "GOOD")
+    .reduce((acc, cur) => acc + (cur.count || 0), 0);
+
+  const badCount = resolvedVoteResult.result
+    .filter((vote) => vote.type === "BAD")
+    .reduce((acc, cur) => acc + (cur.count || 0), 0);
 
   const step = goodCount > badCount ? "찬성확인" : "반대확인";
   const type = goodCount > badCount ? "찬성" : "반대";

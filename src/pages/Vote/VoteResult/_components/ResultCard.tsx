@@ -71,7 +71,7 @@ export default function ResultCard({
 
       <S.CustomWrapper>
         <S.CustomCardItem label="장소">
-          <span>{tripInfo.customLocation || "정보 없음"}</span> <br />
+          <span>{tripInfo.customLocation || "위치 정보"}</span> <br />
           <span>{tripInfo.location || "주소 정보 없음"}</span>
         </S.CustomCardItem>
         <S.IconWrapper

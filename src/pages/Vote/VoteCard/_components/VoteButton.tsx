@@ -12,25 +12,28 @@ export default function VoteButtons({
   onAgree?: () => void;
   onDisagree?: () => void;
 }) {
-  const { tripId, roomId } = useParams<{ tripId?: string; roomId?: string }>();
-  const { mutate: postVote, isPending } = useVoteMainMutation((data) => {
-    console.log(data);
+  const { tripId } = useParams<{ tripId?: string }>();
+  const [voteRoomId, setVoteRoomId] = useState<number | null>(null); 
+  const { mutate: postVote, isPending } = useVoteMainMutation((receivedVoteRoomId) => {
+    console.log(receivedVoteRoomId);
+    setVoteRoomId(receivedVoteRoomId); 
   });
   const [currentVoteType, setCurrentVoteType] = useState<"GOOD" | "BAD" | null>(null);
 
   const handleVote = (type: "GOOD" | "BAD") => {
-    if (!tripId || !roomId) return;
+    if (!tripId) return;
 
     setCurrentVoteType(type);
 
     const voteData: VoteData = {
       tripId: parseInt(tripId, 10),
       type,
-      voteRoomId: parseInt(roomId, 10),
+      voteRoomId: voteRoomId ?? 1, 
     };
 
     postVote(voteData, {
       onSuccess: () => {
+        console.log( voteData);
         type === "GOOD" ? onAgree?.() : onDisagree?.();
       },
     });
@@ -60,4 +63,4 @@ export default function VoteButtons({
       </Button>
     </S.TwoSelect>
   );
-}
+};

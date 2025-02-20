@@ -17,3 +17,4 @@ export interface RoomListResponse {
     rooms: Room[];
   };
 }
+

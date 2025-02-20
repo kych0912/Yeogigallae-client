@@ -1,7 +1,6 @@
 import { useContext, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { TripInfoContext } from "../../context/tripInfo/TripInfoContext";
-import Recommend from "../_components/Recommend/Recommend";
 import SuccessText from "../_components/SuccessText";
 import VoteCard from "../../VoteCard/_components/VoteCard";
 import * as S from "../../_components/Vote.styles";
@@ -27,10 +26,6 @@ export default function VoteAgreePage() {
         return <p>여행 정보를 불러오는 데 실패했습니다.</p>;
     }
 
-    const { tripInfo } = tripInfoContext;
-    const currentUserId = tripInfo?.masterId;
-    const isMaster = tripInfo?.masterId === currentUserId;
-
     const calculatedConfirm = useMemo(() => {
         if (voteResults.length === 0) return null;
 
@@ -54,12 +49,6 @@ export default function VoteAgreePage() {
         </S.Custom>
 
         <VoteCard showConfirmMessage={false} isConfirm={!!isConfirm} />
-
-        {isMaster && (
-            <S.CustomItem>
-            <Recommend />
-            </S.CustomItem>
-        )}
 
         {isConfirm === null ? (
             <p></p>

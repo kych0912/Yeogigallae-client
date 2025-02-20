@@ -13,6 +13,23 @@ export const useGetAllCourses = (dailyPlaces: Place[][]) => {
         queries: dailyPlaces.map((places, dayIndex) => ({
             queryKey: ["course", dayIndex],
             queryFn: () => {
+                console.log(places);
+                if (places.length === 0) return null;
+                if (places.length === 1)
+                    return getCarDirection(
+                        {
+                            name: places[0].name,
+                            lat: places[0].coordinates.lat,
+                            lng: places[0].coordinates.lng,
+                        },
+                        {
+                            name: places[0].name,
+                            lat: places[0].coordinates.lat,
+                            lng: places[0].coordinates.lng,
+                        },
+                        []
+                    );
+
                 if (places.length < 2) return null;
 
                 const start = { name: places[0].name, lat: places[0].coordinates.lat, lng: places[0].coordinates.lng };
@@ -21,6 +38,7 @@ export const useGetAllCourses = (dailyPlaces: Place[][]) => {
 
                 return getCarDirection(start, end, waypoints);
             },
+            enabled: !!places && places.length > 1,
         })),
     });
 };

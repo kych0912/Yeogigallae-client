@@ -24,7 +24,7 @@ export default function UpcomingItem({ rooms }: UpcomingItemProps) {
     return (
         <S.RowTravelList>
             {rooms.map((room) => (
-                <U.TravelList onClick={() => handleClick(room.roomId, room.aiCourseId, room.tripPlanId)} key={room.tripPlanId}>
+                <U.TravelList onClick={() => handleClick(room.roomId, room.tripPlanId, room.aiCourseId)} key={room.tripPlanId}>
                     <U.ImageWrapper>
                         <S.Image src={room.imageUrl} alt={`${room.roomName} 이미지`} />
                     </U.ImageWrapper>

@@ -19,14 +19,14 @@ const VotingItem: React.FC<VotingItemProps> = ({ rooms = [], isCompleted = false
         if (isCompleted) {
             // 투표 완료일 경우
             if (tripPlanType === "COURSE") {
-                navigate(`/course/${roomId}/${tripPlanId}?isEnd=true`);
+                navigate(`/course/${tripPlanId}/${roomId}?isEnd=true`);
             } else if (tripPlanType === "SCHEDULE") {
-                navigate("/vote/-5"); //이거 페이지 주소 정확히 알아오기
+                navigate(`/vote/${tripPlanId}/${roomId}`);
             }
         } else {
             // 투표 중일 경우 기존 로직 유지
             if (tripPlanType === "COURSE") {
-                navigate(`/course/${roomId}/${tripPlanId}`);
+                navigate(`/course/${tripPlanId}/${roomId}`);
             } else if (tripPlanType === "SCHEDULE") {
                 navigate(`/vote/${tripPlanId}/${roomId}`);
             }

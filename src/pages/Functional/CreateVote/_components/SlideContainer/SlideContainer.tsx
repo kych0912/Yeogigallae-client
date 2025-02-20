@@ -27,6 +27,7 @@ export default function SlideContainer({ hiddenRooms }: SlideContainerProps) {
       setRoomList(
         rooms
           .filter((room) => !hiddenRooms.includes(room.roomId)) 
+          .sort((a, b) => b.roomId - a.roomId)
           .map((room) => ({
             roomId: room.roomId,
             roomName: room.roomName || `방 ${room.roomId}`,
@@ -84,4 +85,4 @@ export default function SlideContainer({ hiddenRooms }: SlideContainerProps) {
       />
     </S.CustomCard>
   );
-}
+}  

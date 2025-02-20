@@ -6,20 +6,18 @@ export const useLogoutAccount = () => {
     const navigate = useNavigate();
     return useMutation({
         mutationFn: logout,
-        onSuccess:()=>{
-            navigate("/");
-        }
+        onSuccess: () => {
+            navigate("/onboarding");
+        },
     });
-}      
+};
 
 export const useDeleteAccount = () => {
     const navigate = useNavigate();
     return useMutation({
         mutationFn: deleteAccount,
-        onSuccess:()=>{
-            navigate("/");
-        }
+        onSuccess: () => {
+            navigate("/onboarding");
+        },
     });
-}   
-
-
+};

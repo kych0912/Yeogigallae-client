@@ -1,7 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { postCoursePlace, deleteCoursePlace, TShareCoursePlacesInfo, generateAiCourse } from "../../../apis/course";
+import { postCoursePlace, deleteCoursePlace, TShareCoursePlacesInfo } from "../../../apis/course";
 import { ICoursePlaceResponse } from "../../../apis/course/types";
-import { IAiCourseIdResponse } from "../../../apis/course/types";
 
 export const usePostCoursePlace = () => {
     return useMutation<ICoursePlaceResponse, Error, {placeCardInfo: TShareCoursePlacesInfo[], tripId: string}>({
@@ -33,12 +32,5 @@ export const useDeleteCoursePlace = () => {
         onSettled: () => {
             queryClient.invalidateQueries({queryKey:['course-list']});
         }
-    });
-}
-
-
-export const useGenerateAiCourse = () => {
-    return useMutation<IAiCourseIdResponse, Error, {tripId:string}>({
-        mutationFn: ({tripId}) => generateAiCourse(tripId),
     });
 }

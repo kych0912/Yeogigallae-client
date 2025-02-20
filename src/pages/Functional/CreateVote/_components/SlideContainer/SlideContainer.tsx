@@ -13,28 +13,36 @@ interface SlideContainerProps {
 
 export default function SlideContainer({ hiddenRooms }: SlideContainerProps) {
   const { roomId, setRoomId, tripPlanType } = useVoteFormContext();
-  const { control, reset } = useVoteForm(tripPlanType, roomId);
+  const { control, reset, setValue } = useVoteForm(tripPlanType, roomId);
   const navigate = useNavigate();
-
   const { data, isLoading, isError } = useRoomListQuery();
   const rooms = data?.result.rooms || [];
 
-  const [roomList, setRoomList] = useState<{ roomId: number; roomName: string }[]>([]);
+  const [roomList, setRoomList] = useState<
+    { roomId: number; roomName: string; profileImage?: string }[]
+  >([]);
 
   useEffect(() => {
     setGlobalLoadingState(isLoading);
     if (!isLoading && !isError && rooms.length > 0) {
-      setRoomList(
-        rooms
-          .filter((room) => !hiddenRooms.includes(room.roomId)) 
-          .sort((a, b) => b.roomId - a.roomId)
-          .map((room) => ({
-            roomId: room.roomId,
-            roomName: room.roomName || `방 ${room.roomId}`,
-          }))
-      );
+      const filteredRooms = rooms
+        .filter((room) => !hiddenRooms.includes(room.roomId))
+        .sort((a, b) => b.roomId - a.roomId)
+        .map((room) => ({
+          roomId: room.roomId,
+          roomName: room.roomName || `방 ${room.roomId}`,
+          profileImage: room.members?.[0]?.profileImage,
+        }));
+
+      setRoomList(filteredRooms);
+
+      if (filteredRooms.length > 0) {
+        const firstRoomId = filteredRooms[0].roomId;
+        setRoomId(firstRoomId);
+        setValue("roomId", firstRoomId);
+      }
     }
-  }, [isLoading, isError, rooms, hiddenRooms]);
+  }, [isLoading, isError, rooms, hiddenRooms, setRoomId, setValue]);
 
   const handleCreateNewRoom = () => {
     navigate("/mypage/room");
@@ -45,7 +53,7 @@ export default function SlideContainer({ hiddenRooms }: SlideContainerProps) {
       <Controller
         name="roomId"
         control={control}
-        defaultValue={roomId}
+        defaultValue={roomList[1]?.roomId}
         render={({ field }) => (
           <>
             <S.SlideContainer $isFirst={true}>
@@ -61,17 +69,32 @@ export default function SlideContainer({ hiddenRooms }: SlideContainerProps) {
               </SkeletonForm>
             </S.SlideContainer>
 
-            {roomList.map(({ roomId: id, roomName }) => (
+            {roomList.map(({ roomId: id, roomName, profileImage }) => (
               <S.SlideContainer key={id}>
                 <SkeletonForm slidewidth>
                   <S.Slide
-                    $active={id === field.value}
+                    $active={id === field.value} 
                     onClick={() => {
                       field.onChange(id);
                       setRoomId(id);
                       reset();
                     }}
-                  />
+                  >
+                    {profileImage ? (
+                      <img
+                        src={profileImage}
+                        alt="프로필 이미지"
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                          display: "block",
+                        }}
+                      />
+                    ) : (
+                      <S.DefaultImage />
+                    )}
+                  </S.Slide>
                 </SkeletonForm>
                 <SkeletonForm smallwidth>
                   <S.Label $active={id === field.value}>
@@ -85,4 +108,4 @@ export default function SlideContainer({ hiddenRooms }: SlideContainerProps) {
       />
     </S.CustomCard>
   );
-}  
+}

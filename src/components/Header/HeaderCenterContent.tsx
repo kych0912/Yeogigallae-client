@@ -7,15 +7,15 @@ export const Typography = styled.div`
     line-height: 1.178rem;
     display: flex;
     align-items: center;
-    width: 8rem;
-    overflow: hidden;
 `;
 
 export const Title = styled.span`
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    flex: 1;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
 `;
 
 export const Number = styled.div`

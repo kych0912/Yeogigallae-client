@@ -39,7 +39,8 @@ export default function UpComingCoursePage() {
 
     return (
         <UpComingContainer>
-            <UpComingCourseCard dailyRoutes={firstDayItinerary} />
+            <UpComingCourseCard firstDayItinerary={firstDayItinerary} />
+
             <RecommendCard />
         </UpComingContainer>
     );

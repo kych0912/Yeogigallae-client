@@ -34,6 +34,17 @@ export const courseMock: CourseResponse = {
                         userName: "사용자2",
                         profileImage: "https://example.com/profile2.jpg",
                     },
+                    {
+                        id: 3,
+                        placeName: "한라산",
+                        address: "제주특별자치도 제주시 1100로",
+                        latitude: 33.3617,
+                        longitude: 126.5292,
+                        image: "https://example.com/image3.jpg",
+                        description: "한라산 등반 및 자연 경관 감상",
+                        userName: "사용자3",
+                        profileImage: "https://example.com/profile3.jpg",
+                    },
                 ],
             },
             {

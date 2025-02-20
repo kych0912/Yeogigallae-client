@@ -5,8 +5,6 @@ export const useGetVoting = () => {
     return useQuery({
         queryKey: ["voting"],
         queryFn: getVoting,
-        refetchOnWindowFocus: false,
-        refetchOnMount: false,
         refetchOnReconnect: false,
         retry: false,
     });

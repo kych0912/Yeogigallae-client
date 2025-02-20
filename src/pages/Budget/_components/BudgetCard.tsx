@@ -45,14 +45,14 @@ export default function BudgetCard({ budgetInfo }: BudgetCardProps) {
                 />
             </Card.Image>
 
-            {/* <S.CustomWrapper>
+            <S.CustomWrapper>
                 <Card.Item label="장소">
-                    {budgetInfo?.location} ({budgetInfo?.customLocation})
+                    {budgetInfo?.location}
                 </Card.Item>
-                <S.IconWrapper onClick={() => handleCopyToClipboard(budgetInfo?.location)}>
+                <S.IconWrapper onClick={() => handleCopyToClipboard(budgetInfo?.location ?? "")}>
                     <LinkIcon />
                 </S.IconWrapper>
-            </S.CustomWrapper> */}
+            </S.CustomWrapper>
 
             <Card.Divider />
 

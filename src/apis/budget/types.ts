@@ -14,6 +14,7 @@ export interface BudgetInfo {
   imageUrl: string;
   startDate: string;
   endDate: string;
+  location: string;
   dailyAssignments: BudgetDay[];
 }
 

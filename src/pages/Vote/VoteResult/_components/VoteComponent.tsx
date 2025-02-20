@@ -1,50 +1,38 @@
 import { useEffect, useState } from "react";
 import * as S from "./VoteComponent.styles";
-import { useVoteContext } from "../../context/VoteResultContext";
+import { useVoteResultQuery } from "../../../../react-query/queries/vote/useVoteResultQuerie";
 
 interface VoteComponentProps {
   step: "결과" | "찬성확인" | "반대확인";
-  userId?: number; // ❗ userId가 undefined일 수도 있음
+  tripId: number;
+  userId?: number;
 }
 
-export default function VoteComponent({ step, userId }: VoteComponentProps) {
-  const { state, dispatch } = useVoteContext();
-  const { voteResult } = state;
-
+export default function VoteComponent({ step, tripId, userId }: VoteComponentProps) {
+  const { data: voteResult, isLoading } = useVoteResultQuery(tripId);
   const defaultUserId = userId ?? 999;
 
-  let userVote = voteResult.find((vote) => vote.userId === defaultUserId);
+  const resultArray = voteResult?.result ?? [];
 
-  const goodVotes = voteResult.filter((vote) => vote.type === "GOOD").length;
-  const badVotes = voteResult.filter((vote) => vote.type === "BAD").length;
+  const goodVotes = resultArray.filter((vote) => vote.type === "GOOD").length;
+  const badVotes = resultArray.filter((vote) => vote.type === "BAD").length;
+  const userVote = resultArray.find((vote) => vote.userId === defaultUserId);
 
   const [selected, setSelected] = useState<"GOOD" | "BAD" | null>(
-    userVote ? userVote.type : step === "찬성확인" ? "GOOD" : step === "반대확인" ? "BAD" : null
+    userVote ? (userVote.type as "GOOD" | "BAD") : step === "찬성확인" ? "GOOD" : step === "반대확인" ? "BAD" : null
   );
 
   useEffect(() => {
     if (!userVote) {
-      userVote = {
-        userId: 12,
-        userName: `임시 사용자 ${defaultUserId}`,
-        type: selected ?? "GOOD", 
-        count: 1, 
-      };
-
-      dispatch({ type: "SET_VOTE_RESULT", payload: [...voteResult, userVote] });
+      setSelected(step === "찬성확인" ? "GOOD" : step === "반대확인" ? "BAD" : null);
     }
-  }, [voteResult]);
+  }, [userVote, step]);
 
   const handleVote = (type: "GOOD" | "BAD") => {
-    setSelected(type); // ✅ 선택값 즉시 변경하여 UI 반영
-
-    const updatedVotes = voteResult.map((vote) =>
-      vote.userId === defaultUserId ? { ...vote, type } : vote
-    );
-
-    dispatch({ type: "SET_VOTE_RESULT", payload: updatedVotes });
-    dispatch({ type: "SET_VOTE_TYPE", payload: type });
+    setSelected(type);
   };
+
+  if (isLoading) return <p>⏳ 투표 정보를 불러오는 중...</p>;
 
   return (
     <S.CustomContainer>
@@ -55,7 +43,7 @@ export default function VoteComponent({ step, userId }: VoteComponentProps) {
       >
         <S.TextWrapper>
           <S.Text>좋아</S.Text>
-          {selected === "GOOD" && <S.VoteMessage>{userVote?.userName}님의 투표</S.VoteMessage>}
+          {selected === "GOOD" && <S.VoteMessage>{userVote?.userName || "여행자"} 님의 투표</S.VoteMessage>}
         </S.TextWrapper>
         <S.VoteCounter>{goodVotes}표</S.VoteCounter>
       </S.VoteButton>
@@ -67,7 +55,7 @@ export default function VoteComponent({ step, userId }: VoteComponentProps) {
       >
         <S.TextWrapper>
           <S.Text>나 못가...</S.Text>
-          {selected === "BAD" && <S.VoteMessage>{userVote?.userName}님의 투표</S.VoteMessage>}
+          {selected === "BAD" && <S.VoteMessage>{userVote?.userName || "여행자"}님의 투표</S.VoteMessage>}
         </S.TextWrapper>
         <S.VoteCounter>{badVotes}표</S.VoteCounter>
       </S.VoteButton>

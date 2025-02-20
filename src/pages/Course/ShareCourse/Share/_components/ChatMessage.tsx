@@ -10,22 +10,22 @@ import { TPlace } from "../../../../Course/ShareCourse/share.types";
 const isMine = false;
 
 export default function ChatMessage({id,placeName,address,image,description,userName,profileImage}:TPlace){
-  const { roomId } = useParams();
+  const { tripId } = useParams();
   const {mutate:deleteCoursePlace} = useDeleteCoursePlace();
 
   const longPressProps = useLongPress({
     onLongPress:()=>{
-      if(!roomId) return;
+      if(!tripId) return;
       modal.confirm.show({
         message:"삭제하시겠습니까?",
         onConfirm:()=>{
-          deleteCoursePlace({id:id.toString(),roomId:roomId});
+          deleteCoursePlace({id:id.toString(),tripId:tripId});
         }
       })
     }
   });
 
-  if(!roomId) return null;
+  if(!tripId) return null;
 
   return (
     <S.Chat.Wrapper {...longPressProps}>

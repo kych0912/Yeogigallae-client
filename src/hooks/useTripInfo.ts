@@ -1,7 +1,6 @@
 import { useContext } from "react"
 import { TripInfoContext } from "../pages/Vote/context/tripInfo/TripInfoContext";
 
-
 export const useTripInfoContext = () => {
   const context = useContext(TripInfoContext);
   if (!context) {

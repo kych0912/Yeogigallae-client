@@ -1,55 +1,57 @@
-import { Controller } from "react-hook-form";
+import { useState } from "react";
 import * as S from "../../../_components/Functional.styles";
 
 interface PriceInputProps {
-  control: any;
+  field: any;
   nights: number;
 }
 
-const formatPrice = (price?: number) => {
-  if (!price || price === 0) return "20만원";
-  const mainUnit = Math.floor(price / 10000);
-  const subUnit = price % 10000;
-  return subUnit === 0 ? `${mainUnit}만 원` : `${mainUnit}만 ${subUnit}원`;
+const formatWithCommas = (value: string) => {
+  return value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
-export default function PriceInput({ control, nights }: PriceInputProps) {
+const removeCommas = (value: string) => {
+  return value.replace(/,/g, "");
+};
+
+export default function PriceInput({ field, nights }: PriceInputProps) {
+  const [rawValue, setRawValue] = useState(() => formatWithCommas(field.value || ""));
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let newValue = removeCommas(e.target.value).replace(/\D/g, "").slice(0, 7);
+    const formattedValue = formatWithCommas(newValue);
+
+    setRawValue(formattedValue);
+    field.onChange(newValue);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Backspace") {
+      let numericValue = removeCommas(rawValue);
+      if (numericValue.length === 1) {
+        setRawValue("");
+        field.onChange("");
+        e.preventDefault();
+      } else {
+        numericValue = numericValue.slice(0, -1);
+        setRawValue(formatWithCommas(numericValue));
+        field.onChange(numericValue);
+        e.preventDefault();
+      }
+    }
+  };
+
   return (
-    <Controller
-      name="scheduleDetails.price"
-      control={control}
-      render={({ field }) => {
-        let priceValue = field.value ? field.value.replace(/\D/g, "") : "";
-        let priceNumber = priceValue ? parseInt(priceValue, 10) : 0;
-
-        if (priceNumber > 10000000 || priceValue.length > 8) {
-          priceNumber = 10000000;
-        }
-
-        return (
-          <S.Input
-            type="text"
-            placeholder={`${nights}박 / 20만원`}
-            value={field.value || ""}
-            onChange={(e) => {
-              let newValue = e.target.value.replace(/\D/g, "").slice(0, 7);
-              field.onChange(newValue);
-            }}
-            onBlur={() => {
-              if (field.value) {
-                let parsedValue = parseInt(field.value, 10) || 0;
-                field.onChange(`${nights}박 / ${formatPrice(parsedValue)}`);
-              }
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "Backspace") {
-                let newValue = field.value ? field.value.slice(0, -1) : "";
-                field.onChange(newValue);
-              }
-            }}
-          />
-        );
-      }}
-    />
+    <S.InputWrapper>
+      <span>{nights}박 / </span>
+        <S.Input
+          type="text"
+          placeholder="가격 입력"
+          value={rawValue}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+        />
+        <span>원</span> 
+    </S.InputWrapper>
   );
 }

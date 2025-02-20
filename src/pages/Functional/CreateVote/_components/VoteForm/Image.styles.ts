@@ -11,7 +11,7 @@ export const ImagePlaceholder = styled.div<{ $imageUrl: string }>`
   justify-content: center;
   align-items: center;
   color: #434343; 
-  margin-bottom: 1.375rem; 
+  // margin-bottom: 1.375rem; 
   font-size: 1rem;
   cursor: pointer; 
   position: relative;

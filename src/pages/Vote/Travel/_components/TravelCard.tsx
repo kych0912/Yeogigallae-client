@@ -5,7 +5,6 @@ import { Button } from "../../../../components/Button";
 import * as S from "../../_components/Vote.styles";
 import { useOutletContext } from "react-router-dom";
 import SkeletonTravelCard from "./SkeletonTravelCard";
-import { DEFAULT_TripInfo } from "../../../../apis/vote/mocks/tripInfoMocks";
 
 export default function TravelCardWrapper({
   onNext,
@@ -20,59 +19,59 @@ function TravelCard({
 }: {
   onNext: () => void;
 }) {
-  const { tripInfo: fetchedTripInfo } = useTripInfoContext();
+  const { tripInfo, isLoading } = useTripInfoContext();
   const { setHeaderConfig } = useOutletContext<{ setHeaderConfig: (config: { title: string; number?: number }) => void }>();
 
-  const [loading, setLoading] = useState(true);
-
+  const [localLoading, setLocalLoading] = useState(true);
   useEffect(() => {
     const delay = setTimeout(() => {
-      setLoading(false);
+      setLocalLoading(false);
     }, 500);
-
     return () => clearTimeout(delay);
   }, []);
 
-  const tripInfo = fetchedTripInfo ?? DEFAULT_TripInfo;
+  const truncateTitle = (title: string) => (title.length > 6 ? `${title.slice(0, 4)}...` : title);
+
+  const truncateDescription = (description: string) =>
+    description.length > 20 ? `${description.slice(0, 20)}...` : description;
 
   useEffect(() => {
-    if (tripInfo.result) {
+    if (tripInfo) {
       setHeaderConfig({
-        title: tripInfo.result.roomName,
-        number: tripInfo.result.userCount,
+        title: truncateTitle(tripInfo.roomName), 
+        number: tripInfo.userCount,
       });
     }
   }, [tripInfo, setHeaderConfig]);
 
-  if (loading) {
-    return <SkeletonTravelCard />;
-  }
+  if (isLoading || localLoading) return <SkeletonTravelCard />;
+  if (!tripInfo) return <p>⚠️ 여행 정보가 존재하지 않습니다.</p>;
 
   return (
     <Card>
       <Card.Image>
         <img
-          src={tripInfo.result.imageUrl || "https://via.placeholder.com/300"}
+          src={tripInfo.imageUrl || "https://via.placeholder.com/300"}
           alt="trip preview"
           style={{ width: "100%", height: "100%", borderRadius: "1.5rem", objectFit: "cover" }}
         />
       </Card.Image>
 
-      <S.StyledCardTitle>{tripInfo.result.description}</S.StyledCardTitle>
+      <S.StyledCardTitle>{truncateDescription(tripInfo.description || "설명 없음")}</S.StyledCardTitle>
 
       <Card.Divider />
 
       <S.StyledItem>
-        <Card.Item label="장소">{tripInfo.result.customLocation || "정보 없음"}</Card.Item>
-        <Card.Item label="금액">{tripInfo.result.price || "가격 미정"}</Card.Item>
+        <Card.Item label="장소">{tripInfo.customLocation || "정보 없음"}</Card.Item>
+        <Card.Item label="금액">{tripInfo.price || "가격 미정"}원</Card.Item>
         <Card.Item label="기간">
-          {tripInfo.result.startDate && tripInfo.result.endDate
-            ? `${calculateTripDuration(tripInfo.result.startDate, tripInfo.result.endDate)}일`
+          {tripInfo.startDate && tripInfo.endDate
+            ? `${calculateTripDuration(tripInfo.startDate, tripInfo.endDate)}일`
             : "기간 미정"}
         </Card.Item>
       </S.StyledItem>
 
-      <Button size="large" onClick={onNext}> 
+      <Button size="large" onClick={onNext}>
         {"투표하러 가기"}
       </Button>
     </Card>

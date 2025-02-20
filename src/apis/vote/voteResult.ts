@@ -1,16 +1,8 @@
 import { api } from "../Axios";
-import { DEFAULT_VoteResult } from "./mocks/voteResultMocks";
+import { VoteResultType } from "../../pages/Vote/context/vote/VoteResultTypes";
 
-export const getVoteResult = async ({
-  tripId,
-}: {
-  tripId: number;
-}) => {
-  try{
-    const response = await api.get(`/api/vote/results/tripId=${tripId}`);
-    return response.data.result || response.data; 
-  }catch(error){
-    console.error("VoteResult API 호출 오류:", error);
-    return DEFAULT_VoteResult;
-  }
+export const getVoteResult = async (tripId: number): Promise<VoteResultType> => {
+  console.log(`요청하는 tripId: ${tripId}`);
+  const response = await api.get(`/api/vote/results/${tripId}`);
+  return response.data as VoteResultType;
 };

@@ -4,6 +4,7 @@ import Card from "../../../components/Card";
 import closeBtn from "../../../assets/icons/closeBtn.svg";
 import openBtn from "../../../assets/icons/openBtn.svg";
 import { getBudgetType } from "./getBudgetType";
+
 import { BudgetInfo } from "../../../apis/budget/types";
     
 interface BudgetInfoCardProps {

@@ -14,8 +14,6 @@ export default function MainTop() {
     // 알림 정보 가져오기
     const { data: notice, isLoading: isNoticeLoading, error: noticeError } = useGetNotice();
 
-    console.log(notice?.map((item)=>item.id));
-
     const isHasNotification = hasNotification(notice ?? []);
 
     // 로딩 및 에러 처리

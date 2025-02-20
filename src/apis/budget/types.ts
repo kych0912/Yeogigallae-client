@@ -10,11 +10,18 @@ export type BudgetDay = {
   assignments: Assignment[];
 };
 
+export interface BudgetInfo {
+  imageUrl: string;
+  startDate: string;
+  endDate: string;
+  dailyAssignments: BudgetDay[];
+}
+
 export type BudgetResponse = {
   httpStatus: string;
   code: string;
   message: string;
-  result: BudgetDay[];
+  result: BudgetInfo;
 };
 
 export type BudgetIdResponse = {

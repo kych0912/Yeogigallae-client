@@ -5,7 +5,7 @@ import transportation from "../../../assets/icons/transportation.svg";
 
 export const getBudgetType = (category: string) => {
     switch (category) {
-        case "FOOD":
+        case "MEAL":
             return { icon: Mealexpenses, text: "식사비" };
 
         case "ACTIVITY":
@@ -14,7 +14,7 @@ export const getBudgetType = (category: string) => {
         case "SHOPPING":
             return { icon: Shopping, text: "쇼핑비" };
 
-        case "TRANSPORTATION":
+        case "TRANSPORT":
             return { icon: transportation, text: "교통비" };
 
         default:

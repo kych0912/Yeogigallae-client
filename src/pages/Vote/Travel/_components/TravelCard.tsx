@@ -45,7 +45,7 @@ function TravelCard({
   }, [tripInfo, setHeaderConfig]);
 
   if (isLoading || localLoading) return <SkeletonTravelCard />;
-  if (!tripInfo) return <p>⚠️ 여행 정보가 존재하지 않습니다.</p>;
+  if (!tripInfo) return <p>여행 정보가 존재하지 않습니다.</p>;
 
   return (
     <Card>

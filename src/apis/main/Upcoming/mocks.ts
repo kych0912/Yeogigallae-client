@@ -7,7 +7,7 @@ export const DEFAULT_Upcoming = {
             location: "강릉",
             startDate: "2025-01-10",
             endDate: "01-15",
-            imageUrl: "https://newsimg-hams.hankookilbo.com/2022/04/08/88f566f5-72dd-4345-afb7-b283132effac.jpg",
+            imageUrl: "https://yeogigallae.s3.ap-southeast-2.amazonaws.com/uploads/building_image2.jpg",
             roomId: 1,
             aiCourseId: 1,
         },

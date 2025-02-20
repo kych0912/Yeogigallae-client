@@ -18,7 +18,7 @@ export default function UpcomingItem({ rooms }: UpcomingItemProps) {
                 navigate(`/course/upcoming/${tripPlanId}/${aiCourseId}`);
             } else {
                 // aiCourseId가 없을 때
-                navigate(`/course/planId/${tripPlanId}/${roomId}?isEnd=true`);
+                navigate(`/course/${tripPlanId}/${roomId}?isEnd=true`);
             }
         } else if (tripPlanType === "SCHEDULE") {
             navigate(`/vote/${tripPlanId}/${roomId}?step=찬성확인`);

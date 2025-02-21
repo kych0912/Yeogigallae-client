@@ -64,7 +64,7 @@ export default function VoteResult({
   useEffect(() => {
     const timeMapping: Record<string, number> = {
       THIRTY_MINUTES: 30,
-      ONE_HOUR: 60,
+      SIXTY_MINUTES: 60, 
       TWO_HOURS: 120,
       FOUR_HOURS: 240,
       SIX_HOURS: 360,

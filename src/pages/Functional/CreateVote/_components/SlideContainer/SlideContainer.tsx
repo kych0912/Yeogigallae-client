@@ -6,6 +6,7 @@ import { Controller } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import SkeletonForm, { setGlobalLoadingState } from "../VoteForm/Skeleton/SkeletonForm";
 import { useRoomListQuery } from "../../../../../react-query/queries/functional/roomListQuery";
+import DefaultProfile from "../../../../../assets/icons/Profile.svg?react"
 
 interface SlideContainerProps {
   hiddenRooms: number[];
@@ -92,7 +93,14 @@ export default function SlideContainer({ hiddenRooms }: SlideContainerProps) {
                         }}
                       />
                     ) : (
-                      <S.DefaultImage />
+                      <DefaultProfile
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                          display: "block",
+                        }}
+                      />
                     )}
                   </S.Slide>
                 </SkeletonForm>

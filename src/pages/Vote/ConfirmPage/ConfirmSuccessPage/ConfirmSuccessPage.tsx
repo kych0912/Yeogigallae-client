@@ -1,4 +1,4 @@
-import { useContext, useMemo, useState, useEffect } from "react";
+import { useContext, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { TripInfoContext } from "../../context/tripInfo/TripInfoContext";
 import SuccessText from "../_components/SuccessText";
@@ -40,25 +40,20 @@ export default function VoteAgreePage() {
         return goodVotes > badVotes;
     }, [voteResults]);
 
-    useEffect(() => {
-        setIsConfirm(calculatedConfirm);
-    }, [calculatedConfirm]);
+    useState(() => setIsConfirm(calculatedConfirm));
 
     return (
         <>
-        {isConfirm && (
-            <S.Custom>
+        <S.Custom>
             <SuccessText />
-            </S.Custom>
-        )}
+        </S.Custom>
+
+        <VoteCard showConfirmMessage={false} isConfirm={!!isConfirm} />
 
         {isConfirm === null ? (
             <p></p>
         ) : isConfirm ? (
-            <>
-            <VoteCard showConfirmMessage={false} isConfirm={true} />
             <ConfirmSuccessPage />
-            </>
         ) : (
             <ConfirmFailPage />
         )}

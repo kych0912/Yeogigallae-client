@@ -128,5 +128,79 @@ export const DefaultImage = styled.div`
   width: 100%;
   height: 100%;
   background-color: #fff;
-  border-radius: inherit;    
+  border-radius: inherit;
 `;
+
+export const ProfileGroupContainer = styled.div`
+  position: relative;
+  height: 40px;
+  width: 40px;
+`;
+
+export const MemberAvatar = styled.div<{ position: number; total: number }>`
+  position: absolute;
+  width: 22.5px;
+  height: 22.5px;
+  border-radius: 50%;
+  border: none;
+  overflow: hidden;
+  background-color: #f0f0f0;
+  transition: none;
+
+  ${({ position, total }) => {
+    const overlap = -3; 
+    const offsetX = -5.4;
+    const offsetY = -3.4; 
+
+    if (total === 1)
+      return `left: calc(12px + ${offsetX}px); top: calc(12px + ${offsetY}px); width: 36px; height: 36px;`;
+
+    if (total === 2)
+      return position === 0
+        ? `left: calc(10px + ${offsetX}px); top: calc(10px + ${offsetY}px);`
+        : `left: calc(24px + ${overlap}px + ${offsetX}px); top: calc(10px + ${offsetY}px);`;
+
+    if (total === 3)
+      return [
+        `left: calc(8px + ${offsetX}px); top: calc(6px + ${offsetY}px);`,
+        `left: calc(24px + ${overlap}px + ${offsetX}px); top: calc(6px + ${offsetY}px);`,
+        `left: calc(16px + ${overlap}px + ${offsetX}px); top: calc(22px + ${offsetY}px);`,
+      ][position];
+
+    if (total === 4)
+      return [
+        `left: calc(8px + ${offsetX}px); top: calc(6px + ${offsetY}px);`,
+        `left: calc(24px + ${overlap}px + ${offsetX}px); top: calc(6px + ${offsetY}px);`,
+        `left: calc(8px + ${offsetX}px); top: calc(22px + ${overlap}px + ${offsetY}px);`,
+        `left: calc(24px + ${overlap}px + ${offsetX}px); top: calc(22px + ${overlap}px + ${offsetY}px);`,
+      ][position];
+  }}
+`;
+
+export const AvatarImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: none; 
+`;
+
+export const ExtraCount = styled.div`
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
+  background: #6E6E6E;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.5rem;
+  color: white;
+`;
+
+export const MemberCount = styled.div`
+  font-size: 0.5rem;
+  color: white;
+`;
+

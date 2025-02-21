@@ -6,6 +6,7 @@ import { Controller } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import SkeletonForm, { setGlobalLoadingState } from "../VoteForm/Skeleton/SkeletonForm";
 import { useRoomListQuery } from "../../../../../react-query/queries/functional/roomListQuery";
+import ProfileGroup from "./SlideProfileGroup";
 
 interface SlideContainerProps {
   hiddenRooms: number[];
@@ -19,7 +20,7 @@ export default function SlideContainer({ hiddenRooms }: SlideContainerProps) {
   const rooms = data?.result.rooms || [];
 
   const [roomList, setRoomList] = useState<
-    { roomId: number; roomName: string; profileImage?: string }[]
+    { roomId: number; roomName: string; members: { userId: number; profileImage?: string }[] }[]
   >([]);
 
   useEffect(() => {
@@ -31,7 +32,7 @@ export default function SlideContainer({ hiddenRooms }: SlideContainerProps) {
         .map((room) => ({
           roomId: room.roomId,
           roomName: room.roomName || `방 ${room.roomId}`,
-          profileImage: room.members?.[0]?.profileImage,
+          members: room.members ?? [],
         }));
 
       setRoomList(filteredRooms);
@@ -53,7 +54,7 @@ export default function SlideContainer({ hiddenRooms }: SlideContainerProps) {
       <Controller
         name="roomId"
         control={control}
-        defaultValue={roomList[1]?.roomId}
+        defaultValue={roomList[0]?.roomId}
         render={({ field }) => (
           <>
             <S.SlideContainer $isFirst={true}>
@@ -69,31 +70,18 @@ export default function SlideContainer({ hiddenRooms }: SlideContainerProps) {
               </SkeletonForm>
             </S.SlideContainer>
 
-            {roomList.map(({ roomId: id, roomName, profileImage }) => (
+            {roomList.map(({ roomId: id, roomName, members }) => (
               <S.SlideContainer key={id}>
                 <SkeletonForm slidewidth>
                   <S.Slide
-                    $active={id === field.value} 
+                    $active={id === field.value}
                     onClick={() => {
                       field.onChange(id);
                       setRoomId(id);
                       reset();
                     }}
                   >
-                    {profileImage ? (
-                      <img
-                        src={profileImage}
-                        alt="프로필 이미지"
-                        style={{
-                          width: "100%",
-                          height: "100%",
-                          objectFit: "cover",
-                          display: "block",
-                        }}
-                      />
-                    ) : (
-                      <S.DefaultImage />
-                    )}
+                    <ProfileGroup members={members} />
                   </S.Slide>
                 </SkeletonForm>
                 <SkeletonForm smallwidth>

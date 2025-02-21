@@ -1,4 +1,4 @@
-import { useContext, useMemo, useState, useEffect } from "react";
+import { useContext } from "react";
 import { useParams } from "react-router-dom";
 import { TripInfoContext } from "../../context/tripInfo/TripInfoContext";
 import SuccessText from "../_components/SuccessText";
@@ -13,7 +13,6 @@ export default function VoteAgreePage() {
     const { tripId } = useParams<{ tripId: string }>();
     const parsedTripId = tripId ? parseInt(tripId, 10) : null;
     const tripInfoContext = useContext(TripInfoContext);
-    const [isConfirm, setIsConfirm] = useState<boolean | null>(null);
 
     const { data: voteResultData } = useVoteResultQuery(parsedTripId ?? 0);
     const voteResults: VoteResultItemType[] = voteResultData?.result ?? [];
@@ -26,42 +25,37 @@ export default function VoteAgreePage() {
         return <p>여행 정보를 불러오는 데 실패했습니다.</p>;
     }
 
-    const calculatedConfirm = useMemo(() => {
-        if (voteResults.length === 0) return null;
+    const goodVotes = voteResults.reduce<number>(
+        (acc, vote) => (vote.type === "GOOD" ? acc + (vote.count ?? 0) : acc),
+        0
+    );
 
-        const goodVotes = voteResults.reduce<number>((acc, vote) => {
-        return vote.type === "GOOD" ? acc + (vote.count ?? 0) : acc;
-        }, 0);
+    const badVotes = voteResults.reduce<number>(
+        (acc, vote) => (vote.type === "BAD" ? acc + (vote.count ?? 0) : acc),
+        0
+    );
 
-        const badVotes = voteResults.reduce<number>((acc, vote) => {
-        return vote.type === "BAD" ? acc + (vote.count ?? 0) : acc;
-        }, 0);
-
-        return goodVotes > badVotes;
-    }, [voteResults]);
-
-    useEffect(() => {
-        setIsConfirm(calculatedConfirm);
-    }, [calculatedConfirm]);
+    // ✅ badVotes가 더 많을 때 ConfirmSuccessPage 표시
+    const isConfirm = voteResults.length > 0 ? badVotes > goodVotes : null;
 
     return (
         <>
-        {isConfirm && (
-            <S.Custom>
-            <SuccessText />
-            </S.Custom>
-        )}
+            {isConfirm && (
+                <S.Custom>
+                    <SuccessText />
+                </S.Custom>
+            )}
 
-        {isConfirm === null ? (
-            <p></p>
-        ) : isConfirm ? (
-            <>
-            <VoteCard showConfirmMessage={false} isConfirm={true} />
-            <ConfirmSuccessPage />
-            </>
-        ) : (
-            <ConfirmFailPage />
-        )}
+            {isConfirm === null ? (
+                <p>투표 결과를 불러오는 중입니다...</p>
+            ) : isConfirm ? (
+                <>
+                    <VoteCard showConfirmMessage={false} isConfirm={true} />
+                    <ConfirmSuccessPage />
+                </>
+            ) : (
+                <ConfirmFailPage />
+            )}
         </>
     );
 }

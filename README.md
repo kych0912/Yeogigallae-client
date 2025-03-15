@@ -1,50 +1,81 @@
-# React + TypeScript + Vite
+# 여기갈래 | 투표 기반 AI 여행 일정 생성 서비스
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Image](https://github.com/user-attachments/assets/effd6ccc-3761-4816-81f7-9b63d7df0aed)
 
-Currently, two official plugins are available:
+## 📄 프로젝트 소개
+‘여기갈래’는 마음 맞는 친구들과 함께 여행을 가고자 할 때
+쉽고 간단하게 여행 일정을 맞출 수 있게 도와주는 서비스입니다.️🤗 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🧑‍🔧 팀원 (프론트 엔드)
+<table>
+  <tr>
+    <td align="center" width="200px">
+      <a href="https://github.com/kych0912" target="_blank">
+        <img src="https://github.com/user-attachments/assets/fd788fe3-033a-4ecf-a0ca-bbf946111f0e"width="200" height="200"
+        style="object-fit: cover;"  alt="김영천" />
+      </a>
+    </td>
+    <td align="center" width="200px">
+      <a href="https://github.com/skyblue1232" style="height:auto;width:260px; height:260px;" target="_blank">
+        <img src="https://github.com/user-attachments/assets/0d3d4497-99d1-4643-9920-0680791d1224" width="200" height="200"  style="object-fit: cover;" alt="고민균" />
+      </a>
+    </td>
+    <td align="center" width="200px">
+      <a href="https://github.com/jjangminii" target="_blank">
+        <img src="https://github.com/user-attachments/assets/06a9995d-03d6-455b-9c96-da4575861486" 
+        width="200" height="200" style="object-fit: cover;" alt="김정민"/>
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/kych0912" target="_blank">
+        김영천
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/skyblue1232" target="_blank">
+        고민균
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/jjangminii" target="_blank">
+        김정민
+      </a>
+    </td>
+  </tr>
+</table>
 
-## Expanding the ESLint configuration
+## 🛠️ 기술 스택
+![Image](https://github.com/user-attachments/assets/6f2f8193-92c6-4a54-a1fd-6a1a27802968)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 🧰 핵심 기능
+![Image](https://github.com/user-attachments/assets/d00c2d7a-2b7e-47ca-a06e-2661674cf7b5)
+![Image](https://github.com/user-attachments/assets/e4bcfffa-5835-475c-8820-3b52742c455e)
+![Image](https://github.com/user-attachments/assets/f322f460-3814-422b-9a49-5704b2534b6b)
 
-- Configure the top-level `parserOptions` property like this:
+## 📱 주요 기능
+### 👍 카카오로 편하게 로그인하세요.
+카카오 로그인으로 빠르게 시작하세요!
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+![Image](https://github.com/user-attachments/assets/fc6d38a3-bdf2-462e-b5ec-f081c3a6f2cb)
+### 🏠 투표하고 싶은 방을 만들어보세요.
+친구들과 같이 가고싶은 여행을 만들어보세요!
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+![Image](https://github.com/user-attachments/assets/d5e2436c-0928-45ce-a0aa-c57fdb7acfe6)
+### 🗳️ 여행 일정을 친구들과 투표로 정해보세요.
+일일이 물어볼 필요 없이 정해진 시간 내에 투표로!
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+![Image](https://github.com/user-attachments/assets/ebe1c644-0d47-4efe-87fd-378a9a68e4fa)
+### 🏟️ 친구들과 가고싶은 장소를 공유하세요.
+가고 싶은 장소를 막 보내보세요! 여기갈래가 모아드릴게요!
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+![Image](https://github.com/user-attachments/assets/b9f103d1-40b7-4507-b916-32fab31a2c3b)
+### 🤖 공유된 장소를 바탕으로 AI가 자동으로 코스를 생성해줘요.
+막 보낸 장소들을 AI가 적절한 코스로 생성해드릴게요! 따라서만 여행하세요!
+
+![Image](https://github.com/user-attachments/assets/3e127f96-9dcf-4cfd-a889-d5180caf173b)
+### 💵 예산 산정도 귀찮다면 생성된 코스로 AI에게 예산을 추천받아 보세요.
+귀찮은 예산생성도 AI에게 맡겨보세요!
+
+![Image](https://github.com/user-attachments/assets/17cf0d80-9771-476b-89a4-82a845183534)

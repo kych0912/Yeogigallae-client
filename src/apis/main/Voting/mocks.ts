@@ -5,7 +5,7 @@ export const DEFAULT_Voting: Voting = {
     totalCount: 6,
     rooms: [
         {
-            tripPlanId: 2,
+            tripPlanId: 1,
             roomId: 2,
             masterId: 2,
             roomName: "가족 여행",

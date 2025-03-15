@@ -125,5 +125,6 @@ export const Message = styled.p`
   justify-content: center;
   align-items: center;
   color: white;
+  line-height:40px;
 `;
 
